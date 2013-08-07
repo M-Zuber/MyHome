@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC4484C4-3FC5-4DC1-B1A2-F9C0125B3583}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyHome2013</RootNamespace>
+    <AssemblyName>MyHome2013</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Diagram.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutUI.Designer.cs">
+      <DependentUpon>AboutUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddCategoryUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCategoryUI.Designer.cs">
+      <DependentUpon>AddCategoryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataChartUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataChartUI.Designer.cs">
+      <DependentUpon>DataChartUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataViewUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataViewUI.Designer.cs">
+      <DependentUpon>DataViewUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputINUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputINUI.Designer.cs">
+      <DependentUpon>InputINUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputOutUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputOutUI.Designer.cs">
+      <DependentUpon>InputOutUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuMDIUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuMDIUI.Designer.cs">
+      <DependentUpon>MenuMDIUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthChartUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthChartUI.Designer.cs">
+      <DependentUpon>MonthChartUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiInput.Designer.cs">
+      <DependentUpon>MultiInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewChoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewChoice.Designer.cs">
+      <DependentUpon>NewChoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewCategoriesUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewCategoriesUI.Designer.cs">
+      <DependentUpon>ViewCategoriesUI.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutUI.resx">
+      <DependentUpon>AboutUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddCategoryUI.resx">
+      <DependentUpon>AddCategoryUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataChartUI.resx">
+      <DependentUpon>DataChartUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataViewUI.resx">
+      <DependentUpon>DataViewUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputINUI.resx">
+      <DependentUpon>InputINUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputOutUI.resx">
+      <DependentUpon>InputOutUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuMDIUI.resx">
+      <DependentUpon>MenuMDIUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthChartUI.resx">
+      <DependentUpon>MonthChartUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiInput.resx">
+      <DependentUpon>MultiInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewChoice.resx">
+      <DependentUpon>NewChoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ViewCategoriesUI.resx">
+      <DependentUpon>ViewCategoriesUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BL\BL.csproj">
+      <Project>{548AB21E-2E25-476E-B73D-75EB569F9059}</Project>
+      <Name>BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+      <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
+      <Name>FrameWork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background.jpg" />
+    <Content Include="Diagram.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
