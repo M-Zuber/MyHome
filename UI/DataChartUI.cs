@@ -101,8 +101,8 @@ namespace MyHome2013
         /// <param name="e">Standard event arg object</param>
         private void cmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Resets the chart
-            this.LoadMe();
+            // Resets the data bindings to reflect the change in the selected category
+            this.SetDataBindings();
         }
 
         /// <summary>
