@@ -90,7 +90,8 @@ namespace MyHome2013
             // category in the combo box
             this.LoadMe();
 
-            // Sets the display of the start time to the value of the stat time property
+            // Sets the display of the start date to the value of the corresponding property
+            // the value of the end date is set automatically
             this.dtpStartMonth.Value = this.StartDate;
         }
 
@@ -101,8 +102,8 @@ namespace MyHome2013
         /// <param name="e">Standard event arg object</param>
         private void cmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Resets the chart
-            this.LoadMe();
+            // Resets the data bindings to reflect the change in the selected category
+            this.SetDataBindings();
         }
 
         /// <summary>

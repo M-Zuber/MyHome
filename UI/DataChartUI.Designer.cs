@@ -123,13 +123,11 @@
             // 
             // dtpEndMonth
             // 
-            this.dtpEndMonth.CustomFormat = "";
             this.dtpEndMonth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpEndMonth.Location = new System.Drawing.Point(457, 14);
             this.dtpEndMonth.Name = "dtpEndMonth";
             this.dtpEndMonth.Size = new System.Drawing.Size(79, 20);
             this.dtpEndMonth.TabIndex = 2;
-            this.dtpEndMonth.Value = new System.DateTime(2013, 7, 28, 21, 11, 31, 0);
             this.dtpEndMonth.ValueChanged += new System.EventHandler(this.dtpEndMonth_ValueChanged);
             // 
             // lblEndMonth
