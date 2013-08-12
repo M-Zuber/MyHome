@@ -90,8 +90,9 @@ namespace MyHome2013
             // category in the combo box
             this.LoadMe();
 
-            // Sets the display of the start time to the value of the stat time property
+            // Sets the display of the start and end dates to the values of the corresponding properties
             this.dtpStartMonth.Value = this.StartDate;
+            this.dtpEndMonth.Value = this.EndDate;
         }
 
         /// <summary>
