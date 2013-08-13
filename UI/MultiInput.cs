@@ -217,11 +217,23 @@ namespace MyHome2013
                 // If the new month has less days than it will automatically set the day 
                 // to the last possible day
                 dtCurrentSaveDate = dtCurrentSaveDate.AddMonths(1);
-                //TODO should i check if the day was changed'cuz a month was hit with less days, to move it back when possible -or continue saving with the new day??
-                if ((dtCurrentSaveDate.Day < DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month)) &&
-                    (dtCurrentSaveDate.Day != dtpStartDate.Value.Day))
+                
+                if ((dtCurrentSaveDate.Day != dtpStartDate.Value.Day) && 
+                    (dtCurrentSaveDate.Day < 
+                                        DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month)))
                 {
-                    
+                    if ((dtpStartDate.Value.Day <= 
+                                        DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month)))
+                    {
+                        dtCurrentSaveDate =
+                            new DateTime(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month, dtpStartDate.Value.Day);
+                    }
+                    else
+                    {
+                        dtCurrentSaveDate =
+                           new DateTime(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month,
+                                            DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month));
+                    }
                 }
             }
         }

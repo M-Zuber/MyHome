@@ -1,2 +1,13 @@
 In MultiInput form
 	Maybe add option of recurrence per week
+
+
+Things to look up:
+	when adding a month to a date time object, how do i move the day back to the original day
+	ex.
+		start at Jan 31
+		next month is Feb 28
+		now for march i want it to go to 30
+		and when it can, to go back to 31
+			In other words if it was the last day of the start month than it should always be the last day
+				of the current month
