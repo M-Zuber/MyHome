@@ -45,6 +45,7 @@
             this.rbDay = new System.Windows.Forms.RadioButton();
             this.rbMonth = new System.Windows.Forms.RadioButton();
             this.rbYear = new System.Windows.Forms.RadioButton();
+            this.pnRecurrenceOptions = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // lblOutDate
@@ -203,6 +204,13 @@
             this.rbYear.Text = "Year";
             this.rbYear.UseVisualStyleBackColor = true;
             // 
+            // pnRecurrenceOptions
+            // 
+            this.pnRecurrenceOptions.Location = new System.Drawing.Point(89, 179);
+            this.pnRecurrenceOptions.Name = "pnRecurrenceOptions";
+            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 68);
+            this.pnRecurrenceOptions.TabIndex = 39;
+            // 
             // MultiInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,6 +233,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cmbPayment);
             this.Controls.Add(this.cmbCategory);
+            this.Controls.Add(this.pnRecurrenceOptions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -256,5 +265,6 @@
         private System.Windows.Forms.RadioButton rbDay;
         private System.Windows.Forms.RadioButton rbMonth;
         private System.Windows.Forms.RadioButton rbYear;
+        private System.Windows.Forms.Panel pnRecurrenceOptions;
     }
 }

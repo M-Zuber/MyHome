@@ -149,14 +149,11 @@ namespace MyHome2013
         /// <returns>The string representation of the recurrence frequency</returns>
         private string GetRecurrenceFrequency()
         {
-            foreach (Control CurrControl in this.Controls)
-            {//TODO the radiobuttons should be in container so makes the foreach simpler
-                if (CurrControl is RadioButton)
+            foreach (RadioButton CurrButton in this.pnRecurrenceOptions.Controls)
+            {
+                if (CurrButton.Checked)
                 {
-                    if ((CurrControl as RadioButton).Checked)
-                    {
-                        return (CurrControl.Text);
-                    }
+                    return (CurrButton.Text);
                 }
             }
 
