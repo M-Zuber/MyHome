@@ -124,6 +124,17 @@ namespace BL
             return CategoryNames;
         }
 
+        /// <summary>
+        /// Checks if the given string is numberic -allowing for one decimal point
+        /// </summary>
+        /// <param name="strText">The string to be checked</param>
+        /// <returns>The result of the check</returns>
+        public static bool IsNumeric(string strText)
+        {
+            double dbToParse;
+            return double.TryParse(strText, out dbToParse);
+        }
+
         #endregion
     }
 }
