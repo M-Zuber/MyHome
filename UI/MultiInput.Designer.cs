@@ -101,7 +101,7 @@
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(121, 20);
             this.dtpStartDate.TabIndex = 26;
-            this.dtpStartDate.Leave += new System.EventHandler(this.dtpStartDate_Leave);
+            this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
             // 
             // txtDetail
             // 

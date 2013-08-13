@@ -197,12 +197,13 @@ namespace MyHome2013
             return (((this.dtpEndDate.Value.Year - this.dtpStartDate.Value.Year) * 12) +
                                     (this.dtpEndDate.Value.Month - this.dtpStartDate.Value.Month) + 1);
         }
-
+        //TODO when the user is saving on a monthly basis - if the days are different -either force them to be the same using code? or inform the user that it might not be exactly what they think and give option of it changing auotmatically, going on anyway, or cancel
+        //todo      if the end month has less days its not a neccessary check, but maybe it should show in any case to avoid complicating the code
         private void MultiMonthSave()
         {
             int nMonthsRange = this.CalcMonthsInRange();
             DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
-            //TODO how do i deal with a month that has less days than the current value for days in the date time object from the date time picker
+            
             for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
             {
                 // Creates a new expence and sets the fields accordingly
@@ -219,7 +220,15 @@ namespace MyHome2013
                 exbNewExp.Save();
 
                 // Ups the date for the next expence
+                // If the new month has less days than it will automatically set the day 
+                // to the last possible day
                 dtCurrentSaveDate = dtCurrentSaveDate.AddMonths(1);
+                //TODO should i check if the day was changed'cuz a month was hit with less days, to move it back when possible -or continue saving with the new day??
+                if ((dtCurrentSaveDate.Day < DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month)) &&
+                    (dtCurrentSaveDate.Day != dtpStartDate.Value.Day))
+                {
+                    
+                }
             }
         }
 
@@ -229,11 +238,12 @@ namespace MyHome2013
 
         #endregion
 
-        private void dtpStartDate_Leave(object sender, EventArgs e)
+
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
             //toDo date time pic to leave event -make shure that the startdate is always earlier or the same than the end date
             //todo their should be a better event that will just stop the dropdown box from going past the appropiate date
-            //todo      in which case i have to stop the user from being able to enter the date using the keyboard
+            //todo      in which case i might have to stop the user from being able to enter the date using the keyboard
         }
     }
 }
