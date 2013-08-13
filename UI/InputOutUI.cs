@@ -63,7 +63,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!this.IsNumeric(this.txtAmount.Text))
+            else if (!GlobalBL.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
@@ -109,22 +109,6 @@ namespace MyHome2013
                     this.cmbCategory.Focus();
                 }
             }
-        }
-
-        #endregion
-
-        #region Other Methods
-
-        /// <summary>
-        /// Checks if the given string is numberic -allowing for one decimal point
-        /// </summary>
-        /// <param name="strText">The string to be checked</param>
-        /// <returns>The result of the check</returns>
-        private bool IsNumeric(string strText)
-        {
-            //TODO make this global
-            double dbToParse;
-            return double.TryParse(strText, out dbToParse);
         }
 
         #endregion
