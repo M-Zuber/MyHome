@@ -1,0 +1,2 @@
+In MultiInput form
+	Maybe add option of recurrence per week
