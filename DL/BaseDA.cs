@@ -146,18 +146,12 @@ namespace DA
         /// <param name="strTableName"></param>
         public static void SaveFromCache(string strTableName)
         {
-            try
-            {
-                // Creates the data adapter and sets it with the update commands
-                MySqlDataAdapter daAdapter = GetAdapter(strTableName);
-                MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
+            // Creates the data adapter and sets it with the update commands
+            MySqlDataAdapter daAdapter = GetAdapter(strTableName);
+            MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
 
-                // Updating table as is
-                daAdapter.Update(Cache.SDB.Tables[strTableName]);
-            }
-            catch (Exception e)
-            {
-            }
+            // Updating table as is
+            daAdapter.Update(Cache.SDB.Tables[strTableName]);
         }
 
         /// <summary>

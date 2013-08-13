@@ -48,6 +48,7 @@
             // 
             // cmbCat
             // 
+            this.cmbCat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCat.FormattingEnabled = true;
             this.cmbCat.Location = new System.Drawing.Point(103, 14);
             this.cmbCat.Name = "cmbCat";
