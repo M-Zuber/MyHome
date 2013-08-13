@@ -51,7 +51,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!this.IsNumeric(this.txtAmount.Text))
+            else if (!GlobalBL.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
@@ -228,12 +228,6 @@ namespace MyHome2013
 
         private void MultiYearSave()
         {
-        }
-
-        private bool IsNumeric(string strText)
-        {
-            double dbToParse;
-            return double.TryParse(strText, out dbToParse);
         }
 
         #endregion
