@@ -66,22 +66,11 @@ namespace MyHome2013
             // Otherwise saves the new expense
             else
             {
-                // Creates a new expense and sets the properties with the data from the form
-                ExpBL exbNewExp = ExpBL.CreateExpence();
-                exbNewExp.Amount = this.txtAmount.Text;
-                exbNewExp.Date = this.dtpStartDate.Value.Date;
-                exbNewExp.Category =
-                    Convert.ToInt32(this.cmbCategory.SelectedValue);
-                exbNewExp.Method =
-                    Convert.ToInt32(this.cmbPayment.SelectedValue);
-                exbNewExp.Comment = this.txtDetail.Text;
-
-                // Saves the new expense into the cache
-                exbNewExp.Save();
+                this.MultiSave();
 
                 // Asks if more data is being entered
-                DialogResult = MessageBox.Show("The entry was saved" +
-                                               "\nDo you want to add another expense? ",
+                DialogResult = MessageBox.Show("The entries where saved" +
+                                               "\nDo you want to add more expenses? ",
                                                "Save successful",
                                                MessageBoxButtons.YesNo,
                                                MessageBoxIcon.Question,
@@ -115,24 +104,38 @@ namespace MyHome2013
             switch (this.GetRecurrenceFrequency().ToLower())
             {
                 case ("day"):
-                    {
-                        this.MultiDaySave();
-                        break;
-                    }
+                {
+                    this.MultiDaySave();
+                    break;
+                }
                 case ("month"):
+                {
+                    if (this.dtpStartDate.Value.Day <= 28)
                     {
-                        this.MultiMonthSave();
-                        break;
+                        this.MultiMonthSave(); 
                     }
+                    else
+                    {
+                        MessageBox.Show("Due to the fact that not all months have this many days," +
+                                        " expenses can not be saved using this day of the month.\n" +
+                                        "Please change the day of the month" +
+                                        " and try again",
+                                        "Invalid day of month",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning,
+                                        MessageBoxDefaultButton.Button1);
+                    }
+                    break;
+                }
                 case ("year"):
-                    {
-                        this.MultiYearSave();
-                        break;
-                    }
+                {
+                    this.MultiYearSave();
+                    break;
+                }
                 default:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
             }
 
         }
@@ -191,16 +194,59 @@ namespace MyHome2013
             return (((this.dtpEndDate.Value.Year - this.dtpStartDate.Value.Year) * 12) +
                                     (this.dtpEndDate.Value.Month - this.dtpStartDate.Value.Month) + 1);
         }
-        //TODO when the user is saving on a monthly basis - if the days are different -either force them to be the same using code? or inform the user that it might not be exactly what they think and give option of it changing auotmatically, going on anyway, or cancel
-        //todo      if the end month has less days its not a neccessary check, but maybe it should show in any case to avoid complicating the code
+        
         private void MultiMonthSave()
         {
-            int nMonthsRange = this.CalcMonthsInRange();
-            DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
-            
-            for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
+            DialogResult rsltSaveExpenses = DialogResult.OK;
+
+            if (this.dtpStartDate.Value.Day != this.dtpEndDate.Value.Day)
             {
-                // Creates a new expence and sets the fields accordingly
+               rsltSaveExpenses = MessageBox.Show("The day in the month for the end of the range is different" +
+                                " than the day in the start month.\n" +
+                                "If you choose to continue, the day in the end month will be ignored",
+                                "Mismatched dates",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1);
+            }
+
+            if (rsltSaveExpenses == DialogResult.OK)
+            {
+                int nMonthsRange = this.CalcMonthsInRange();
+                DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
+
+                for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
+                {
+                    // Creates a new expence and sets the fields accordingly
+                    ExpBL exbNewExp = ExpBL.CreateExpence();
+                    exbNewExp.Amount = this.txtAmount.Text;
+                    exbNewExp.Date = dtCurrentSaveDate;
+                    exbNewExp.Category =
+                        Convert.ToInt32(this.cmbCategory.SelectedValue);
+                    exbNewExp.Method =
+                        Convert.ToInt32(this.cmbPayment.SelectedValue);
+                    exbNewExp.Comment = this.txtDetail.Text;
+
+                    // Saves the new expense into the cache
+                    exbNewExp.Save();
+
+                    // Ups the date for the next expence
+                    // If the new month has less days than it will automatically set the day 
+                    // to the last possible day
+                    dtCurrentSaveDate = dtCurrentSaveDate.AddMonths(1);
+                } 
+            }
+        }
+
+        private void MultiYearSave()
+        {
+            int nYearsInRange = (this.dtpEndDate.Value.Year - this.dtpStartDate.Value.Year) + 1;
+
+            DateTime dtCurrentSaveDate = this.dtpStartDate.Value;
+
+            for (int nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)
+            {
+                 // Creates a new expence and sets the fields accordingly
                 ExpBL exbNewExp = ExpBL.CreateExpence();
                 exbNewExp.Amount = this.txtAmount.Text;
                 exbNewExp.Date = dtCurrentSaveDate;
@@ -213,33 +259,9 @@ namespace MyHome2013
                 // Saves the new expense into the cache
                 exbNewExp.Save();
 
-                // Ups the date for the next expence
-                // If the new month has less days than it will automatically set the day 
-                // to the last possible day
-                dtCurrentSaveDate = dtCurrentSaveDate.AddMonths(1);
-                
-                if ((dtCurrentSaveDate.Day != dtpStartDate.Value.Day) && 
-                    (dtCurrentSaveDate.Day < 
-                                        DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month)))
-                {
-                    if ((dtpStartDate.Value.Day <= 
-                                        DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month)))
-                    {
-                        dtCurrentSaveDate =
-                            new DateTime(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month, dtpStartDate.Value.Day);
-                    }
-                    else
-                    {
-                        dtCurrentSaveDate =
-                           new DateTime(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month,
-                                            DateTime.DaysInMonth(dtCurrentSaveDate.Year, dtCurrentSaveDate.Month));
-                    }
-                }
+                dtCurrentSaveDate = 
+                    new DateTime((dtCurrentSaveDate.Year + 1), dtCurrentSaveDate.Month, dtCurrentSaveDate.Day);
             }
-        }
-
-        private void MultiYearSave()
-        {
         }
 
         #endregion
