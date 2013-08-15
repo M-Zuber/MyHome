@@ -162,6 +162,8 @@
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.Size = new System.Drawing.Size(121, 20);
             this.dtpEndDate.TabIndex = 33;
+            this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
+            this.dtpEndDate.DropDown += new System.EventHandler(this.dtpEndDate_DropDown);
             // 
             // lblRecuurence
             // 

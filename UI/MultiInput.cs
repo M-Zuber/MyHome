@@ -269,9 +269,34 @@ namespace MyHome2013
 
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
-            //toDo date time pic to leave event -make shure that the startdate is always earlier or the same than the end date
-            //todo their should be a better event that will just stop the dropdown box from going past the appropiate date
-            //todo      in which case i might have to stop the user from being able to enter the date using the keyboard
+            if (this.dtpStartDate.Value.Date > this.dtpEndDate.Value.Date)
+            {
+                MessageBox.Show("The start date can not be later than the end date",
+                                "Mismatched dates",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+                this.dtpStartDate.Value = this.dtpEndDate.Value;
+            }
+        }
+
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.dtpStartDate.Value.Date > this.dtpEndDate.Value.Date)
+            {
+                MessageBox.Show("The end date can not be earlier than the start date",
+                                "Mismatched dates",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+                this.dtpEndDate.Value = this.dtpStartDate.Value;
+            }
+        }
+
+        private void dtpEndDate_DropDown(object sender, EventArgs e)
+        {
+            //Todo this doesnt fully work yet
+            this.dtpEndDate.MinDate = this.dtpStartDate.Value;
         }
     }
 }
