@@ -91,8 +91,12 @@ namespace MyHome2013
             this.LoadMe();
 
             // Sets the display of the start date to the value of the corresponding property
-            // the value of the end date is set automatically
+            // -the value of the end date is set automatically
             this.dtpStartMonth.Value = this.StartDate;
+
+            // Sets the data bindings of the date time pickers so they dont cross over
+            this.dtpStartMonth.DataBindings.Add("MaxDate", this.dtpEndMonth, "Value");
+            this.dtpEndMonth.DataBindings.Add("MinDate", this.dtpStartMonth, "Value");
         }
 
         /// <summary>
