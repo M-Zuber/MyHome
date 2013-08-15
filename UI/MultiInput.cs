@@ -31,6 +31,11 @@ namespace MyHome2013
                 Cache.SDB.t_payment_methods;
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
+
+            // Sets up the date time pickers with data bindings to keep the dates from
+            // crossing over in the wrong direction
+            this.dtpStartDate.DataBindings.Add("MaxDate", this.dtpEndDate, "Value");
+            this.dtpEndDate.DataBindings.Add("MinDate", this.dtpStartDate, "Value");
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -265,38 +270,5 @@ namespace MyHome2013
         }
 
         #endregion
-
-
-        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
-        {
-            if (this.dtpStartDate.Value.Date > this.dtpEndDate.Value.Date)
-            {
-                MessageBox.Show("The start date can not be later than the end date",
-                                "Mismatched dates",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1);
-                this.dtpStartDate.Value = this.dtpEndDate.Value;
-            }
-        }
-
-        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
-        {
-            if (this.dtpStartDate.Value.Date > this.dtpEndDate.Value.Date)
-            {
-                MessageBox.Show("The end date can not be earlier than the start date",
-                                "Mismatched dates",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1);
-                this.dtpEndDate.Value = this.dtpStartDate.Value;
-            }
-        }
-
-        private void dtpEndDate_DropDown(object sender, EventArgs e)
-        {
-            //Todo this doesnt fully work yet
-            this.dtpEndDate.MinDate = this.dtpStartDate.Value;
-        }
     }
 }
