@@ -1,23 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
-using BL;
 using FrameWork;
+using BL;
 
 namespace MyHome2013
 {
     /// <summary>
-    /// Enables the user to add new expense data
+    /// Enables the user to add new income data
     /// that recurrs over the given period, with the frequnecy given
     /// -allows for continuous data entry
     /// </summary>
-    public partial class RecurringExpenseInput : Form
+    public partial class RecurringIncomeInput : Form
     {
-        #region C'Tor
+         #region C'Tor
 
         /// <summary>
         /// Standard Default Ctor
         /// </summary>
-        public RecurringExpenseInput()
+        public RecurringIncomeInput()
         {
             InitializeComponent();
         }
@@ -33,11 +39,11 @@ namespace MyHome2013
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void RecurringExpenseInput_Load(object sender, EventArgs e)
+        private void RecurringIncomeInput_Load(object sender, EventArgs e)
         {
             // Sets up the combo box of the income categories
             this.cmbCategory.DataSource =
-                Cache.SDB.t_expenses_category;
+                Cache.SDB.t_incomes_category;
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
@@ -54,7 +60,7 @@ namespace MyHome2013
         }
 
         /// <summary>
-        /// Saves the new expenses into the cache according to the given frequency
+        /// Saves the new incomes into the cache according to the given frequency
         /// -validates the amount and gives an option to enter more data
         /// </summary>
         /// <param name="sender">Standard sender object</param>
@@ -83,14 +89,14 @@ namespace MyHome2013
             // Makes sure that a recurrence frequency is chosen
             else if (this.GetRecurrenceFrequency() == "none")
             {
-                MessageBox.Show("This form is for entering expenses that recurr\n" +
+                MessageBox.Show("This form is for entering incomes that recurr\n" +
                                 "Please choose a recurrence frequency",
                                 "Error",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error,
                                 MessageBoxDefaultButton.Button1);
             }
-            // Otherwise saves the new expenses
+            // Otherwise saves the new incomes
             else
             {
                 // Gets the recurrence frequency and saves the data into the cache
@@ -123,9 +129,9 @@ namespace MyHome2013
         #endregion
 
         #region Other Methods
-        
+
         /// <summary>
-        /// Gets the recurrence frequency and saves the appropiate amount of expenses into
+        /// Gets the recurrence frequency and saves the appropiate amount of incomes into
         /// the data base
         /// </summary>
         private void MultiSave()
@@ -133,25 +139,25 @@ namespace MyHome2013
             // Gets the recurrence frequency and calls the corresponding save function
             switch (this.GetRecurrenceFrequency().ToLower())
             {
-                // The expense recurrs every day
+                // The income recurrs every day
                 case ("day"):
                 {
                     this.MultiDaySave();
                     break;
                 }
-                // The expense recurrs every month
+                // The income recurrs every month
                 case ("month"):
                 {
                     // Checks if the day in the month is within the valid range
                     if (this.dtpStartDate.Value.Day <= 28)
                     {
-                        this.MultiMonthSave(); 
+                        this.MultiMonthSave();
                     }
                     // If the day is not in the range, informs the user
                     else
                     {
                         MessageBox.Show("Due to the fact that not all months have this many days," +
-                                        " expenses can not be saved using this day of the month.\n" +
+                                        " incomes can not be saved using this day of the month.\n" +
                                         "Please change the day of the month" +
                                         " and try again",
                                         "Invalid day of month",
@@ -162,7 +168,7 @@ namespace MyHome2013
 
                     break;
                 }
-                // The expense occurs every year
+                // The income occurs every year
                 case ("year"):
                 {
                     this.MultiYearSave();
@@ -198,35 +204,35 @@ namespace MyHome2013
         }
 
         /// <summary>
-        /// Saves multiple expenses into the cache -with a frequency of every day
+        /// Saves multiple incomes into the cache -with a frequency of every day
         /// </summary>
         private void MultiDaySave()
         {
             // Gets the amount of days in the range of dates choosen
             int nDaysRange = this.CalcDaysInRange();
 
-            // Sets a local variable that will hold the date of the individual expense being saved
+            // Sets a local variable that will hold the date of the individual income being saved
             // the initial value is the start date
             DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
 
             // Loops for the amount of days in the range
             for (int nDayIndex = 0; nDayIndex < nDaysRange; nDayIndex++)
             {
-                // Creates a new expense and sets the fields accordingly
-                ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = this.txtAmount.Text;
-                exbNewExp.Date = dtCurrentSaveDate;
-                exbNewExp.Category =
+                // Creates a new income and sets the fields accordingly
+                IncBL incNewInc = IncBL.CreateIncome();
+                incNewInc.Amount = this.txtAmount.Text;
+                incNewInc.Date = dtCurrentSaveDate;
+                incNewInc.Category =
                     Convert.ToInt32(this.cmbCategory.SelectedValue);
-                exbNewExp.Method =
+                incNewInc.Method =
                     Convert.ToInt32(this.cmbPayment.SelectedValue);
-                exbNewExp.Comment = this.txtDetail.Text;
+                incNewInc.Comment = this.txtDetail.Text;
 
-                // Saves the new expense into the cache
-                exbNewExp.Save();
+                // Saves the new income into the cache
+                incNewInc.Save();
 
                 // Ups the date for the next expense
-               dtCurrentSaveDate = dtCurrentSaveDate.AddDays(1);
+                dtCurrentSaveDate = dtCurrentSaveDate.AddDays(1);
             }
         }
 
@@ -257,87 +263,87 @@ namespace MyHome2013
         }
 
         /// <summary>
-        /// Saves multiple expenses into the cache -with a frequency of every month
+        /// Saves multiple incomes into the cache -with a frequency of every month
         /// </summary>
         private void MultiMonthSave()
         {
             // Creates a dialog result, in case further input is needed from the user
-            DialogResult rsltSaveExpenses = DialogResult.OK;
+            DialogResult rsltSaveIncomes = DialogResult.OK;
 
             // If the days in the start month and end month are different
             // informs the user, and gives them an option to go back and change it
             if (this.dtpStartDate.Value.Day != this.dtpEndDate.Value.Day)
             {
-               rsltSaveExpenses = MessageBox.Show("The day in the month for the end of the range is different" +
-                                " than the day in the start month.\n" +
-                                "If you choose to continue, the day in the end month will be ignored",
-                                "Mismatched dates",
-                                MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Warning,
-                                MessageBoxDefaultButton.Button1);
+                rsltSaveIncomes = MessageBox.Show("The day in the month for the end of the range is different" +
+                                 " than the day in the start month.\n" +
+                                 "If you choose to continue, the day in the end month will be ignored",
+                                 "Mismatched dates",
+                                 MessageBoxButtons.OKCancel,
+                                 MessageBoxIcon.Warning,
+                                 MessageBoxDefaultButton.Button1);
             }
 
             // If the days where not different or the user choose to continoue anyway
-            if (rsltSaveExpenses == DialogResult.OK)
+            if (rsltSaveIncomes == DialogResult.OK)
             {
                 // Calculates the months in the range of dates choosen
                 int nMonthsRange = this.CalcMonthsInRange();
 
-                // Sets a local variable that will hold the date of the individual expense being saved
+                // Sets a local variable that will hold the date of the individual income being saved
                 // the initial value is the start date
                 DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
 
                 // Loops for the amount of months in the range
                 for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
                 {
-                    // Creates a new expense and sets the fields accordingly
-                    ExpBL exbNewExp = ExpBL.CreateExpense();
-                    exbNewExp.Amount = this.txtAmount.Text;
-                    exbNewExp.Date = dtCurrentSaveDate;
-                    exbNewExp.Category =
+                    // Creates a new income and sets the fields accordingly
+                    IncBL incNewInc = IncBL.CreateIncome();
+                    incNewInc.Amount = this.txtAmount.Text;
+                    incNewInc.Date = dtCurrentSaveDate;
+                    incNewInc.Category =
                         Convert.ToInt32(this.cmbCategory.SelectedValue);
-                    exbNewExp.Method =
+                    incNewInc.Method =
                         Convert.ToInt32(this.cmbPayment.SelectedValue);
-                    exbNewExp.Comment = this.txtDetail.Text;
+                    incNewInc.Comment = this.txtDetail.Text;
 
-                    // Saves the new expense into the cache
-                    exbNewExp.Save();
+                    // Saves the new income into the cache
+                    incNewInc.Save();
 
-                    // Ups the date for the next expense
+                    // Ups the date for the next income
                     // If the new month has less days than it will automatically set the day 
                     // to the last possible day
                     dtCurrentSaveDate = dtCurrentSaveDate.AddMonths(1);
-                } 
+                }
             }
         }
 
         /// <summary>
-        /// Saves multiple expenses into the cache -with a frequency of every year
+        /// Saves multiple incomes into the cache -with a frequency of every year
         /// </summary>
         private void MultiYearSave()
         {
             // Calculates the years in the range of dates choosen
             int nYearsInRange = (this.dtpEndDate.Value.Year - this.dtpStartDate.Value.Year) + 1;
 
-            // Sets a local variable that will hold the date of the individual expense being saved
+            // Sets a local variable that will hold the date of the individual income being saved
             // the initial value is the start date
             DateTime dtCurrentSaveDate = this.dtpStartDate.Value;
 
             // Loops for the amount of years in the range
             for (int nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)
             {
-                 // Creates a new expense and sets the fields accordingly
-                ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = this.txtAmount.Text;
-                exbNewExp.Date = dtCurrentSaveDate;
-                exbNewExp.Category =
+                // Creates a new income and sets the fields accordingly
+                IncBL incNewInc = IncBL.CreateIncome();
+                incNewInc.Amount = this.txtAmount.Text;
+                incNewInc.Date = dtCurrentSaveDate;
+                incNewInc.Category =
                     Convert.ToInt32(this.cmbCategory.SelectedValue);
-                exbNewExp.Method =
+                incNewInc.Method =
                     Convert.ToInt32(this.cmbPayment.SelectedValue);
-                exbNewExp.Comment = this.txtDetail.Text;
+                incNewInc.Comment = this.txtDetail.Text;
 
-                // Saves the new expense into the cache
-                exbNewExp.Save();
+                // Saves the new income into the cache
+                incNewInc.Save();
 
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddYears(1);

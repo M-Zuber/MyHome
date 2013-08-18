@@ -1,6 +1,6 @@
 ﻿namespace MyHome2013
 {
-    partial class RecurringExpenseInput
+    partial class RecurringIncomeInput
     {
         /// <summary>
         /// Required designer variable.
@@ -28,101 +28,128 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblOutStartDate = new System.Windows.Forms.Label();
+            this.lblRecuurence = new System.Windows.Forms.Label();
+            this.lblInEndDate = new System.Windows.Forms.Label();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.lblInStartDate = new System.Windows.Forms.Label();
             this.lblComment = new System.Windows.Forms.Label();
-            this.lblOutAmount = new System.Windows.Forms.Label();
-            this.lblOutMethod = new System.Windows.Forms.Label();
-            this.lblOutCat = new System.Windows.Forms.Label();
+            this.lblInAmount = new System.Windows.Forms.Label();
+            this.lblInMethod = new System.Windows.Forms.Label();
+            this.lblInCat = new System.Windows.Forms.Label();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.txtDetail = new System.Windows.Forms.TextBox();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.cmbPayment = new System.Windows.Forms.ComboBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
-            this.lblOutEndDate = new System.Windows.Forms.Label();
-            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
-            this.lblRecuurence = new System.Windows.Forms.Label();
+            this.pnRecurrenceOptions = new System.Windows.Forms.Panel();
+            this.rbYear = new System.Windows.Forms.RadioButton();
             this.rbDay = new System.Windows.Forms.RadioButton();
             this.rbMonth = new System.Windows.Forms.RadioButton();
-            this.rbYear = new System.Windows.Forms.RadioButton();
-            this.pnRecurrenceOptions = new System.Windows.Forms.Panel();
             this.pnRecurrenceOptions.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblOutStartDate
+            // lblRecuurence
             // 
-            this.lblOutStartDate.AutoSize = true;
-            this.lblOutStartDate.Location = new System.Drawing.Point(12, 127);
-            this.lblOutStartDate.Name = "lblOutStartDate";
-            this.lblOutStartDate.Size = new System.Drawing.Size(55, 13);
-            this.lblOutStartDate.TabIndex = 32;
-            this.lblOutStartDate.Text = "Start Date";
+            this.lblRecuurence.AutoSize = true;
+            this.lblRecuurence.Location = new System.Drawing.Point(12, 174);
+            this.lblRecuurence.Name = "lblRecuurence";
+            this.lblRecuurence.Size = new System.Drawing.Size(77, 13);
+            this.lblRecuurence.TabIndex = 50;
+            this.lblRecuurence.Text = "Recurrs Every:";
+            // 
+            // lblInEndDate
+            // 
+            this.lblInEndDate.AutoSize = true;
+            this.lblInEndDate.Location = new System.Drawing.Point(12, 148);
+            this.lblInEndDate.Name = "lblInEndDate";
+            this.lblInEndDate.Size = new System.Drawing.Size(52, 13);
+            this.lblInEndDate.TabIndex = 49;
+            this.lblInEndDate.Text = "End Date";
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.CustomFormat = "dd/MM/yyyy";
+            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpEndDate.Location = new System.Drawing.Point(105, 146);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(121, 20);
+            this.dtpEndDate.TabIndex = 41;
+            // 
+            // lblInStartDate
+            // 
+            this.lblInStartDate.AutoSize = true;
+            this.lblInStartDate.Location = new System.Drawing.Point(12, 122);
+            this.lblInStartDate.Name = "lblInStartDate";
+            this.lblInStartDate.Size = new System.Drawing.Size(55, 13);
+            this.lblInStartDate.TabIndex = 48;
+            this.lblInStartDate.Text = "Start Date";
             // 
             // lblComment
             // 
             this.lblComment.AutoSize = true;
-            this.lblComment.Location = new System.Drawing.Point(12, 101);
+            this.lblComment.Location = new System.Drawing.Point(12, 96);
             this.lblComment.Name = "lblComment";
             this.lblComment.Size = new System.Drawing.Size(51, 13);
-            this.lblComment.TabIndex = 31;
+            this.lblComment.TabIndex = 47;
             this.lblComment.Text = "Comment";
             // 
-            // lblOutAmount
+            // lblInAmount
             // 
-            this.lblOutAmount.AutoSize = true;
-            this.lblOutAmount.Location = new System.Drawing.Point(12, 75);
-            this.lblOutAmount.Name = "lblOutAmount";
-            this.lblOutAmount.Size = new System.Drawing.Size(43, 13);
-            this.lblOutAmount.TabIndex = 30;
-            this.lblOutAmount.Text = "Amount";
+            this.lblInAmount.AutoSize = true;
+            this.lblInAmount.Location = new System.Drawing.Point(12, 70);
+            this.lblInAmount.Name = "lblInAmount";
+            this.lblInAmount.Size = new System.Drawing.Size(43, 13);
+            this.lblInAmount.TabIndex = 46;
+            this.lblInAmount.Text = "Amount";
             // 
-            // lblOutMethod
+            // lblInMethod
             // 
-            this.lblOutMethod.AutoSize = true;
-            this.lblOutMethod.Location = new System.Drawing.Point(12, 48);
-            this.lblOutMethod.Name = "lblOutMethod";
-            this.lblOutMethod.Size = new System.Drawing.Size(43, 13);
-            this.lblOutMethod.TabIndex = 29;
-            this.lblOutMethod.Text = "Method";
+            this.lblInMethod.AutoSize = true;
+            this.lblInMethod.Location = new System.Drawing.Point(12, 43);
+            this.lblInMethod.Name = "lblInMethod";
+            this.lblInMethod.Size = new System.Drawing.Size(43, 13);
+            this.lblInMethod.TabIndex = 45;
+            this.lblInMethod.Text = "Method";
             // 
-            // lblOutCat
+            // lblInCat
             // 
-            this.lblOutCat.AutoSize = true;
-            this.lblOutCat.Location = new System.Drawing.Point(12, 19);
-            this.lblOutCat.Name = "lblOutCat";
-            this.lblOutCat.Size = new System.Drawing.Size(93, 13);
-            this.lblOutCat.TabIndex = 28;
-            this.lblOutCat.Text = "Expense Category";
+            this.lblInCat.AutoSize = true;
+            this.lblInCat.Location = new System.Drawing.Point(12, 14);
+            this.lblInCat.Name = "lblInCat";
+            this.lblInCat.Size = new System.Drawing.Size(87, 13);
+            this.lblInCat.TabIndex = 44;
+            this.lblInCat.Text = "Income Category";
             // 
             // dtpStartDate
             // 
             this.dtpStartDate.CustomFormat = "dd/MM/yyyy";
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartDate.Location = new System.Drawing.Point(105, 125);
+            this.dtpStartDate.Location = new System.Drawing.Point(105, 120);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(121, 20);
-            this.dtpStartDate.TabIndex = 4;
+            this.dtpStartDate.TabIndex = 40;
             // 
             // txtDetail
             // 
-            this.txtDetail.Location = new System.Drawing.Point(105, 99);
+            this.txtDetail.Location = new System.Drawing.Point(105, 94);
             this.txtDetail.Name = "txtDetail";
             this.txtDetail.Size = new System.Drawing.Size(121, 20);
-            this.txtDetail.TabIndex = 3;
+            this.txtDetail.TabIndex = 39;
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(105, 73);
+            this.txtAmount.Location = new System.Drawing.Point(105, 68);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(121, 20);
-            this.txtAmount.TabIndex = 2;
+            this.txtAmount.TabIndex = 38;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(151, 253);
+            this.btnSave.Location = new System.Drawing.Point(151, 248);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 7;
+            this.btnSave.TabIndex = 43;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -131,46 +158,39 @@
             // 
             this.cmbPayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPayment.FormattingEnabled = true;
-            this.cmbPayment.Location = new System.Drawing.Point(105, 46);
+            this.cmbPayment.Location = new System.Drawing.Point(105, 41);
             this.cmbPayment.Name = "cmbPayment";
             this.cmbPayment.Size = new System.Drawing.Size(121, 21);
-            this.cmbPayment.TabIndex = 1;
+            this.cmbPayment.TabIndex = 37;
             // 
             // cmbCategory
             // 
             this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(105, 19);
+            this.cmbCategory.Location = new System.Drawing.Point(105, 14);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(121, 21);
-            this.cmbCategory.TabIndex = 0;
+            this.cmbCategory.TabIndex = 36;
             // 
-            // lblOutEndDate
+            // pnRecurrenceOptions
             // 
-            this.lblOutEndDate.AutoSize = true;
-            this.lblOutEndDate.Location = new System.Drawing.Point(12, 153);
-            this.lblOutEndDate.Name = "lblOutEndDate";
-            this.lblOutEndDate.Size = new System.Drawing.Size(52, 13);
-            this.lblOutEndDate.TabIndex = 34;
-            this.lblOutEndDate.Text = "End Date";
+            this.pnRecurrenceOptions.Controls.Add(this.rbYear);
+            this.pnRecurrenceOptions.Controls.Add(this.rbDay);
+            this.pnRecurrenceOptions.Controls.Add(this.rbMonth);
+            this.pnRecurrenceOptions.Location = new System.Drawing.Point(89, 174);
+            this.pnRecurrenceOptions.Name = "pnRecurrenceOptions";
+            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 68);
+            this.pnRecurrenceOptions.TabIndex = 42;
             // 
-            // dtpEndDate
+            // rbYear
             // 
-            this.dtpEndDate.CustomFormat = "dd/MM/yyyy";
-            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpEndDate.Location = new System.Drawing.Point(105, 151);
-            this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(121, 20);
-            this.dtpEndDate.TabIndex = 5;
-            // 
-            // lblRecuurence
-            // 
-            this.lblRecuurence.AutoSize = true;
-            this.lblRecuurence.Location = new System.Drawing.Point(12, 179);
-            this.lblRecuurence.Name = "lblRecuurence";
-            this.lblRecuurence.Size = new System.Drawing.Size(77, 13);
-            this.lblRecuurence.TabIndex = 35;
-            this.lblRecuurence.Text = "Recurrs Every:";
+            this.rbYear.AutoSize = true;
+            this.rbYear.Location = new System.Drawing.Point(6, 49);
+            this.rbYear.Name = "rbYear";
+            this.rbYear.Size = new System.Drawing.Size(47, 17);
+            this.rbYear.TabIndex = 2;
+            this.rbYear.Text = "Year";
+            this.rbYear.UseVisualStyleBackColor = true;
             // 
             // rbDay
             // 
@@ -194,39 +214,19 @@
             this.rbMonth.Text = "Month";
             this.rbMonth.UseVisualStyleBackColor = true;
             // 
-            // rbYear
-            // 
-            this.rbYear.AutoSize = true;
-            this.rbYear.Location = new System.Drawing.Point(6, 49);
-            this.rbYear.Name = "rbYear";
-            this.rbYear.Size = new System.Drawing.Size(47, 17);
-            this.rbYear.TabIndex = 2;
-            this.rbYear.Text = "Year";
-            this.rbYear.UseVisualStyleBackColor = true;
-            // 
-            // pnRecurrenceOptions
-            // 
-            this.pnRecurrenceOptions.Controls.Add(this.rbYear);
-            this.pnRecurrenceOptions.Controls.Add(this.rbDay);
-            this.pnRecurrenceOptions.Controls.Add(this.rbMonth);
-            this.pnRecurrenceOptions.Location = new System.Drawing.Point(89, 179);
-            this.pnRecurrenceOptions.Name = "pnRecurrenceOptions";
-            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 68);
-            this.pnRecurrenceOptions.TabIndex = 6;
-            // 
-            // RecurringExpenseInput
+            // RecurringIncomeInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(236, 287);
             this.Controls.Add(this.lblRecuurence);
-            this.Controls.Add(this.lblOutEndDate);
+            this.Controls.Add(this.lblInEndDate);
             this.Controls.Add(this.dtpEndDate);
-            this.Controls.Add(this.lblOutStartDate);
+            this.Controls.Add(this.lblInStartDate);
             this.Controls.Add(this.lblComment);
-            this.Controls.Add(this.lblOutAmount);
-            this.Controls.Add(this.lblOutMethod);
-            this.Controls.Add(this.lblOutCat);
+            this.Controls.Add(this.lblInAmount);
+            this.Controls.Add(this.lblInMethod);
+            this.Controls.Add(this.lblInCat);
             this.Controls.Add(this.dtpStartDate);
             this.Controls.Add(this.txtDetail);
             this.Controls.Add(this.txtAmount);
@@ -237,10 +237,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "RecurringExpenseInput";
+            this.Name = "RecurringIncomeInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Recurring Expenses";
-            this.Load += new System.EventHandler(this.RecurringExpenseInput_Load);
+            this.Text = "Recurring Income";
+            this.Load += new System.EventHandler(this.RecurringIncomeInput_Load);
             this.pnRecurrenceOptions.ResumeLayout(false);
             this.pnRecurrenceOptions.PerformLayout();
             this.ResumeLayout(false);
@@ -250,23 +250,23 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblOutStartDate;
+        private System.Windows.Forms.Label lblRecuurence;
+        private System.Windows.Forms.Label lblInEndDate;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.Label lblInStartDate;
         private System.Windows.Forms.Label lblComment;
-        private System.Windows.Forms.Label lblOutAmount;
-        private System.Windows.Forms.Label lblOutMethod;
-        private System.Windows.Forms.Label lblOutCat;
+        private System.Windows.Forms.Label lblInAmount;
+        private System.Windows.Forms.Label lblInMethod;
+        private System.Windows.Forms.Label lblInCat;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.TextBox txtDetail;
         private System.Windows.Forms.TextBox txtAmount;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ComboBox cmbPayment;
         private System.Windows.Forms.ComboBox cmbCategory;
-        private System.Windows.Forms.Label lblOutEndDate;
-        private System.Windows.Forms.DateTimePicker dtpEndDate;
-        private System.Windows.Forms.Label lblRecuurence;
+        private System.Windows.Forms.Panel pnRecurrenceOptions;
+        private System.Windows.Forms.RadioButton rbYear;
         private System.Windows.Forms.RadioButton rbDay;
         private System.Windows.Forms.RadioButton rbMonth;
-        private System.Windows.Forms.RadioButton rbYear;
-        private System.Windows.Forms.Panel pnRecurrenceOptions;
     }
 }
