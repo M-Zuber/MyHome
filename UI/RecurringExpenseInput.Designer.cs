@@ -46,6 +46,7 @@
             this.rbMonth = new System.Windows.Forms.RadioButton();
             this.rbYear = new System.Windows.Forms.RadioButton();
             this.pnRecurrenceOptions = new System.Windows.Forms.Panel();
+            this.pnRecurrenceOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblOutDate
@@ -100,28 +101,28 @@
             this.dtpStartDate.Location = new System.Drawing.Point(105, 125);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(121, 20);
-            this.dtpStartDate.TabIndex = 26;
+            this.dtpStartDate.TabIndex = 4;
             // 
             // txtDetail
             // 
             this.txtDetail.Location = new System.Drawing.Point(105, 99);
             this.txtDetail.Name = "txtDetail";
             this.txtDetail.Size = new System.Drawing.Size(121, 20);
-            this.txtDetail.TabIndex = 25;
+            this.txtDetail.TabIndex = 3;
             // 
             // txtAmount
             // 
             this.txtAmount.Location = new System.Drawing.Point(105, 73);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(121, 20);
-            this.txtAmount.TabIndex = 24;
+            this.txtAmount.TabIndex = 2;
             // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(151, 253);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 27;
+            this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -133,7 +134,7 @@
             this.cmbPayment.Location = new System.Drawing.Point(105, 46);
             this.cmbPayment.Name = "cmbPayment";
             this.cmbPayment.Size = new System.Drawing.Size(121, 21);
-            this.cmbPayment.TabIndex = 23;
+            this.cmbPayment.TabIndex = 1;
             // 
             // cmbCategory
             // 
@@ -142,7 +143,7 @@
             this.cmbCategory.Location = new System.Drawing.Point(105, 19);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(121, 21);
-            this.cmbCategory.TabIndex = 22;
+            this.cmbCategory.TabIndex = 0;
             // 
             // label1
             // 
@@ -160,7 +161,7 @@
             this.dtpEndDate.Location = new System.Drawing.Point(105, 151);
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.Size = new System.Drawing.Size(121, 20);
-            this.dtpEndDate.TabIndex = 33;
+            this.dtpEndDate.TabIndex = 5;
             // 
             // lblRecuurence
             // 
@@ -174,10 +175,10 @@
             // rbDay
             // 
             this.rbDay.AutoSize = true;
-            this.rbDay.Location = new System.Drawing.Point(99, 179);
+            this.rbDay.Location = new System.Drawing.Point(6, 3);
             this.rbDay.Name = "rbDay";
             this.rbDay.Size = new System.Drawing.Size(44, 17);
-            this.rbDay.TabIndex = 36;
+            this.rbDay.TabIndex = 0;
             this.rbDay.Text = "Day";
             this.rbDay.UseVisualStyleBackColor = true;
             // 
@@ -185,10 +186,10 @@
             // 
             this.rbMonth.AutoSize = true;
             this.rbMonth.Checked = true;
-            this.rbMonth.Location = new System.Drawing.Point(99, 202);
+            this.rbMonth.Location = new System.Drawing.Point(6, 26);
             this.rbMonth.Name = "rbMonth";
             this.rbMonth.Size = new System.Drawing.Size(55, 17);
-            this.rbMonth.TabIndex = 37;
+            this.rbMonth.TabIndex = 1;
             this.rbMonth.TabStop = true;
             this.rbMonth.Text = "Month";
             this.rbMonth.UseVisualStyleBackColor = true;
@@ -196,28 +197,28 @@
             // rbYear
             // 
             this.rbYear.AutoSize = true;
-            this.rbYear.Location = new System.Drawing.Point(99, 223);
+            this.rbYear.Location = new System.Drawing.Point(6, 49);
             this.rbYear.Name = "rbYear";
             this.rbYear.Size = new System.Drawing.Size(47, 17);
-            this.rbYear.TabIndex = 38;
+            this.rbYear.TabIndex = 2;
             this.rbYear.Text = "Year";
             this.rbYear.UseVisualStyleBackColor = true;
             // 
             // pnRecurrenceOptions
             // 
+            this.pnRecurrenceOptions.Controls.Add(this.rbYear);
+            this.pnRecurrenceOptions.Controls.Add(this.rbDay);
+            this.pnRecurrenceOptions.Controls.Add(this.rbMonth);
             this.pnRecurrenceOptions.Location = new System.Drawing.Point(89, 179);
             this.pnRecurrenceOptions.Name = "pnRecurrenceOptions";
             this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 68);
-            this.pnRecurrenceOptions.TabIndex = 39;
+            this.pnRecurrenceOptions.TabIndex = 6;
             // 
-            // MultiInput
+            // RecurringExpenseInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(236, 287);
-            this.Controls.Add(this.rbYear);
-            this.Controls.Add(this.rbMonth);
-            this.Controls.Add(this.rbDay);
             this.Controls.Add(this.lblRecuurence);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dtpEndDate);
@@ -236,10 +237,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "MultiInput";
+            this.Name = "RecurringExpenseInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recurring Expenses";
             this.Load += new System.EventHandler(this.RecurringExpenseInput_Load);
+            this.pnRecurrenceOptions.ResumeLayout(false);
+            this.pnRecurrenceOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
