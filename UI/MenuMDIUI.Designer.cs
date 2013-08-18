@@ -56,6 +56,8 @@
             this.showToolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showStatusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.singleIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recurringIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -146,11 +148,11 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainMenuToolStripMenuItem,
-            this.exitToolStripMenuItem,
             this.frameWorkToolStripMenuItem,
             this.closeAllToolStripMenuItem,
             this.showToolBarToolStripMenuItem,
             this.showStatusBarToolStripMenuItem,
+            this.exitToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -179,6 +181,9 @@
             // 
             // newIncomeToolStripMenuItem
             // 
+            this.newIncomeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.singleIncomeToolStripMenuItem,
+            this.recurringIncomeToolStripMenuItem});
             this.newIncomeToolStripMenuItem.Name = "newIncomeToolStripMenuItem";
             this.newIncomeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newIncomeToolStripMenuItem.Text = "New Income";
@@ -293,6 +298,20 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // singleIncomeToolStripMenuItem
+            // 
+            this.singleIncomeToolStripMenuItem.Name = "singleIncomeToolStripMenuItem";
+            this.singleIncomeToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.singleIncomeToolStripMenuItem.Text = "Single Income";
+            this.singleIncomeToolStripMenuItem.Click += new System.EventHandler(this.newIncomeToolStripMenuItem_Click);
+            // 
+            // recurringIncomeToolStripMenuItem
+            // 
+            this.recurringIncomeToolStripMenuItem.Name = "recurringIncomeToolStripMenuItem";
+            this.recurringIncomeToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.recurringIncomeToolStripMenuItem.Text = "Recurring Income";
+            this.recurringIncomeToolStripMenuItem.Click += new System.EventHandler(this.recurringIncomeToolStripMenuItem_Click);
+            // 
             // MenuMDIUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,6 +369,8 @@
         private System.Windows.Forms.ToolStripStatusLabel tslblMdiChildNumber;
         private System.Windows.Forms.ToolStripMenuItem singleExpenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recurringExpenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem singleIncomeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recurringIncomeToolStripMenuItem;
 
     }
 }
