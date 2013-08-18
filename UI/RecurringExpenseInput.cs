@@ -125,7 +125,7 @@ namespace MyHome2013
         #region Other Methods
         
         /// <summary>
-        /// Gets the recurrence frequency and saves the appropiate amount of expences into
+        /// Gets the recurrence frequency and saves the appropiate amount of expenses into
         /// the data base
         /// </summary>
         private void MultiSave()
@@ -213,8 +213,8 @@ namespace MyHome2013
             // Loops for the amount of days in the range
             for (int nDayIndex = 0; nDayIndex < nDaysRange; nDayIndex++)
             {
-                // Creates a new expence and sets the fields accordingly
-                ExpBL exbNewExp = ExpBL.CreateExpence();
+                // Creates a new expense and sets the fields accordingly
+                ExpBL exbNewExp = ExpBL.CreateExpense();
                 exbNewExp.Amount = this.txtAmount.Text;
                 exbNewExp.Date = dtCurrentSaveDate;
                 exbNewExp.Category =
@@ -226,7 +226,7 @@ namespace MyHome2013
                 // Saves the new expense into the cache
                 exbNewExp.Save();
 
-                // Ups the date for the next expence
+                // Ups the date for the next expense
                dtCurrentSaveDate = dtCurrentSaveDate.AddDays(1);
             }
         }
@@ -291,8 +291,8 @@ namespace MyHome2013
                 // Loops for the amount of months in the range
                 for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
                 {
-                    // Creates a new expence and sets the fields accordingly
-                    ExpBL exbNewExp = ExpBL.CreateExpence();
+                    // Creates a new expense and sets the fields accordingly
+                    ExpBL exbNewExp = ExpBL.CreateExpense();
                     exbNewExp.Amount = this.txtAmount.Text;
                     exbNewExp.Date = dtCurrentSaveDate;
                     exbNewExp.Category =
@@ -327,8 +327,8 @@ namespace MyHome2013
             // Loops for the amount of years in the range
             for (int nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)
             {
-                 // Creates a new expence and sets the fields accordingly
-                ExpBL exbNewExp = ExpBL.CreateExpence();
+                 // Creates a new expense and sets the fields accordingly
+                ExpBL exbNewExp = ExpBL.CreateExpense();
                 exbNewExp.Amount = this.txtAmount.Text;
                 exbNewExp.Date = dtCurrentSaveDate;
                 exbNewExp.Category =

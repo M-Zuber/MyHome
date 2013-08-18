@@ -69,35 +69,35 @@ namespace BL
         {
             // Variable to contain the data of the expense in the format
             // neccessary to add it to the table
-            StaticDataSet.t_expensesRow drExpence =
+            StaticDataSet.t_expensesRow drExpense =
                     (StaticDataSet.t_expensesRow)Cache.SDB.t_expenses.Rows.Find(this.ID);
             
             // Checks if the expense already exists 
             // -If so performs an update
-            if (drExpence != null)
+            if (drExpense != null)
             {
                 // Updates each field with the data in the members of the class
-                drExpence["AMOUNT"] = this.Amount;
-                drExpence["exp_DATE"] = this.Date;
-                drExpence["CATEGORY"] = this.Category;
-                drExpence["METHOD"] = this.Method;
-                drExpence["COMMENTS"] = this.Comment;
+                drExpense["AMOUNT"] = this.Amount;
+                drExpense["exp_DATE"] = this.Date;
+                drExpense["CATEGORY"] = this.Category;
+                drExpense["METHOD"] = this.Method;
+                drExpense["COMMENTS"] = this.Comment;
             }
             // If a new row is being added
             else
             {
                 // Intializes the variable with an empty skeleton of the row format
                 // and adds in the data based on the members of the class
-                drExpence = Cache.SDB.t_expenses.Newt_expensesRow();
-                drExpence["ID"] = this.ID;
-                drExpence["AMOUNT"] = this.Amount;
-                drExpence["exp_DATE"] = this.Date;
-                drExpence["CATEGORY"] = this.Category;
-                drExpence["METHOD"] = this.Method;
-                drExpence["COMMENTS"] = this.Comment;
+                drExpense = Cache.SDB.t_expenses.Newt_expensesRow();
+                drExpense["ID"] = this.ID;
+                drExpense["AMOUNT"] = this.Amount;
+                drExpense["exp_DATE"] = this.Date;
+                drExpense["CATEGORY"] = this.Category;
+                drExpense["METHOD"] = this.Method;
+                drExpense["COMMENTS"] = this.Comment;
 
                 // Adds the row to the table
-                Cache.SDB.t_expenses.Addt_expensesRow(drExpence);
+                Cache.SDB.t_expenses.Addt_expensesRow(drExpense);
             }
         }
 
@@ -109,19 +109,19 @@ namespace BL
         public static SortedDictionary<int, ExpBL> GetAll()
         {
             // Intializes the return variable
-            SortedDictionary<int, ExpBL> srtAllExpences =
+            SortedDictionary<int, ExpBL> srtAllExpenses =
                 new SortedDictionary<int, ExpBL>();
 
             // Goes over every row in the table in the cache
             foreach (StaticDataSet.t_expensesRow currRow in Cache.SDB.t_expenses)
             {
                 // Adds the row to the dictionary, creating the entity as it gets added
-                srtAllExpences.Add(int.Parse(currRow["ID"].ToString()),
+                srtAllExpenses.Add(int.Parse(currRow["ID"].ToString()),
                                   Load(int.Parse(currRow["ID"].ToString())));
             }
 
             // Returns the list to the calling function
-            return (srtAllExpences);
+            return (srtAllExpenses);
         }
 
         /// <summary>
@@ -129,10 +129,10 @@ namespace BL
         /// for the expenses table
         /// </summary>
         /// <returns>A new expense with only the ID property filled</returns>
-        public static ExpBL CreateExpence()
+        public static ExpBL CreateExpense()
         {
             // Creates a return variable with a default value of null
-            ExpBL expNewExpence = null;
+            ExpBL expNewExpense = null;
 
             // Tries intializing the id field with a value from the db
             try
@@ -141,13 +141,13 @@ namespace BL
                 int nNewId = BaseDA.GetNextVal("t_expenses");
                 
                 // Intializes the return variable with the ID value pulled
-                expNewExpence = new ExpBL(nNewId);
+                expNewExpense = new ExpBL(nNewId);
             }
             // If there was any error, stops it at this level
             catch{}
 
             // Returns the intialized variable to the calling function
-            return (expNewExpence);
+            return (expNewExpense);
         }
 
         /// <summary>
@@ -158,27 +158,27 @@ namespace BL
         public static ExpBL Load(int nId)
         {
             // Creates a return variable with a default value of null
-            ExpBL expLoadExpence = null;
+            ExpBL expLoadExpense = null;
 
             // Before loading checks that the wanted id is in the table
             if (Cache.SDB.t_incomes.Rows.Contains(nId))
             {
                 // Intializes the variable with the ctor, and sets the id property
-                expLoadExpence = new ExpBL(nId);
+                expLoadExpense = new ExpBL(nId);
 
                 // Pulls the row of the wanted expense from the cache
-                DataRow drExpence = Cache.SDB.t_incomes.Rows.Find(nId);
+                DataRow drExpense = Cache.SDB.t_incomes.Rows.Find(nId);
 
                 // Sets the properties based on the data in the row
-                expLoadExpence.Amount = drExpence["AMOUNT"].ToString();
-                expLoadExpence.Date = Convert.ToDateTime(drExpence["EXP_DATE"].ToString());
-                expLoadExpence.Category = Convert.ToInt32(drExpence["CATEGORY"].ToString());
-                expLoadExpence.Method = Convert.ToInt32(drExpence["METHOD"].ToString());
-                expLoadExpence.Comment = drExpence["COMMENT"].ToString();
+                expLoadExpense.Amount = drExpense["AMOUNT"].ToString();
+                expLoadExpense.Date = Convert.ToDateTime(drExpense["EXP_DATE"].ToString());
+                expLoadExpense.Category = Convert.ToInt32(drExpense["CATEGORY"].ToString());
+                expLoadExpense.Method = Convert.ToInt32(drExpense["METHOD"].ToString());
+                expLoadExpense.Comment = drExpense["COMMENT"].ToString();
             }
 
             // Returns the variable to the calling function
-            return (expLoadExpence);
+            return (expLoadExpense);
         } 
 
         #endregion
