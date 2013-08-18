@@ -42,12 +42,13 @@
             this.mainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.singleIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recurringIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newExcpenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleExpenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recurringExpenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pieChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frameWorkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.incomeCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,9 +56,8 @@
             this.closeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showStatusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.singleIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recurringIncomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -187,7 +187,20 @@
             this.newIncomeToolStripMenuItem.Name = "newIncomeToolStripMenuItem";
             this.newIncomeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newIncomeToolStripMenuItem.Text = "New Income";
-            this.newIncomeToolStripMenuItem.Click += new System.EventHandler(this.newIncomeToolStripMenuItem_Click);
+            // 
+            // singleIncomeToolStripMenuItem
+            // 
+            this.singleIncomeToolStripMenuItem.Name = "singleIncomeToolStripMenuItem";
+            this.singleIncomeToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.singleIncomeToolStripMenuItem.Text = "Single Income";
+            this.singleIncomeToolStripMenuItem.Click += new System.EventHandler(this.newIncomeToolStripMenuItem_Click);
+            // 
+            // recurringIncomeToolStripMenuItem
+            // 
+            this.recurringIncomeToolStripMenuItem.Name = "recurringIncomeToolStripMenuItem";
+            this.recurringIncomeToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.recurringIncomeToolStripMenuItem.Text = "Recurring Income";
+            this.recurringIncomeToolStripMenuItem.Click += new System.EventHandler(this.recurringIncomeToolStripMenuItem_Click);
             // 
             // newExcpenceToolStripMenuItem
             // 
@@ -225,13 +238,6 @@
             this.graphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.graphToolStripMenuItem.Text = "Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // frameWorkToolStripMenuItem
             // 
@@ -291,26 +297,19 @@
             this.showStatusBarToolStripMenuItem.Text = "Show Status Bar";
             this.showStatusBarToolStripMenuItem.Click += new System.EventHandler(this.showStatusBarToolStripMenuItem_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // singleIncomeToolStripMenuItem
-            // 
-            this.singleIncomeToolStripMenuItem.Name = "singleIncomeToolStripMenuItem";
-            this.singleIncomeToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.singleIncomeToolStripMenuItem.Text = "Single Income";
-            this.singleIncomeToolStripMenuItem.Click += new System.EventHandler(this.newIncomeToolStripMenuItem_Click);
-            // 
-            // recurringIncomeToolStripMenuItem
-            // 
-            this.recurringIncomeToolStripMenuItem.Name = "recurringIncomeToolStripMenuItem";
-            this.recurringIncomeToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.recurringIncomeToolStripMenuItem.Text = "Recurring Income";
-            this.recurringIncomeToolStripMenuItem.Click += new System.EventHandler(this.recurringIncomeToolStripMenuItem_Click);
             // 
             // MenuMDIUI
             // 
