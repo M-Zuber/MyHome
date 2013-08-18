@@ -1,6 +1,6 @@
 ﻿namespace MyHome2013
 {
-    partial class MultiInput
+    partial class RecurringExpenseInput
     {
         /// <summary>
         /// Required designer variable.
@@ -239,7 +239,7 @@
             this.Name = "MultiInput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recurring Expenses";
-            this.Load += new System.EventHandler(this.MultiInput_Load);
+            this.Load += new System.EventHandler(this.RecurringExpenseInput_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

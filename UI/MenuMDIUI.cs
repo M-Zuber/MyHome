@@ -42,7 +42,7 @@ namespace MyHome2013
         /// </summary>
         public InputOutUI NewExpense { get; set; }
 
-        public MultiInput NewRecurringExpense { get; set; }
+        public RecurringExpenseInput NewRecurringExpense { get; set; }
         #endregion
 
         #region C'tor
@@ -187,7 +187,7 @@ namespace MyHome2013
             if (this.NewRecurringExpense == null)
             {
                 this.MdiChilrenSum++;
-                MultiInput ChildData = new MultiInput();
+                RecurringExpenseInput ChildData = new RecurringExpenseInput();
                 ChildData.MdiParent = this;
                 ChildData.Show();
                 ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
