@@ -9,7 +9,8 @@ using FrameWork;
 namespace MyHome2013
 {
     /// <summary>
-    /// Provides data per category for the last year
+    /// Provides data per category for the range of dates given
+    /// -the default is the past year
     /// </summary>
     public partial class DataChartUI : Form
     {
@@ -91,8 +92,12 @@ namespace MyHome2013
             this.LoadMe();
 
             // Sets the display of the start date to the value of the corresponding property
-            // the value of the end date is set automatically
+            // -the value of the end date is set automatically
             this.dtpStartMonth.Value = this.StartDate;
+
+            // Sets the data bindings of the date time pickers so they dont cross over
+            this.dtpStartMonth.DataBindings.Add("MaxDate", this.dtpEndMonth, "Value");
+            this.dtpEndMonth.DataBindings.Add("MinDate", this.dtpStartMonth, "Value");
         }
 
         /// <summary>
@@ -334,6 +339,7 @@ namespace MyHome2013
         private int MonthsRange()
         {
             // Calculates the months in the range, taking the year into account
+            // plus one so that if the dates are the same day, it will still return one
             return (((this.EndDate.Year - this.StartDate.Year) * 12) + 
                                         (this.EndDate.Month - this.StartDate.Month) + 1);
         }

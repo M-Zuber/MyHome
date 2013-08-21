@@ -39,7 +39,7 @@
             this.crtExpenses = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.crtIncome = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblIncome = new System.Windows.Forms.Label();
-            this.lblExpences = new System.Windows.Forms.Label();
+            this.lblExpenses = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.crtExpenses)).BeginInit();
@@ -111,14 +111,14 @@
             this.lblIncome.TabIndex = 4;
             this.lblIncome.Text = "Income Data";
             // 
-            // lblExpences
+            // lblExpenses
             // 
-            this.lblExpences.AutoSize = true;
-            this.lblExpences.Location = new System.Drawing.Point(3, 0);
-            this.lblExpences.Name = "lblExpences";
-            this.lblExpences.Size = new System.Drawing.Size(79, 13);
-            this.lblExpences.TabIndex = 5;
-            this.lblExpences.Text = "Expenses Data";
+            this.lblExpenses.AutoSize = true;
+            this.lblExpenses.Location = new System.Drawing.Point(3, 0);
+            this.lblExpenses.Name = "lblExpenses";
+            this.lblExpenses.Size = new System.Drawing.Size(79, 13);
+            this.lblExpenses.TabIndex = 5;
+            this.lblExpenses.Text = "Expenses Data";
             // 
             // panel1
             // 
@@ -136,7 +136,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.crtExpenses, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.crtIncome, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblExpences, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblExpenses, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblIncome, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -175,7 +175,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart crtExpenses;
         private System.Windows.Forms.DataVisualization.Charting.Chart crtIncome;
         private System.Windows.Forms.Label lblIncome;
-        private System.Windows.Forms.Label lblExpences;
+        private System.Windows.Forms.Label lblExpenses;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }

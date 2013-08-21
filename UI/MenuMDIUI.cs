@@ -42,7 +42,10 @@ namespace MyHome2013
         /// </summary>
         public InputOutUI NewExpense { get; set; }
 
-        public MultiInput NewRecurringExpense { get; set; }
+        public RecurringExpenseInput NewRecurringExpense { get; set; }
+
+        public RecurringIncomeInput NewRecurringIncome { get; set; }
+
         #endregion
 
         #region C'tor
@@ -187,7 +190,7 @@ namespace MyHome2013
             if (this.NewRecurringExpense == null)
             {
                 this.MdiChilrenSum++;
-                MultiInput ChildData = new MultiInput();
+                RecurringExpenseInput ChildData = new RecurringExpenseInput();
                 ChildData.MdiParent = this;
                 ChildData.Show();
                 ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
@@ -199,6 +202,31 @@ namespace MyHome2013
                 this.NewRecurringExpense.BringToFront();
             }
         }
+
+        /// <summary>
+        /// Opens the form to allow the user to add a new recurring income
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void recurringIncomeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // If the instance is not already open
+            if (this.NewRecurringIncome == null)
+            {
+                this.MdiChilrenSum++;
+                RecurringIncomeInput ChildData = new RecurringIncomeInput();
+                ChildData.MdiParent = this;
+                ChildData.Show();
+                ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+                ChildData.FormClosed += new FormClosedEventHandler(this.NewRecurringIncomeClose);
+            }
+            // Forces the form to the front
+            else
+            {
+                this.NewRecurringIncome.BringToFront();
+            }
+        }
+
         /// <summary>
         /// Displays information about the program
         /// </summary>
@@ -442,6 +470,16 @@ namespace MyHome2013
         }
 
         /// <summary>
+        /// When the new recurring income form is closed, sets the main forms property to null
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void NewRecurringIncomeClose(object sender, FormClosedEventArgs e)
+        {
+            this.NewRecurringIncome = null;
+        }
+
+        /// <summary>
         /// When the expense categories form is closed, sets the main forms property to null
         /// </summary>
         /// <param name="sender">Standard sender object</param>
@@ -484,5 +522,7 @@ namespace MyHome2013
         }
 
         #endregion        
+
+        
     }
 }

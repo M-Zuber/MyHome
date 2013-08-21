@@ -76,7 +76,7 @@ namespace MyHome2013
             else
             {
                 // Creates a new expense and sets the properties with the data from the form
-                ExpBL exbNewExp = ExpBL.CreateExpence();
+                ExpBL exbNewExp = ExpBL.CreateExpense();
                 exbNewExp.Amount = this.txtAmount.Text;
                 exbNewExp.Date = this.dtPick.Value.Date;
                 exbNewExp.Category =

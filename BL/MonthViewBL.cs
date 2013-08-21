@@ -22,7 +22,7 @@ namespace BL
         /// <summary>
         /// Provides public access to the expenses table
         /// </summary>
-        public StaticDataSet.t_expensesDataTable ExpenceTable
+        public StaticDataSet.t_expensesDataTable ExpenseTable
         {
             get; private set;
         } 
@@ -39,10 +39,10 @@ namespace BL
         {
             // Sets the data members with the ctor
             this.IncomeTable = new StaticDataSet.t_incomesDataTable();
-            this.ExpenceTable = new StaticDataSet.t_expensesDataTable();
+            this.ExpenseTable = new StaticDataSet.t_expensesDataTable();
 
             // Fills the table with data according to the month recieved
-            this.ExpencesFilter(dtmMonthToLoad);
+            this.ExpensesFilter(dtmMonthToLoad);
             this.IncomeFilter(dtmMonthToLoad);
         }
 
@@ -65,7 +65,7 @@ namespace BL
             double dSum = 0;
 
             // Goes over each row in the table that contains the expenses for the month
-            foreach (StaticDataSet.t_expensesRow drCurr in this.ExpenceTable)
+            foreach (StaticDataSet.t_expensesRow drCurr in this.ExpenseTable)
             {
                 // Adds the amount of the expense to the counter
                 dSum += double.Parse(drCurr.AMOUNT.ToString());
@@ -106,7 +106,7 @@ namespace BL
                 dSum = 0;
 
                 // Goes over each expense in the table with the data for the month
-                foreach (StaticDataSet.t_expensesRow drCurrExp in this.ExpenceTable)
+                foreach (StaticDataSet.t_expensesRow drCurrExp in this.ExpenseTable)
                 {
                     // Checks if the current expense is in the category being summed now
                     if (drCurrExp.CATEGORY.ToString() == CurrCat.Value.ID.ToString())
@@ -147,7 +147,7 @@ namespace BL
                 double dSum = 0;
 
                 // Goes over each expense in the table with the data for the month
-                foreach (StaticDataSet.t_expensesRow drCurrExp in this.ExpenceTable)
+                foreach (StaticDataSet.t_expensesRow drCurrExp in this.ExpenseTable)
                 {
                     // Checks if the current expense is in the category being summed now
                     if (drCurrExp.CATEGORY.ToString() == CurrCat.Value.ID.ToString())
@@ -220,7 +220,7 @@ namespace BL
         /// based on the month given
         /// </summary>
         /// <param name="dtmMonthToLoad">The month to filter the table by</param>
-        private void ExpencesFilter(DateTime dtmMonthToLoad)
+        private void ExpensesFilter(DateTime dtmMonthToLoad)
         {
             // Fills in the local table with the table for the requested month
             foreach (StaticDataSet.t_expensesRow CurrRow in Cache.SDB.t_expenses)
@@ -230,7 +230,7 @@ namespace BL
                 if ((CurrRow.EXP_DATE.Month == dtmMonthToLoad.Month) && 
                     (CurrRow.EXP_DATE.Year == dtmMonthToLoad.Year))
                 {
-                    this.ExpenceTable.ImportRow(CurrRow);
+                    this.ExpenseTable.ImportRow(CurrRow);
                 }
             }
         }
