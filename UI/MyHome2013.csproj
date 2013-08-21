@@ -100,11 +100,11 @@
     <Compile Include="MonthChartUI.Designer.cs">
       <DependentUpon>MonthChartUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="MultiInput.cs">
+    <Compile Include="RecurringExpenseInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MultiInput.Designer.cs">
-      <DependentUpon>MultiInput.cs</DependentUpon>
+    <Compile Include="RecurringExpenseInput.Designer.cs">
+      <DependentUpon>RecurringExpenseInput.cs</DependentUpon>
     </Compile>
     <Compile Include="NewChoice.cs">
       <SubType>Form</SubType>
@@ -114,6 +114,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurringIncomeInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecurringIncomeInput.Designer.cs">
+      <DependentUpon>RecurringIncomeInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewCategoriesUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,8 +151,8 @@
     <EmbeddedResource Include="MonthChartUI.resx">
       <DependentUpon>MonthChartUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MultiInput.resx">
-      <DependentUpon>MultiInput.cs</DependentUpon>
+    <EmbeddedResource Include="RecurringExpenseInput.resx">
+      <DependentUpon>RecurringExpenseInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewChoice.resx">
       <DependentUpon>NewChoice.cs</DependentUpon>
@@ -161,6 +167,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RecurringIncomeInput.resx">
+      <DependentUpon>RecurringIncomeInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewCategoriesUI.resx">
       <DependentUpon>ViewCategoriesUI.cs</DependentUpon>
     </EmbeddedResource>

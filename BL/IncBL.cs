@@ -167,14 +167,14 @@ namespace BL
                 incLoadInc = new IncBL(nId);
 
                 // Pulls the row of the wanted income from the cache
-                DataRow drExpence = Cache.SDB.t_incomes.Rows.Find(nId);
+                DataRow drExpense = Cache.SDB.t_incomes.Rows.Find(nId);
 
                 // Sets the properties based on the data in the row
-                incLoadInc.Amount = drExpence["AMOUNT"].ToString();
-                incLoadInc.Date = Convert.ToDateTime(drExpence["INC_DATE"].ToString());
-                incLoadInc.Category = Convert.ToInt32(drExpence["CATEGORY"].ToString());
-                incLoadInc.Method = Convert.ToInt32(drExpence["METHOD"].ToString());
-                incLoadInc.Comment = drExpence["COMMENT"].ToString();
+                incLoadInc.Amount = drExpense["AMOUNT"].ToString();
+                incLoadInc.Date = Convert.ToDateTime(drExpense["INC_DATE"].ToString());
+                incLoadInc.Category = Convert.ToInt32(drExpense["CATEGORY"].ToString());
+                incLoadInc.Method = Convert.ToInt32(drExpense["METHOD"].ToString());
+                incLoadInc.Comment = drExpense["COMMENT"].ToString();
             }
 
             // Returns the variable to the calling function
