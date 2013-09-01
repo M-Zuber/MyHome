@@ -15,7 +15,7 @@ namespace FrameWork
             this.LogFile = new FileInfo(strLogFileName);
             using (StreamWriter stwrAppend = this.LogFile.AppendText())
 	        {
-	            stwrAppend.WriteLine("The file was opened on " + DateTime.Now.ToString());	 
+	            stwrAppend.WriteLine("The file was opened on: " + DateTime.Now.ToString());	 
 	        }
 
         }

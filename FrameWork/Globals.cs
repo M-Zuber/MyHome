@@ -7,6 +7,10 @@ namespace FrameWork
 {
     public static class Globals
     {
-        public static Log lgErrorLog = new Log("../../../Log Files/errors.txt");
+        public static Dictionary<string, Log> LogFiles = new Dictionary<string, Log>()
+            {
+                {"ErrorLog", new Log("../../../Log Files/errors.mez")},
+                {"ActivityLog", new Log("../../../Log Files/activity.mez")}
+            };
     }
 }

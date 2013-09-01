@@ -100,7 +100,8 @@ namespace DA
             }
             catch (MySqlException e)
             {
-                Globals.lgErrorLog.AddError(e.ErrorCode, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
             // Close the connection in any case
             finally

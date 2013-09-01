@@ -15,6 +15,7 @@ namespace MyHome2013
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MenuMDIUI());
+            Globals.LogFiles["ActivityLog"].AddMessage("The program was closed at: " + DateTime.Now);
         }
     }
 }
