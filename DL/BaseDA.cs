@@ -98,7 +98,10 @@ namespace DA
                 ConnectionManager.Instance.Connection.Open();
                 nReturnValue = Convert.ToInt32(cmdGetValCommand.ExecuteScalar());
             }
-            catch { }
+            catch (MySqlException e)
+            {
+                Globals.lgErrorLog.AddError(e.ErrorCode, e.Message, DateTime.Now);
+            }
             // Close the connection in any case
             finally
             {
