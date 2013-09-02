@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using DA;
 using FrameWork;
@@ -110,7 +111,12 @@ namespace BL
                 mthNewMethod = new MethodBL(nNewId);
             }
             // If there was any error, stops it at this level
-            catch { }
+            catch (Exception e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR,
+                                                            e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+            }
 
             // Returns the intialized variable to the calling function
             return (mthNewMethod);

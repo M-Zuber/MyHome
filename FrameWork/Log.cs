@@ -13,11 +13,14 @@ namespace FrameWork
         public Log(string strLogFileName)
         {
             this.LogFile = new FileInfo(strLogFileName);
-            using (StreamWriter stwrAppend = this.LogFile.AppendText())
-	        {
-	            stwrAppend.WriteLine("The file was opened on: " + DateTime.Now.ToString());	 
-	        }
 
+            if (!this.LogFile.Exists)
+            {
+                using (StreamWriter stwrAppend = this.LogFile.AppendText())
+                {
+                    stwrAppend.WriteLine("The file was opened on: " + DateTime.Now.ToString());
+                }   
+            }
         }
 
         public void AddMessage(string strMessage)
@@ -41,6 +44,16 @@ namespace FrameWork
             using (StreamWriter stwrAppend = this.LogFile.AppendText())
             {
                 stwrAppend.WriteLine(nErrNo.ToString() + "\t" +
+                                     strMessage + "\t" +
+                                     dtErrorTime.ToString());
+            }
+        }
+
+        public void AddError(Globals.ErrorCodes enErrorNumber, string strMessage, DateTime dtErrorTime)
+        {
+            using (StreamWriter stwrAppend = this.LogFile.AppendText())
+            {
+                stwrAppend.WriteLine(((int)enErrorNumber).ToString() + "\t" +
                                      strMessage + "\t" +
                                      dtErrorTime.ToString());
             }

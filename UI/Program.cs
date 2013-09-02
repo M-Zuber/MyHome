@@ -14,6 +14,7 @@ namespace MyHome2013
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Globals.LogFiles["ActivityLog"].AddMessage("The program was started at: " + DateTime.Now);
             Application.Run(new MenuMDIUI());
             Globals.LogFiles["ActivityLog"].AddMessage("The program was closed at: " + DateTime.Now);
         }
