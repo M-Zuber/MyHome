@@ -96,7 +96,13 @@ namespace DA
                 // Opens the connection and sets the return variable with 
                 // the next value of the sequence
                 ConnectionManager.Instance.Connection.Open();
+                Globals.LogFiles["DataBaseLog"].AddMessage(Globals.DbActivity.CONNECTION.ToString() +
+                                                            " at " + DateTime.Now);
                 nReturnValue = Convert.ToInt32(cmdGetValCommand.ExecuteScalar());
+                Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.READ.ToString() +
+                                                            " at " + DateTime.Now,
+                                                            "Command: " + cmdGetValCommand.CommandText,
+                                                            "Result: " + nReturnValue.ToString());
             }
             catch (MySqlException e)
             {
@@ -117,6 +123,8 @@ namespace DA
                 }
 
                 ConnectionManager.Instance.Connection.Close();
+                Globals.LogFiles["DataBaseLog"].AddMessage(Globals.DbActivity.DISCONNECT.ToString() +
+                                                            " at " + DateTime.Now);
             }
 
             // Returns the value to the calling function
@@ -130,7 +138,12 @@ namespace DA
         public static void LoadToCache(string strTableName)
         {
             // Loads the table using the appropiate data adapter
-            GetAdapter(strTableName).Fill(FrameWork.Cache.SDB.Tables[strTableName]);
+            int nRowsFilled = GetAdapter(strTableName).Fill(FrameWork.Cache.SDB.Tables[strTableName]);
+            
+            Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.READ.ToString() +
+                                                        " at " + DateTime.Now,
+                                                        "Command: Adapter.Fill(" + strTableName + ")",
+                                                        "Result: " + nRowsFilled.ToString());
         }
 
         /// <summary>
@@ -153,9 +166,14 @@ namespace DA
             // Creates the data adapter and sets it with the update commands
             MySqlDataAdapter daAdapter = GetAdapter(strTableName);
             MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
-
+            
             // Updating table as is
-            daAdapter.Update(Cache.SDB.Tables[strTableName]);
+            int nRowsUpdated = daAdapter.Update(Cache.SDB.Tables[strTableName]);
+
+            Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.WRITE.ToString() +
+                                                        " at " + DateTime.Now,
+                                                        "Command: Adapter.Update(" + strTableName + ")",
+                                                        "Result: " + nRowsUpdated.ToString());
         }
 
         /// <summary>

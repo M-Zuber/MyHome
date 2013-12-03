@@ -11,7 +11,8 @@ namespace FrameWork
         public static Dictionary<string, Log> LogFiles = new Dictionary<string, Log>()
             {
                 {"ErrorLog", new Log(LogPath + "errors.mez")},
-                {"ActivityLog", new Log(LogPath + "activity.mez")}
+                {"ProgramActivityLog", new Log(LogPath + "activity.mez")},
+                {"DataBaseLog", new Log(LogPath + "dbActivity.mez")}
             };
 
         public enum ErrorCodes
@@ -19,6 +20,14 @@ namespace FrameWork
             SQL_ERROR = 0,
             BL_ERROR = 39,
             UI_ERROR = 12
+        };
+
+        public enum DbActivity
+        {
+            CONNECTION,
+            DISCONNECT,
+            WRITE,
+            READ
         };
     }
 }
