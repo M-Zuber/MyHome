@@ -7,6 +7,10 @@ namespace FrameWork
 {
     public static class Globals
     {
+        public static string DataBaseName = "";
+        public static string UserId = "";
+        public static string Password = "";
+
         private const string LogPath = "../../../Log Files/";
         public static Dictionary<string, Log> LogFiles = new Dictionary<string, Log>()
             {
