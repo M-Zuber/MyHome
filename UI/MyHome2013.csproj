@@ -64,11 +64,11 @@
     <Compile Include="AddCategoryUI.Designer.cs">
       <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseSettings.cs">
+    <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DatabaseSettings.Designer.cs">
-      <DependentUpon>DatabaseSettings.cs</DependentUpon>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="DataChartUI.cs">
       <SubType>Form</SubType>
@@ -139,8 +139,8 @@
     <EmbeddedResource Include="AddCategoryUI.resx">
       <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DatabaseSettings.resx">
-      <DependentUpon>DatabaseSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataChartUI.resx">
       <DependentUpon>DataChartUI.cs</DependentUpon>

@@ -11,8 +11,8 @@ namespace FrameWork
         public static string DataBaseName = "";
         public static string UserId = "";
         public static string Password = "";
-
-        private const string LogPath = "../../../Log Files/";
+        
+        private const string LogPath = "./Log Files/";
         public static Dictionary<string, Log> LogFiles = new Dictionary<string, Log>()
             {
                 {"ErrorLog", new Log(LogPath + "errors.mez")},
@@ -20,7 +20,7 @@ namespace FrameWork
                 {"DataBaseLog", new Log(LogPath + "dbActivity.mez")}
             };
 
-        private const string SettingsFilesPath = "../../../Setting Files/";
+        private const string SettingsFilesPath = "./Setting Files/";
         public static Dictionary<string, SettingsManager> SettingFiles = new Dictionary<string, SettingsManager>()
             {
                 {"DatabaseSettings", new SettingsManager(SettingsFilesPath + "database.set")}

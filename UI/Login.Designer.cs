@@ -1,6 +1,6 @@
 ﻿namespace MyHome2013
 {
-    partial class DatabaseSettings
+    partial class Login
     {
         /// <summary>
         /// Required designer variable.
@@ -94,9 +94,11 @@
             this.btnConnect.TabIndex = 6;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // DatabaseSettings
             // 
+            this.AcceptButton = this.btnConnect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(226, 128);
@@ -107,8 +109,9 @@
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUserId);
             this.Controls.Add(this.txtDatabaseName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DatabaseSettings";
-            this.Text = "DatabaseSettings";
+            this.Text = "Connecting to MyHome2013";
             this.ResumeLayout(false);
             this.PerformLayout();
 

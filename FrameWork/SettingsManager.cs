@@ -13,6 +13,28 @@ namespace FrameWork
         public SettingsManager(string strLogFileName)
         {
             this.SettingsFile = new FileInfo(strLogFileName);
+
+            if (!this.SettingsFile.Exists)
+            {
+                using (StreamWriter stwrAppend = this.SettingsFile.AppendText())
+                {
+                }
+            }
+        }
+
+        public bool AreSettingsSet(List<string> settingNames)
+        {
+            Dictionary<string, string> allSettings = GetAllSettings();
+
+            foreach (string CurrSetting in settingNames)
+            {
+                if (!allSettings.ContainsKey(CurrSetting))
+                {
+                    return false;
+                }
+            }
+            
+            return true;
         }
 
         public Dictionary<string, string> GetAllSettings()
