@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace FrameWork
 {
@@ -17,6 +18,12 @@ namespace FrameWork
                 {"ErrorLog", new Log(LogPath + "errors.mez")},
                 {"ProgramActivityLog", new Log(LogPath + "activity.mez")},
                 {"DataBaseLog", new Log(LogPath + "dbActivity.mez")}
+            };
+
+        private const string SettingsFilesPath = "../../../Setting Files/";
+        public static Dictionary<string, SettingsManager> SettingFiles = new Dictionary<string, SettingsManager>()
+            {
+                {"DatabaseSettings", new SettingsManager(SettingsFilesPath + "database.set")}
             };
 
         public enum ErrorCodes

@@ -47,6 +47,7 @@
     <Compile Include="Cache.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="SettingsManager.cs" />
     <Compile Include="StaticDataSet.cs">
       <DependentUpon>StaticDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
