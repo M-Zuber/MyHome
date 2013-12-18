@@ -125,7 +125,7 @@ namespace BL
         }
 
         /// <summary>
-        /// Checks if the given string is numberic -allowing for one decimal point
+        /// Checks if the given string is a floating point number
         /// </summary>
         /// <param name="strText">The string to be checked</param>
         /// <returns>The result of the check</returns>
