@@ -64,7 +64,7 @@ namespace MyHome2013
 
         /// <summary>
         /// Closes the form -on close FormClosing will activate and check for changes in
-        /// the data abse
+        /// the data base
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
@@ -521,8 +521,6 @@ namespace MyHome2013
             this.tslblMdiChildNumber.Text = this.MdiChilrenSum.ToString();
         }
 
-        #endregion        
-
-        
+        #endregion      
     }
 }

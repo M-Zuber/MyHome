@@ -45,6 +45,7 @@
     <Compile Include="ExpBL.cs" />
     <Compile Include="ExpCatBL.cs" />
     <Compile Include="GlobalBL.cs" />
+    <Compile Include="HelperMethods.cs" />
     <Compile Include="IncBL.cs" />
     <Compile Include="IncCatBL.cs" />
     <Compile Include="MethodBL.cs" />

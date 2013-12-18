@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using FrameWork;
 
 namespace DA
 {
@@ -55,11 +56,29 @@ namespace DA
         {
             // Intializes the connection data member and sets it with the connection string
             this.Connection = new MySqlConnection();
-            this.Connection.ConnectionString = "database=myhome2013; " +
+            this.Connection.ConnectionString = "database=" + Globals.DataBaseName +"; " +
                                                 "Data Source=127.0.0.10; " +
-                                                "User ID = root; " +
-                                                "Password=7BAC61zuber";
+                                                "User ID = " + Globals.UserId +"; " +
+                                                "Password=" + Globals.Password;
         } 
+
+        #endregion
+
+        #region Other Methods
+
+        public bool TestConnection()
+        {
+            try
+            {
+                this.Connection.Open();
+                this.Connection.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         #endregion
     }
