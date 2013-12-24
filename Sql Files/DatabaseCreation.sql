@@ -249,7 +249,7 @@ DROP TABLE IF EXISTS `myhome2013`.`viw`;
 USE `myhome2013`;
 CREATE OR REPLACE 
     ALGORITHM = UNDEFINED 
-    DEFINER = `MyHome2013`@`%` 
+    DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `myhome2013`.`viw` AS
     select 
@@ -274,7 +274,7 @@ DROP TABLE IF EXISTS `myhome2013`.`viwin`;
 USE `myhome2013`;
 CREATE OR REPLACE 
     ALGORITHM = UNDEFINED 
-    DEFINER = `MyHome2013`@`%` 
+    DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `myhome2013`.`viwin` AS
     select 
