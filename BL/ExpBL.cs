@@ -76,6 +76,10 @@ namespace BL
             // -If so performs an update
             if (drExpense != null)
             {
+                Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                                        "Updating existing expense with id of: " + this.ID,
+                                        DateTime.Today.ToString());
+
                 // Updates each field with the data in the members of the class
                 drExpense["AMOUNT"] = this.Amount;
                 drExpense["exp_DATE"] = this.Date;
@@ -86,6 +90,10 @@ namespace BL
             // If a new row is being added
             else
             {
+                Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                                        "Creating new expense with id of: " + this.ID,
+                                        DateTime.Today.ToString());
+
                 // Intializes the variable with an empty skeleton of the row format
                 // and adds in the data based on the members of the class
                 drExpense = Cache.SDB.t_expenses.Newt_expensesRow();
@@ -112,12 +120,24 @@ namespace BL
             SortedDictionary<int, ExpBL> srtAllExpenses =
                 new SortedDictionary<int, ExpBL>();
 
+            int rowsInCache = Cache.SDB.t_expenses.Rows.Count;
+            int rowsPulled = 0;
+
             // Goes over every row in the table in the cache
             foreach (StaticDataSet.t_expensesRow currRow in Cache.SDB.t_expenses)
             {
                 // Adds the row to the dictionary, creating the entity as it gets added
                 srtAllExpenses.Add(int.Parse(currRow["ID"].ToString()),
                                   Load(int.Parse(currRow["ID"].ToString())));
+                rowsPulled++;
+            }
+
+            if (rowsInCache != rowsPulled)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                    "The amount in the cache is:" + rowsInCache +
+                                        " but only " + rowsPulled + " expenses where pulled",
+                    DateTime.Today);
             }
 
             // Returns the list to the calling function
@@ -180,6 +200,12 @@ namespace BL
                 expLoadExpense.Category = Convert.ToInt32(drExpense["CATEGORY"].ToString());
                 expLoadExpense.Method = Convert.ToInt32(drExpense["METHOD"].ToString());
                 expLoadExpense.Comment = drExpense["COMMENT"].ToString();
+            }
+            else
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                   "Attempt to pull non exsistent expense with an id of:" + nId,
+                   DateTime.Today);
             }
 
             // Returns the variable to the calling function

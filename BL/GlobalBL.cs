@@ -56,7 +56,7 @@ namespace BL
         public static void IntializeData()
         {
             // Loads all the tables one at a time -but in the appropiate order
-            BaseDA.LoadToCache();
+            GlobalBL.LoadToCache();
 
             // Intializes variables with values for new ids
             BaseDA.SetNewIdStart();

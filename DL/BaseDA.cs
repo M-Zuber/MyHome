@@ -109,6 +109,11 @@ namespace DA
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
+            catch (Exception e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessages(e.StackTrace, e.InnerException.Message);
+            }
             // Close the connection in any case
             finally
             {
@@ -137,13 +142,27 @@ namespace DA
         /// <param name="strTableName">The name of the tbale to load</param>
         public static void LoadToCache(string strTableName)
         {
-            // Loads the table using the appropiate data adapter
-            int nRowsFilled = GetAdapter(strTableName).Fill(FrameWork.Cache.SDB.Tables[strTableName]);
-            
-            Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.READ.ToString() +
-                                                        " at " + DateTime.Now,
-                                                        "Command: Adapter.Fill(" + strTableName + ")",
-                                                        "Result: " + nRowsFilled.ToString());
+            try
+            {
+
+                // Loads the table using the appropiate data adapter
+                int nRowsFilled = GetAdapter(strTableName).Fill(FrameWork.Cache.SDB.Tables[strTableName]);
+
+                Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.READ.ToString() +
+                                                            " at " + DateTime.Now,
+                                                            "Command: Adapter.Fill(" + strTableName + ")",
+                                                            "Result: " + nRowsFilled.ToString());
+            }
+            catch (MySqlException e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+            }
+            catch (Exception e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessages(e.StackTrace, e.InnerException.Message);
+            }
         }
 
         /// <summary>
@@ -163,17 +182,31 @@ namespace DA
         /// <param name="strTableName"></param>
         public static void SaveFromCache(string strTableName)
         {
-            // Creates the data adapter and sets it with the update commands
-            MySqlDataAdapter daAdapter = GetAdapter(strTableName);
-            MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
-            
-            // Updating table as is
-            int nRowsUpdated = daAdapter.Update(Cache.SDB.Tables[strTableName]);
+            try
+            {
 
-            Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.WRITE.ToString() +
-                                                        " at " + DateTime.Now,
-                                                        "Command: Adapter.Update(" + strTableName + ")",
-                                                        "Result: " + nRowsUpdated.ToString());
+                // Creates the data adapter and sets it with the update commands
+                MySqlDataAdapter daAdapter = GetAdapter(strTableName);
+                MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
+
+                // Updating table as is
+                int nRowsUpdated = daAdapter.Update(Cache.SDB.Tables[strTableName]);
+
+                Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.WRITE.ToString() +
+                                                            " at " + DateTime.Now,
+                                                            "Command: Adapter.Update(" + strTableName + ")",
+                                                            "Result: " + nRowsUpdated.ToString());
+            }
+            catch (MySqlException e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+            }
+            catch (Exception e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessages(e.StackTrace, e.InnerException.Message);
+            }
         }
 
         /// <summary>
@@ -182,15 +215,29 @@ namespace DA
         /// <param name="strTableName">The name of the table to be updated</param>
         public static void SaveDeletedFromCache(string strTableName)
         {
-            // Creates the adapter and sets it with the update command
-            MySqlDataAdapter daAdapter = GetAdapter(strTableName);
-            MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
+            try
+            {
 
-            // Getting all the deleted rows and updating them
-            DataRow[] drarrDeletedRows =
-                Cache.SDB.Tables[strTableName].Select(string.Empty, string.Empty, 
-                                                        DataViewRowState.Deleted);
-            daAdapter.Update(drarrDeletedRows);
+                // Creates the adapter and sets it with the update command
+                MySqlDataAdapter daAdapter = GetAdapter(strTableName);
+                MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
+
+                // Getting all the deleted rows and updating them
+                DataRow[] drarrDeletedRows =
+                    Cache.SDB.Tables[strTableName].Select(string.Empty, string.Empty,
+                                                            DataViewRowState.Deleted);
+                daAdapter.Update(drarrDeletedRows);
+            }
+            catch (MySqlException e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+            }
+            catch (Exception e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessages(e.StackTrace, e.InnerException.Message);
+            }
         } 
 
         #endregion
