@@ -6,8 +6,24 @@ using FrameWork;
 
 namespace BL
 {
+    #region Delegate Region
+
+    public delegate void TableProgressDelegate();
+
+    public delegate void AllDataProgressDelegate();
+    
+    #endregion
+
     public class Backup
     {
+        #region Event Members
+
+        public event TableProgressDelegate TableProgress;
+
+        public event AllDataProgressDelegate AllDataProgress;
+        
+        #endregion
+
         #region Data Members
 
         private DirectoryInfo backupFolder = new DirectoryInfo("./Backup Files");
@@ -45,6 +61,26 @@ namespace BL
         
         #endregion
 
+        #region Event Methods
+
+        private void OnTableComplete()
+        {
+            if (this.AllDataProgress != null)
+            {
+                this.AllDataProgress();
+            }
+        }
+
+        private void OnLineWritten()
+        {
+            if (this.TableProgress != null)
+            {
+                this.TableProgress();
+            }
+        }
+
+        #endregion
+
         #region Other Methods
 
         public void BackupData()
@@ -66,8 +102,10 @@ namespace BL
                     {
                         stwrAppend.WriteLine(dataPiece);
                     }
+                    this.OnLineWritten();
                 }
             }
+            this.OnTableComplete();
         }
         
         #endregion
