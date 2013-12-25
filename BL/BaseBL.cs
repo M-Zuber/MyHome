@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-namespace BL
+﻿namespace BL
 {
     /// <summary>
     /// Abstract base class for the Bl classes representing specific tables
