@@ -57,12 +57,12 @@ namespace BL
 
         private void BackupTable(string tableName)
         {
-            foreach (DataRow CurrRow in Cache.SDB.Tables[tableName].Rows)
-            {
-                foreach (var dataPiece in CurrRow.ItemArray)
-                {
-                    using (StreamWriter stwrAppend =
+            using (StreamWriter stwrAppend =
                         new StreamWriter(backupFiles[tableName].Open(FileMode.Create)))
+            {
+                foreach (DataRow CurrRow in Cache.SDB.Tables[tableName].Rows)
+                {
+                    foreach (var dataPiece in CurrRow.ItemArray)
                     {
                         stwrAppend.WriteLine(dataPiece);
                     }
