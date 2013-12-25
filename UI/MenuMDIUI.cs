@@ -425,6 +425,17 @@ namespace MyHome2013
             }
         }
 
+        /// <summary>
+        /// Backups the data currently in the cache, saving it to text files
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void backupStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Performs a backup of all the data, each table gets its own file
+            (new Backup()).BackupData();
+        }
+
         #endregion
 
         #region Event Methods
@@ -522,5 +533,6 @@ namespace MyHome2013
         }
 
         #endregion      
+
     }
 }

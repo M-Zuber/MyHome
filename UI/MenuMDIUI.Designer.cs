@@ -58,6 +58,7 @@
             this.showStatusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backupStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -152,8 +153,9 @@
             this.closeAllToolStripMenuItem,
             this.showToolBarToolStripMenuItem,
             this.showStatusBarToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.backupStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(585, 24);
@@ -252,21 +254,21 @@
             // exCatToolStripMenuItem
             // 
             this.exCatToolStripMenuItem.Name = "exCatToolStripMenuItem";
-            this.exCatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.exCatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exCatToolStripMenuItem.Text = "Expense Cat";
             this.exCatToolStripMenuItem.Click += new System.EventHandler(this.exCatToolStripMenuItem_Click);
             // 
             // incomeCatToolStripMenuItem
             // 
             this.incomeCatToolStripMenuItem.Name = "incomeCatToolStripMenuItem";
-            this.incomeCatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.incomeCatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.incomeCatToolStripMenuItem.Text = "Income Cat";
             this.incomeCatToolStripMenuItem.Click += new System.EventHandler(this.incomeCatToolStripMenuItem_Click);
             // 
             // paymentCatToolStripMenuItem
             // 
             this.paymentCatToolStripMenuItem.Name = "paymentCatToolStripMenuItem";
-            this.paymentCatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.paymentCatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.paymentCatToolStripMenuItem.Text = "Payment Cat";
             this.paymentCatToolStripMenuItem.Click += new System.EventHandler(this.paymentCatToolStripMenuItem_Click);
             // 
@@ -310,6 +312,13 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // backupStripMenuItem
+            // 
+            this.backupStripMenuItem.Name = "backupStripMenuItem";
+            this.backupStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.backupStripMenuItem.Text = "Backup";
+            this.backupStripMenuItem.Click += new System.EventHandler(this.backupStripMenuItem_Click);
             // 
             // MenuMDIUI
             // 
@@ -370,6 +379,7 @@
         private System.Windows.Forms.ToolStripMenuItem recurringExpenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem singleIncomeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recurringIncomeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backupStripMenuItem;
 
     }
 }
