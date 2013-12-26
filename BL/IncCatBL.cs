@@ -96,13 +96,14 @@ namespace BL
                 // Adds the row to the dictionary, creating the entity as it gets added
                 srtAllIncomesCat.Add(int.Parse(currRow["ID"].ToString()),
                                   Load(int.Parse(currRow["ID"].ToString())));
+                rowsPulled++;
             }
 
             if (rowsInCache != rowsPulled)
             {
                 Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
                     "The amount in the cache is:" + rowsInCache +
-                                        " but only " + rowsPulled + " expenses where pulled",
+                                        " but only " + rowsPulled + " income categories where pulled",
                     DateTime.Today);
             }
 

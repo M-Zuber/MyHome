@@ -94,6 +94,7 @@ namespace BL
                 // Adds the row to the dictionary, creating the entity as it gets added
                 srtAllExpensesCat.Add(int.Parse(currRow["ID"].ToString()),
                                   Load(int.Parse(currRow["ID"].ToString())));
+                rowsPulled++;
             }
 
             if (rowsInCache != rowsPulled)
