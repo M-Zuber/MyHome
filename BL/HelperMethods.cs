@@ -8,7 +8,7 @@ namespace BL
     public static class HelperMethods
     {
         /// <summary>
-        /// Tests the Db connection with the current data in the settings
+        /// Tests the Db connection with the current parameters in the settings
         /// </summary>
         /// <returns>True if the database can be connected to, otherwise false</returns>
         public static bool TestConnection()

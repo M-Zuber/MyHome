@@ -30,7 +30,8 @@ namespace MyHome2013
         private void btnOkay_Click(object sender, EventArgs e)
         {
             this.Close();
-        } 
+        }
+
         #endregion
     }
 }

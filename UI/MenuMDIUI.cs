@@ -42,8 +42,14 @@ namespace MyHome2013
         /// </summary>
         public InputOutUI NewExpense { get; set; }
 
+        /// <summary>
+        /// Single instance of new recurring expense form
+        /// </summary>
         public RecurringExpenseInput NewRecurringExpense { get; set; }
 
+        /// <summary>
+        /// Single instance of new recurring income form
+        /// </summary>
         public RecurringIncomeInput NewRecurringIncome { get; set; }
 
         #endregion

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using BL;
-using System.Collections.Generic;
 
 namespace MyHome2013
 {

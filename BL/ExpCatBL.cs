@@ -85,7 +85,10 @@ namespace BL
             SortedDictionary<int, ExpCatBL> srtAllExpensesCat =
                 new SortedDictionary<int, ExpCatBL>();
 
+            // Saves the number of rows actually in the database
             int rowsInCache = Cache.SDB.t_expenses_category.Rows.Count;
+
+            // Counter for the number of rows actually read from the databse
             int rowsPulled = 0;
 
             // Goes over every row in the table in the cache
@@ -97,6 +100,8 @@ namespace BL
                 rowsPulled++;
             }
 
+            // If there is a difference between the number of rows read and the number
+            // actually in the databse, logs an error
             if (rowsInCache != rowsPulled)
             {
                 Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
