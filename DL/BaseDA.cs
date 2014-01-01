@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using FrameWork;
 using MySql.Data.MySqlClient;
-using System.Collections.Generic;
 
 namespace DA
 {
