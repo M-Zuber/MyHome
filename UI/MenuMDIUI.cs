@@ -433,7 +433,7 @@ namespace MyHome2013
         private void backupStripMenuItem_Click(object sender, EventArgs e)
         {
             // Performs a backup of all the data, each table gets its own file
-            (new Backup()).BackupData();
+            (new ProgressForm()).BackupAllData();
         }
 
         #endregion

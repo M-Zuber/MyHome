@@ -11,6 +11,11 @@ namespace FrameWork
         {
             this.SettingsFile = new FileInfo(strLogFileName);
 
+            if (!this.SettingsFile.Directory.Exists)
+            {
+                Directory.CreateDirectory(this.SettingsFile.Directory.FullName);
+            }
+
             if (!this.SettingsFile.Exists)
             {
                 using (StreamWriter stwrAppend = this.SettingsFile.AppendText())

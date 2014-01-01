@@ -56,12 +56,18 @@ namespace BL
             // If the category already exists
             if (drExpenseCat != null)
             {
+                Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                                        "Updating existing expense category with id of: " + this.ID,
+                                        DateTime.Today.ToString());
                 // Updates the name of the category
                 drExpenseCat["NAME"] = this.Name;
             }
             // If the category does not exist yet
             else
             {
+                Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                                        "Creating new expense category with id of: " + this.ID,
+                                        DateTime.Today.ToString());
                 // Adds a new row to the table in the cache with the wanted Id and name
                 Cache.SDB.t_expenses_category.
                     Addt_expenses_categoryRow((uint)this.ID, this.Name);
@@ -79,12 +85,24 @@ namespace BL
             SortedDictionary<int, ExpCatBL> srtAllExpensesCat =
                 new SortedDictionary<int, ExpCatBL>();
 
+            int rowsInCache = Cache.SDB.t_expenses_category.Rows.Count;
+            int rowsPulled = 0;
+
             // Goes over every row in the table in the cache
             foreach (StaticDataSet.t_expenses_categoryRow currRow in Cache.SDB.t_expenses_category)
             {
                 // Adds the row to the dictionary, creating the entity as it gets added
                 srtAllExpensesCat.Add(int.Parse(currRow["ID"].ToString()),
                                   Load(int.Parse(currRow["ID"].ToString())));
+                rowsPulled++;
+            }
+
+            if (rowsInCache != rowsPulled)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                    "The amount in the cache is:" + rowsInCache +
+                    " but only " + rowsPulled + " expense categories where pulled",
+                    DateTime.Today);
             }
 
             // Returns the list to the calling function
@@ -144,6 +162,12 @@ namespace BL
 
                 // Sets the name property based on the data in the row
                 expLoadExpenseCat.Name = drExpenseCat["NAME"].ToString();
+            }
+            else
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                   "Attempt to pull non exsistent expense category with an id of:" + nId,
+                   DateTime.Today);
             }
 
             // Returns the variable to the calling function

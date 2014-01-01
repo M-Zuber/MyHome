@@ -10,6 +10,10 @@ namespace FrameWork
         public Log(string strLogFileName)
         {
             this.LogFile = new FileInfo(strLogFileName);
+            if (!this.LogFile.Directory.Exists)
+            {
+                Directory.CreateDirectory(this.LogFile.Directory.FullName);
+            }
 
             if (!this.LogFile.Exists)
             {
