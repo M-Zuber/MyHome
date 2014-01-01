@@ -66,16 +66,26 @@ namespace DA
 
         #region Other Methods
 
+        /// <summary>
+        /// Tries the connection based on the current values for User-Id and password
+        /// </summary>
+        /// <returns>If the connection succeeded</returns>
         public bool TestConnection()
         {
             try
             {
+                // Opens and immedatly closes the connection
+                // to make sure the connection parameters are correct
                 this.Connection.Open();
                 this.Connection.Close();
+                
+                // The parameters are correct and the conenction succeeded
                 return true;
             }
             catch
             {
+                // There is an issue with one or more parameters, and the connection
+                // did not succeeded
                 return false;
             }
         }

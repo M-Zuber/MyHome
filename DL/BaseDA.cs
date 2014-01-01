@@ -15,6 +15,8 @@ namespace DA
         #region Data Members
 
         // Data members
+
+        // The table names as they are set in the database
         private static ArrayList arrTableNames = new ArrayList()
         {
             "t_expenses_category",
@@ -24,6 +26,9 @@ namespace DA
             "t_incomes"
         };
 
+        // Dictionary with a value for a new id in each table
+        // Key: the table name as in the database
+        // Value: the highest id currently in the table plus one
         public static Dictionary<string, int> dcNewIdValues = new Dictionary<string, int>()
         {
             {"t_expenses_category",0},
@@ -57,6 +62,7 @@ namespace DA
         /// </summary>
         public static void SetNewIdStart()
         {
+            // Goes over each table in the database and gets the next valid id value
             foreach (string CurrIdFunc in BaseDA.arrTableNames)
             {
                 BaseDA.dcNewIdValues[CurrIdFunc] = BaseDA.GetInitSeqVal(CurrIdFunc);
@@ -104,11 +110,13 @@ namespace DA
                                                             "Command: " + cmdGetValCommand.CommandText,
                                                             "Result: " + nReturnValue.ToString());
             }
+            // In the event of a databse exception
             catch (MySqlException e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
+            // If any other exception occurs
             catch (Exception e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
@@ -153,11 +161,13 @@ namespace DA
                                                             "Command: Adapter.Fill(" + strTableName + ")",
                                                             "Result: " + nRowsFilled.ToString());
             }
+            // In the event of a databse exception
             catch (MySqlException e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
+            // If any other exception occurs
             catch (Exception e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
@@ -197,11 +207,13 @@ namespace DA
                                                             "Command: Adapter.Update(" + strTableName + ")",
                                                             "Result: " + nRowsUpdated.ToString());
             }
+            // In the event of a databse exception
             catch (MySqlException e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
+            // If any other exception occurs
             catch (Exception e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
@@ -228,11 +240,13 @@ namespace DA
                                                             DataViewRowState.Deleted);
                 daAdapter.Update(drarrDeletedRows);
             }
+            // In the event of a databse exception
             catch (MySqlException e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
+            // If any other exception occurs
             catch (Exception e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
