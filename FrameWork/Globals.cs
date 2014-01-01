@@ -18,8 +18,7 @@ namespace FrameWork
                 {"ErrorLog", new Log(LogPath + "errors.mez")},
                 {"ProgramActivityLog", new Log(LogPath + "activity.mez")},
                 {"DataBaseLog", new Log(LogPath + "dbActivity.mez")},
-                {"BusinessLayerLog", new Log(LogPath + "blActivity.mez")},
-                {"UI_Log", new Log(LogPath + "uiActivity.mez")}
+                {"BusinessLayerLog", new Log(LogPath + "blActivity.mez")}
             };
 
         private const string SettingsFilesPath = "./Setting Files/";
