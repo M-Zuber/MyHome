@@ -69,6 +69,19 @@ namespace DataAccess
             return this.Name;
         }
 
+        public override bool Equals(object obj)
+        {
+            PaymentMethodEntity methodComparing = (PaymentMethodEntity)obj;
+
+            return ((this.ID == methodComparing.ID) &&
+                    (this.Name == methodComparing.Name));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         #endregion
 
         #endregion

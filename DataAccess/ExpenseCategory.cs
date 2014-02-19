@@ -69,6 +69,19 @@ namespace DataAccess
             return this.Name;
         }
 
+        public override bool Equals(object obj)
+        {
+            ExpenseCategoryEntity categoryComparing = (ExpenseCategoryEntity)obj;
+
+            return ((this.ID == categoryComparing.ID) &&
+                    (this.Name == categoryComparing.Name));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         #endregion
 
         #endregion

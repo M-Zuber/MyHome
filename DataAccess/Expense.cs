@@ -104,6 +104,27 @@ namespace DataAccess
 
         #region Other Methods
 
+        #region Override Methods
+
+        public override bool Equals(object obj)
+        {
+            ExpenseEntity expenseComparing = (ExpenseEntity)obj;
+
+            return ((this.Amount == expenseComparing.Amount) &&
+                    (this.Category == expenseComparing.Category) &&
+                    (this.Comment == expenseComparing.Comment) &&
+                    (this.Date == expenseComparing.Date) &&
+                    (this.ID == expenseComparing.ID) &&
+                    (this.Method == expenseComparing.Method));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        #endregion
+
         public static ExpenseEntity TranslateFromDataRow(StaticDataSet.t_expensesRow rowTranslating)
         {
             if (rowTranslating.IsCOMMENTSNull())
@@ -114,6 +135,12 @@ namespace DataAccess
             return new ExpenseEntity(rowTranslating.AMOUNT, rowTranslating.EXP_DATE,
                 ExpenseCategoryEntity.LoadById(rowTranslating.CATEGORY),
                 PaymentMethodEntity.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
+        }
+
+        public ExpenseEntity Copy()
+        {
+            return new ExpenseEntity(this.Amount, this.Date,
+                this.Category, this.Method, this.Comment, this.ID);
         }
 
         #endregion
