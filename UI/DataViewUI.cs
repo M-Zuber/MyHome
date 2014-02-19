@@ -71,7 +71,9 @@ namespace MyHome2013
 
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
-                Cache.SDB.viw.SearchByMonth(dtPick.Value);
+                DataAccess.ExpenseEntity.LoadOfMonth(dtPick.Value);
+            this.dgOut.Columns[this.dgOut.Columns.Count - 1].Visible = false;
+
             this.dgIn.DataSource =
                 Cache.SDB.viwin.SearchByMonth(dtPick.Value);
 
@@ -98,9 +100,9 @@ namespace MyHome2013
 
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
-                Cache.SDB.viw.SearchByMonth(this.dtPick.Value.Date);
+                DataAccess.ExpenseEntity.LoadOfMonth(dtPick.Value);
             this.dgIn.DataSource =
-                Cache.SDB.viwin.SearchByMonth(this.dtPick.Value.Date);
+                Cache.SDB.viwin.SearchByMonth(this.dtPick.Value);
 
             // Refreshes the data table with the category list and refreshes the data bindings
             this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();

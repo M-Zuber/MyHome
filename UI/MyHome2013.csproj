@@ -206,6 +206,10 @@
       <Project>{548AB21E-2E25-476E-B73D-75EB569F9059}</Project>
       <Name>BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FrameWork\FrameWork.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>FrameWork</Name>
