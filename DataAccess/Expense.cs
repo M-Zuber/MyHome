@@ -100,6 +100,23 @@ namespace DataAccess
 
         #endregion
 
+        #region Update Methods
+
+        public bool Save()
+        {
+            try
+            {
+                UpdateDataBase(this);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Other Methods
@@ -111,11 +128,11 @@ namespace DataAccess
             ExpenseEntity expenseComparing = (ExpenseEntity)obj;
 
             return ((this.Amount == expenseComparing.Amount) &&
-                    (this.Category == expenseComparing.Category) &&
+                    (this.Category.Equals(expenseComparing.Category)) &&
                     (this.Comment == expenseComparing.Comment) &&
                     (this.Date == expenseComparing.Date) &&
                     (this.ID == expenseComparing.ID) &&
-                    (this.Method == expenseComparing.Method));
+                    (this.Method.Equals(expenseComparing.Method)));
         }
 
         public override int GetHashCode()
@@ -124,6 +141,26 @@ namespace DataAccess
         }
 
         #endregion
+
+        public StaticDataSet.t_expensesRow UpdateDataBase(ExpenseEntity expenseTranslating)
+        {
+            StaticDataSet.t_expensesRow translatedRow = Cache.SDB.t_expenses.FindByID(expenseTranslating.ID);
+
+            //Because this form is only for updating, there is no check if it exists in the database
+
+            translatedRow.ID = expenseTranslating.ID;
+            translatedRow.AMOUNT = expenseTranslating.Amount;
+            translatedRow.COMMENTS = expenseTranslating.Comment;
+            translatedRow.EXP_DATE = expenseTranslating.Date;
+
+            // There is no check to see if they exist in the database or not
+            // because as of 20.02.2014 the form only shows categories/methods
+            // that already exist - and do not allow the user to create new ones
+            translatedRow.CATEGORY = (uint)expenseTranslating.Category.ID;
+            translatedRow.METHOD = expenseTranslating.Method.ID;
+
+            return translatedRow;
+        }
 
         public static ExpenseEntity TranslateFromDataRow(StaticDataSet.t_expensesRow rowTranslating)
         {
