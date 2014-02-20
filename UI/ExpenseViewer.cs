@@ -68,12 +68,8 @@ namespace MyHome2013
         {
             if (!currentExpense.Equals(originalExpense))
             {
-                bool result = this.currentExpense.Save();
-                MessageBox.Show(result.ToString());
-            }
-            else
-            {
-                MessageBox.Show("no diff");
+                this.currentExpense.Save();
+                this.Close();
             }
         }
 

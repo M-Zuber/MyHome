@@ -69,12 +69,10 @@ namespace DataAccess
             return this.Name;
         }
 
-        public override bool Equals(object obj)
+        public bool Equals(PaymentMethodEntity paymentMethod)
         {
-            PaymentMethodEntity methodComparing = (PaymentMethodEntity)obj;
-
-            return ((this.ID == methodComparing.ID) &&
-                    (this.Name == methodComparing.Name));
+            return ((this.ID == paymentMethod.ID) &&
+                    (this.Name == paymentMethod.Name));
         }
 
         public override int GetHashCode()

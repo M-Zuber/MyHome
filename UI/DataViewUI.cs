@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using BL;
 using FrameWork;
 
+//TODO refactor the code here
 namespace MyHome2013
 {
     /// <summary>
@@ -90,6 +91,11 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void dtPick_ValueChanged(object sender, EventArgs e)
         {
+            this.DataBinding();
+        }
+
+        private void DataBinding()
+        {
             // Garentees that i am starting with clear views before reloading them
             Cache.SDB.viwin.Clear();
             Cache.SDB.viw.Clear();
@@ -131,5 +137,16 @@ namespace MyHome2013
         }
 
         #endregion
+
+        private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            using (ExpenseViewer viewAndEditExpense = 
+                new ExpenseViewer((DataAccess.ExpenseEntity)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
+            {
+                viewAndEditExpense.ShowDialog();
+            }
+
+            this.DataBinding();
+        }
     }
 }

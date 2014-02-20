@@ -106,6 +106,7 @@
             this.dgOut.Name = "dgOut";
             this.dgOut.Size = new System.Drawing.Size(206, 345);
             this.dgOut.TabIndex = 0;
+            this.dgOut.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgOut_MouseDoubleClick);
             // 
             // dgIn
             // 
