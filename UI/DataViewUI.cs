@@ -74,7 +74,7 @@ namespace MyHome2013
 
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
-                (new ExpenseHandler()).LoadOfMonth(dtPick.Value);
+                ExpenseHandler.LoadOfMonth(dtPick.Value);
             this.dgOut.Columns[this.dgOut.Columns.Count - 1].Visible = false;
 
             this.dgIn.DataSource =
@@ -108,7 +108,7 @@ namespace MyHome2013
 
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
-                (new ExpenseHandler()).LoadOfMonth(dtPick.Value);
+                ExpenseHandler.LoadOfMonth(dtPick.Value);
             this.dgIn.DataSource =
                 Cache.SDB.viwin.SearchByMonth(this.dtPick.Value);
 
