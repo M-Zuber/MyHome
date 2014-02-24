@@ -27,9 +27,9 @@ namespace BusinessLogic
         }
 
         /// <summary>
-        /// Loads all the Expense from the cache
+        /// Loads all the Expenses from the cache
         /// </summary>
-        /// <returns>All the Expense as they are in the cache in generic-based
+        /// <returns>All the Expenses as they are in the cache in generic-based
         /// list
         /// </returns>
         public static List<Expense> LoadAll()
