@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DataAccess;
+using LocalTypes;
+using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -44,18 +46,19 @@ namespace MyHome2013
             this.txtAmount.Text = currentExpense.Amount.ToString();
             this.txtDetail.Text = currentExpense.Comment;
             this.dtPick.Value = currentExpense.Date;
-            
-            this.cmbCategory.DataSource = ExpenseCategoryEntity.LoadAll();
+
+            this.cmbCategory.DataSource = ExpenseCategoryHandler.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
-            this.cmbCategory.SelectedValue = ExpenseCategoryEntity.LoadAll().First(ec => ec.ID == currentExpense.Category.ID).ID;
-            
+            //TODO is this okay?
+            this.cmbCategory.SelectedValue = ExpenseCategoryHandler.LoadAll().First(ec => ec.ID == currentExpense.Category.ID).ID;
 
-            this.cmbPayment.DataSource = PaymentMethodEntity.LoadAll();
+
+            this.cmbPayment.DataSource = PaymentMethodHandler.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
-            this.cmbPayment.SelectedValue = PaymentMethodEntity.LoadAll().First(pm => pm.ID == currentExpense.Method.ID).ID;
-
+            this.cmbPayment.SelectedValue = PaymentMethodHandler.LoadAll().First(pm => pm.ID == currentExpense.Method.ID).ID;
+            
             //Event Bindings
             this.cmbCategory.SelectedIndexChanged += this.cmbCategory_SelectedIndexChanged;
             this.cmbPayment.SelectedIndexChanged += this.cmbPayment_SelectedIndexChanged;
@@ -75,12 +78,12 @@ namespace MyHome2013
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.currentExpense.Category = (ExpenseCategoryEntity)this.cmbCategory.SelectedItem;
+            this.currentExpense.Category = (ExpenseCategory)this.cmbCategory.SelectedItem;
         }
 
         private void cmbPayment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.currentExpense.Method = (PaymentMethodEntity)this.cmbPayment.SelectedItem;
+            this.currentExpense.Method = (PaymentMethod)this.cmbPayment.SelectedItem;
         }
 
         private void txtAmount_TextChanged(object sender, EventArgs e)

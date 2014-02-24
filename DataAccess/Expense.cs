@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrameWork;
+using LocalTypes;
 
 namespace DataAccess
 {
@@ -23,12 +24,12 @@ namespace DataAccess
         /// <summary>
         /// Category of the expense
         /// </summary>
-        public ExpenseCategoryEntity Category { get; set; }
+        public ExpenseCategory Category { get; set; }
 
         /// <summary>
         /// How the expense was payed
         /// </summary>
-        public PaymentMethodEntity Method { get; set; }
+        public PaymentMethod Method { get; set; }
 
         /// <summary>
         /// Additional info about the expense
@@ -44,8 +45,8 @@ namespace DataAccess
 
         #region C'Tor
 
-        public ExpenseEntity(double amount, DateTime date, ExpenseCategoryEntity expenseCategory,
-            PaymentMethodEntity paymentMethod, string comment, uint id)
+        public ExpenseEntity(double amount, DateTime date, ExpenseCategory expenseCategory,
+            PaymentMethod paymentMethod, string comment, uint id)
         {
             this.Amount = amount;
             this.Category = expenseCategory;
@@ -66,8 +67,8 @@ namespace DataAccess
             StaticDataSet.t_expensesRow requestedRow =
                 Cache.SDB.t_expenses.FindByID((uint)id);
             return new ExpenseEntity(requestedRow.AMOUNT, requestedRow.EXP_DATE,
-                ExpenseCategoryEntity.LoadById(requestedRow.CATEGORY), 
-                PaymentMethodEntity.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
+                ExpenseCategoryAccess.LoadById(requestedRow.CATEGORY), 
+                PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
         }
 
         public static List<ExpenseEntity> LoadAll()
@@ -170,8 +171,8 @@ namespace DataAccess
             }
 
             return new ExpenseEntity(rowTranslating.AMOUNT, rowTranslating.EXP_DATE,
-                ExpenseCategoryEntity.LoadById(rowTranslating.CATEGORY),
-                PaymentMethodEntity.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
+                ExpenseCategoryAccess.LoadById(rowTranslating.CATEGORY),
+                PaymentMethodAccess.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
         }
 
         public ExpenseEntity Copy()
