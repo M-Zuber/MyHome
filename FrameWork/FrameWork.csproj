@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="SettingsManager.cs" />
@@ -81,6 +82,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
+      <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
+      <Name>LocalTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

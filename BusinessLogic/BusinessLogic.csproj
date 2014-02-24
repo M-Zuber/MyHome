@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExpenseCategoryHandler.cs" />
+    <Compile Include="ExpenseHandler.cs" />
     <Compile Include="PaymentMethodHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

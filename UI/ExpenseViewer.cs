@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DataAccess;
 using LocalTypes;
 using BusinessLogic;
+using FrameWork;
 
 namespace MyHome2013
 {
@@ -25,10 +26,10 @@ namespace MyHome2013
      */
     public partial class ExpenseViewer : Form
     {
-        private ExpenseEntity originalExpense;
-        private ExpenseEntity currentExpense;
+        private Expense originalExpense;
+        private Expense currentExpense;
 
-        public ExpenseViewer(ExpenseEntity expense)
+        public ExpenseViewer(Expense expense)
         {
             currentExpense = expense;
             originalExpense = currentExpense.Copy();
@@ -71,7 +72,7 @@ namespace MyHome2013
         {
             if (!currentExpense.Equals(originalExpense))
             {
-                this.currentExpense.Save();
+                ExpenseHandler.Save(this.currentExpense);
                 this.Close();
             }
         }

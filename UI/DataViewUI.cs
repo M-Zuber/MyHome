@@ -3,6 +3,8 @@ using System.Data;
 using System.Windows.Forms;
 using BL;
 using FrameWork;
+using BusinessLogic;
+using LocalTypes;
 
 //TODO refactor the code here
 namespace MyHome2013
@@ -72,7 +74,7 @@ namespace MyHome2013
 
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
-                DataAccess.ExpenseEntity.LoadOfMonth(dtPick.Value);
+                (new ExpenseHandler()).LoadOfMonth(dtPick.Value);
             this.dgOut.Columns[this.dgOut.Columns.Count - 1].Visible = false;
 
             this.dgIn.DataSource =
@@ -106,7 +108,7 @@ namespace MyHome2013
 
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
-                DataAccess.ExpenseEntity.LoadOfMonth(dtPick.Value);
+                (new ExpenseHandler()).LoadOfMonth(dtPick.Value);
             this.dgIn.DataSource =
                 Cache.SDB.viwin.SearchByMonth(this.dtPick.Value);
 
@@ -141,7 +143,7 @@ namespace MyHome2013
         private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             using (ExpenseViewer viewAndEditExpense = 
-                new ExpenseViewer((DataAccess.ExpenseEntity)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
+                new ExpenseViewer((Expense)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
             {
                 viewAndEditExpense.ShowDialog();
             }
