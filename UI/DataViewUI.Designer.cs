@@ -151,6 +151,7 @@
             this.Name = "DataViewUI";
             this.Text = "Monthly Flow";
             this.Load += new System.EventHandler(this.DataViewUI_Load);
+            this.Enter += new System.EventHandler(this.DataViewUI_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgIn)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);

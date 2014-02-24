@@ -150,5 +150,10 @@ namespace MyHome2013
 
             this.DataBinding();
         }
+
+        private void DataViewUI_Enter(object sender, EventArgs e)
+        {
+            this.DataBinding();
+        }
     }
 }
