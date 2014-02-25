@@ -2,11 +2,10 @@
 using System.Data;
 using System.Windows.Forms;
 using BL;
-using FrameWork;
 using BusinessLogic;
+using FrameWork;
 using LocalTypes;
 
-//TODO refactor the code here
 namespace MyHome2013
 {
     /// <summary>
@@ -61,29 +60,12 @@ namespace MyHome2013
                     GlobalBL.SaveFromCache();
                 }
             }
-            // Garentees that i am starting with clear views before reloading them
-            Cache.SDB.viwin.Clear();
-            Cache.SDB.viw.Clear();
 
             // Automatically forces the window to be open to its max size
             this.WindowState = FormWindowState.Maximized;
-
-            // Reloads the view to garentee that there is access to the most recent data
-            GlobalBL.LoadToCache("viw");
-            GlobalBL.LoadToCache("viwin");
-
-            // Updates the data in the expense and income chart views
-            this.dgOut.DataSource =
-                ExpenseHandler.LoadOfMonth(dtPick.Value);
-            this.dgOut.Columns[this.dgOut.Columns.Count - 1].Visible = false;
-
-            this.dgIn.DataSource =
-                Cache.SDB.viwin.SearchByMonth(dtPick.Value);
-
-            // Pulls up a table with the sup income, expenses, and within each expense category
-            // and connects it with the combo box (and text box - to display the total)
-            this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();
-            this.DataBindingSetup();
+            
+            // Binds the cache data to the form
+            this.DataBinding();
         }
 
         /// <summary>
@@ -96,26 +78,33 @@ namespace MyHome2013
             this.DataBinding();
         }
 
-        private void DataBinding()
+        /// <summary>
+        /// Opens a viewer to edit the expense clicked on
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">standard MouseEvent object</param>
+        private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            // Garentees that i am starting with clear views before reloading them
-            Cache.SDB.viwin.Clear();
-            Cache.SDB.viw.Clear();
+            using (ExpenseViewer viewAndEditExpense =
+                new ExpenseViewer((Expense)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
+            {
+                viewAndEditExpense.ShowDialog();
+            }
 
-            // Reloads the view to garentee that there is access to the most recent data
-            GlobalBL.LoadToCache("viw");
-            GlobalBL.LoadToCache("viwin");
+            this.DataBinding();
+        }
 
-            // Updates the data in the expense and income chart views
-            this.dgOut.DataSource =
-                ExpenseHandler.LoadOfMonth(dtPick.Value);
-            this.dgIn.DataSource =
-                Cache.SDB.viwin.SearchByMonth(this.dtPick.Value);
-
-            // Refreshes the data table with the category list and refreshes the data bindings
-            this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();
-            this.DataBindingSetup();
-        } 
+        /// <summary>
+        /// Refreshes the data in the form every time it gains focus
+        /// -This is to deal with multiple views into the same month being open
+        /// and data being changed in a single one of them
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void DataViewUI_Enter(object sender, EventArgs e)
+        {
+            this.DataBinding();
+        }
 
         #endregion
 
@@ -125,7 +114,7 @@ namespace MyHome2013
         /// Sets up the data bindings to the combo box and the text box
         /// Refreshes also -by deleting and rebinding
         /// </summary>
-        private void DataBindingSetup()
+        private void CategryDataBinding()
         {
             // Clears any old data bindings
             this.cmbCategory.DataSource = null;
@@ -138,22 +127,37 @@ namespace MyHome2013
             this.txtCategoryTotal.DataBindings.Add("Text", this.CategoryList, "VALUE");
         }
 
+        /// <summary>
+        /// Sets up the data bindings for the form
+        /// </summary>
+        private void DataBinding()
+        {
+            this.MonthlyDataBinding();
+            this.CategryDataBinding();
+        }
+
+        /// <summary>
+        /// Sets up the data bindings for the expense and income charts
+        /// </summary>
+        private void MonthlyDataBinding()
+        {
+            // Garentees that i am starting with clear views before reloading them
+            Cache.SDB.viwin.Clear();
+
+            // Reloads the view to garentee that there is access to the most recent data
+            GlobalBL.LoadToCache("viwin");
+
+            // Updates the data in the expense and income chart views
+            this.dgOut.DataSource =
+                ExpenseHandler.LoadOfMonth(dtPick.Value);
+            this.dgOut.Columns["ID"].Visible = false;
+            this.dgIn.DataSource =
+                Cache.SDB.viwin.SearchByMonth(this.dtPick.Value);
+
+            // Refreshes the data table with the category list and refreshes the data bindings
+            this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();
+        } 
+
         #endregion
-
-        private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            using (ExpenseViewer viewAndEditExpense = 
-                new ExpenseViewer((Expense)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
-            {
-                viewAndEditExpense.ShowDialog();
-            }
-
-            this.DataBinding();
-        }
-
-        private void DataViewUI_Enter(object sender, EventArgs e)
-        {
-            this.DataBinding();
-        }
     }
 }

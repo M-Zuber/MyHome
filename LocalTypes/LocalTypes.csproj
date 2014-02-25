@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Expense.cs" />
     <Compile Include="ExpenseCategory.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="PaymentMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
