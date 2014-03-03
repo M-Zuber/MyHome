@@ -16,7 +16,7 @@ namespace BL
         /// <summary>
         /// The amount of the expense
         /// </summary>
-        public string Amount { get; set; }
+        public double Amount { get; set; }
 
         /// <summary>
         /// The date of the expense
@@ -200,7 +200,7 @@ namespace BL
                 DataRow drExpense = Cache.SDB.t_incomes.Rows.Find(nId);
 
                 // Sets the properties based on the data in the row
-                expLoadExpense.Amount = drExpense["AMOUNT"].ToString();
+                expLoadExpense.Amount = (double)drExpense["AMOUNT"];
                 expLoadExpense.Date = Convert.ToDateTime(drExpense["EXP_DATE"].ToString());
                 expLoadExpense.Category = Convert.ToInt32(drExpense["CATEGORY"].ToString());
                 expLoadExpense.Method = Convert.ToInt32(drExpense["METHOD"].ToString());
@@ -216,6 +216,27 @@ namespace BL
             // Returns the variable to the calling function
             return (expLoadExpense);
         } 
+
+        #endregion
+
+        #region Object Methods
+
+        public override bool Equals(object obj)
+        {
+            ExpBL otherExpense = (ExpBL)obj;
+            return ((this.Amount == otherExpense.Amount) &&
+                    (this.Category == otherExpense.Category) &&
+                    (this.Comment == otherExpense.Comment) &&
+                    (this.Date.Equals(otherExpense.Date)) &&
+                    (this.ID == otherExpense.ID) &&
+                    (this.Method == otherExpense.Method));
+        }
+
+        // Overridden to avoid warning about overriding only Equals
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
         #endregion
     }

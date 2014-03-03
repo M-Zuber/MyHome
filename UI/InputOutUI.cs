@@ -77,7 +77,7 @@ namespace MyHome2013
             {
                 // Creates a new expense and sets the properties with the data from the form
                 ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = this.txtAmount.Text;
+                exbNewExp.Amount = double.Parse(this.txtAmount.Text);
                 exbNewExp.Date = this.dtPick.Value.Date;
                 exbNewExp.Category =
                     Convert.ToInt32(this.cmbCategory.SelectedValue);

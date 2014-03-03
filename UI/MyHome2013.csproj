@@ -64,6 +64,12 @@
     <Compile Include="AddCategoryUI.Designer.cs">
       <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpenseViewer.Designer.cs">
+      <DependentUpon>ExpenseViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     <EmbeddedResource Include="AddCategoryUI.resx">
       <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExpenseViewer.resx">
+      <DependentUpon>ExpenseViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,9 +215,21 @@
       <Project>{548AB21E-2E25-476E-B73D-75EB569F9059}</Project>
       <Name>BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{4CF9D86B-3A55-44F1-9C75-189D7FB50E1D}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FrameWork\FrameWork.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>FrameWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
+      <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
+      <Name>LocalTypes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

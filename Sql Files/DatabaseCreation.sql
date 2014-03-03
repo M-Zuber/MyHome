@@ -107,6 +107,7 @@ USE `myhome2013` ;
 -- Placeholder table for view `myhome2013`.`viw`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `myhome2013`.`viw` (
+	`Entity id` INT,
     `Expense date` INT,
     `Amount` INT,
     `Category` INT,
@@ -253,6 +254,7 @@ CREATE OR REPLACE
     SQL SECURITY DEFINER
 VIEW `myhome2013`.`viw` AS
     select 
+		`ex`.`ID` AS `Entity id`,
         `ex`.`EXP_DATE` AS `Expense date`,
         `ex`.`AMOUNT` AS `Amount`,
         `excat`.`NAME` AS `Category`,

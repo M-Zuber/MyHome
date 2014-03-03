@@ -104,9 +104,9 @@
             this.dgOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgOut.Location = new System.Drawing.Point(3, 3);
             this.dgOut.Name = "dgOut";
-            this.dgOut.ReadOnly = true;
             this.dgOut.Size = new System.Drawing.Size(206, 345);
             this.dgOut.TabIndex = 0;
+            this.dgOut.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgOut_MouseDoubleClick);
             // 
             // dgIn
             // 
@@ -151,6 +151,7 @@
             this.Name = "DataViewUI";
             this.Text = "Monthly Flow";
             this.Load += new System.EventHandler(this.DataViewUI_Load);
+            this.Enter += new System.EventHandler(this.DataViewUI_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgIn)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);

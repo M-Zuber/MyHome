@@ -214,7 +214,7 @@ namespace MyHome2013
             {
                 // Creates a new expense and sets the fields accordingly
                 ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = this.txtAmount.Text;
+                exbNewExp.Amount = double.Parse(this.txtAmount.Text);
                 exbNewExp.Date = dtCurrentSaveDate;
                 exbNewExp.Category =
                     Convert.ToInt32(this.cmbCategory.SelectedValue);
@@ -292,7 +292,7 @@ namespace MyHome2013
                 {
                     // Creates a new expense and sets the fields accordingly
                     ExpBL exbNewExp = ExpBL.CreateExpense();
-                    exbNewExp.Amount = this.txtAmount.Text;
+                    exbNewExp.Amount = double.Parse(this.txtAmount.Text);
                     exbNewExp.Date = dtCurrentSaveDate;
                     exbNewExp.Category =
                         Convert.ToInt32(this.cmbCategory.SelectedValue);
@@ -328,7 +328,7 @@ namespace MyHome2013
             {
                  // Creates a new expense and sets the fields accordingly
                 ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = this.txtAmount.Text;
+                exbNewExp.Amount = double.Parse(this.txtAmount.Text);
                 exbNewExp.Date = dtCurrentSaveDate;
                 exbNewExp.Category =
                     Convert.ToInt32(this.cmbCategory.SelectedValue);
