@@ -24,5 +24,20 @@ namespace LocalTypes
         }
 
         #endregion
+
+        #region Income Extensions
+
+        /// <summary>
+        /// Makes a shallow copy of the income
+        /// </summary>
+        /// <param name="orginalIncome">The income being copied</param>
+        /// <returns>A shallow copy of the income</returns>
+        public static Income Copy(this Income orginalIncome)
+        {
+            return new Income(orginalIncome.Amount, orginalIncome.Date,
+                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comment, orginalIncome.ID);
+        }
+
+        #endregion
     }
 }
