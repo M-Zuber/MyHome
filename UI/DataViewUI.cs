@@ -95,6 +95,22 @@ namespace MyHome2013
         }
 
         /// <summary>
+        /// Opens a viewer to edit the income clicked on
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">standard MouseEvent object</param>
+        private void dgIn_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            using (IncomeViewer viewAndEditIncome =
+                new IncomeViewer((Income)this.dgIn.CurrentCell.OwningRow.DataBoundItem))
+            {
+                viewAndEditIncome.ShowDialog();
+            }
+
+            this.DataBinding();
+        }
+
+        /// <summary>
         /// Refreshes the data in the form every time it gains focus
         /// -This is to deal with multiple views into the same month being open
         /// and data being changed in a single one of them
@@ -141,18 +157,14 @@ namespace MyHome2013
         /// </summary>
         private void MonthlyDataBinding()
         {
-            // Garentees that i am starting with clear views before reloading them
-            Cache.SDB.viwin.Clear();
-
-            // Reloads the view to garentee that there is access to the most recent data
-            GlobalBL.LoadToCache("viwin");
-
             // Updates the data in the expense and income chart views
             this.dgOut.DataSource =
                 ExpenseHandler.LoadOfMonth(dtPick.Value);
             this.dgOut.Columns["ID"].Visible = false;
+            
             this.dgIn.DataSource =
-                Cache.SDB.viwin.SearchByMonth(this.dtPick.Value);
+                IncomeHandler.LoadOfMonth(dtPick.Value);
+            this.dgIn.Columns["ID"].Visible = false;
 
             // Refreshes the data table with the category list and refreshes the data bindings
             this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();
