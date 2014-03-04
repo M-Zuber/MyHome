@@ -22,7 +22,7 @@ namespace DataAccess
         public static ExpenseCategory LoadById(uint id)
         {
             StaticDataSet.t_expenses_categoryRow requestedRow =
-                Cache.SDB.t_expenses_category.FindByID((uint)id);
+                Cache.SDB.t_expenses_category.FindByID(id);
             return new ExpenseCategory((int)requestedRow.ID, requestedRow.NAME);
         }
 

@@ -37,6 +37,8 @@
             this.dgOut = new System.Windows.Forms.DataGridView();
             this.dgIn = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblExpenseChart = new System.Windows.Forms.Label();
+            this.lblIncomeChart = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgIn)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -102,9 +104,10 @@
             this.dgOut.AllowUserToDeleteRows = false;
             this.dgOut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgOut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgOut.Location = new System.Drawing.Point(3, 3);
+            this.dgOut.Location = new System.Drawing.Point(3, 23);
             this.dgOut.Name = "dgOut";
-            this.dgOut.Size = new System.Drawing.Size(206, 345);
+            this.dgOut.ReadOnly = true;
+            this.dgOut.Size = new System.Drawing.Size(206, 325);
             this.dgOut.TabIndex = 0;
             this.dgOut.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgOut_MouseDoubleClick);
             // 
@@ -114,27 +117,58 @@
             this.dgIn.AllowUserToDeleteRows = false;
             this.dgIn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgIn.Location = new System.Drawing.Point(215, 3);
+            this.dgIn.Location = new System.Drawing.Point(215, 23);
             this.dgIn.Name = "dgIn";
             this.dgIn.ReadOnly = true;
-            this.dgIn.Size = new System.Drawing.Size(206, 345);
+            this.dgIn.Size = new System.Drawing.Size(206, 325);
             this.dgIn.TabIndex = 1;
+            this.dgIn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgIn_MouseDoubleClick);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.dgOut, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dgIn, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblIncomeChart, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dgOut, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dgIn, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblExpenseChart, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(136, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(424, 351);
             this.tableLayoutPanel1.TabIndex = 8;
+            // 
+            // lblExpenseChart
+            // 
+            this.lblExpenseChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblExpenseChart.AutoSize = true;
+            this.lblExpenseChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExpenseChart.Location = new System.Drawing.Point(3, 0);
+            this.lblExpenseChart.Name = "lblExpenseChart";
+            this.lblExpenseChart.Size = new System.Drawing.Size(206, 20);
+            this.lblExpenseChart.TabIndex = 2;
+            this.lblExpenseChart.Text = "Expenses";
+            this.lblExpenseChart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblIncomeChart
+            // 
+            this.lblIncomeChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIncomeChart.AutoSize = true;
+            this.lblIncomeChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIncomeChart.Location = new System.Drawing.Point(215, 0);
+            this.lblIncomeChart.Name = "lblIncomeChart";
+            this.lblIncomeChart.Size = new System.Drawing.Size(206, 20);
+            this.lblIncomeChart.TabIndex = 3;
+            this.lblIncomeChart.Text = "Income";
+            this.lblIncomeChart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DataViewUI
             // 
@@ -155,6 +189,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgIn)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,5 +206,7 @@
         private System.Windows.Forms.DataGridView dgOut;
         private System.Windows.Forms.DataGridView dgIn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lblIncomeChart;
+        private System.Windows.Forms.Label lblExpenseChart;
     }
 }

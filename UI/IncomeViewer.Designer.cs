@@ -1,6 +1,6 @@
 ﻿namespace MyHome2013
 {
-    partial class ExpenseViewer
+    partial class IncomeViewer
     {
         /// <summary>
         /// Required designer variable.
@@ -188,8 +188,8 @@
             this.Controls.Add(this.cmbCategory);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ExpenseViewer";
-            this.Text = "EditExpense";
-            this.Load += new System.EventHandler(this.ExpenseViewer_Load);
+            this.Text = "EditIncome";
+            this.Load += new System.EventHandler(this.IncomeViewer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

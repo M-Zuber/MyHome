@@ -1,6 +1,6 @@
 ﻿namespace LocalTypes
 {
-    public class ExpenseCategory
+    public class IncomeCategory
     {
         #region Properties
 
@@ -18,7 +18,7 @@
 
         #region C'Tor
 
-        public ExpenseCategory(int id, string name)
+        public IncomeCategory(int id, string name)
         {
             this.ID = id;
             this.Name = name;
@@ -35,10 +35,10 @@
             return this.Name;
         }
 
-        public bool Equals(ExpenseCategory expenseCategory)
+        public bool Equals(IncomeCategory incomeCategory)
         {
-            return ((this.ID == expenseCategory.ID) &&
-                    (this.Name == expenseCategory.Name));
+            return ((this.ID == incomeCategory.ID) &&
+                    (this.Name == incomeCategory.Name));
         }
 
         public override int GetHashCode()

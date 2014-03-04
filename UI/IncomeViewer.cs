@@ -18,21 +18,21 @@ namespace MyHome2013
      *  controls and the save button
      */
     /// <summary>
-    /// Shows data on a single expense, allowing the user to edit it
+    /// Shows data on a single income, allowing the user to edit it
     /// </summary>
-    public partial class ExpenseViewer : Form
+    public partial class IncomeViewer : Form
     {
         #region Properties
 
         /// <summary>
-        /// A copy of the expense of the form, to keep track of changes
+        /// A copy of the income of the form, to keep track of changes
         /// </summary>
-        private Expense originalExpense;
+        private Income originalIncome;
 
         /// <summary>
-        /// The current state the expense of the form is in
+        /// The current state the income of the form is in
         /// </summary>
-        private Expense currentExpense;
+        private Income currentIncome;
 
         #endregion
 
@@ -41,13 +41,13 @@ namespace MyHome2013
         /// <summary>
         /// Sets the intial state and current state expense properties of the form
         /// </summary>
-        /// <param name="expense">The expense the form was opened for</param>
-        public ExpenseViewer(Expense expense)
+        /// <param name="income">The income the form was opened for</param>
+        public IncomeViewer(Income income)
         {
-            this.currentExpense = expense;
+            this.currentIncome = income;
 
-            // Makes a shallow copy of the expense passed in
-            this.originalExpense = this.currentExpense.Copy();
+            // Makes a shallow copy of the income passed in
+            this.originalIncome = this.currentIncome.Copy();
             InitializeComponent();
         }
         
@@ -60,49 +60,49 @@ namespace MyHome2013
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void ExpenseViewer_Load(object sender, EventArgs e)
+        private void IncomeViewer_Load(object sender, EventArgs e)
         {
             SetDataBindings();
         }
 
         /// <summary>
-        /// Saves the current state of the expense -if it is different than the origional state
+        /// Saves the current state of the income -if it is different than the original state
         /// -closes the form after the save
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!currentExpense.Equals(originalExpense))
+            if (!currentIncome.Equals(originalIncome))
             {
-                ExpenseHandler.Save(this.currentExpense);
+                IncomeHandler.Save(this.currentIncome);
 
                 this.Close();
             }
         }
 
         /// <summary>
-        /// Updates the expense with a new expense category
+        /// Updates the income with a new income category
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.currentExpense.Category = (ExpenseCategory)this.cmbCategory.SelectedItem;
+            this.currentIncome.Category = (IncomeCategory)this.cmbCategory.SelectedItem;
         }
 
         /// <summary>
-        /// Updates the expense with a new payment method 
+        /// Updates the income with a new payment method 
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
         private void cmbPayment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.currentExpense.Method = (PaymentMethod)this.cmbPayment.SelectedItem;
+            this.currentIncome.Method = (PaymentMethod)this.cmbPayment.SelectedItem;
         }
 
         /// <summary>
-        /// Updates the expense with a new amount
+        /// Updates the income with a new amount
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
@@ -128,28 +128,28 @@ namespace MyHome2013
             }
             else
             {
-                this.currentExpense.Amount = double.Parse(this.txtAmount.Text);
+                this.currentIncome.Amount = double.Parse(this.txtAmount.Text);
             }
         }
 
         /// <summary>
-        /// Updates the expense with a new comment
+        /// Updates the income with a new comment
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
         private void txtDetail_TextChanged(object sender, EventArgs e)
         {
-            this.currentExpense.Comment = this.txtDetail.Text;
+            this.currentIncome.Comment = this.txtDetail.Text;
         }
 
         /// <summary>
-        /// Updates the expense with a new date
+        /// Updates the income with a new date
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
         private void dtPick_ValueChanged(object sender, EventArgs e)
         {
-            this.currentExpense.Date = this.dtPick.Value;
+            this.currentIncome.Date = this.dtPick.Value;
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace MyHome2013
             this.ToggleVisibility(this.btnSave, this.btnCancel, this.btnEdit);
 
             // Makes sure that the expense of the binding has the origional values
-            this.currentExpense = this.originalExpense.Copy();
+            this.currentIncome = this.originalIncome.Copy();
 
             // Resets the data bindings
             this.SetDataBindings();
@@ -196,22 +196,22 @@ namespace MyHome2013
         private void SetDataBindings()
         {
             //Simple control bindings
-            this.txtAmount.Text = currentExpense.Amount.ToString();
-            this.txtDetail.Text = currentExpense.Comment;
-            this.dtPick.Value = currentExpense.Date;
+            this.txtAmount.Text = currentIncome.Amount.ToString();
+            this.txtDetail.Text = currentIncome.Comment;
+            this.dtPick.Value = currentIncome.Date;
 
             //Expense category bindings
-            this.cmbCategory.DataSource = ExpenseCategoryHandler.LoadAll();
+            this.cmbCategory.DataSource = IncomeCategoryHandler.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
             //TODO is this okay?
-            this.cmbCategory.SelectedValue = ExpenseCategoryHandler.LoadAll().First(ec => ec.ID == currentExpense.Category.ID).ID;
+            this.cmbCategory.SelectedValue = IncomeCategoryHandler.LoadAll().First(ec => ec.ID == currentIncome.Category.ID).ID;
 
             //Payment Method bindings
             this.cmbPayment.DataSource = PaymentMethodHandler.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
-            this.cmbPayment.SelectedValue = PaymentMethodHandler.LoadAll().First(pm => pm.ID == currentExpense.Method.ID).ID;
+            this.cmbPayment.SelectedValue = PaymentMethodHandler.LoadAll().First(pm => pm.ID == currentIncome.Method.ID).ID;
 
             //Event Bindings
             // This is to keep events firing until all the data bindings are fully set
