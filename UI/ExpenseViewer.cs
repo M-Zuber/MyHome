@@ -152,6 +152,39 @@ namespace MyHome2013
             this.currentExpense.Date = this.dtPick.Value;
         }
 
+        /// <summary>
+        /// Enables editing
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            // Enables the controls for editing and updates which buttons are visible
+            this.ToggleEnableControls(this.txtAmount, this.txtDetail, this.cmbCategory,
+                this.cmbPayment, this.dtPick, this.btnSave, this.btnEdit, this.btnCancel);
+            this.ToggleVisibility(this.btnSave,this.btnCancel,this.btnEdit);
+        }
+
+        /// <summary>
+        /// Cancels the edit and leaves the form open
+        /// -clears any changes made
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            // Enables the controls for editing and updates which buttons are visible
+            this.ToggleEnableControls(this.txtAmount, this.txtDetail, this.cmbCategory,
+                this.cmbPayment, this.dtPick, this.btnSave, this.btnEdit, this.btnCancel);
+            this.ToggleVisibility(this.btnSave, this.btnCancel, this.btnEdit);
+
+            // Makes sure that the expense of the binding has the origional values
+            this.currentExpense = this.originalExpense.Copy();
+
+            // Resets the data bindings
+            this.SetDataBindings();
+        }
+
         #endregion
 
         #region Other Methods
@@ -187,6 +220,30 @@ namespace MyHome2013
             this.txtAmount.TextChanged += this.txtAmount_TextChanged;
             this.txtDetail.TextChanged += this.txtDetail_TextChanged;
             this.dtPick.ValueChanged += this.dtPick_ValueChanged;
+        }
+
+        /// <summary>
+        /// Toggles the enable property of the controls sent
+        /// </summary>
+        /// <param name="controls">A list of controls to enable/disable</param>
+        private void ToggleEnableControls(params Control[] controls)
+        {
+            foreach (Control CurrControl in controls)
+            {
+                CurrControl.Enabled = !CurrControl.Enabled;
+            }
+        }
+
+        /// <summary>
+        /// Toggles the visible property of the controls sent
+        /// </summary>
+        /// <param name="controls">A list of controls to show/hide</param>
+        private void ToggleVisibility(params Control[] controls)
+        {
+            foreach (Control CurrControl in controls)
+            {
+                CurrControl.Visible = !CurrControl.Visible;
+            }
         }
 
         #endregion

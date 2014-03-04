@@ -104,6 +104,7 @@
             this.dgOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgOut.Location = new System.Drawing.Point(3, 3);
             this.dgOut.Name = "dgOut";
+            this.dgOut.ReadOnly = true;
             this.dgOut.Size = new System.Drawing.Size(206, 345);
             this.dgOut.TabIndex = 0;
             this.dgOut.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgOut_MouseDoubleClick);
