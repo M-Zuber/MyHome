@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseCategoryHandler.cs" />
     <Compile Include="GlobalHandler.cs" />
     <Compile Include="IncomeHandler.cs" />
     <Compile Include="IncomeCategoryHandler.cs" />

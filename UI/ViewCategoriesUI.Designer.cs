@@ -48,6 +48,8 @@
             this.dgvCategoryNames.Name = "dgvCategoryNames";
             this.dgvCategoryNames.Size = new System.Drawing.Size(193, 257);
             this.dgvCategoryNames.TabIndex = 0;
+            this.dgvCategoryNames.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvCategoryNames_CellBeginEdit);
+            this.dgvCategoryNames.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategoryNames_CellEndEdit);
             // 
             // btnAdd
             // 

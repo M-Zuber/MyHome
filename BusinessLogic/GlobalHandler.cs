@@ -9,12 +9,12 @@ namespace BusinessLogic
 {
     public class GlobalHandler
     {
-        public static Dictionary<int, BaseCategoryAccess> CategoryTypes =
-            new Dictionary<int, BaseCategoryAccess>()
+        public static Dictionary<int, BaseCategoryHandler> CategoryTypes =
+            new Dictionary<int, BaseCategoryHandler>()
             {
-                {1, new ExpenseCategoryAccess()},
-                {2, new IncomeCategoryAccess()},
-                {3, new PaymentMethodAccess()}
+                {1, new ExpenseCategoryHandler()},
+                {2, new IncomeCategoryHandler()},
+                {3, new PaymentMethodHandler()}
             };
     }
 }

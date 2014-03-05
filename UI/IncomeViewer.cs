@@ -201,17 +201,17 @@ namespace MyHome2013
             this.dtPick.Value = currentIncome.Date;
 
             //Expense category bindings
-            this.cmbCategory.DataSource = IncomeCategoryHandler.LoadAll();
+            this.cmbCategory.DataSource = (new IncomeCategoryHandler()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
             //TODO is this okay?
-            this.cmbCategory.SelectedValue = IncomeCategoryHandler.LoadAll().First(ec => ec.Id == currentIncome.Category.Id).Id;
+            this.cmbCategory.SelectedValue = (new IncomeCategoryHandler()).LoadAll().First(ec => ec.Id == currentIncome.Category.Id).Id;
 
             //Payment Method bindings
-            this.cmbPayment.DataSource = PaymentMethodHandler.LoadAll();
+            this.cmbPayment.DataSource = (new PaymentMethodHandler()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
-            this.cmbPayment.SelectedValue = PaymentMethodHandler.LoadAll().First(pm => pm.Id == currentIncome.Method.Id).Id;
+            this.cmbPayment.SelectedValue = (new PaymentMethodHandler()).LoadAll().First(pm => pm.Id == currentIncome.Method.Id).Id;
 
             //Event Bindings
             // This is to keep events firing until all the data bindings are fully set

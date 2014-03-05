@@ -48,5 +48,19 @@ namespace DataAccess
         #endregion
 
         #endregion
+
+        #region Other Methods
+
+        internal override void UpdateDataBase(BaseCategory categoryTranslating)
+        {
+            StaticDataSet.t_payment_methodsRow translatedRow = Cache.SDB.t_payment_methods.FindByID(categoryTranslating.Id);
+
+            //Because this form is only for updating, there is no check if it exists in the database
+
+            translatedRow.ID = categoryTranslating.Id;
+            translatedRow.NAME = categoryTranslating.Name;
+        }
+
+        #endregion
 	}
 }

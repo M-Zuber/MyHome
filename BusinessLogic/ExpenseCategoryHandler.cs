@@ -9,7 +9,7 @@ namespace BusinessLogic
     /// Holds methods for sorting and making calculations on the data of expense categories
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class ExpenseCategoryHandler
+    public class ExpenseCategoryHandler : BaseCategoryHandler
     {
         #region CRUD Methods
 
@@ -31,10 +31,18 @@ namespace BusinessLogic
         /// <returns>All the Expense Categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public static List<ExpenseCategory> LoadAll()
+        public override List<BaseCategory> LoadAll()
         {
-            //TODO neaten up
-            return (new ExpenseCategoryAccess()).LoadAll().Select(ec => new ExpenseCategory(ec.Id, ec.Name)).ToList<ExpenseCategory>();
+            return (new ExpenseCategoryAccess()).LoadAll();
+        }
+
+        #endregion
+
+        #region Update Methods
+
+        public override bool Save(BaseCategory categoryToSave)
+        {
+            return (new ExpenseCategoryAccess()).Save(categoryToSave);
         }
 
         #endregion
