@@ -8,7 +8,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of income categories
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class IncomeCategoryAccess
+    public class IncomeCategoryAccess : BaseCategoryAccess
     {
         #region CRUD Methods
 
@@ -32,9 +32,9 @@ namespace DataAccess
         /// <returns>All the Income categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public static List<IncomeCategory> LoadAll()
+        public override List<BaseCategory> LoadAll()
         {
-            List<IncomeCategory> allIncomeCategories = new List<IncomeCategory>();
+            List<BaseCategory> allIncomeCategories = new List<BaseCategory>();
 
             foreach (StaticDataSet.t_incomes_categoryRow currIncomeCategory in Cache.SDB.t_incomes_category.Rows)
             {

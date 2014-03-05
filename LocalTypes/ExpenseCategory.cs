@@ -1,27 +1,13 @@
 ﻿namespace LocalTypes
 {
-    public class ExpenseCategory
+    public class ExpenseCategory : BaseCategory
     {
-        #region Properties
-
-        /// <summary>
-        /// The name (type) of the expense category
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Id number of the expense category in the table
-        /// </summary>
-        public int ID { get; internal set; }
-
-        #endregion
-
         #region C'Tor
 
         public ExpenseCategory(int id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            base.Id = id;
+            base.Name = name;
         }
 
         #endregion
@@ -37,7 +23,7 @@
 
         public bool Equals(ExpenseCategory expenseCategory)
         {
-            return ((this.ID == expenseCategory.ID) &&
+            return ((this.Id == expenseCategory.Id) &&
                     (this.Name == expenseCategory.Name));
         }
 

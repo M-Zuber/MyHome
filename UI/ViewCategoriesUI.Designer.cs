@@ -34,6 +34,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategoryNames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,14 +46,13 @@
             this.dgvCategoryNames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCategoryNames.Location = new System.Drawing.Point(0, 0);
             this.dgvCategoryNames.Name = "dgvCategoryNames";
-            this.dgvCategoryNames.ReadOnly = true;
             this.dgvCategoryNames.Size = new System.Drawing.Size(193, 257);
             this.dgvCategoryNames.TabIndex = 0;
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(12, 273);
+            this.btnAdd.Location = new System.Drawing.Point(12, 12);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(98, 23);
             this.btnAdd.TabIndex = 1;
@@ -70,6 +70,10 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.dgvCategoryNames);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnAdd);
             this.splitContainer1.Size = new System.Drawing.Size(193, 308);
             this.splitContainer1.SplitterDistance = 257;
             this.splitContainer1.TabIndex = 2;
@@ -80,7 +84,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(193, 308);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.splitContainer1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -90,6 +93,7 @@
             this.Load += new System.EventHandler(this.ViewCategoriesUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategoryNames)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);

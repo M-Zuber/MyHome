@@ -8,7 +8,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of payment methods
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class PaymentMethodAccess
+    public class PaymentMethodAccess : BaseCategoryAccess
 	{
         #region CRUD Methods
 
@@ -32,9 +32,9 @@ namespace DataAccess
         /// <returns>All the payment methods as they are in the cache in generic-based
         /// list
         /// </returns>
-        public static List<PaymentMethod> LoadAll()
+        public override List<BaseCategory> LoadAll()
         {
-            List<PaymentMethod> allPaymentMethods = new List<PaymentMethod>();
+            List<BaseCategory> allPaymentMethods = new List<BaseCategory>();
 
             foreach (StaticDataSet.t_payment_methodsRow currPaymentMethod in Cache.SDB.t_payment_methods.Rows)
             {

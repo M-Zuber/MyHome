@@ -8,7 +8,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of expense categories
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class ExpenseCategoryAccess
+    public class ExpenseCategoryAccess : BaseCategoryAccess
     {
         #region CRUD Methods
 
@@ -32,9 +32,9 @@ namespace DataAccess
         /// <returns>All the Expense categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public static List<ExpenseCategory> LoadAll()
+        public override List<BaseCategory> LoadAll()
         {
-            List<ExpenseCategory> allExpensesCategories = new List<ExpenseCategory>();
+            List<BaseCategory> allExpensesCategories = new List<BaseCategory>();
 
             foreach (StaticDataSet.t_expenses_categoryRow currExpenseCategory in Cache.SDB.t_expenses_category.Rows)
             {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataAccess;
 using LocalTypes;
+using System.Linq;
 
 namespace BusinessLogic
 {
@@ -32,7 +33,7 @@ namespace BusinessLogic
         /// </returns>
         public static List<IncomeCategory> LoadAll()
         {
-            return IncomeCategoryAccess.LoadAll();
+            return (new IncomeCategoryAccess()).LoadAll().Select(ic => new IncomeCategory(ic.Id, ic.Name)).ToList<IncomeCategory>();
         }
 
         #endregion

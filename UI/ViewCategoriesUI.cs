@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using BL;
 using FrameWork;
+using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -49,7 +50,8 @@ namespace MyHome2013
         {
             // Loads the table that corrosponds to the wanted categry group
             this.dgvCategoryNames.DataSource =
-                Cache.SDB.Tables[GlobalBL.CategoryTypeTableNames[this.CategoryType]];
+                GlobalHandler.CategoryTypes[this.CategoryType].LoadAll();
+                //Cache.SDB.Tables[GlobalBL.CategoryTypeTableNames[this.CategoryType]];
             
             // Connects the data grid with the names only and displays the category group
             // name as a header

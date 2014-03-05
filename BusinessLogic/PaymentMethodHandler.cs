@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataAccess;
 using LocalTypes;
+using System.Linq;
 
 namespace BusinessLogic
 {
@@ -32,7 +33,7 @@ namespace BusinessLogic
         /// </returns>
         public static List<PaymentMethod> LoadAll()
         {
-            return PaymentMethodAccess.LoadAll();
+            return (new PaymentMethodAccess()).LoadAll().Select(pm => new PaymentMethod(pm.Id, pm.Name)).ToList<PaymentMethod>();
         }
 
         #endregion

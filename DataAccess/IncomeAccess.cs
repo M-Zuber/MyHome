@@ -93,8 +93,8 @@ namespace DataAccess
             // There is no check to see if they exist in the database or not
             // because as of 20.02.2014 the form only shows categories/methods
             // that already exist - and do not allow the user to create new ones
-            translatedRow.CATEGORY = incomeTranslating.Category.ID;
-            translatedRow.METHOD = incomeTranslating.Method.ID;
+            translatedRow.CATEGORY = incomeTranslating.Category.Id;
+            translatedRow.METHOD = incomeTranslating.Method.Id;
         }
 
         /// <summary>
