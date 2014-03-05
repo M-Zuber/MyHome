@@ -1,27 +1,13 @@
 ﻿namespace LocalTypes
 {
-    public class PaymentMethod
+    public class PaymentMethod : BaseCategory
     {
-        #region Properties
-
-        /// <summary>
-        /// The name (type) of the payment method category
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Id number of the payment method category in the table
-        /// </summary>
-        public int ID { get; internal set; }
-
-        #endregion
-
         #region C'Tor
 
         public PaymentMethod(int id, string name)
         {
-            this.ID = id;
-            this.Name = name;
+            base.Id = id;
+            base.Name = name;
         }
 
         #endregion
@@ -37,7 +23,7 @@
 
         public bool Equals(PaymentMethod paymentMethod)
         {
-            return ((this.ID == paymentMethod.ID) &&
+            return ((this.Id == paymentMethod.Id) &&
                     (this.Name == paymentMethod.Name));
         }
 

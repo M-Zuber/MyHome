@@ -2,6 +2,9 @@
 using System.Windows.Forms;
 using BL;
 using FrameWork;
+using BusinessLogic;
+using System.Linq;
+using LocalTypes;
 
 namespace MyHome2013
 {
@@ -17,6 +20,11 @@ namespace MyHome2013
         /// Represents which category group the form is displaying for
         /// </summary>
         public int CategoryType { get; set; }
+
+        /// <summary>
+        /// A placeholder for the original value of a category the is being edited
+        /// </summary>
+        public string OriginalCategoryName { get; set; }
         
         #endregion
 
@@ -49,7 +57,7 @@ namespace MyHome2013
         {
             // Loads the table that corrosponds to the wanted categry group
             this.dgvCategoryNames.DataSource =
-                Cache.SDB.Tables[GlobalBL.CategoryTypeTableNames[this.CategoryType]];
+                GlobalHandler.CategoryTypes[this.CategoryType].LoadAll();
             
             // Connects the data grid with the names only and displays the category group
             // name as a header
@@ -67,11 +75,27 @@ namespace MyHome2013
         private void btnAdd_Click(object sender, EventArgs e)
         {
             // Opens a dialog of the form for adding new categories
-            (new AddCategoryUI(this.CategoryType)).ShowDialog();
+            using (AddCategoryUI addNewCategory = new AddCategoryUI(this.CategoryType))
+            {
+                addNewCategory.ShowDialog();
+            }
 
             // Refreshes the list so the new category is displayed
             this.dgvCategoryNames.Refresh();
         } 
+
+        private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (GlobalHandler.CategoryTypes[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
+            {
+                GlobalHandler.CategoryTypes[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
+            }
+        }
+
+        private void dgvCategoryNames_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            this.OriginalCategoryName = this.dgvCategoryNames.CurrentCell.Value.ToString();
+        }
 
         #endregion
 

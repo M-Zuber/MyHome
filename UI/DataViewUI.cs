@@ -85,13 +85,16 @@ namespace MyHome2013
         /// <param name="e">standard MouseEvent object</param>
         private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            using (ExpenseViewer viewAndEditExpense =
-                new ExpenseViewer((Expense)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
+            if (this.dgOut.CurrentCell != null)
             {
-                viewAndEditExpense.ShowDialog();
-            }
+                using (ExpenseViewer viewAndEditExpense =
+                        new ExpenseViewer((Expense)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
+                {
+                    viewAndEditExpense.ShowDialog();
+                }
 
-            this.DataBinding();
+                this.DataBinding(); 
+            }
         }
 
         /// <summary>
@@ -101,13 +104,16 @@ namespace MyHome2013
         /// <param name="e">standard MouseEvent object</param>
         private void dgIn_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            using (IncomeViewer viewAndEditIncome =
-                new IncomeViewer((Income)this.dgIn.CurrentCell.OwningRow.DataBoundItem))
+            if (this.dgIn.CurrentCell != null)
             {
-                viewAndEditIncome.ShowDialog();
-            }
+                using (IncomeViewer viewAndEditIncome =
+                        new IncomeViewer((Income)this.dgIn.CurrentCell.OwningRow.DataBoundItem))
+                {
+                    viewAndEditIncome.ShowDialog();
+                }
 
-            this.DataBinding();
+                this.DataBinding(); 
+            }
         }
 
         /// <summary>

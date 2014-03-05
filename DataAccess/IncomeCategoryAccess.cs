@@ -8,7 +8,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of income categories
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class IncomeCategoryAccess
+    public class IncomeCategoryAccess : BaseCategoryAccess
     {
         #region CRUD Methods
 
@@ -32,9 +32,9 @@ namespace DataAccess
         /// <returns>All the Income categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public static List<IncomeCategory> LoadAll()
+        public override List<BaseCategory> LoadAll()
         {
-            List<IncomeCategory> allIncomeCategories = new List<IncomeCategory>();
+            List<BaseCategory> allIncomeCategories = new List<BaseCategory>();
 
             foreach (StaticDataSet.t_incomes_categoryRow currIncomeCategory in Cache.SDB.t_incomes_category.Rows)
             {
@@ -46,6 +46,20 @@ namespace DataAccess
         }
 
         #endregion
+
+        #endregion
+
+        #region Other Methods
+
+        internal override void UpdateDataBase(BaseCategory categoryTranslating)
+        {
+            StaticDataSet.t_incomes_categoryRow translatedRow = Cache.SDB.t_incomes_category.FindByID(categoryTranslating.Id);
+
+            //Because this form is only for updating, there is no check if it exists in the database
+
+            translatedRow.ID = categoryTranslating.Id;
+            translatedRow.NAME = categoryTranslating.Name;
+        }
 
         #endregion
     }
