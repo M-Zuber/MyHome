@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using BL;
 using BusinessLogic;
 using FrameWork;
 using LocalTypes;
@@ -44,24 +43,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void DataViewUI_Load(object sender, EventArgs e)
         {
-            // If there is any changes in the data asks the user if they want to save them
-            if (Cache.SDB.HasChanges())
-            {
-                DialogResult = MessageBox.Show("Differences between the data in the program " +
-                                               "and the saved data where detected\n" + 
-                                               "To view the most update to-date information please save",
-                                               "Loading...",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-
-                // If the user is saving the changes
-                if (DialogResult == DialogResult.Yes)
-                {
-                    GlobalBL.SaveFromCache();
-                }
-            }
-
             // Automatically forces the window to be open to its max size
             this.WindowState = FormWindowState.Maximized;
             
