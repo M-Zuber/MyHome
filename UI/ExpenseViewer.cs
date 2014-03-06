@@ -6,17 +6,6 @@ using LocalTypes;
 
 namespace MyHome2013
 {
-    /*
-     * check what happens when the value of the controls are changed
-     *      does it change the value in currentExpense??
-     *  if not
-     *      on each value change/ on press of save
-     *          update values
-     *          save using a method (yet to be written) of ExpenseEntity
-     * 
-     * should probably add an edit button which will enable the 
-     *  controls and the save button
-     */
     /// <summary>
     /// Shows data on a single expense, allowing the user to edit it
     /// </summary>
@@ -204,14 +193,13 @@ namespace MyHome2013
             this.cmbCategory.DataSource = (new ExpenseCategoryHandler()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
-            //TODO is this okay?
-            this.cmbCategory.SelectedValue = (new ExpenseCategoryHandler()).LoadAll().First(ec => ec.Id == currentExpense.Category.Id).Id;
+            this.cmbCategory.SelectedIndex = this.cmbCategory.FindString(this.currentExpense.Category.Name);
 
             //Payment Method bindings
             this.cmbPayment.DataSource = (new PaymentMethodHandler()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
-            this.cmbPayment.SelectedValue = (new PaymentMethodHandler()).LoadAll().First(pm => pm.Id == currentExpense.Method.Id).Id;
+            this.cmbPayment.SelectedIndex = this.cmbPayment.FindString(this.currentExpense.Method.Name);
 
             //Event Bindings
             // This is to keep events firing until all the data bindings are fully set
