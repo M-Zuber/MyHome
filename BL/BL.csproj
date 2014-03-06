@@ -58,7 +58,7 @@
       <Project>{5854C1A1-37D3-4064-8E17-4F997D41D969}</Project>
       <Name>DA</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FrameWork\Old_FrameWork.csproj">
+    <ProjectReference Include="..\Old_FrameWork\Old_FrameWork.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>Old_FrameWork</Name>
     </ProjectReference>

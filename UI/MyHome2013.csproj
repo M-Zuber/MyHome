@@ -232,13 +232,17 @@
       <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FrameWork\Old_FrameWork.csproj">
-      <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
-      <Name>Old_FrameWork</Name>
+    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+      <Project>{89C7A321-B6DC-455A-B99F-594A9570FB20}</Project>
+      <Name>FrameWork</Name>
     </ProjectReference>
     <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
       <Name>LocalTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Old_FrameWork\Old_FrameWork.csproj">
+      <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
+      <Name>Old_FrameWork</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
