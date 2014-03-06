@@ -68,5 +68,28 @@ namespace BusinessLogic
         #endregion
 
         #endregion
+
+        #region Other Methods
+
+        public static Dictionary<string, double> GetCategoryTotals(DateTime monthWanted)
+        {
+            Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
+
+            categoryTotals.Add("Total Expenses", 0);
+            foreach (ExpenseCategory currCategory in (new ExpenseCategoryHandler()).LoadAll())
+            {
+                categoryTotals.Add(currCategory.Name, 0);
+            }
+
+            foreach (Expense currExpense in ExpenseHandler.LoadOfMonth(monthWanted))
+            {
+                categoryTotals["Total Expenses"] += currExpense.Amount;
+                categoryTotals[currExpense.Category.Name] += currExpense.Amount;
+            }
+
+            return categoryTotals;
+        }
+
+        #endregion
     }
 }

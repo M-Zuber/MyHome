@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Data;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using BL;
 using BusinessLogic;
@@ -18,7 +19,7 @@ namespace MyHome2013
         /// <summary>
         /// Holds a category list to bind to the combo box
         /// </summary>
-        public DataTable CategoryList { get; set; }
+        public Dictionary<string, double> CategoryTotalsList { get; set; }
 
         #endregion
 
@@ -66,6 +67,9 @@ namespace MyHome2013
             
             // Binds the cache data to the form
             this.DataBinding();
+
+            // Sets up the event for re-entering the form
+            this.Enter += this.DataViewUI_Enter;
         }
 
         /// <summary>
@@ -142,11 +146,16 @@ namespace MyHome2013
             this.cmbCategory.DataSource = null;
             this.txtCategoryTotal.DataBindings.Clear();
 
+            // Refreshes the data table with the category list and refreshes the data bindings
+            this.CategoryTotalsList = new Dictionary<string, double>();            
+            this.CategoryTotalsList.AddRange(ExpenseHandler.GetCategoryTotals(this.dtPick.Value));
+            this.CategoryTotalsList.AddRange(IncomeHandler.GetCategoryTotals(this.dtPick.Value));
+
             // Binds the data table with the list of categorys
             // and binds the text box to display the total for the given category
-            this.cmbCategory.DataSource = this.CategoryList;
+            this.cmbCategory.DataSource = new ArrayList(this.CategoryTotalsList);
             this.cmbCategory.DisplayMember = "KEY";
-            this.txtCategoryTotal.DataBindings.Add("Text", this.CategoryList, "VALUE");
+            this.txtCategoryTotal.DataBindings.Add("Text", this.cmbCategory.DataSource, "VALUE");
         }
 
         /// <summary>
@@ -171,9 +180,6 @@ namespace MyHome2013
             this.dgIn.DataSource =
                 IncomeHandler.LoadOfMonth(dtPick.Value);
             this.dgIn.Columns["ID"].Visible = false;
-
-            // Refreshes the data table with the category list and refreshes the data bindings
-            this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();
         } 
 
         #endregion

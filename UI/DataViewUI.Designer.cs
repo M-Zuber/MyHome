@@ -37,8 +37,8 @@
             this.dgOut = new System.Windows.Forms.DataGridView();
             this.dgIn = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblExpenseChart = new System.Windows.Forms.Label();
             this.lblIncomeChart = new System.Windows.Forms.Label();
+            this.lblExpenseChart = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgIn)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -142,20 +142,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(424, 351);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
-            // lblExpenseChart
-            // 
-            this.lblExpenseChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblExpenseChart.AutoSize = true;
-            this.lblExpenseChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExpenseChart.Location = new System.Drawing.Point(3, 0);
-            this.lblExpenseChart.Name = "lblExpenseChart";
-            this.lblExpenseChart.Size = new System.Drawing.Size(206, 20);
-            this.lblExpenseChart.TabIndex = 2;
-            this.lblExpenseChart.Text = "Expenses";
-            this.lblExpenseChart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblIncomeChart
             // 
             this.lblIncomeChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -169,6 +155,20 @@
             this.lblIncomeChart.TabIndex = 3;
             this.lblIncomeChart.Text = "Income";
             this.lblIncomeChart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblExpenseChart
+            // 
+            this.lblExpenseChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblExpenseChart.AutoSize = true;
+            this.lblExpenseChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExpenseChart.Location = new System.Drawing.Point(3, 0);
+            this.lblExpenseChart.Name = "lblExpenseChart";
+            this.lblExpenseChart.Size = new System.Drawing.Size(206, 20);
+            this.lblExpenseChart.TabIndex = 2;
+            this.lblExpenseChart.Text = "Expenses";
+            this.lblExpenseChart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DataViewUI
             // 
@@ -185,7 +185,6 @@
             this.Name = "DataViewUI";
             this.Text = "Monthly Flow";
             this.Load += new System.EventHandler(this.DataViewUI_Load);
-            this.Enter += new System.EventHandler(this.DataViewUI_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgIn)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
