@@ -8,7 +8,7 @@
     <ProjectGuid>{5424771D-5CD2-4E89-883D-46343DC4B543}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameWork</RootNamespace>
+    <RootNamespace>Old_FrameWork</RootNamespace>
     <AssemblyName>FrameWork</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

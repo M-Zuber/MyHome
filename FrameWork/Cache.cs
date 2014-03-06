@@ -1,4 +1,4 @@
-﻿namespace FrameWork
+﻿namespace Old_FrameWork
 {
     /// <summary>
     /// Allows access to the cached data - but only a single (and constant) instance of it

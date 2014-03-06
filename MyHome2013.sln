@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameWork", "FrameWork\FrameWork.csproj", "{5424771D-5CD2-4E89-883D-46343DC4B543}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Old_FrameWork", "FrameWork\Old_FrameWork.csproj", "{5424771D-5CD2-4E89-883D-46343DC4B543}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA", "DL\DA.csproj", "{5854C1A1-37D3-4064-8E17-4F997D41D969}"
 EndProject

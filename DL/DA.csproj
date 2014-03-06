@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+    <ProjectReference Include="..\FrameWork\Old_FrameWork.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
-      <Name>FrameWork</Name>
+      <Name>Old_FrameWork</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

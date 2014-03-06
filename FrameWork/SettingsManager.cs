@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace FrameWork
+namespace Old_FrameWork
 {
     /// <summary>
     /// Represents an instance of a settings file

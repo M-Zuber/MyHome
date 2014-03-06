@@ -1,5 +1,5 @@
 ﻿using System;
-namespace FrameWork {
+namespace Old_FrameWork {
     
     
     public partial class StaticDataSet {
