@@ -83,6 +83,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+      <Project>{89C7A321-B6DC-455A-B99F-594A9570FB20}</Project>
+      <Name>FrameWork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
       <Name>LocalTypes</Name>
