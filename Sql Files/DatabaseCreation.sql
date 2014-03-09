@@ -4,7 +4,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 DROP SCHEMA IF EXISTS `myhome2013` ;
 CREATE SCHEMA IF NOT EXISTS `myhome2013` DEFAULT CHARACTER SET utf8 ;
-
 USE `myhome2013` ;
 
 -- -----------------------------------------------------
@@ -13,9 +12,10 @@ USE `myhome2013` ;
 DROP TABLE IF EXISTS `myhome2013`.`categoryview` ;
 
 CREATE TABLE IF NOT EXISTS `myhome2013`.`categoryview` (
-    `KEY` VARCHAR(45) NOT NULL,
-    `VALUE` VARCHAR(45) NOT NULL
-)  ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;
+  `KEY` VARCHAR(45) NOT NULL,
+  `VALUE` VARCHAR(45) NOT NULL)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -24,10 +24,11 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`categoryview` (
 DROP TABLE IF EXISTS `myhome2013`.`t_expenses_category` ;
 
 CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses_category` (
-    `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `NAME` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`ID`)
-)  ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARACTER SET=utf8;
+  `ID` INT(11) NOT NULL,
+  `NAME` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 16;
 
 
 -- -----------------------------------------------------
@@ -36,10 +37,11 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses_category` (
 DROP TABLE IF EXISTS `myhome2013`.`t_payment_methods` ;
 
 CREATE TABLE IF NOT EXISTS `myhome2013`.`t_payment_methods` (
-    `ID` INT(11) NOT NULL AUTO_INCREMENT,
-    `NAME` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`ID`)
-)  ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARACTER SET=utf8;
+  `ID` INT(11) NOT NULL,
+  `NAME` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 11;
 
 
 -- -----------------------------------------------------
@@ -48,22 +50,28 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`t_payment_methods` (
 DROP TABLE IF EXISTS `myhome2013`.`t_expenses` ;
 
 CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses` (
-    `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `AMOUNT` DOUBLE NOT NULL,
-    `EXP_DATE` DATETIME NULL DEFAULT NULL,
-    `CATEGORY` INT(11) UNSIGNED NOT NULL,
-    `METHOD` INT(11) NOT NULL,
-    `COMMENTS` VARCHAR(200) NULL DEFAULT '""',
-    PRIMARY KEY (`ID`),
-    INDEX `PAYMENT_METHOD_idx` (`METHOD` ASC),
-    INDEX `CATEGORY_NAME_idx` (`CATEGORY` ASC),
-    CONSTRAINT `EXP_CATEGORY_NAME` FOREIGN KEY (`CATEGORY`)
-        REFERENCES `myhome2013`.`t_expenses_category` (`ID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `EXP_PAYMENT_METHOD` FOREIGN KEY (`METHOD`)
-        REFERENCES `myhome2013`.`t_payment_methods` (`ID`)
-        ON DELETE CASCADE ON UPDATE CASCADE
-)  ENGINE=InnoDB AUTO_INCREMENT=306 DEFAULT CHARACTER SET=utf8 COMMENT='	';
+  `ID` INT(10) NOT NULL,
+  `AMOUNT` DOUBLE NOT NULL,
+  `EXP_DATE` DATETIME NULL DEFAULT NULL,
+  `CATEGORY` INT(11) NOT NULL,
+  `METHOD` INT(11) NOT NULL,
+  `COMMENTS` VARCHAR(200) NULL DEFAULT '""',
+  PRIMARY KEY (`ID`),
+  INDEX `PAYMENT_METHOD_idx` (`METHOD` ASC),
+  INDEX `CATEGORY_NAME_idx` (`CATEGORY` ASC),
+  CONSTRAINT `EXP_CATEGORY_NAME`
+    FOREIGN KEY (`CATEGORY`)
+    REFERENCES `myhome2013`.`t_expenses_category` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `EXP_PAYMENT_METHOD`
+    FOREIGN KEY (`METHOD`)
+    REFERENCES `myhome2013`.`t_payment_methods` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 306
+COMMENT = '	';
 
 
 -- -----------------------------------------------------
@@ -72,10 +80,10 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses` (
 DROP TABLE IF EXISTS `myhome2013`.`t_incomes_category` ;
 
 CREATE TABLE IF NOT EXISTS `myhome2013`.`t_incomes_category` (
-    `ID` INT(10) NOT NULL,
-    `NAME` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`ID`)
-)  ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;
+  `ID` INT(10) NOT NULL,
+  `NAME` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -84,47 +92,39 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`t_incomes_category` (
 DROP TABLE IF EXISTS `myhome2013`.`t_incomes` ;
 
 CREATE TABLE IF NOT EXISTS `myhome2013`.`t_incomes` (
-    `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `AMOUNT` DOUBLE NOT NULL,
-    `INC_DATE` DATETIME NULL DEFAULT NULL,
-    `CATEGORY` INT(11) NOT NULL,
-    `METHOD` INT(11) NOT NULL,
-    `COMMENTS` VARCHAR(200) NULL DEFAULT '""',
-    PRIMARY KEY (`ID`),
-    INDEX `CATEGORY_NAME_idx` (`CATEGORY` ASC),
-    INDEX `PAYMENT_METHOD_idx` (`METHOD` ASC),
-    CONSTRAINT `INC_CATEGORY_NAME` FOREIGN KEY (`CATEGORY`)
-        REFERENCES `myhome2013`.`t_incomes_category` (`ID`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `INC_PAYMENT_METHOD` FOREIGN KEY (`METHOD`)
-        REFERENCES `myhome2013`.`t_payment_methods` (`ID`)
-        ON DELETE CASCADE ON UPDATE CASCADE
-)  ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARACTER SET=utf8;
+  `ID` INT(10) NOT NULL,
+  `AMOUNT` DOUBLE NOT NULL,
+  `INC_DATE` DATETIME NULL DEFAULT NULL,
+  `CATEGORY` INT(11) NOT NULL,
+  `METHOD` INT(11) NOT NULL,
+  `COMMENTS` VARCHAR(200) NULL DEFAULT '""',
+  PRIMARY KEY (`ID`),
+  INDEX `CATEGORY_NAME_idx` (`CATEGORY` ASC),
+  INDEX `PAYMENT_METHOD_idx` (`METHOD` ASC),
+  CONSTRAINT `INC_CATEGORY_NAME`
+    FOREIGN KEY (`CATEGORY`)
+    REFERENCES `myhome2013`.`t_incomes_category` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `INC_PAYMENT_METHOD`
+    FOREIGN KEY (`METHOD`)
+    REFERENCES `myhome2013`.`t_payment_methods` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 15;
 
 USE `myhome2013` ;
 
 -- -----------------------------------------------------
 -- Placeholder table for view `myhome2013`.`viw`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `myhome2013`.`viw` (
-	`Entity id` INT,
-    `Expense date` INT,
-    `Amount` INT,
-    `Category` INT,
-    `Payment Method` INT,
-    `Comments` INT
-);
+CREATE TABLE IF NOT EXISTS `myhome2013`.`viw` (`Entity id` INT, `Expense date` INT, `Amount` INT, `Category` INT, `Payment Method` INT, `Comments` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `myhome2013`.`viwin`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `myhome2013`.`viwin` (
-    `Income Date` INT,
-    `Amount` INT,
-    `Category` INT,
-    `Payment Method` INT,
-    `Comments` INT
-);
+CREATE TABLE IF NOT EXISTS `myhome2013`.`viwin` (`Income Date` INT, `Amount` INT, `Category` INT, `Payment Method` INT, `Comments` INT);
 
 -- -----------------------------------------------------
 -- function new_expense_id
