@@ -22,7 +22,7 @@ namespace DataAccess
         public static Expense LoadById(int id)
         {
             StaticDataSet.t_expensesRow requestedRow =
-                Cache.SDB.t_expenses.FindByID((uint)id);
+                Cache.SDB.t_expenses.FindByID(id);
             return new Expense(requestedRow.AMOUNT, requestedRow.EXP_DATE,
                 ExpenseCategoryAccess.LoadById(requestedRow.CATEGORY), 
                 PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
@@ -93,7 +93,7 @@ namespace DataAccess
             // There is no check to see if they exist in the database or not
             // because as of 20.02.2014 the form only shows categories/methods
             // that already exist - and do not allow the user to create new ones
-            translatedRow.CATEGORY = (uint)expenseTranslating.Category.Id;
+            translatedRow.CATEGORY = expenseTranslating.Category.Id;
             translatedRow.METHOD = expenseTranslating.Method.Id;
         }
 

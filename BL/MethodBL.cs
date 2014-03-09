@@ -72,7 +72,7 @@ namespace BL
 
                 // Adds a new row to the table in the cache with the wanted Id and name
                 Cache.SDB.t_payment_methods.
-                    Addt_payment_methodsRow(this.Name);
+                    Addt_payment_methodsRow(this.ID,this.Name);
             }
         }
 

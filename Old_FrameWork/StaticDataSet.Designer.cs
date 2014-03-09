@@ -36,9 +36,9 @@ namespace Old_FrameWork {
         
         private t_incomes_categoryDataTable tablet_incomes_category;
         
-        private viwinDataTable tableviwin;
-        
         private viwDataTable tableviw;
+        
+        private viwinDataTable tableviwin;
         
         private global::System.Data.DataRelation relationEXP_CATEGORY_NAME;
         
@@ -94,11 +94,11 @@ namespace Old_FrameWork {
                 if ((ds.Tables["t_incomes_category"] != null)) {
                     base.Tables.Add(new t_incomes_categoryDataTable(ds.Tables["t_incomes_category"]));
                 }
-                if ((ds.Tables["viwin"] != null)) {
-                    base.Tables.Add(new viwinDataTable(ds.Tables["viwin"]));
-                }
                 if ((ds.Tables["viw"] != null)) {
                     base.Tables.Add(new viwDataTable(ds.Tables["viw"]));
+                }
+                if ((ds.Tables["viwin"] != null)) {
+                    base.Tables.Add(new viwinDataTable(ds.Tables["viwin"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -182,9 +182,9 @@ namespace Old_FrameWork {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public viwinDataTable viwin {
+        public viwDataTable viw {
             get {
-                return this.tableviwin;
+                return this.tableviw;
             }
         }
         
@@ -192,9 +192,9 @@ namespace Old_FrameWork {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public viwDataTable viw {
+        public viwinDataTable viwin {
             get {
-                return this.tableviw;
+                return this.tableviwin;
             }
         }
         
@@ -283,11 +283,11 @@ namespace Old_FrameWork {
                 if ((ds.Tables["t_incomes_category"] != null)) {
                     base.Tables.Add(new t_incomes_categoryDataTable(ds.Tables["t_incomes_category"]));
                 }
-                if ((ds.Tables["viwin"] != null)) {
-                    base.Tables.Add(new viwinDataTable(ds.Tables["viwin"]));
-                }
                 if ((ds.Tables["viw"] != null)) {
                     base.Tables.Add(new viwDataTable(ds.Tables["viw"]));
+                }
+                if ((ds.Tables["viwin"] != null)) {
+                    base.Tables.Add(new viwinDataTable(ds.Tables["viwin"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -358,16 +358,16 @@ namespace Old_FrameWork {
                     this.tablet_incomes_category.InitVars();
                 }
             }
-            this.tableviwin = ((viwinDataTable)(base.Tables["viwin"]));
-            if ((initTable == true)) {
-                if ((this.tableviwin != null)) {
-                    this.tableviwin.InitVars();
-                }
-            }
             this.tableviw = ((viwDataTable)(base.Tables["viw"]));
             if ((initTable == true)) {
                 if ((this.tableviw != null)) {
                     this.tableviw.InitVars();
+                }
+            }
+            this.tableviwin = ((viwinDataTable)(base.Tables["viwin"]));
+            if ((initTable == true)) {
+                if ((this.tableviwin != null)) {
+                    this.tableviwin.InitVars();
                 }
             }
             this.relationEXP_CATEGORY_NAME = this.Relations["EXP_CATEGORY_NAME"];
@@ -396,10 +396,10 @@ namespace Old_FrameWork {
             base.Tables.Add(this.tablet_incomes);
             this.tablet_incomes_category = new t_incomes_categoryDataTable();
             base.Tables.Add(this.tablet_incomes_category);
-            this.tableviwin = new viwinDataTable();
-            base.Tables.Add(this.tableviwin);
             this.tableviw = new viwDataTable();
             base.Tables.Add(this.tableviw);
+            this.tableviwin = new viwinDataTable();
+            base.Tables.Add(this.tableviwin);
             this.relationEXP_CATEGORY_NAME = new global::System.Data.DataRelation("EXP_CATEGORY_NAME", new global::System.Data.DataColumn[] {
                         this.tablet_expenses_category.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tablet_expenses.CATEGORYColumn}, false);
@@ -456,13 +456,13 @@ namespace Old_FrameWork {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeviwin() {
+        private bool ShouldSerializeviw() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeviw() {
+        private bool ShouldSerializeviwin() {
             return false;
         }
         
@@ -540,10 +540,10 @@ namespace Old_FrameWork {
         public delegate void t_incomes_categoryRowChangeEventHandler(object sender, t_incomes_categoryRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void viwinRowChangeEventHandler(object sender, viwinRowChangeEvent e);
+        public delegate void viwRowChangeEventHandler(object sender, viwRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void viwRowChangeEventHandler(object sender, viwRowChangeEvent e);
+        public delegate void viwinRowChangeEventHandler(object sender, viwinRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -907,10 +907,10 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_payment_methodsRow Addt_payment_methodsRow(string NAME) {
+            public t_payment_methodsRow Addt_payment_methodsRow(int ID, string NAME) {
                 t_payment_methodsRow rowt_payment_methodsRow = ((t_payment_methodsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
+                        ID,
                         NAME};
                 rowt_payment_methodsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowt_payment_methodsRow);
@@ -954,9 +954,6 @@ namespace Old_FrameWork {
                 base.Columns.Add(this.columnNAME);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AutoIncrementSeed = -1;
-                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnNAME.AllowDBNull = false;
@@ -1224,7 +1221,7 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_expensesRow Addt_expensesRow(uint ID, double AMOUNT, System.DateTime EXP_DATE, t_expenses_categoryRow parentt_expenses_categoryRowByEXP_CATEGORY_NAME, t_payment_methodsRow parentt_payment_methodsRowByEXP_PAYMENT_METHOD, string COMMENTS) {
+            public t_expensesRow Addt_expensesRow(int ID, double AMOUNT, System.DateTime EXP_DATE, t_expenses_categoryRow parentt_expenses_categoryRowByEXP_CATEGORY_NAME, t_payment_methodsRow parentt_payment_methodsRowByEXP_PAYMENT_METHOD, string COMMENTS) {
                 t_expensesRow rowt_expensesRow = ((t_expensesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -1246,7 +1243,7 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_expensesRow FindByID(uint ID) {
+            public t_expensesRow FindByID(int ID) {
                 return ((t_expensesRow)(this.Rows.Find(new object[] {
                             ID})));
             }
@@ -1279,13 +1276,13 @@ namespace Old_FrameWork {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(uint), null, global::System.Data.MappingType.Element);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
                 this.columnAMOUNT = new global::System.Data.DataColumn("AMOUNT", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAMOUNT);
                 this.columnEXP_DATE = new global::System.Data.DataColumn("EXP_DATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEXP_DATE);
-                this.columnCATEGORY = new global::System.Data.DataColumn("CATEGORY", typeof(uint), null, global::System.Data.MappingType.Element);
+                this.columnCATEGORY = new global::System.Data.DataColumn("CATEGORY", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCATEGORY);
                 this.columnMETHOD = new global::System.Data.DataColumn("METHOD", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMETHOD);
@@ -1522,7 +1519,7 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_expenses_categoryRow Addt_expenses_categoryRow(uint ID, string NAME) {
+            public t_expenses_categoryRow Addt_expenses_categoryRow(int ID, string NAME) {
                 t_expenses_categoryRow rowt_expenses_categoryRow = ((t_expenses_categoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -1534,7 +1531,7 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_expenses_categoryRow FindByID(uint ID) {
+            public t_expenses_categoryRow FindByID(int ID) {
                 return ((t_expenses_categoryRow)(this.Rows.Find(new object[] {
                             ID})));
             }
@@ -1563,7 +1560,7 @@ namespace Old_FrameWork {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(uint), null, global::System.Data.MappingType.Element);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
                 this.columnNAME = new global::System.Data.DataColumn("NAME", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNAME);
@@ -1836,7 +1833,7 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_incomesRow Addt_incomesRow(uint ID, double AMOUNT, System.DateTime INC_DATE, t_incomes_categoryRow parentt_incomes_categoryRowByINC_CATEGORY_NAME, t_payment_methodsRow parentt_payment_methodsRowByINC_PAYMENT_METHOD, string COMMENTS) {
+            public t_incomesRow Addt_incomesRow(int ID, double AMOUNT, System.DateTime INC_DATE, t_incomes_categoryRow parentt_incomes_categoryRowByINC_CATEGORY_NAME, t_payment_methodsRow parentt_payment_methodsRowByINC_PAYMENT_METHOD, string COMMENTS) {
                 t_incomesRow rowt_incomesRow = ((t_incomesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -1858,7 +1855,7 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public t_incomesRow FindByID(uint ID) {
+            public t_incomesRow FindByID(int ID) {
                 return ((t_incomesRow)(this.Rows.Find(new object[] {
                             ID})));
             }
@@ -1891,7 +1888,7 @@ namespace Old_FrameWork {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(uint), null, global::System.Data.MappingType.Element);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
                 this.columnAMOUNT = new global::System.Data.DataColumn("AMOUNT", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAMOUNT);
@@ -2316,6 +2313,340 @@ namespace Old_FrameWork {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class viwDataTable : global::System.Data.TypedTableBase<viwRow> {
+            
+            private global::System.Data.DataColumn columnEntity_id;
+            
+            private global::System.Data.DataColumn columnExpense_date;
+            
+            private global::System.Data.DataColumn columnAmount;
+            
+            private global::System.Data.DataColumn columnCategory;
+            
+            private global::System.Data.DataColumn columnPayment_Method;
+            
+            private global::System.Data.DataColumn columnComments;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public viwDataTable() {
+                this.TableName = "viw";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal viwDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected viwDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Entity_idColumn {
+                get {
+                    return this.columnEntity_id;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Expense_dateColumn {
+                get {
+                    return this.columnExpense_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AmountColumn {
+                get {
+                    return this.columnAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CategoryColumn {
+                get {
+                    return this.columnCategory;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Payment_MethodColumn {
+                get {
+                    return this.columnPayment_Method;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CommentsColumn {
+                get {
+                    return this.columnComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public viwRow this[int index] {
+                get {
+                    return ((viwRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event viwRowChangeEventHandler viwRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event viwRowChangeEventHandler viwRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event viwRowChangeEventHandler viwRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event viwRowChangeEventHandler viwRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddviwRow(viwRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public viwRow AddviwRow(int Entity_id, System.DateTime Expense_date, double Amount, string Category, string Payment_Method, string Comments) {
+                viwRow rowviwRow = ((viwRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Entity_id,
+                        Expense_date,
+                        Amount,
+                        Category,
+                        Payment_Method,
+                        Comments};
+                rowviwRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowviwRow);
+                return rowviwRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public viwRow FindByEntity_id(int Entity_id) {
+                return ((viwRow)(this.Rows.Find(new object[] {
+                            Entity_id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                viwDataTable cln = ((viwDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new viwDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnEntity_id = base.Columns["Entity id"];
+                this.columnExpense_date = base.Columns["Expense date"];
+                this.columnAmount = base.Columns["Amount"];
+                this.columnCategory = base.Columns["Category"];
+                this.columnPayment_Method = base.Columns["Payment Method"];
+                this.columnComments = base.Columns["Comments"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnEntity_id = new global::System.Data.DataColumn("Entity id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEntity_id);
+                this.columnExpense_date = new global::System.Data.DataColumn("Expense date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExpense_date);
+                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmount);
+                this.columnCategory = new global::System.Data.DataColumn("Category", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategory);
+                this.columnPayment_Method = new global::System.Data.DataColumn("Payment Method", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPayment_Method);
+                this.columnComments = new global::System.Data.DataColumn("Comments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnComments);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnEntity_id}, true));
+                this.columnEntity_id.AllowDBNull = false;
+                this.columnEntity_id.Unique = true;
+                this.columnAmount.AllowDBNull = false;
+                this.columnCategory.AllowDBNull = false;
+                this.columnCategory.MaxLength = 45;
+                this.columnPayment_Method.AllowDBNull = false;
+                this.columnPayment_Method.MaxLength = 45;
+                this.columnComments.MaxLength = 200;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public viwRow NewviwRow() {
+                return ((viwRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new viwRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(viwRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.viwRowChanged != null)) {
+                    this.viwRowChanged(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.viwRowChanging != null)) {
+                    this.viwRowChanging(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.viwRowDeleted != null)) {
+                    this.viwRowDeleted(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.viwRowDeleting != null)) {
+                    this.viwRowDeleting(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveviwRow(viwRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                StaticDataSet ds = new StaticDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "viwDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class viwinDataTable : global::System.Data.TypedTableBase<viwinRow> {
             
             private global::System.Data.DataColumn columnIncome_Date;
@@ -2621,340 +2952,6 @@ namespace Old_FrameWork {
         }
         
         /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class viwDataTable : global::System.Data.TypedTableBase<viwRow> {
-            
-            private global::System.Data.DataColumn columnEntity_id;
-            
-            private global::System.Data.DataColumn columnExpense_date;
-            
-            private global::System.Data.DataColumn columnAmount;
-            
-            private global::System.Data.DataColumn columnCategory;
-            
-            private global::System.Data.DataColumn columnPayment_Method;
-            
-            private global::System.Data.DataColumn columnComments;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwDataTable() {
-                this.TableName = "viw";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal viwDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected viwDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Entity_idColumn {
-                get {
-                    return this.columnEntity_id;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Expense_dateColumn {
-                get {
-                    return this.columnExpense_date;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AmountColumn {
-                get {
-                    return this.columnAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CategoryColumn {
-                get {
-                    return this.columnCategory;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Payment_MethodColumn {
-                get {
-                    return this.columnPayment_Method;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CommentsColumn {
-                get {
-                    return this.columnComments;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwRow this[int index] {
-                get {
-                    return ((viwRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event viwRowChangeEventHandler viwRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event viwRowChangeEventHandler viwRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event viwRowChangeEventHandler viwRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event viwRowChangeEventHandler viwRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddviwRow(viwRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwRow AddviwRow(uint Entity_id, System.DateTime Expense_date, double Amount, string Category, string Payment_Method, string Comments) {
-                viwRow rowviwRow = ((viwRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        Entity_id,
-                        Expense_date,
-                        Amount,
-                        Category,
-                        Payment_Method,
-                        Comments};
-                rowviwRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowviwRow);
-                return rowviwRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwRow FindByEntity_id(uint Entity_id) {
-                return ((viwRow)(this.Rows.Find(new object[] {
-                            Entity_id})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                viwDataTable cln = ((viwDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new viwDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnEntity_id = base.Columns["Entity id"];
-                this.columnExpense_date = base.Columns["Expense date"];
-                this.columnAmount = base.Columns["Amount"];
-                this.columnCategory = base.Columns["Category"];
-                this.columnPayment_Method = base.Columns["Payment Method"];
-                this.columnComments = base.Columns["Comments"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnEntity_id = new global::System.Data.DataColumn("Entity id", typeof(uint), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEntity_id);
-                this.columnExpense_date = new global::System.Data.DataColumn("Expense date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExpense_date);
-                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAmount);
-                this.columnCategory = new global::System.Data.DataColumn("Category", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCategory);
-                this.columnPayment_Method = new global::System.Data.DataColumn("Payment Method", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPayment_Method);
-                this.columnComments = new global::System.Data.DataColumn("Comments", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnComments);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnEntity_id}, true));
-                this.columnEntity_id.AllowDBNull = false;
-                this.columnEntity_id.Unique = true;
-                this.columnAmount.AllowDBNull = false;
-                this.columnCategory.AllowDBNull = false;
-                this.columnCategory.MaxLength = 45;
-                this.columnPayment_Method.AllowDBNull = false;
-                this.columnPayment_Method.MaxLength = 45;
-                this.columnComments.MaxLength = 200;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwRow NewviwRow() {
-                return ((viwRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new viwRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(viwRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.viwRowChanged != null)) {
-                    this.viwRowChanged(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.viwRowChanging != null)) {
-                    this.viwRowChanging(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.viwRowDeleted != null)) {
-                    this.viwRowDeleted(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.viwRowDeleting != null)) {
-                    this.viwRowDeleting(this, new viwRowChangeEvent(((viwRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveviwRow(viwRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                StaticDataSet ds = new StaticDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "viwDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class categoryviewRow : global::System.Data.DataRow {
@@ -3066,9 +3063,9 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint ID {
+            public int ID {
                 get {
-                    return ((uint)(this[this.tablet_expenses.IDColumn]));
+                    return ((int)(this[this.tablet_expenses.IDColumn]));
                 }
                 set {
                     this[this.tablet_expenses.IDColumn] = value;
@@ -3104,9 +3101,9 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint CATEGORY {
+            public int CATEGORY {
                 get {
-                    return ((uint)(this[this.tablet_expenses.CATEGORYColumn]));
+                    return ((int)(this[this.tablet_expenses.CATEGORYColumn]));
                 }
                 set {
                     this[this.tablet_expenses.CATEGORYColumn] = value;
@@ -3203,9 +3200,9 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint ID {
+            public int ID {
                 get {
-                    return ((uint)(this[this.tablet_expenses_category.IDColumn]));
+                    return ((int)(this[this.tablet_expenses_category.IDColumn]));
                 }
                 set {
                     this[this.tablet_expenses_category.IDColumn] = value;
@@ -3251,9 +3248,9 @@ namespace Old_FrameWork {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint ID {
+            public int ID {
                 get {
-                    return ((uint)(this[this.tablet_incomes.IDColumn]));
+                    return ((int)(this[this.tablet_incomes.IDColumn]));
                 }
                 set {
                     this[this.tablet_incomes.IDColumn] = value;
@@ -3423,6 +3420,121 @@ namespace Old_FrameWork {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class viwRow : global::System.Data.DataRow {
+            
+            private viwDataTable tableviw;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal viwRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableviw = ((viwDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Entity_id {
+                get {
+                    return ((int)(this[this.tableviw.Entity_idColumn]));
+                }
+                set {
+                    this[this.tableviw.Entity_idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime Expense_date {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableviw.Expense_dateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Expense date\' in table \'viw\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableviw.Expense_dateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double Amount {
+                get {
+                    return ((double)(this[this.tableviw.AmountColumn]));
+                }
+                set {
+                    this[this.tableviw.AmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Category {
+                get {
+                    return ((string)(this[this.tableviw.CategoryColumn]));
+                }
+                set {
+                    this[this.tableviw.CategoryColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Payment_Method {
+                get {
+                    return ((string)(this[this.tableviw.Payment_MethodColumn]));
+                }
+                set {
+                    this[this.tableviw.Payment_MethodColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Comments {
+                get {
+                    try {
+                        return ((string)(this[this.tableviw.CommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Comments\' in table \'viw\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableviw.CommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsExpense_dateNull() {
+                return this.IsNull(this.tableviw.Expense_dateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetExpense_dateNull() {
+                this[this.tableviw.Expense_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCommentsNull() {
+                return this.IsNull(this.tableviw.CommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCommentsNull() {
+                this[this.tableviw.CommentsColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class viwinRow : global::System.Data.DataRow {
             
             private viwinDataTable tableviwin;
@@ -3521,121 +3633,6 @@ namespace Old_FrameWork {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCommentsNull() {
                 this[this.tableviwin.CommentsColumn] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class viwRow : global::System.Data.DataRow {
-            
-            private viwDataTable tableviw;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal viwRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableviw = ((viwDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint Entity_id {
-                get {
-                    return ((uint)(this[this.tableviw.Entity_idColumn]));
-                }
-                set {
-                    this[this.tableviw.Entity_idColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime Expense_date {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableviw.Expense_dateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Expense date\' in table \'viw\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableviw.Expense_dateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double Amount {
-                get {
-                    return ((double)(this[this.tableviw.AmountColumn]));
-                }
-                set {
-                    this[this.tableviw.AmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Category {
-                get {
-                    return ((string)(this[this.tableviw.CategoryColumn]));
-                }
-                set {
-                    this[this.tableviw.CategoryColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Payment_Method {
-                get {
-                    return ((string)(this[this.tableviw.Payment_MethodColumn]));
-                }
-                set {
-                    this[this.tableviw.Payment_MethodColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Comments {
-                get {
-                    try {
-                        return ((string)(this[this.tableviw.CommentsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Comments\' in table \'viw\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableviw.CommentsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsExpense_dateNull() {
-                return this.IsNull(this.tableviw.Expense_dateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetExpense_dateNull() {
-                this[this.tableviw.Expense_dateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCommentsNull() {
-                return this.IsNull(this.tableviw.CommentsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCommentsNull() {
-                this[this.tableviw.CommentsColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3847,22 +3844,22 @@ namespace Old_FrameWork {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class viwinRowChangeEvent : global::System.EventArgs {
+        public class viwRowChangeEvent : global::System.EventArgs {
             
-            private viwinRow eventRow;
+            private viwRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwinRowChangeEvent(viwinRow row, global::System.Data.DataRowAction action) {
+            public viwRowChangeEvent(viwRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwinRow Row {
+            public viwRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3881,22 +3878,22 @@ namespace Old_FrameWork {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class viwRowChangeEvent : global::System.EventArgs {
+        public class viwinRowChangeEvent : global::System.EventArgs {
             
-            private viwRow eventRow;
+            private viwinRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwRowChangeEvent(viwRow row, global::System.Data.DataRowAction action) {
+            public viwinRowChangeEvent(viwinRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public viwRow Row {
+            public viwinRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4063,7 +4060,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4310,8 +4307,15 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_payment_methods` (`NAME`) VALUES (@NAME)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_payment_methods` (`ID`, `NAME`) VALUES (@ID, @NAME)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@ID";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@NAME";
             param.DbType = global::System.Data.DbType.String;
@@ -4321,9 +4325,16 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `t_payment_methods` SET `NAME` = @NAME WHERE ((`ID` = @Original_ID) AND (`" +
-                "NAME` = @Original_NAME))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `t_payment_methods` SET `ID` = @ID, `NAME` = @NAME WHERE ((`ID` = @Origina" +
+                "l_ID) AND (`NAME` = @Original_NAME))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@ID";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@NAME";
             param.DbType = global::System.Data.DbType.String;
@@ -4353,7 +4364,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4451,12 +4462,13 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string NAME) {
+        public virtual int Insert(int ID, string NAME) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             if ((NAME == null)) {
                 throw new global::System.ArgumentNullException("NAME");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(NAME));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(NAME));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4478,19 +4490,20 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string NAME, int Original_ID, string Original_NAME) {
+        public virtual int Update(int ID, string NAME, int Original_ID, string Original_NAME) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
             if ((NAME == null)) {
                 throw new global::System.ArgumentNullException("NAME");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(NAME));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(NAME));
             }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
             if ((Original_NAME == null)) {
                 throw new global::System.ArgumentNullException("Original_NAME");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Original_NAME));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_NAME));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4506,6 +4519,14 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string NAME, int Original_ID, string Original_NAME) {
+            return this.Update(Original_ID, NAME, Original_ID, Original_NAME);
         }
     }
     
@@ -4643,16 +4664,16 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_ID";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "ID";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_AMOUNT";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -4676,8 +4697,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_CATEGORY";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "CATEGORY";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -4709,13 +4730,20 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_expenses` (`AMOUNT`, `EXP_DATE`, `CATEGORY`, `METHOD`, `COMMENTS`)" +
-                " VALUES (@AMOUNT, @EXP_DATE, @CATEGORY, @METHOD, @COMMENTS)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_expenses` (`ID`, `AMOUNT`, `EXP_DATE`, `CATEGORY`, `METHOD`, `COMM" +
+                "ENTS`) VALUES (@ID, @AMOUNT, @EXP_DATE, @CATEGORY, @METHOD, @COMMENTS)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@AMOUNT";
+            param.ParameterName = "@ID";
             param.DbType = global::System.Data.DbType.Int32;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@AMOUNT";
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             this._adapter.InsertCommand.Parameters.Add(param);
@@ -4728,8 +4756,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@CATEGORY";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "CATEGORY";
             this._adapter.InsertCommand.Parameters.Add(param);
@@ -4749,12 +4777,19 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `t_expenses` SET `AMOUNT` = @AMOUNT, `EXP_DATE` = @EXP_DATE, `CATEGORY` = @CATEGORY, `METHOD` = @METHOD, `COMMENTS` = @COMMENTS WHERE ((`ID` = @Original_ID) AND (`AMOUNT` = @Original_AMOUNT) AND ((@IsNull_EXP_DATE = 1 AND `EXP_DATE` IS NULL) OR (`EXP_DATE` = @Original_EXP_DATE)) AND (`CATEGORY` = @Original_CATEGORY) AND (`METHOD` = @Original_METHOD) AND ((@IsNull_COMMENTS = 1 AND `COMMENTS` IS NULL) OR (`COMMENTS` = @Original_COMMENTS)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `t_expenses` SET `ID` = @ID, `AMOUNT` = @AMOUNT, `EXP_DATE` = @EXP_DATE, `CATEGORY` = @CATEGORY, `METHOD` = @METHOD, `COMMENTS` = @COMMENTS WHERE ((`ID` = @Original_ID) AND (`AMOUNT` = @Original_AMOUNT) AND ((@IsNull_EXP_DATE = 1 AND `EXP_DATE` IS NULL) OR (`EXP_DATE` = @Original_EXP_DATE)) AND (`CATEGORY` = @Original_CATEGORY) AND (`METHOD` = @Original_METHOD) AND ((@IsNull_COMMENTS = 1 AND `COMMENTS` IS NULL) OR (`COMMENTS` = @Original_COMMENTS)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@AMOUNT";
+            param.ParameterName = "@ID";
             param.DbType = global::System.Data.DbType.Int32;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@AMOUNT";
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -4767,8 +4802,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@CATEGORY";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "CATEGORY";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -4788,16 +4823,16 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_ID";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "ID";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_AMOUNT";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -4821,8 +4856,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_CATEGORY";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "CATEGORY";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -4858,7 +4893,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4929,9 +4964,9 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(uint Original_ID, int Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_EXP_DATE, uint Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((uint)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_AMOUNT));
+        public virtual int Delete(int Original_ID, double Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_EXP_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((double)(Original_AMOUNT));
             if ((Original_EXP_DATE.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_EXP_DATE.Value));
@@ -4940,7 +4975,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((uint)(Original_CATEGORY));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_CATEGORY));
             this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_METHOD));
             if ((Original_COMMENTS == null)) {
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
@@ -4970,21 +5005,22 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int AMOUNT, global::System.Nullable<global::System.DateTime> EXP_DATE, uint CATEGORY, int METHOD, string COMMENTS) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(AMOUNT));
+        public virtual int Insert(int ID, double AMOUNT, global::System.Nullable<global::System.DateTime> EXP_DATE, int CATEGORY, int METHOD, string COMMENTS) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((double)(AMOUNT));
             if ((EXP_DATE.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(EXP_DATE.Value));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(EXP_DATE.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((uint)(CATEGORY));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(METHOD));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(CATEGORY));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(METHOD));
             if ((COMMENTS == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(COMMENTS));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(COMMENTS));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5006,41 +5042,42 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int AMOUNT, global::System.Nullable<global::System.DateTime> EXP_DATE, uint CATEGORY, int METHOD, string COMMENTS, uint Original_ID, int Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_EXP_DATE, uint Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(AMOUNT));
+        public virtual int Update(int ID, double AMOUNT, global::System.Nullable<global::System.DateTime> EXP_DATE, int CATEGORY, int METHOD, string COMMENTS, int Original_ID, double Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_EXP_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(AMOUNT));
             if ((EXP_DATE.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(EXP_DATE.Value));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(EXP_DATE.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((uint)(CATEGORY));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(METHOD));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(CATEGORY));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(METHOD));
             if ((COMMENTS == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(COMMENTS));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(COMMENTS));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((uint)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_AMOUNT));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((double)(Original_AMOUNT));
             if ((Original_EXP_DATE.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_EXP_DATE.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_EXP_DATE.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((uint)(Original_CATEGORY));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_METHOD));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_CATEGORY));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_METHOD));
             if ((Original_COMMENTS == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_COMMENTS));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_COMMENTS));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5056,6 +5093,14 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(double AMOUNT, global::System.Nullable<global::System.DateTime> EXP_DATE, int CATEGORY, int METHOD, string COMMENTS, int Original_ID, double Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_EXP_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
+            return this.Update(Original_ID, AMOUNT, EXP_DATE, CATEGORY, METHOD, COMMENTS, Original_ID, Original_AMOUNT, Original_EXP_DATE, Original_CATEGORY, Original_METHOD, Original_COMMENTS);
         }
     }
     
@@ -5190,8 +5235,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_ID";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "ID";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -5206,8 +5251,15 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_expenses_category` (`NAME`) VALUES (@NAME)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_expenses_category` (`ID`, `NAME`) VALUES (@ID, @NAME)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@ID";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@NAME";
             param.DbType = global::System.Data.DbType.String;
@@ -5217,9 +5269,16 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `t_expenses_category` SET `NAME` = @NAME WHERE ((`ID` = @Original_ID) AND " +
-                "(`NAME` = @Original_NAME))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `t_expenses_category` SET `ID` = @ID, `NAME` = @NAME WHERE ((`ID` = @Origi" +
+                "nal_ID) AND (`NAME` = @Original_NAME))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@ID";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@NAME";
             param.DbType = global::System.Data.DbType.String;
@@ -5229,8 +5288,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_ID";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "ID";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -5249,7 +5308,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5319,8 +5378,8 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(uint Original_ID, string Original_NAME) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((uint)(Original_ID));
+        public virtual int Delete(int Original_ID, string Original_NAME) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             if ((Original_NAME == null)) {
                 throw new global::System.ArgumentNullException("Original_NAME");
             }
@@ -5347,12 +5406,13 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string NAME) {
+        public virtual int Insert(int ID, string NAME) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             if ((NAME == null)) {
                 throw new global::System.ArgumentNullException("NAME");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(NAME));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(NAME));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5374,19 +5434,20 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string NAME, uint Original_ID, string Original_NAME) {
+        public virtual int Update(int ID, string NAME, int Original_ID, string Original_NAME) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
             if ((NAME == null)) {
                 throw new global::System.ArgumentNullException("NAME");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(NAME));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(NAME));
             }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((uint)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
             if ((Original_NAME == null)) {
                 throw new global::System.ArgumentNullException("Original_NAME");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Original_NAME));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_NAME));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5402,6 +5463,14 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string NAME, int Original_ID, string Original_NAME) {
+            return this.Update(Original_ID, NAME, Original_ID, Original_NAME);
         }
     }
     
@@ -5539,16 +5608,16 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::MySql.Data.MySqlClient.MySqlParameter param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_ID";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "ID";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_AMOUNT";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -5605,13 +5674,20 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_incomes` (`AMOUNT`, `INC_DATE`, `CATEGORY`, `METHOD`, `COMMENTS`) " +
-                "VALUES (@AMOUNT, @INC_DATE, @CATEGORY, @METHOD, @COMMENTS)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `t_incomes` (`ID`, `AMOUNT`, `INC_DATE`, `CATEGORY`, `METHOD`, `COMME" +
+                "NTS`) VALUES (@ID, @AMOUNT, @INC_DATE, @CATEGORY, @METHOD, @COMMENTS)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@AMOUNT";
+            param.ParameterName = "@ID";
             param.DbType = global::System.Data.DbType.Int32;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@AMOUNT";
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             this._adapter.InsertCommand.Parameters.Add(param);
@@ -5645,12 +5721,19 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `t_incomes` SET `AMOUNT` = @AMOUNT, `INC_DATE` = @INC_DATE, `CATEGORY` = @CATEGORY, `METHOD` = @METHOD, `COMMENTS` = @COMMENTS WHERE ((`ID` = @Original_ID) AND (`AMOUNT` = @Original_AMOUNT) AND ((@IsNull_INC_DATE = 1 AND `INC_DATE` IS NULL) OR (`INC_DATE` = @Original_INC_DATE)) AND (`CATEGORY` = @Original_CATEGORY) AND (`METHOD` = @Original_METHOD) AND ((@IsNull_COMMENTS = 1 AND `COMMENTS` IS NULL) OR (`COMMENTS` = @Original_COMMENTS)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `t_incomes` SET `ID` = @ID, `AMOUNT` = @AMOUNT, `INC_DATE` = @INC_DATE, `CATEGORY` = @CATEGORY, `METHOD` = @METHOD, `COMMENTS` = @COMMENTS WHERE ((`ID` = @Original_ID) AND (`AMOUNT` = @Original_AMOUNT) AND ((@IsNull_INC_DATE = 1 AND `INC_DATE` IS NULL) OR (`INC_DATE` = @Original_INC_DATE)) AND (`CATEGORY` = @Original_CATEGORY) AND (`METHOD` = @Original_METHOD) AND ((@IsNull_COMMENTS = 1 AND `COMMENTS` IS NULL) OR (`COMMENTS` = @Original_COMMENTS)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
-            param.ParameterName = "@AMOUNT";
+            param.ParameterName = "@ID";
             param.DbType = global::System.Data.DbType.Int32;
             param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "ID";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::MySql.Data.MySqlClient.MySqlParameter();
+            param.ParameterName = "@AMOUNT";
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -5684,16 +5767,16 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_ID";
-            param.DbType = global::System.Data.DbType.UInt32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.UInt32;
+            param.DbType = global::System.Data.DbType.Int32;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
             param.IsNullable = true;
             param.SourceColumn = "ID";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::MySql.Data.MySqlClient.MySqlParameter();
             param.ParameterName = "@Original_AMOUNT";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Int32;
+            param.DbType = global::System.Data.DbType.Double;
+            param.MySqlDbType = global::MySql.Data.MySqlClient.MySqlDbType.Double;
             param.IsNullable = true;
             param.SourceColumn = "AMOUNT";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
@@ -5754,7 +5837,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5825,9 +5908,9 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(uint Original_ID, int Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_INC_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((uint)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_AMOUNT));
+        public virtual int Delete(int Original_ID, double Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_INC_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((double)(Original_AMOUNT));
             if ((Original_INC_DATE.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_INC_DATE.Value));
@@ -5866,21 +5949,22 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int AMOUNT, global::System.Nullable<global::System.DateTime> INC_DATE, int CATEGORY, int METHOD, string COMMENTS) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(AMOUNT));
+        public virtual int Insert(int ID, double AMOUNT, global::System.Nullable<global::System.DateTime> INC_DATE, int CATEGORY, int METHOD, string COMMENTS) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((double)(AMOUNT));
             if ((INC_DATE.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(INC_DATE.Value));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(INC_DATE.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(CATEGORY));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(METHOD));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(CATEGORY));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(METHOD));
             if ((COMMENTS == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(COMMENTS));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(COMMENTS));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5902,41 +5986,42 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int AMOUNT, global::System.Nullable<global::System.DateTime> INC_DATE, int CATEGORY, int METHOD, string COMMENTS, uint Original_ID, int Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_INC_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(AMOUNT));
+        public virtual int Update(int ID, double AMOUNT, global::System.Nullable<global::System.DateTime> INC_DATE, int CATEGORY, int METHOD, string COMMENTS, int Original_ID, double Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_INC_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(AMOUNT));
             if ((INC_DATE.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(INC_DATE.Value));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(INC_DATE.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(CATEGORY));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(METHOD));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(CATEGORY));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(METHOD));
             if ((COMMENTS == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(COMMENTS));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(COMMENTS));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((uint)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_AMOUNT));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((double)(Original_AMOUNT));
             if ((Original_INC_DATE.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_INC_DATE.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_INC_DATE.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_CATEGORY));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_METHOD));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_CATEGORY));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_METHOD));
             if ((Original_COMMENTS == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_COMMENTS));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_COMMENTS));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5952,6 +6037,14 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(double AMOUNT, global::System.Nullable<global::System.DateTime> INC_DATE, int CATEGORY, int METHOD, string COMMENTS, int Original_ID, double Original_AMOUNT, global::System.Nullable<global::System.DateTime> Original_INC_DATE, int Original_CATEGORY, int Original_METHOD, string Original_COMMENTS) {
+            return this.Update(Original_ID, AMOUNT, INC_DATE, CATEGORY, METHOD, COMMENTS, Original_ID, Original_AMOUNT, Original_INC_DATE, Original_CATEGORY, Original_METHOD, Original_COMMENTS);
         }
     }
     
@@ -6159,7 +6252,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6334,178 +6427,6 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class viwinTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
-        
-        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
-        
-        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
-        
-        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public viwinTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "viwin";
-            tableMapping.ColumnMappings.Add("Income Date", "Income Date");
-            tableMapping.ColumnMappings.Add("Amount", "Amount");
-            tableMapping.ColumnMappings.Add("Category", "Category");
-            tableMapping.ColumnMappings.Add("Payment Method", "Payment Method");
-            tableMapping.ColumnMappings.Add("Comments", "Comments");
-            this._adapter.TableMappings.Add(tableMapping);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
-            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT `Income Date`, `Amount`, `Category`, `Payment Method`, `Comments` FROM `my" +
-                "home2013`.`viwin`";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(StaticDataSet.viwinDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual StaticDataSet.viwinDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            StaticDataSet.viwinDataTable dataTable = new StaticDataSet.viwinDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
     public partial class viwTableAdapter : global::System.ComponentModel.Component {
         
         private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
@@ -6631,7 +6552,7 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
-            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString;
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6665,6 +6586,178 @@ namespace Old_FrameWork.StaticDataSetTableAdapters {
         public virtual StaticDataSet.viwDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             StaticDataSet.viwDataTable dataTable = new StaticDataSet.viwDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class viwinTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
+        
+        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
+        
+        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
+        
+        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public viwinTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "viwin";
+            tableMapping.ColumnMappings.Add("Income Date", "Income Date");
+            tableMapping.ColumnMappings.Add("Amount", "Amount");
+            tableMapping.ColumnMappings.Add("Category", "Category");
+            tableMapping.ColumnMappings.Add("Payment Method", "Payment Method");
+            tableMapping.ColumnMappings.Add("Comments", "Comments");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
+            this._connection.ConnectionString = global::Old_FrameWork.Properties.Settings.Default.myhome2013ConnectionString1;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT `Income Date`, `Amount`, `Category`, `Payment Method`, `Comments` FROM `my" +
+                "home2013`.`viwin`";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(StaticDataSet.viwinDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual StaticDataSet.viwinDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            StaticDataSet.viwinDataTable dataTable = new StaticDataSet.viwinDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

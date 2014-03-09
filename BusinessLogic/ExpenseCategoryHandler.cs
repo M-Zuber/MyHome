@@ -20,7 +20,7 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="id">The id of the Expense category wanted</param>
         /// <returns>The expense category as it is in the cache</returns>
-        public static ExpenseCategory LoadById(uint id)
+        public static ExpenseCategory LoadById(int id)
         {
             return ExpenseCategoryAccess.LoadById(id);
         }

@@ -22,7 +22,7 @@ namespace DataAccess
         public static Income LoadById(int id)
         {
             StaticDataSet.t_incomesRow requestedRow =
-                Cache.SDB.t_incomes.FindByID((uint)id);
+                Cache.SDB.t_incomes.FindByID(id);
             return new Income(requestedRow.AMOUNT, requestedRow.INC_DATE,
                 IncomeCategoryAccess.LoadById(requestedRow.CATEGORY), 
                 PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);

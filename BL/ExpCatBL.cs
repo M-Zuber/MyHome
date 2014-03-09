@@ -70,7 +70,7 @@ namespace BL
                                         DateTime.Today.ToString());
                 // Adds a new row to the table in the cache with the wanted Id and name
                 Cache.SDB.t_expenses_category.
-                    Addt_expenses_categoryRow((uint)this.ID, this.Name);
+                    Addt_expenses_categoryRow(this.ID, this.Name);
             }
         }
 

@@ -19,11 +19,11 @@ namespace DataAccess
         /// </summary>
         /// <param name="id">The id of the Expense category wanted</param>
         /// <returns>The expense category as it is in the cache</returns>
-        public static ExpenseCategory LoadById(uint id)
+        public static ExpenseCategory LoadById(int id)
         {
             StaticDataSet.t_expenses_categoryRow requestedRow =
                 Cache.SDB.t_expenses_category.FindByID(id);
-            return new ExpenseCategory((int)requestedRow.ID, requestedRow.NAME);
+            return new ExpenseCategory(requestedRow.ID, requestedRow.NAME);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace DataAccess
         public override int AddNewCategory(string categoryName)
         {
             StaticDataSet.t_expenses_categoryRow newPaymentMethod = Cache.SDB.t_expenses_category.Newt_expenses_categoryRow();
-            newPaymentMethod.ID = (uint)this.GetNextId();
+            newPaymentMethod.ID = this.GetNextId();
             newPaymentMethod.NAME = categoryName;
 
             Cache.SDB.t_expenses_category.Addt_expenses_categoryRow(newPaymentMethod);
@@ -68,11 +68,11 @@ namespace DataAccess
 
         internal override void UpdateDataBase(BaseCategory categoryTranslating)
         {
-            StaticDataSet.t_expenses_categoryRow translatedRow = Cache.SDB.t_expenses_category.FindByID((uint)categoryTranslating.Id);
+            StaticDataSet.t_expenses_categoryRow translatedRow = Cache.SDB.t_expenses_category.FindByID(categoryTranslating.Id);
 
             //Because this form is only for updating, there is no check if it exists in the database
 
-            translatedRow.ID = (uint)categoryTranslating.Id;
+            translatedRow.ID = categoryTranslating.Id;
             translatedRow.NAME = categoryTranslating.Name;
         }
 

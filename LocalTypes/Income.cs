@@ -34,14 +34,14 @@ namespace LocalTypes
         /// <summary>
         /// ID number of the income in the data table
         /// </summary>
-        public uint ID { get; private set; }
+        public int ID { get; private set; }
 
         #endregion
 
         #region C'Tor
 
         public Income(double amount, DateTime date, IncomeCategory incomeCategory,
-            PaymentMethod paymentMethod, string comment, uint id)
+            PaymentMethod paymentMethod, string comment, int id)
         {
             this.Amount = amount;
             this.Category = incomeCategory;
