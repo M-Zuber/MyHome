@@ -10,7 +10,7 @@ namespace BusinessLogic
     /// Is also the bridge from the UI to the Dal
     /// </summary>
     public class PaymentMethodHandler : BaseCategoryHandler
-    {
+    {//TODO should the handler methods simply have a property of the appropiate access class?
         #region CRUD Methods
 
         #region Read Methods
@@ -38,6 +38,15 @@ namespace BusinessLogic
 
         #endregion
 
+        #region Create Methods
+
+        public override int AddNewCategory(string categoryName)
+        {
+            return (new PaymentMethodAccess()).AddNewCategory(categoryName);
+        }
+
+        #endregion
+
         #region Update Methods
 
         public override bool Save(BaseCategory categoryToSave)
@@ -48,5 +57,6 @@ namespace BusinessLogic
         #endregion
 
         #endregion
+
     }
 }

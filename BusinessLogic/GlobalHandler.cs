@@ -9,7 +9,7 @@ namespace BusinessLogic
 {
     public class GlobalHandler
     {
-        public static Dictionary<int, BaseCategoryHandler> CategoryTypes =
+        public static Dictionary<int, BaseCategoryHandler> CategoryHandlers =
             new Dictionary<int, BaseCategoryHandler>()
             {
                 {1, new ExpenseCategoryHandler()},

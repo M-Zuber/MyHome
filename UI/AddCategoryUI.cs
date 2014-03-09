@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using BL;
 using BusinessLogic;
 
 namespace MyHome2013
@@ -55,7 +54,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
                 this.txtCategoryName.Focus();
             }
-            else if (GlobalHandler.CategoryTypes[this.CategoryType].DoesNameExist(this.txtCategoryName.Text))
+            else if (GlobalHandler.CategoryHandlers[this.CategoryType].DoesNameExist(this.txtCategoryName.Text))
             {
                 MessageBox.Show("There can not be two  categories with the same name\n" + 
                                 "Please choose a new name",
@@ -69,18 +68,8 @@ namespace MyHome2013
             // Saves the category to the appropiate category group
             else
             {
-                // Updates the dictonary with a new variable for the new category
-                GlobalBL.UpdateCatDictionary();
+                GlobalHandler.CategoryHandlers[this.CategoryType].AddNewCategory(this.txtCategoryName.Text);
 
-                // Creates a variable of the appropiate category group according
-                // to the indicator passed in to the ctor and sets the name with
-                // the data from the form
-                BaseBL catCategoryToAdd =
-                    GlobalBL.CategoryTypes[this.CategoryType];
-                catCategoryToAdd.Name = this.txtCategoryName.Text;
-
-                // Saves the category and closes the form
-                catCategoryToAdd.Save();
                 this.Close();            
             }
         } 

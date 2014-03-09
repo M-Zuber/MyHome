@@ -47,6 +47,21 @@ namespace DataAccess
 
         #endregion
 
+        #region Create Methods
+
+        public override int AddNewCategory(string categoryName)
+        {
+            StaticDataSet.t_payment_methodsRow newPaymentMethod = Cache.SDB.t_payment_methods.Newt_payment_methodsRow();
+            newPaymentMethod.ID = this.GetNextId();
+            newPaymentMethod.NAME = categoryName;
+
+            Cache.SDB.t_payment_methods.Addt_payment_methodsRow(newPaymentMethod);
+
+            return newPaymentMethod.ID;
+        }
+
+        #endregion
+        
         #endregion
 
         #region Other Methods
@@ -62,5 +77,5 @@ namespace DataAccess
         }
 
         #endregion
-	}
+    }
 }

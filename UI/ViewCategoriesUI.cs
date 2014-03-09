@@ -56,7 +56,7 @@ namespace MyHome2013
         {
             // Loads the table that corrosponds to the wanted categry group
             this.dgvCategoryNames.DataSource =
-                GlobalHandler.CategoryTypes[this.CategoryType].LoadAll();
+                GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
             
             // Connects the data grid with the names only and displays the category group
             // name as a header
@@ -85,9 +85,9 @@ namespace MyHome2013
 
         private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (GlobalHandler.CategoryTypes[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
+            if (GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
-                GlobalHandler.CategoryTypes[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
+                GlobalHandler.CategoryHandlers[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
             }
         }
 
