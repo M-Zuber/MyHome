@@ -80,7 +80,7 @@ namespace MyHome2013
             }
 
             // Refreshes the list so the new category is displayed
-            this.dgvCategoryNames.Refresh();
+            this.dgvCategoryNames.DataSource = GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
         } 
 
         private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -88,6 +88,10 @@ namespace MyHome2013
             if (GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
                 GlobalHandler.CategoryHandlers[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
+            }
+            else
+            {
+                this.dgvCategoryNames.CurrentCell.Value = this.OriginalCategoryName;
             }
         }
 
