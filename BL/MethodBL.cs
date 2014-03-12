@@ -56,9 +56,9 @@ namespace BL
             // If the category already exists
             if (drMethods != null)
             {
-                Globals.LogFiles["BusinessLayerLog"].AddMessages(
-                                           "Updating existing payment method with id of: " + this.ID,
-                                           DateTime.Today.ToString());
+                //Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                //                           "Updating existing payment method with id of: " + this.ID,
+                //                           DateTime.Today.ToString());
 
                 // Updates the name of the category
                 drMethods["NAME"] = this.Name;
@@ -66,9 +66,9 @@ namespace BL
             // If the category does not exist yet
             else
             {
-                Globals.LogFiles["BusinessLayerLog"].AddMessages(
-                                        "Creating new payment method with id of: " + this.ID,
-                                        DateTime.Today.ToString());
+                //Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                //                        "Creating new payment method with id of: " + this.ID,
+                //                        DateTime.Today.ToString());
 
                 // Adds a new row to the table in the cache with the wanted Id and name
                 Cache.SDB.t_payment_methods.
@@ -106,10 +106,10 @@ namespace BL
             // actually in the databse, logs an error
             if (rowsInCache != rowsPulled)
             {
-                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
-                    "The amount in the cache is:" + rowsInCache +
-                                        " but only " + rowsPulled + " payment methods where pulled",
-                    DateTime.Today);
+                //Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                //    "The amount in the cache is:" + rowsInCache +
+                //                        " but only " + rowsPulled + " payment methods where pulled",
+                //    DateTime.Today);
             }
 
             // Returns the list to the calling function
@@ -136,11 +136,11 @@ namespace BL
                 mthNewMethod = new MethodBL(nNewId);
             }
             // If there was any error, stops it at this level
-            catch (Exception e)
+            catch (Exception)
             {
-                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR,
-                                                            e.Message, DateTime.Now);
-                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+                //Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR,
+                //                                            e.Message, DateTime.Now);
+                //Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
 
             // Returns the intialized variable to the calling function
@@ -172,9 +172,9 @@ namespace BL
             }
             else
             {
-                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
-                   "Attempt to pull non exsistent expense with an id of:" + nId,
-                   DateTime.Today);
+                //Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                //   "Attempt to pull non exsistent expense with an id of:" + nId,
+                //   DateTime.Today);
             }
 
             // Returns the variable to the calling function

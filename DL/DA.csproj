@@ -52,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+      <Project>{89C7A321-B6DC-455A-B99F-594A9570FB20}</Project>
+      <Name>FrameWork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Old_FrameWork\Old_FrameWork.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>Old_FrameWork</Name>

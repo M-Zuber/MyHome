@@ -76,9 +76,9 @@ namespace BL
             // -If so performs an update
             if (drExpense != null)
             {
-                Globals.LogFiles["BusinessLayerLog"].AddMessages(
-                                        "Updating existing expense with id of: " + this.ID,
-                                        DateTime.Today.ToString());
+                //Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                //                        "Updating existing expense with id of: " + this.ID,
+                //                        DateTime.Today.ToString());
 
                 // Updates each field with the data in the members of the class
                 drExpense["AMOUNT"] = this.Amount;
@@ -90,9 +90,9 @@ namespace BL
             // If a new row is being added
             else
             {
-                Globals.LogFiles["BusinessLayerLog"].AddMessages(
-                                        "Creating new expense with id of: " + this.ID,
-                                        DateTime.Today.ToString());
+                //Globals.LogFiles["BusinessLayerLog"].AddMessages(
+                //                        "Creating new expense with id of: " + this.ID,
+                //                        DateTime.Today.ToString());
 
                 // Intializes the variable with an empty skeleton of the row format
                 // and adds in the data based on the members of the class
@@ -139,10 +139,10 @@ namespace BL
             // actually in the databse, logs an error
             if (rowsInCache != rowsPulled)
             {
-                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
-                    "The amount in the cache is:" + rowsInCache +
-                                        " but only " + rowsPulled + " expenses where pulled",
-                    DateTime.Today);
+                //Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                //    "The amount in the cache is:" + rowsInCache +
+                //                        " but only " + rowsPulled + " expenses where pulled",
+                //    DateTime.Today);
             }
 
             // Returns the list to the calling function
@@ -169,11 +169,11 @@ namespace BL
                 expNewExpense = new ExpBL(nNewId);
             }
             // If there was any error, stops it at this level
-            catch (Exception e)
+            catch (Exception )
             {
-                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR,
-                                                            e.Message, DateTime.Now);
-                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+                //Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR,
+                //                                            e.Message, DateTime.Now);
+                //Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
             }
 
             // Returns the intialized variable to the calling function
@@ -208,9 +208,9 @@ namespace BL
             }
             else
             {
-                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
-                   "Attempt to pull non exsistent expense with an id of:" + nId,
-                   DateTime.Today);
+                //Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.BL_ERROR,
+                //   "Attempt to pull non exsistent expense with an id of:" + nId,
+                //   DateTime.Today);
             }
 
             // Returns the variable to the calling function

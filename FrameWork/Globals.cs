@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Old_FrameWork
+namespace FrameWork
 {
     public static class Globals
     {
@@ -30,7 +30,7 @@ namespace Old_FrameWork
         public static string DataBaseName = "";
         public static string UserId = "";
         public static string Password = "";
-        
+
         #endregion
 
         #endregion
@@ -41,7 +41,7 @@ namespace Old_FrameWork
 
         // Log files directory
         private const string LogPath = "./Log Files/";
-        
+
         // Dictionary of all log files
         public static Dictionary<string, Log> LogFiles = new Dictionary<string, Log>()
             {
@@ -63,7 +63,7 @@ namespace Old_FrameWork
             {
                 {"DatabaseSettings", new SettingsManager(SettingsFilesPath + "database.set")}
             };
-        
+
         #endregion
 
         #endregion

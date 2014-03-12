@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Old_FrameWork
+namespace FrameWork
 {
     /// <summary>
     /// Represents an instance of a file used for logging
