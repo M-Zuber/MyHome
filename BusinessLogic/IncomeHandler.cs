@@ -66,6 +66,15 @@ namespace BusinessLogic
         }
 
         #endregion
+        
+        #region Create Methods
+
+        public static int AddNewIncome(Income newIncome)
+        {
+            return IncomeAccess.AddNewIncome(newIncome);
+        }
+
+        #endregion
 
         #endregion
 

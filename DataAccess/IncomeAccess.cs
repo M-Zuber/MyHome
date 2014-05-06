@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Old_FrameWork;
 using LocalTypes;
+using MoreLinq;
 
 namespace DataAccess
 {
@@ -70,6 +71,25 @@ namespace DataAccess
 
         #endregion
 
+        #region Create Methods
+
+        public static int AddNewIncome(Income newIncome)
+        {
+            StaticDataSet.t_incomesRow newDbIncome = Cache.SDB.t_incomes.Newt_incomesRow();
+            newDbIncome.ID = GetNextId();
+            newDbIncome.AMOUNT = newIncome.Amount;
+            newDbIncome.CATEGORY = newIncome.Category.Id;
+            newDbIncome.METHOD = newIncome.Method.Id;
+            newDbIncome.INC_DATE = newIncome.Date;
+            newDbIncome.COMMENTS = newIncome.Comment;
+
+            Cache.SDB.t_incomes.Addt_incomesRow(newDbIncome);
+
+            return newDbIncome.ID;
+        }
+
+        #endregion
+
         #endregion
 
         #region Other Methods
@@ -113,6 +133,11 @@ namespace DataAccess
             return new Income(rowTranslating.AMOUNT, rowTranslating.INC_DATE,
                 IncomeCategoryAccess.LoadById(rowTranslating.CATEGORY),
                 PaymentMethodAccess.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
+        }
+
+        internal static int GetNextId()
+        {
+            return LoadAll().MaxBy(income => income.ID).ID + 1;
         }
 
         #endregion

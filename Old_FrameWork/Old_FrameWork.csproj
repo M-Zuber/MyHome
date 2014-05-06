@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
-    <Compile Include="SettingsManager.cs" />
     <Compile Include="StaticDataSet.cs">
       <DependentUpon>StaticDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>

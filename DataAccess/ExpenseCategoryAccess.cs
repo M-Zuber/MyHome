@@ -57,7 +57,7 @@ namespace DataAccess
 
             Cache.SDB.t_expenses_category.Addt_expenses_categoryRow(newPaymentMethod);
 
-            return (int)newPaymentMethod.ID;
+            return newPaymentMethod.ID;
         }
 
         #endregion
