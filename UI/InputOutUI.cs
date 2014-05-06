@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using BL;
-using Old_FrameWork;
+using BusinessLogic;
+using LocalTypes;
 
 namespace MyHome2013
 {
@@ -32,17 +32,7 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void InputOutUI_Load(object sender, EventArgs e)
         {
-            // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
-                Cache.SDB.t_expenses_category;
-            this.cmbCategory.DisplayMember = "NAME";
-            this.cmbCategory.ValueMember = "ID";
-
-            // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
-                Cache.SDB.t_payment_methods;
-            this.cmbPayment.DisplayMember = "NAME";
-            this.cmbPayment.ValueMember = "ID";
+            this.SetDataBindings();
         } 
 
         /// <summary>
@@ -63,7 +53,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!GlobalBL.IsNumeric(this.txtAmount.Text))
+            else if (!BusinessLogic.HelperMethods.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
@@ -75,18 +65,13 @@ namespace MyHome2013
             // Otherwise saves the new expense
             else
             {
-                // Creates a new expense and sets the properties with the data from the form
-                ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = double.Parse(this.txtAmount.Text);
-                exbNewExp.Date = this.dtPick.Value.Date;
-                exbNewExp.Category =
-                    Convert.ToInt32(this.cmbCategory.SelectedValue);
-                exbNewExp.Method =
-                    Convert.ToInt32(this.cmbPayment.SelectedValue);
-                exbNewExp.Comment = this.txtDetail.Text;
+                Expense newExpense =
+                    new Expense(int.Parse(this.txtAmount.Text), this.dtPick.Value,
+                                ExpenseCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                                this.txtDetail.Text, id: 0);
 
-                // Saves the new expense into the cache
-                exbNewExp.Save();
+                ExpenseHandler.AddNewExpense(newExpense);
 
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -102,13 +87,31 @@ namespace MyHome2013
                 // If more data is being entered clears the user entered data for the new data
                 else
                 {
+                    // Puts the focus back to the top of the form and resets the selected values
+                    this.cmbCategory.Focus();
                     this.txtAmount.Text = "";
                     this.txtDetail.Text = "";
-
-                    // Puts the focus back to the top of the form
-                    this.cmbCategory.Focus();
                 }
             }
+        }
+
+        #endregion
+
+        #region Other Methods
+
+        private void SetDataBindings()
+        {
+            // Sets up the combo box of the income categories
+            this.cmbCategory.DataSource =
+                (new ExpenseCategoryHandler()).LoadAll();
+            this.cmbCategory.DisplayMember = "NAME";
+            this.cmbCategory.ValueMember = "ID";
+
+            // Sets up the combo box with the payment methods
+            this.cmbPayment.DataSource =
+                (new PaymentMethodHandler()).LoadAll();
+            this.cmbPayment.DisplayMember = "NAME";
+            this.cmbPayment.ValueMember = "ID";
         }
 
         #endregion

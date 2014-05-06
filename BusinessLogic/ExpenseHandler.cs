@@ -67,6 +67,15 @@ namespace BusinessLogic
 
         #endregion
 
+        #region Create Methods
+
+        public static int AddNewExpense(Expense newExpense)
+        {
+            return ExpenseAccess.AddNewExpense(newExpense);
+        }
+
+        #endregion
+
         #endregion
 
         #region Other Methods
