@@ -49,6 +49,10 @@ namespace MyHome2013
             // Binds the cache data to the form
             this.DataBinding();
 
+            // Due to only the month being displayed on the control, the day is set to '1',
+            // so when going from a month with more days to a month with less an exception won't be thrown
+            this.dtPick.Value = new DateTime(this.dtPick.Value.Year, this.dtPick.Value.Month, 1);
+
             // Sets up the event for re-entering the form
             this.Enter += this.DataViewUI_Enter;
         }
