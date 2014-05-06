@@ -69,7 +69,7 @@ namespace MyHome2013
                     new Income(int.Parse(this.txtAmount.Text), this.dtPick.Value,
                                 IncomeCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
-                                this.txtDetail.Text, id:0);
+                                this.txtDetail.Text);
 
                 IncomeHandler.AddNewIncome(newIncome);
 

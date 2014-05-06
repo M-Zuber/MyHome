@@ -41,7 +41,7 @@ namespace LocalTypes
         #region C'Tor
 
         public Expense(double amount, DateTime date, ExpenseCategory expenseCategory,
-            PaymentMethod paymentMethod, string comment, int id)
+            PaymentMethod paymentMethod, string comment, int id = 0)
         {
             this.Amount = amount;
             this.Category = expenseCategory;
