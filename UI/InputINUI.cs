@@ -66,7 +66,7 @@ namespace MyHome2013
             else
             {
                 Income newIncome = 
-                    new Income(int.Parse(this.txtAmount.Text), this.dtPick.Value,
+                    new Income(double.Parse(this.txtAmount.Text), this.dtPick.Value,
                                 IncomeCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);

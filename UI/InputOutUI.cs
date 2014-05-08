@@ -66,7 +66,7 @@ namespace MyHome2013
             else
             {
                 Expense newExpense =
-                    new Expense(int.Parse(this.txtAmount.Text), this.dtPick.Value,
+                    new Expense(double.Parse(this.txtAmount.Text), this.dtPick.Value,
                                 ExpenseCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
