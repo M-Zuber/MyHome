@@ -51,7 +51,7 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            return (new ExpenseCategoryAccess()).Save(categoryToSave);
+            return (new PaymentMethodAccess()).Save(categoryToSave);
         }
 
         #endregion

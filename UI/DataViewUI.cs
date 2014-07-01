@@ -16,9 +16,14 @@ namespace MyHome2013
         #region Properties
 
         /// <summary>
-        /// Holds a category list to bind to the combo box
+        /// Holds the list of income categories
         /// </summary>
-        public Dictionary<string, double> CategoryTotalsList { get; set; }
+        public Dictionary<string, double> IncomeCategoriesTotals { get; set; }
+
+        /// <summary>
+        /// Holds the list of expense categories
+        /// </summary>
+        public Dictionary<string, double> ExpenseCategoriesTotals { get; set; }
 
         #endregion
 
@@ -128,19 +133,26 @@ namespace MyHome2013
         private void CategryDataBinding()
         {
             // Clears any old data bindings
-            this.cmbCategory.DataSource = null;
-            this.txtCategoryTotal.DataBindings.Clear();
+            this.cmbIncomeCategories.DataSource = null;
+            this.txtIncomeCategoryTotal.DataBindings.Clear();
+            this.cmbExpenseCategories.DataSource = null;
+            this.txtExpenseCategoryTotal.DataBindings.Clear();
 
-            // Refreshes the data table with the category list and refreshes the data bindings
-            this.CategoryTotalsList = new Dictionary<string, double>();            
-            this.CategoryTotalsList.AddRange(ExpenseHandler.GetCategoryTotals(this.dtPick.Value));
-            this.CategoryTotalsList.AddRange(IncomeHandler.GetCategoryTotals(this.dtPick.Value));
+            // Intializes the category total dictionarys
+            this.IncomeCategoriesTotals = new Dictionary<string, double>();
+            this.ExpenseCategoriesTotals = new Dictionary<string, double>();
 
-            // Binds the data table with the list of categorys
-            // and binds the text box to display the total for the given category
-            this.cmbCategory.DataSource = new ArrayList(this.CategoryTotalsList);
-            this.cmbCategory.DisplayMember = "KEY";
-            this.txtCategoryTotal.DataBindings.Add("Text", this.cmbCategory.DataSource, "VALUE");
+            this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetCategoryTotals(this.dtPick.Value));
+            this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetCategoryTotals(this.dtPick.Value));
+
+            // Sets the bindings for the controls
+            this.cmbIncomeCategories.DataSource = new ArrayList(this.IncomeCategoriesTotals);
+            this.cmbIncomeCategories.DisplayMember = "KEY";
+            this.txtIncomeCategoryTotal.DataBindings.Add("Text", this.cmbIncomeCategories.DataSource, "VALUE");
+
+            this.cmbExpenseCategories.DataSource = new ArrayList(this.ExpenseCategoriesTotals);
+            this.cmbExpenseCategories.DisplayMember = "KEY";
+            this.txtExpenseCategoryTotal.DataBindings.Add("Text", this.cmbExpenseCategories.DataSource, "VALUE");
         }
 
         /// <summary>
