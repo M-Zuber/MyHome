@@ -16,5 +16,13 @@ namespace BusinessLogic
                 {2, new IncomeCategoryHandler()},
                 {3, new PaymentMethodHandler()}
             };
+
+        public static Dictionary<int, string> CategoryTypeNames =
+            new Dictionary<int, string>()
+            {
+                {1, "Expense Categories"},
+                {2, "Income Categories"},
+                {3, "Payment Methods"}
+            };
     }
 }

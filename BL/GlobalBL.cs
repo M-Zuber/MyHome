@@ -24,17 +24,6 @@ namespace BL
             };
 
         /// <summary>
-        /// Dictionary with the names of the category types -localized
-        /// </summary>
-        public static Dictionary<int, string> CategoryTypeNames =
-            new Dictionary<int, string>()
-            {
-                {1, "Expense Categories"},
-                {2, "Income Categories"},
-                {3, "Payment Methods"}
-            };
-
-        /// <summary>
         /// Dictionary with class instances of each category type
         /// -starts with null, appropiate values are added during runtime
         /// </summary>

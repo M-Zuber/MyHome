@@ -40,15 +40,15 @@
             this.lblPickDate = new System.Windows.Forms.Label();
             this.lblIncomeCatTotals = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblExpenseCatTotals = new System.Windows.Forms.Label();
-            this.cmbExpenseCategories = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblExpenseCatTotals = new System.Windows.Forms.Label();
+            this.txtExpenseCategoryTotal = new System.Windows.Forms.TextBox();
+            this.cmbExpenseCategories = new System.Windows.Forms.ComboBox();
             this.dgOut = new System.Windows.Forms.DataGridView();
             this.dgIn = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblIncomeChart = new System.Windows.Forms.Label();
             this.lblExpenseChart = new System.Windows.Forms.Label();
-            this.txtExpenseCategoryTotal = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgOut)).BeginInit();
@@ -61,7 +61,7 @@
             this.cmbIncomeCategories.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbIncomeCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIncomeCategories.FormattingEnabled = true;
-            this.cmbIncomeCategories.Location = new System.Drawing.Point(3, 175);
+            this.cmbIncomeCategories.Location = new System.Drawing.Point(3, 171);
             this.cmbIncomeCategories.Name = "cmbIncomeCategories";
             this.cmbIncomeCategories.Size = new System.Drawing.Size(130, 21);
             this.cmbIncomeCategories.TabIndex = 2;
@@ -69,7 +69,7 @@
             // txtIncomeCategoryTotal
             // 
             this.txtIncomeCategoryTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtIncomeCategoryTotal.Location = new System.Drawing.Point(3, 218);
+            this.txtIncomeCategoryTotal.Location = new System.Drawing.Point(3, 213);
             this.txtIncomeCategoryTotal.Name = "txtIncomeCategoryTotal";
             this.txtIncomeCategoryTotal.ReadOnly = true;
             this.txtIncomeCategoryTotal.Size = new System.Drawing.Size(130, 20);
@@ -98,9 +98,9 @@
             // lblIncomeCatTotals
             // 
             this.lblIncomeCatTotals.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblIncomeCatTotals.Location = new System.Drawing.Point(3, 129);
+            this.lblIncomeCatTotals.Location = new System.Drawing.Point(3, 126);
             this.lblIncomeCatTotals.Name = "lblIncomeCatTotals";
-            this.lblIncomeCatTotals.Size = new System.Drawing.Size(130, 43);
+            this.lblIncomeCatTotals.Size = new System.Drawing.Size(130, 42);
             this.lblIncomeCatTotals.TabIndex = 6;
             this.lblIncomeCatTotals.Text = "Choose an income category \r\nto view the total";
             // 
@@ -112,25 +112,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(136, 351);
             this.panel1.TabIndex = 0;
-            // 
-            // lblExpenseCatTotals
-            // 
-            this.lblExpenseCatTotals.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblExpenseCatTotals.Location = new System.Drawing.Point(3, 0);
-            this.lblExpenseCatTotals.Name = "lblExpenseCatTotals";
-            this.lblExpenseCatTotals.Size = new System.Drawing.Size(130, 43);
-            this.lblExpenseCatTotals.TabIndex = 1;
-            this.lblExpenseCatTotals.Text = "Choose an expense category \r\nto view the total";
-            // 
-            // cmbExpenseCategories
-            // 
-            this.cmbExpenseCategories.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbExpenseCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbExpenseCategories.FormattingEnabled = true;
-            this.cmbExpenseCategories.Location = new System.Drawing.Point(3, 46);
-            this.cmbExpenseCategories.Name = "cmbExpenseCategories";
-            this.cmbExpenseCategories.Size = new System.Drawing.Size(130, 21);
-            this.cmbExpenseCategories.TabIndex = 1;
             // 
             // tableLayoutPanel2
             // 
@@ -154,6 +135,34 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(136, 258);
             this.tableLayoutPanel2.TabIndex = 12;
+            // 
+            // lblExpenseCatTotals
+            // 
+            this.lblExpenseCatTotals.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblExpenseCatTotals.Location = new System.Drawing.Point(3, 0);
+            this.lblExpenseCatTotals.Name = "lblExpenseCatTotals";
+            this.lblExpenseCatTotals.Size = new System.Drawing.Size(130, 42);
+            this.lblExpenseCatTotals.TabIndex = 1;
+            this.lblExpenseCatTotals.Text = "Choose an expense category \r\nto view the total";
+            // 
+            // txtExpenseCategoryTotal
+            // 
+            this.txtExpenseCategoryTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtExpenseCategoryTotal.Location = new System.Drawing.Point(3, 87);
+            this.txtExpenseCategoryTotal.Name = "txtExpenseCategoryTotal";
+            this.txtExpenseCategoryTotal.ReadOnly = true;
+            this.txtExpenseCategoryTotal.Size = new System.Drawing.Size(130, 20);
+            this.txtExpenseCategoryTotal.TabIndex = 10;
+            // 
+            // cmbExpenseCategories
+            // 
+            this.cmbExpenseCategories.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbExpenseCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbExpenseCategories.FormattingEnabled = true;
+            this.cmbExpenseCategories.Location = new System.Drawing.Point(3, 45);
+            this.cmbExpenseCategories.Name = "cmbExpenseCategories";
+            this.cmbExpenseCategories.Size = new System.Drawing.Size(130, 21);
+            this.cmbExpenseCategories.TabIndex = 1;
             // 
             // dgOut
             // 
@@ -274,15 +283,6 @@
             this.lblExpenseChart.TabIndex = 3;
             this.lblExpenseChart.Text = "Expenses";
             this.lblExpenseChart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtExpenseCategoryTotal
-            // 
-            this.txtExpenseCategoryTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtExpenseCategoryTotal.Location = new System.Drawing.Point(3, 89);
-            this.txtExpenseCategoryTotal.Name = "txtExpenseCategoryTotal";
-            this.txtExpenseCategoryTotal.ReadOnly = true;
-            this.txtExpenseCategoryTotal.Size = new System.Drawing.Size(130, 20);
-            this.txtExpenseCategoryTotal.TabIndex = 10;
             // 
             // DataViewUI
             // 
