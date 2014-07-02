@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using BL;
-using Old_FrameWork;
 using LocalTypes;
 using BusinessLogic;
 
@@ -39,13 +37,13 @@ namespace MyHome2013
         {
             // Sets up the combo box of the income categories
             this.cmbCategory.DataSource =
-                Cache.SDB.t_expenses_category;
+                (new ExpenseCategoryHandler()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
             this.cmbPayment.DataSource =
-                Cache.SDB.t_payment_methods;
+                (new PaymentMethodHandler()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
 
@@ -73,7 +71,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!GlobalBL.IsNumeric(this.txtAmount.Text))
+            else if (!HelperMethods.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
