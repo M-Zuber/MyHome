@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using BL;
 using BusinessLogic;
 using LocalTypes;
 
@@ -59,10 +58,10 @@ namespace MyHome2013
                 GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
             
             // Connects the data grid with the names only and displays the category group
-            // name as a header
+            // name as the title of the form
             this.dgvCategoryNames.Columns[0].Visible = false;
-            this.dgvCategoryNames.Columns[1].HeaderText = 
-                                        GlobalBL.CategoryTypeNames[this.CategoryType];
+
+            this.Text = GlobalHandler.CategoryTypeNames[this.CategoryType];
         }
 
         /// <summary>
