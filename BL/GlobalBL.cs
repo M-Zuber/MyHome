@@ -45,7 +45,7 @@ namespace BL
         public static void IntializeData()
         {
             // Loads all the tables one at a time -but in the appropiate order
-            GlobalBL.LoadToCache();
+            GlobalBL.LoadAllToCache();
 
             // Intializes variables with values for new ids
             BaseDA.SetNewIdStart();
@@ -54,7 +54,7 @@ namespace BL
         /// <summary>
         /// Loads all the tables into the cache
         /// </summary>
-        public static void LoadToCache()
+        public static void LoadAllToCache()
         {
             // Loads all the tbales one at a time -but in the appropiate order
             BaseDA.LoadToCache();

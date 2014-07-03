@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="BaseCategoryAccess.cs" />
     <Compile Include="ConnectionManager.cs" />
+    <Compile Include="GlobalDataAccess.cs" />
     <Compile Include="IncomeAccess.cs" />
     <Compile Include="IncomeCategoryAccess.cs" />
     <Compile Include="ExpenseAccess.cs" />
