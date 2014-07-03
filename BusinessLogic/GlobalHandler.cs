@@ -9,6 +9,8 @@ namespace BusinessLogic
 {
     public class GlobalHandler
     {
+        #region Data Members
+
         public static Dictionary<int, BaseCategoryHandler> CategoryHandlers =
             new Dictionary<int, BaseCategoryHandler>()
             {
@@ -24,10 +26,25 @@ namespace BusinessLogic
                 {2, "Income Categories"},
                 {3, "Payment Methods"}
             };
+        
+        #endregion
+
+        #region Load Methods
 
         public static void IntializeData()
         {
             GlobalDataAccess.LoadAllToCache();
         }
+        
+        #endregion
+
+        #region Save Methods
+        
+        public static void SaveData()
+        {
+            GlobalDataAccess.SaveAllFromCache();
+        }
+
+        #endregion
     }
 }

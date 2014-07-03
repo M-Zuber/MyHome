@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using BL;
 using Old_FrameWork;
 using BusinessLogic;
 
@@ -365,7 +364,7 @@ namespace MyHome2013
                 // if the user wants to exit but not save changes the form will just close
                 if (DialogResult == DialogResult.Yes)
                 {
-                    GlobalBL.SaveFromCache();
+                    GlobalHandler.SaveData();
                 }
                 // If the user does not want to exit the program
                 else if (DialogResult == DialogResult.Cancel)
@@ -394,7 +393,7 @@ namespace MyHome2013
                 // If the user is saving the changes
                 if (DialogResult == DialogResult.Yes)
                 {
-                    GlobalBL.SaveFromCache();
+                    GlobalHandler.SaveData();
                 }
             }
         }
