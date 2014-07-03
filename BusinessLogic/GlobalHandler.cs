@@ -24,5 +24,10 @@ namespace BusinessLogic
                 {2, "Income Categories"},
                 {3, "Payment Methods"}
             };
+
+        public static void IntializeData()
+        {
+            GlobalDataAccess.LoadAllToCache();
+        }
     }
 }

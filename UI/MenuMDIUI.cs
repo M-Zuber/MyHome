@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using BL;
 using Old_FrameWork;
+using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -119,7 +120,7 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_Load(object sender, EventArgs e)
         {
-            GlobalBL.IntializeData();
+            GlobalHandler.IntializeData();
             this.WindowState = FormWindowState.Maximized;
         }
 
