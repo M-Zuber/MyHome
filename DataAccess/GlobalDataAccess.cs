@@ -76,5 +76,48 @@ namespace DataAccess
         }
 
         #endregion
+
+        #region Save Methods
+
+        public static void SaveAllFromCache()
+        {
+            foreach (string CurrTableName in tableNames)
+            {
+                SaveFromCache(CurrTableName);
+            }
+        }
+
+        internal static void SaveFromCache(string strTableName)
+        {
+            try
+            {
+
+                // Creates the data adapter and sets it with the update commands
+                MySqlDataAdapter daAdapter = GetAdapter(strTableName);
+                MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
+
+                // Updating table as is
+                int nRowsUpdated = daAdapter.Update(Cache.SDB.Tables[strTableName]);
+
+                Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.WRITE.ToString() +
+                                                            " at " + DateTime.Now,
+                                                            "Command: Adapter.Update(" + strTableName + ")",
+                                                            "Result: " + nRowsUpdated.ToString());
+            }
+            // In the event of a databse exception
+            catch (MySqlException e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
+            }
+            // If any other exception occurs
+            catch (Exception e)
+            {
+                Globals.LogFiles["ErrorLog"].AddError(Globals.ErrorCodes.SQL_ERROR, e.Message, DateTime.Now);
+                Globals.LogFiles["ErrorLog"].AddMessages(e.StackTrace, e.InnerException.Message);
+            }
+        }
+
+        #endregion
     }
 }
