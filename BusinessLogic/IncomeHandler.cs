@@ -44,12 +44,7 @@ namespace BusinessLogic
         /// <returns>A list of Incomes filtered to a specific month</returns>
         public static List<Income> LoadOfMonth(DateTime monthWanted)
         {
-            List<Income> allIncomes = LoadAll();
-
-            return (from income in allIncomes
-                    where income.Date.Month == monthWanted.Month
-                       && income.Date.Year == monthWanted.Year
-                    select income).ToList<Income>();
+            return IncomeAccess.LoadIncomesOfMonth(monthWanted);
         }
 
         #endregion

@@ -2,6 +2,8 @@
 using Old_FrameWork;
 using LocalTypes;
 using MoreLinq;
+using System;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -45,6 +47,14 @@ namespace DataAccess
             }
 
             return allIncomes;
+        }
+
+        public static List<Income> LoadIncomesOfMonth(DateTime monthWanted)
+        {
+            return LoadAll()
+                    .Where(currExpense =>
+                            currExpense.Date.Month == monthWanted.Month &&
+                            currExpense.Date.Year == monthWanted.Year).ToList<Income>();
         }
 
         #endregion

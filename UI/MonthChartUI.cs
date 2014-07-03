@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using BL;
-using Old_FrameWork;
+using BusinessLogic;
+using System.Collections.Generic;
 
 namespace MyHome2013
 {
@@ -77,19 +77,20 @@ namespace MyHome2013
         /// </summary>
         private void LoadMe()
         {
-            // Loads the data for the month requested
-            MonthViewBL mvNew = new MonthViewBL(this.m_dtMonth);
-
             // Updates the lable to display the name of the month being viewed
             this.lblMonth.Text = this.m_dtMonth.GetDateTimeFormats('Y')[0];
 
             // Connects the data of the expenses to the corrosponding chart
-            this.crtExpenses.Series[0].Points.DataBind(mvNew.CuttingExp(), "KEY", "VALUE", "");
+            Dictionary<string, double> expenseData = ExpenseHandler.GetCategoryTotals(this.m_dtMonth);
+            expenseData.Remove("Total Expenses");
+            this.crtExpenses.Series[0].Points.DataBind(expenseData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtExpenses.Series[0].Points);
             this.crtExpenses.ResetAutoValues();
 
             // Connects the data of the income to the corrosponding chart
-            this.crtIncome.Series[0].Points.DataBind(mvNew.CuttingInc(), "KEY", "VALUE", "");
+            Dictionary<string, double> incomeData = IncomeHandler.GetCategoryTotals(this.m_dtMonth);
+            incomeData.Remove("Total Income");
+            this.crtIncome.Series[0].Points.DataBind(incomeData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtIncome.Series[0].Points);
             this.crtIncome.ResetAutoValues();
         }

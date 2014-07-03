@@ -44,12 +44,7 @@ namespace BusinessLogic
         /// <returns>A list of expenses filtered to a specific month</returns>
         public static List<Expense> LoadOfMonth(DateTime monthWanted)
         {
-            List<Expense> allExpenses = LoadAll();
-
-            return (from expense in allExpenses
-                    where expense.Date.Month == monthWanted.Month
-                       && expense.Date.Year == monthWanted.Year
-                    select expense).ToList<Expense>();
+            return ExpenseAccess.LoadExpensesOfMonth(monthWanted);
         }
 
         #endregion
