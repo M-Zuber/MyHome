@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 using BusinessLogic;
 using FrameWork;
 using LocalTypes;
@@ -142,7 +143,10 @@ namespace MyHome2013
             this.IncomeCategoriesTotals = new Dictionary<string, double>();
             this.ExpenseCategoriesTotals = new Dictionary<string, double>();
 
+            this.ExpenseCategoriesTotals.Add("Total Expenses", ExpenseHandler.GetMonthTotal(dtPick.Value));
             this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetCategoryTotals(this.dtPick.Value));
+
+            this.IncomeCategoriesTotals.Add("Total Income", IncomeHandler.GetMonthTotal(dtPick.Value));
             this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetCategoryTotals(this.dtPick.Value));
 
             // Sets the bindings for the controls

@@ -82,14 +82,12 @@ namespace MyHome2013
 
             // Connects the data of the expenses to the corrosponding chart
             Dictionary<string, double> expenseData = ExpenseHandler.GetCategoryTotals(this.m_dtMonth);
-            expenseData.Remove("Total Expenses");
             this.crtExpenses.Series[0].Points.DataBind(expenseData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtExpenses.Series[0].Points);
             this.crtExpenses.ResetAutoValues();
 
             // Connects the data of the income to the corrosponding chart
             Dictionary<string, double> incomeData = IncomeHandler.GetCategoryTotals(this.m_dtMonth);
-            incomeData.Remove("Total Income");
             this.crtIncome.Series[0].Points.DataBind(incomeData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtIncome.Series[0].Points);
             this.crtIncome.ResetAutoValues();
