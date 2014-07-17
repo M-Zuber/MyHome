@@ -4,6 +4,7 @@ using LocalTypes;
 using MoreLinq;
 using System;
 using System.Linq;
+using System.Data;
 
 namespace DataAccess
 {
@@ -41,9 +42,10 @@ namespace DataAccess
         {
             List<Income> allIncomes = new List<Income>();
 
-            foreach (StaticDataSet.t_incomesRow currIncome in Cache.SDB.t_incomes.Rows)
+            Cache.SDB.t_incomes.DefaultView.AllowDelete = false;
+            foreach (DataRowView currIncome in Cache.SDB.t_incomes.DefaultView)
             {
-                allIncomes.Add(TranslateFromDataRow(currIncome));
+                allIncomes.Add(TranslateFromDataRow((StaticDataSet.t_incomesRow)currIncome.Row));
             }
 
             return allIncomes;
@@ -100,6 +102,15 @@ namespace DataAccess
 
         #endregion
 
+        #region Delete Methods
+
+        public static void DeleteIncome(int id)
+        {
+            Cache.SDB.t_incomes.FindByID(id).Delete();
+        }
+
+        #endregion
+        
         #endregion
 
         #region Other Methods

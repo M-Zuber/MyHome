@@ -60,6 +60,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{5424771d-5cd2-4e89-883d-46343dc4b543}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FrameWork\FrameWork.csproj">
       <Project>{89C7A321-B6DC-455A-B99F-594A9570FB20}</Project>
       <Name>FrameWork</Name>
@@ -67,10 +71,6 @@
     <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
       <Name>LocalTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Old_FrameWork\Data.csproj">
-      <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
-      <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

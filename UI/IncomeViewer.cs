@@ -150,8 +150,8 @@ namespace MyHome2013
         {
             // Enables the controls for editing and updates which buttons are visible
             this.ToggleEnableControls(this.txtAmount, this.txtDetail, this.cmbCategory,
-                this.cmbPayment, this.dtPick, this.btnSave, this.btnEdit, this.btnCancel);
-            this.ToggleVisibility(this.btnSave,this.btnCancel,this.btnEdit);
+                this.cmbPayment, this.dtPick, this.btnSave, this.btnEdit, this.btnCancel, this.btnDelete);
+            this.ToggleVisibility(this.btnSave, this.btnCancel, this.btnEdit, this.btnDelete);
         }
 
         /// <summary>
@@ -164,14 +164,31 @@ namespace MyHome2013
         {
             // Enables the controls for editing and updates which buttons are visible
             this.ToggleEnableControls(this.txtAmount, this.txtDetail, this.cmbCategory,
-                this.cmbPayment, this.dtPick, this.btnSave, this.btnEdit, this.btnCancel);
-            this.ToggleVisibility(this.btnSave, this.btnCancel, this.btnEdit);
+                this.cmbPayment, this.dtPick, this.btnSave, this.btnEdit, this.btnCancel, this.btnDelete);
+            this.ToggleVisibility(this.btnSave, this.btnCancel, this.btnEdit, this.btnDelete);
 
             // Makes sure that the expense of the binding has the origional values
             this.currentIncome = this.originalIncome.Copy();
 
             // Resets the data bindings
             this.SetDataBindings();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult canDelete =
+                MessageBox.Show("Are you sure you want to delete this income?\n" +
+                                "Once done, it can not be undone!",
+                                "Deleting...",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button2);
+
+            if (canDelete == DialogResult.OK)
+            {
+                IncomeHandler.Delete(this.currentIncome.ID);
+                this.Close();
+            }
         }
 
         #endregion
