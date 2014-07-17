@@ -71,6 +71,15 @@ namespace BusinessLogic
 
         #endregion
 
+        #region Delete Region
+        
+        public static void Delete(int id)
+        {
+            ExpenseAccess.DeleteExpense(id);
+        }
+
+        #endregion
+
         #endregion
 
         #region Other Methods
