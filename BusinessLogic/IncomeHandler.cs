@@ -80,18 +80,20 @@ namespace BusinessLogic
             return IncomeHandler.LoadOfMonth(monthWanted).Sum(curIncome => curIncome.Amount);
         }
 
-        public static Dictionary<string, double> GetCategoryTotals(DateTime monthWanted)
+        public static double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
+        {
+            return IncomeHandler.LoadOfMonth(monthWanted)
+                .Where(curIncome => curIncome.Category.Name == categoryWanted)
+                .Sum(curIncome => curIncome.Amount);
+        }
+
+        public static Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
         {
             Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
 
             foreach (IncomeCategory currCategory in (new IncomeCategoryHandler()).LoadAll())
             {
-                categoryTotals.Add(currCategory.Name, 0);
-            }
-
-            foreach (Income currExpense in IncomeHandler.LoadOfMonth(monthWanted))
-            {
-                categoryTotals[currExpense.Category.Name] += currExpense.Amount;
+                categoryTotals.Add(currCategory.Name, GetCategoryTotalForMonth(monthWanted, currCategory.Name));
             }
 
             return categoryTotals;

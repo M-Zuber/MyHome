@@ -80,18 +80,20 @@ namespace BusinessLogic
             return ExpenseHandler.LoadOfMonth(monthWanted).Sum(curExpense => curExpense.Amount);
         }
 
-        public static Dictionary<string, double> GetCategoryTotals(DateTime monthWanted)
+        public static double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
+        {
+            return ExpenseHandler.LoadOfMonth(monthWanted)
+                .Where(curExpense => curExpense.Category.Name == categoryWanted)
+                .Sum(curExpense => curExpense.Amount);
+        }
+
+        public static Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
         {
             Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
 
             foreach (ExpenseCategory currCategory in (new ExpenseCategoryHandler()).LoadAll())
             {
-                categoryTotals.Add(currCategory.Name, 0);
-            }
-
-            foreach (Expense currExpense in ExpenseHandler.LoadOfMonth(monthWanted))
-            {
-                categoryTotals[currExpense.Category.Name] += currExpense.Amount;
+                categoryTotals.Add(currCategory.Name, GetCategoryTotalForMonth(monthWanted, currCategory.Name));
             }
 
             return categoryTotals;

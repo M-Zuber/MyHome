@@ -81,13 +81,13 @@ namespace MyHome2013
             this.lblMonth.Text = this.m_dtMonth.GetDateTimeFormats('Y')[0];
 
             // Connects the data of the expenses to the corrosponding chart
-            Dictionary<string, double> expenseData = ExpenseHandler.GetCategoryTotals(this.m_dtMonth);
+            Dictionary<string, double> expenseData = ExpenseHandler.GetAllCategoryTotals(this.m_dtMonth);
             this.crtExpenses.Series[0].Points.DataBind(expenseData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtExpenses.Series[0].Points);
             this.crtExpenses.ResetAutoValues();
 
             // Connects the data of the income to the corrosponding chart
-            Dictionary<string, double> incomeData = IncomeHandler.GetCategoryTotals(this.m_dtMonth);
+            Dictionary<string, double> incomeData = IncomeHandler.GetAllCategoryTotals(this.m_dtMonth);
             this.crtIncome.Series[0].Points.DataBind(incomeData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtIncome.Series[0].Points);
             this.crtIncome.ResetAutoValues();

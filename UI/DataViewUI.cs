@@ -144,10 +144,10 @@ namespace MyHome2013
             this.ExpenseCategoriesTotals = new Dictionary<string, double>();
 
             this.ExpenseCategoriesTotals.Add("Total Expenses", ExpenseHandler.GetMonthTotal(dtPick.Value));
-            this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetCategoryTotals(this.dtPick.Value));
+            this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(this.dtPick.Value));
 
             this.IncomeCategoriesTotals.Add("Total Income", IncomeHandler.GetMonthTotal(dtPick.Value));
-            this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetCategoryTotals(this.dtPick.Value));
+            this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetAllCategoryTotals(this.dtPick.Value));
 
             // Sets the bindings for the controls
             this.cmbIncomeCategories.DataSource = new ArrayList(this.IncomeCategoriesTotals);
