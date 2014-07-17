@@ -215,10 +215,15 @@ namespace MyHome2013
         /// </summary>
         private void ShowDataOnChart()
         {
+            // Shows the month in easy to read human format
+            // -in the future a value can be passed into this method that will control the format
+            List<string> monthsStringRepresentation = 
+                this.MonthData[cmbCat.Text].Keys.ToList<DateTime>()
+                    .Select(curDate => curDate.ToString("MMM--yyyy")).ToList<string>();
+
             // Attaches the Month data to points collection of the series
             this.crtGraph.Series[0].Points.DataBindXY(
-                this.MonthData[cmbCat.Text].Keys.ToList<DateTime>()
-                    .Select(curDate => curDate.ToString("MMM--yyyy")).ToList<string>(),
+                monthsStringRepresentation,
                 this.MonthData[cmbCat.Text].Values);
             this.crtGraph.Series[0].Name =
                 this.cmbCat.SelectedItem.ToString();
