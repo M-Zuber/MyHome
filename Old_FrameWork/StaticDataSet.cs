@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Old_FrameWork {
+namespace Data
+{
     
     
     public partial class StaticDataSet {
