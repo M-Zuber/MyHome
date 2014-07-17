@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalTypes", "LocalTypes\Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{4CF9D86B-3A55-44F1-9C75-189D7FB50E1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Old_FrameWork", "Old_FrameWork\Old_FrameWork.csproj", "{5424771D-5CD2-4E89-883D-46343DC4B543}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Old_FrameWork\Data.csproj", "{5424771D-5CD2-4E89-883D-46343DC4B543}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameWork", "FrameWork\FrameWork.csproj", "{89C7A321-B6DC-455A-B99F-594A9570FB20}"
 EndProject
