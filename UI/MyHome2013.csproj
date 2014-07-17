@@ -228,10 +228,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj">
-      <Project>{548AB21E-2E25-476E-B73D-75EB569F9059}</Project>
-      <Name>BL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{4CF9D86B-3A55-44F1-9C75-189D7FB50E1D}</Project>
       <Name>BusinessLogic</Name>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
 using LocalTypes;
@@ -106,7 +105,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!BL.GlobalBL.IsNumeric(this.txtAmount.Text))
+            else if (!HelperMethods.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
