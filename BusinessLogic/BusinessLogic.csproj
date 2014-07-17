@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseCategoryHandler.cs" />
+    <Compile Include="DataStatusHandler.cs" />
     <Compile Include="GeneralCategoryHandler.cs" />
     <Compile Include="GlobalHandler.cs" />
     <Compile Include="HelperMethods.cs" />

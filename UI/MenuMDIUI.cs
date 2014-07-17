@@ -1,7 +1,6 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Windows.Forms;
-using Old_FrameWork;
-using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -352,7 +351,7 @@ namespace MyHome2013
         private void MenuMDIUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             // If the cache has any changes
-            if (Cache.SDB.HasChanges())
+            if (DataStatusHandler.DataHasChanges())
             {
                 DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
                                                "Closing...",
@@ -382,7 +381,7 @@ namespace MyHome2013
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // If the cache has any changes
-            if (Cache.SDB.HasChanges())
+            if (DataStatusHandler.DataHasChanges())
             {
                 DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
                                                "Saving...",
