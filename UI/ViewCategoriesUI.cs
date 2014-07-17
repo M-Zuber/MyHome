@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
-using BL;
-using FrameWork;
-using BusinessLogic;
 using System.Linq;
+using System.Windows.Forms;
+using BusinessLogic;
 using LocalTypes;
 
 namespace MyHome2013
@@ -57,13 +55,13 @@ namespace MyHome2013
         {
             // Loads the table that corrosponds to the wanted categry group
             this.dgvCategoryNames.DataSource =
-                GlobalHandler.CategoryTypes[this.CategoryType].LoadAll();
+                GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
             
             // Connects the data grid with the names only and displays the category group
-            // name as a header
+            // name as the title of the form
             this.dgvCategoryNames.Columns[0].Visible = false;
-            this.dgvCategoryNames.Columns[1].HeaderText = 
-                                        GlobalBL.CategoryTypeNames[this.CategoryType];
+
+            this.Text = GlobalHandler.CategoryTypeNames[this.CategoryType];
         }
 
         /// <summary>
@@ -81,14 +79,18 @@ namespace MyHome2013
             }
 
             // Refreshes the list so the new category is displayed
-            this.dgvCategoryNames.Refresh();
+            this.dgvCategoryNames.DataSource = GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
         } 
 
         private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (GlobalHandler.CategoryTypes[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
+            if (GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
-                GlobalHandler.CategoryTypes[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
+                GlobalHandler.CategoryHandlers[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
+            }
+            else
+            {
+                this.dgvCategoryNames.CurrentCell.Value = this.OriginalCategoryName;
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using BL;
+using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -54,7 +54,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
                 this.txtCategoryName.Focus();
             }
-            else if (this.DoesNameExist(this.CategoryType, this.txtCategoryName.Text))
+            else if (GlobalHandler.CategoryHandlers[this.CategoryType].DoesNameExist(this.txtCategoryName.Text))
             {
                 MessageBox.Show("There can not be two  categories with the same name\n" + 
                                 "Please choose a new name",
@@ -68,18 +68,8 @@ namespace MyHome2013
             // Saves the category to the appropiate category group
             else
             {
-                // Updates the dictonary with a new variable for the new category
-                GlobalBL.UpdateCatDictionary();
+                GlobalHandler.CategoryHandlers[this.CategoryType].AddNewCategory(this.txtCategoryName.Text);
 
-                // Creates a variable of the appropiate category group according
-                // to the indicator passed in to the ctor and sets the name with
-                // the data from the form
-                BaseBL catCategoryToAdd =
-                    GlobalBL.CategoryTypes[this.CategoryType];
-                catCategoryToAdd.Name = this.txtCategoryName.Text;
-
-                // Saves the category and closes the form
-                catCategoryToAdd.Save();
                 this.Close();            
             }
         } 
@@ -116,30 +106,5 @@ namespace MyHome2013
 
         #endregion
 
-        #region Other Methods
-
-        /// <summary>
-        /// Checks if the name given for the new category already exists
-        /// -irrespective of case
-        /// </summary>
-        /// <param name="strNameToSearchFor">The category name that is being attempted to add</param>
-        /// <returns>True if the name already exists in the list</returns>
-        private bool DoesNameExist(int nCatgoryType, string strNameToSearchFor)
-        {
-            // Goes over every category name in the current category type
-            foreach (string CurrCatName in GlobalBL.GetAllCatNames()[this.CategoryType])
-            {
-                // If the name wanted is already in the list returns true
-                if (CurrCatName.ToLower() == strNameToSearchFor.ToLower())
-                {
-                    return true;
-                }
-            }
-
-            // If the whole list has been run through and the name was not there
-            return false;
-        }
-
-        #endregion
     }
 }

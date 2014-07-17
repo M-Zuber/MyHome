@@ -44,12 +44,7 @@ namespace BusinessLogic
         /// <returns>A list of expenses filtered to a specific month</returns>
         public static List<Expense> LoadOfMonth(DateTime monthWanted)
         {
-            List<Expense> allExpenses = LoadAll();
-
-            return (from expense in allExpenses
-                    where expense.Date.Month == monthWanted.Month
-                       && expense.Date.Year == monthWanted.Year
-                    select expense).ToList<Expense>();
+            return ExpenseAccess.LoadExpensesOfMonth(monthWanted);
         }
 
         #endregion
@@ -66,6 +61,43 @@ namespace BusinessLogic
         }
 
         #endregion
+
+        #region Create Methods
+
+        public static int AddNewExpense(Expense newExpense)
+        {
+            return ExpenseAccess.AddNewExpense(newExpense);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Other Methods
+
+        public static double GetMonthTotal(DateTime monthWanted)
+        {
+            return ExpenseHandler.LoadOfMonth(monthWanted).Sum(curExpense => curExpense.Amount);
+        }
+
+        public static double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
+        {
+            return ExpenseHandler.LoadOfMonth(monthWanted)
+                .Where(curExpense => curExpense.Category.Name == categoryWanted)
+                .Sum(curExpense => curExpense.Amount);
+        }
+
+        public static Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
+        {
+            Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
+
+            foreach (ExpenseCategory currCategory in (new ExpenseCategoryHandler()).LoadAll())
+            {
+                categoryTotals.Add(currCategory.Name, GetCategoryTotalForMonth(monthWanted, currCategory.Name));
+            }
+
+            return categoryTotals;
+        }
 
         #endregion
     }

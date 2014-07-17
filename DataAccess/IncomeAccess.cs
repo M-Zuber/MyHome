@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
-using FrameWork;
+using Old_FrameWork;
 using LocalTypes;
+using MoreLinq;
+using System;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -22,7 +25,7 @@ namespace DataAccess
         public static Income LoadById(int id)
         {
             StaticDataSet.t_incomesRow requestedRow =
-                Cache.SDB.t_incomes.FindByID((uint)id);
+                Cache.SDB.t_incomes.FindByID(id);
             return new Income(requestedRow.AMOUNT, requestedRow.INC_DATE,
                 IncomeCategoryAccess.LoadById(requestedRow.CATEGORY), 
                 PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
@@ -46,6 +49,14 @@ namespace DataAccess
             return allIncomes;
         }
 
+        public static List<Income> LoadIncomesOfMonth(DateTime monthWanted)
+        {
+            return LoadAll()
+                    .Where(currExpense =>
+                            currExpense.Date.Month == monthWanted.Month &&
+                            currExpense.Date.Year == monthWanted.Year).ToList<Income>();
+        }
+
         #endregion
 
         #region Update Methods
@@ -66,6 +77,25 @@ namespace DataAccess
             {
                 return false;
             }
+        }
+
+        #endregion
+
+        #region Create Methods
+
+        public static int AddNewIncome(Income newIncome)
+        {
+            StaticDataSet.t_incomesRow newDbIncome = Cache.SDB.t_incomes.Newt_incomesRow();
+            newDbIncome.ID = GetNextId();
+            newDbIncome.AMOUNT = newIncome.Amount;
+            newDbIncome.CATEGORY = newIncome.Category.Id;
+            newDbIncome.METHOD = newIncome.Method.Id;
+            newDbIncome.INC_DATE = newIncome.Date;
+            newDbIncome.COMMENTS = newIncome.Comment;
+
+            Cache.SDB.t_incomes.Addt_incomesRow(newDbIncome);
+
+            return newDbIncome.ID;
         }
 
         #endregion
@@ -113,6 +143,11 @@ namespace DataAccess
             return new Income(rowTranslating.AMOUNT, rowTranslating.INC_DATE,
                 IncomeCategoryAccess.LoadById(rowTranslating.CATEGORY),
                 PaymentMethodAccess.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
+        }
+
+        internal static int GetNextId()
+        {
+            return LoadAll().MaxBy(income => income.ID).ID + 1;
         }
 
         #endregion

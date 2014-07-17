@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using BL;
+using BusinessLogic;
 
 namespace MyHome2013
 {

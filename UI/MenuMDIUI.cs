@@ -1,7 +1,6 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Windows.Forms;
-using BL;
-using FrameWork;
 
 namespace MyHome2013
 {
@@ -119,7 +118,7 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_Load(object sender, EventArgs e)
         {
-            GlobalBL.IntializeData();
+            GlobalHandler.IntializeData();
             this.WindowState = FormWindowState.Maximized;
         }
 
@@ -352,7 +351,7 @@ namespace MyHome2013
         private void MenuMDIUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             // If the cache has any changes
-            if (Cache.SDB.HasChanges())
+            if (DataStatusHandler.DataHasChanges())
             {
                 DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
                                                "Closing...",
@@ -364,7 +363,7 @@ namespace MyHome2013
                 // if the user wants to exit but not save changes the form will just close
                 if (DialogResult == DialogResult.Yes)
                 {
-                    GlobalBL.SaveFromCache();
+                    GlobalHandler.SaveData();
                 }
                 // If the user does not want to exit the program
                 else if (DialogResult == DialogResult.Cancel)
@@ -382,7 +381,7 @@ namespace MyHome2013
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // If the cache has any changes
-            if (Cache.SDB.HasChanges())
+            if (DataStatusHandler.DataHasChanges())
             {
                 DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
                                                "Saving...",
@@ -393,7 +392,7 @@ namespace MyHome2013
                 // If the user is saving the changes
                 if (DialogResult == DialogResult.Yes)
                 {
-                    GlobalBL.SaveFromCache();
+                    GlobalHandler.SaveData();
                 }
             }
         }

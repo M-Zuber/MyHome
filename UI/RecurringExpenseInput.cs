@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using BL;
-using FrameWork;
+using LocalTypes;
+using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -37,13 +37,13 @@ namespace MyHome2013
         {
             // Sets up the combo box of the income categories
             this.cmbCategory.DataSource =
-                Cache.SDB.t_expenses_category;
+                (new ExpenseCategoryHandler()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
             this.cmbPayment.DataSource =
-                Cache.SDB.t_payment_methods;
+                (new PaymentMethodHandler()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
 
@@ -71,7 +71,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!GlobalBL.IsNumeric(this.txtAmount.Text))
+            else if (!HelperMethods.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
@@ -212,22 +212,22 @@ namespace MyHome2013
             // Loops for the amount of days in the range
             for (int nDayIndex = 0; nDayIndex < nDaysRange; nDayIndex++)
             {
-                // Creates a new expense and sets the fields accordingly
-                ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = double.Parse(this.txtAmount.Text);
-                exbNewExp.Date = dtCurrentSaveDate;
-                exbNewExp.Category =
-                    Convert.ToInt32(this.cmbCategory.SelectedValue);
-                exbNewExp.Method =
-                    Convert.ToInt32(this.cmbPayment.SelectedValue);
-                exbNewExp.Comment = this.txtDetail.Text;
-
-                // Saves the new expense into the cache
-                exbNewExp.Save();
+                SaveNewExpense(dtCurrentSaveDate);
 
                 // Ups the date for the next expense
                dtCurrentSaveDate = dtCurrentSaveDate.AddDays(1);
             }
+        }
+
+        private void SaveNewExpense(DateTime dtCurrentSaveDate)
+        {
+            Expense newExpense =
+                    new Expense(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,
+                                ExpenseCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                                this.txtDetail.Text);
+
+            ExpenseHandler.AddNewExpense(newExpense);
         }
 
         /// <summary>
@@ -290,18 +290,7 @@ namespace MyHome2013
                 // Loops for the amount of months in the range
                 for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
                 {
-                    // Creates a new expense and sets the fields accordingly
-                    ExpBL exbNewExp = ExpBL.CreateExpense();
-                    exbNewExp.Amount = double.Parse(this.txtAmount.Text);
-                    exbNewExp.Date = dtCurrentSaveDate;
-                    exbNewExp.Category =
-                        Convert.ToInt32(this.cmbCategory.SelectedValue);
-                    exbNewExp.Method =
-                        Convert.ToInt32(this.cmbPayment.SelectedValue);
-                    exbNewExp.Comment = this.txtDetail.Text;
-
-                    // Saves the new expense into the cache
-                    exbNewExp.Save();
+                    SaveNewExpense(dtCurrentSaveDate);
 
                     // Ups the date for the next expense
                     // If the new month has less days than it will automatically set the day 
@@ -326,18 +315,7 @@ namespace MyHome2013
             // Loops for the amount of years in the range
             for (int nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)
             {
-                 // Creates a new expense and sets the fields accordingly
-                ExpBL exbNewExp = ExpBL.CreateExpense();
-                exbNewExp.Amount = double.Parse(this.txtAmount.Text);
-                exbNewExp.Date = dtCurrentSaveDate;
-                exbNewExp.Category =
-                    Convert.ToInt32(this.cmbCategory.SelectedValue);
-                exbNewExp.Method =
-                    Convert.ToInt32(this.cmbPayment.SelectedValue);
-                exbNewExp.Comment = this.txtDetail.Text;
-
-                // Saves the new expense into the cache
-                exbNewExp.Save();
+                SaveNewExpense(dtCurrentSaveDate);
 
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddYears(1);

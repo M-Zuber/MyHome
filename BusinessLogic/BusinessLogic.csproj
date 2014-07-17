@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MoreLinq, Version=1.0.16006.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\morelinq.1.0.16006\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,12 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backup.cs" />
     <Compile Include="BaseCategoryHandler.cs" />
+    <Compile Include="DataStatusHandler.cs" />
+    <Compile Include="GeneralCategoryHandler.cs" />
     <Compile Include="GlobalHandler.cs" />
+    <Compile Include="HelperMethods.cs" />
     <Compile Include="IncomeHandler.cs" />
     <Compile Include="IncomeCategoryHandler.cs" />
     <Compile Include="ExpenseCategoryHandler.cs" />
     <Compile Include="ExpenseHandler.cs" />
+    <Compile Include="MonthHandler.cs" />
     <Compile Include="PaymentMethodHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,10 +63,17 @@
       <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+      <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
+      <Name>FrameWork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
       <Name>LocalTypes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Data;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using BL;
+using System.Linq;
 using BusinessLogic;
 using FrameWork;
 using LocalTypes;
@@ -16,9 +17,14 @@ namespace MyHome2013
         #region Properties
 
         /// <summary>
-        /// Holds a category list to bind to the combo box
+        /// Holds the list of income categories
         /// </summary>
-        public DataTable CategoryList { get; set; }
+        public Dictionary<string, double> IncomeCategoriesTotals { get; set; }
+
+        /// <summary>
+        /// Holds the list of expense categories
+        /// </summary>
+        public Dictionary<string, double> ExpenseCategoriesTotals { get; set; }
 
         #endregion
 
@@ -43,29 +49,18 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void DataViewUI_Load(object sender, EventArgs e)
         {
-            // If there is any changes in the data asks the user if they want to save them
-            if (Cache.SDB.HasChanges())
-            {
-                DialogResult = MessageBox.Show("Differences between the data in the program " +
-                                               "and the saved data where detected\n" + 
-                                               "To view the most update to-date information please save",
-                                               "Loading...",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-
-                // If the user is saving the changes
-                if (DialogResult == DialogResult.Yes)
-                {
-                    GlobalBL.SaveFromCache();
-                }
-            }
-
             // Automatically forces the window to be open to its max size
             this.WindowState = FormWindowState.Maximized;
             
             // Binds the cache data to the form
             this.DataBinding();
+
+            // Due to only the month being displayed on the control, the day is set to '1',
+            // so when going from a month with more days to a month with less an exception won't be thrown
+            this.dtPick.Value = new DateTime(this.dtPick.Value.Year, this.dtPick.Value.Month, 1);
+
+            // Sets up the event for re-entering the form
+            this.Enter += this.DataViewUI_Enter;
         }
 
         /// <summary>
@@ -139,14 +134,29 @@ namespace MyHome2013
         private void CategryDataBinding()
         {
             // Clears any old data bindings
-            this.cmbCategory.DataSource = null;
-            this.txtCategoryTotal.DataBindings.Clear();
+            this.cmbIncomeCategories.DataSource = null;
+            this.txtIncomeCategoryTotal.DataBindings.Clear();
+            this.cmbExpenseCategories.DataSource = null;
+            this.txtExpenseCategoryTotal.DataBindings.Clear();
 
-            // Binds the data table with the list of categorys
-            // and binds the text box to display the total for the given category
-            this.cmbCategory.DataSource = this.CategoryList;
-            this.cmbCategory.DisplayMember = "KEY";
-            this.txtCategoryTotal.DataBindings.Add("Text", this.CategoryList, "VALUE");
+            // Intializes the category total dictionarys
+            this.IncomeCategoriesTotals = new Dictionary<string, double>();
+            this.ExpenseCategoriesTotals = new Dictionary<string, double>();
+
+            this.ExpenseCategoriesTotals.Add("Total Expenses", ExpenseHandler.GetMonthTotal(dtPick.Value));
+            this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(this.dtPick.Value));
+
+            this.IncomeCategoriesTotals.Add("Total Income", IncomeHandler.GetMonthTotal(dtPick.Value));
+            this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetAllCategoryTotals(this.dtPick.Value));
+
+            // Sets the bindings for the controls
+            this.cmbIncomeCategories.DataSource = new ArrayList(this.IncomeCategoriesTotals);
+            this.cmbIncomeCategories.DisplayMember = "KEY";
+            this.txtIncomeCategoryTotal.DataBindings.Add("Text", this.cmbIncomeCategories.DataSource, "VALUE");
+
+            this.cmbExpenseCategories.DataSource = new ArrayList(this.ExpenseCategoriesTotals);
+            this.cmbExpenseCategories.DisplayMember = "KEY";
+            this.txtExpenseCategoryTotal.DataBindings.Add("Text", this.cmbExpenseCategories.DataSource, "VALUE");
         }
 
         /// <summary>
@@ -171,9 +181,6 @@ namespace MyHome2013
             this.dgIn.DataSource =
                 IncomeHandler.LoadOfMonth(dtPick.Value);
             this.dgIn.Columns["ID"].Visible = false;
-
-            // Refreshes the data table with the category list and refreshes the data bindings
-            this.CategoryList = new MonthViewBL(this.dtPick.Value).CuttingAll();
         } 
 
         #endregion

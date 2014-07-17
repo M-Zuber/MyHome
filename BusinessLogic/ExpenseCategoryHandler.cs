@@ -20,7 +20,7 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="id">The id of the Expense category wanted</param>
         /// <returns>The expense category as it is in the cache</returns>
-        public static ExpenseCategory LoadById(uint id)
+        public static ExpenseCategory LoadById(int id)
         {
             return ExpenseCategoryAccess.LoadById(id);
         }
@@ -34,6 +34,15 @@ namespace BusinessLogic
         public override List<BaseCategory> LoadAll()
         {
             return (new ExpenseCategoryAccess()).LoadAll();
+        }
+
+        #endregion
+
+        #region Create Methods
+
+        public override int AddNewCategory(string categoryName)
+        {
+            return (new ExpenseCategoryAccess()).AddNewCategory(categoryName);
         }
 
         #endregion

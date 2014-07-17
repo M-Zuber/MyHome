@@ -37,12 +37,21 @@ namespace BusinessLogic
         }
 
         #endregion
+        
+        #region Create Methods
+
+        public override int AddNewCategory(string categoryName)
+        {
+            return (new IncomeCategoryAccess()).AddNewCategory(categoryName);
+        }
+
+        #endregion
 
         #region Update Methods
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            return (new ExpenseCategoryAccess()).Save(categoryToSave);
+            return (new IncomeCategoryAccess()).Save(categoryToSave);
         }
 
         #endregion

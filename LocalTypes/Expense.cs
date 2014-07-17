@@ -34,14 +34,14 @@ namespace LocalTypes
         /// <summary>
         /// ID number of the expense in the data table
         /// </summary>
-        public uint ID { get; private set; }
+        public int ID { get; private set; }
 
         #endregion
 
         #region C'Tor
 
         public Expense(double amount, DateTime date, ExpenseCategory expenseCategory,
-            PaymentMethod paymentMethod, string comment, uint id)
+            PaymentMethod paymentMethod, string comment, int id = 0)
         {
             this.Amount = amount;
             this.Category = expenseCategory;

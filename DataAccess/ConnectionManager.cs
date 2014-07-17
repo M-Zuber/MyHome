@@ -1,8 +1,7 @@
-﻿using Old_FrameWork;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using FrameWork;
 
-namespace DA
+namespace DataAccess
 {
     /// <summary>
     /// Holds the connection needed to access the db

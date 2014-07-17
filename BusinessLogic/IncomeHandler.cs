@@ -44,12 +44,7 @@ namespace BusinessLogic
         /// <returns>A list of Incomes filtered to a specific month</returns>
         public static List<Income> LoadOfMonth(DateTime monthWanted)
         {
-            List<Income> allIncomes = LoadAll();
-
-            return (from income in allIncomes
-                    where income.Date.Month == monthWanted.Month
-                       && income.Date.Year == monthWanted.Year
-                    select income).ToList<Income>();
+            return IncomeAccess.LoadIncomesOfMonth(monthWanted);
         }
 
         #endregion
@@ -66,6 +61,43 @@ namespace BusinessLogic
         }
 
         #endregion
+        
+        #region Create Methods
+
+        public static int AddNewIncome(Income newIncome)
+        {
+            return IncomeAccess.AddNewIncome(newIncome);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Other Methods
+
+        public static double GetMonthTotal(DateTime monthWanted)
+        {
+            return IncomeHandler.LoadOfMonth(monthWanted).Sum(curIncome => curIncome.Amount);
+        }
+
+        public static double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
+        {
+            return IncomeHandler.LoadOfMonth(monthWanted)
+                .Where(curIncome => curIncome.Category.Name == categoryWanted)
+                .Sum(curIncome => curIncome.Amount);
+        }
+
+        public static Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
+        {
+            Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
+
+            foreach (IncomeCategory currCategory in (new IncomeCategoryHandler()).LoadAll())
+            {
+                categoryTotals.Add(currCategory.Name, GetCategoryTotalForMonth(monthWanted, currCategory.Name));
+            }
+
+            return categoryTotals;
+        }
 
         #endregion
     }

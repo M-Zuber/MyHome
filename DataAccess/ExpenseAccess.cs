@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
-using FrameWork;
+using Old_FrameWork;
 using LocalTypes;
+using System.Linq;
+using MoreLinq;
+using System;
 
 namespace DataAccess
 {
@@ -22,7 +25,7 @@ namespace DataAccess
         public static Expense LoadById(int id)
         {
             StaticDataSet.t_expensesRow requestedRow =
-                Cache.SDB.t_expenses.FindByID((uint)id);
+                Cache.SDB.t_expenses.FindByID(id);
             return new Expense(requestedRow.AMOUNT, requestedRow.EXP_DATE,
                 ExpenseCategoryAccess.LoadById(requestedRow.CATEGORY), 
                 PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
@@ -44,6 +47,14 @@ namespace DataAccess
             }
 
             return allExpenses;
+        }
+
+        public static List<Expense> LoadExpensesOfMonth(DateTime monthWanted)
+        {
+            return LoadAll()
+                    .Where(currExpense =>
+                            currExpense.Date.Month == monthWanted.Month &&
+                            currExpense.Date.Year == monthWanted.Year).ToList<Expense>();
         }
 
         #endregion
@@ -70,6 +81,25 @@ namespace DataAccess
 
         #endregion
 
+        #region Create Methods
+
+        public static int AddNewExpense(Expense newExpense)
+        {
+            StaticDataSet.t_expensesRow newDbExpense = Cache.SDB.t_expenses.Newt_expensesRow();
+            newDbExpense.ID = GetNextId();
+            newDbExpense.AMOUNT = newExpense.Amount;
+            newDbExpense.CATEGORY = newExpense.Category.Id;
+            newDbExpense.METHOD = newExpense.Method.Id;
+            newDbExpense.EXP_DATE = newExpense.Date;
+            newDbExpense.COMMENTS = newExpense.Comment;
+
+            Cache.SDB.t_expenses.Addt_expensesRow(newDbExpense);
+
+            return newDbExpense.ID;
+        }
+
+        #endregion
+
         #endregion
 
         #region Other Methods
@@ -92,8 +122,8 @@ namespace DataAccess
 
             // There is no check to see if they exist in the database or not
             // because as of 20.02.2014 the form only shows categories/methods
-            // that already exist - and do not allow the user to create new ones
-            translatedRow.CATEGORY = (uint)expenseTranslating.Category.Id;
+            // that already exist - and does not allow the user to create new ones
+            translatedRow.CATEGORY = expenseTranslating.Category.Id;
             translatedRow.METHOD = expenseTranslating.Method.Id;
         }
 
@@ -113,6 +143,11 @@ namespace DataAccess
             return new Expense(rowTranslating.AMOUNT, rowTranslating.EXP_DATE,
                 ExpenseCategoryAccess.LoadById(rowTranslating.CATEGORY),
                 PaymentMethodAccess.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
+        }
+
+        internal static int GetNextId()
+        {
+            return LoadAll().MaxBy(income => income.ID).ID + 1;
         }
 
         #endregion

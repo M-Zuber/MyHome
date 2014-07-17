@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
 using System.Windows.Forms;
-using BL;
-using FrameWork;
 
 namespace MyHome2013
 {
@@ -27,19 +25,14 @@ namespace MyHome2013
         private DateTime EndDate { get; set; }
 
         /// <summary>
-        /// Holds entity repesentation of each month in the range being looked at
-        /// </summary>
-        private ArrayList AllMonths { get; set; }
-
-        /// <summary>
         /// Holds a list of all the category options that be can be looked at for the range
         /// </summary>
-        private ArrayList AllCategoryOptions { get; set; }
+        private List<string> CategoryNames { get; set; }
 
         /// <summary>
-        /// Holds the data of each month being looked at
+        /// Holds the data for each category by month in range being looked at
         /// </summary>
-        private DataTable YearData { get; set; }
+        private Dictionary<string, Dictionary<DateTime, double>> MonthData { get; set; }
 
         #endregion
 
@@ -51,9 +44,8 @@ namespace MyHome2013
         public DataChartUI()
         {
             // Intializes the local properties of the form
-            this.AllMonths = new ArrayList();
-            this.AllCategoryOptions = new ArrayList();
-            this.YearData = new DataTable();
+            this.CategoryNames = new List<string>();
+            this.MonthData = new Dictionary<string, Dictionary<DateTime, double>>();
 
             // Auto generated code for the form
             InitializeComponent();
@@ -76,28 +68,22 @@ namespace MyHome2013
 
             // The standard start date is a year before the end date
             this.StartDate = this.EndDate.Subtract(new TimeSpan(365, 0, 0, 0));
-            
-            // Defines the table, and fills in the array list of category options
-            this.IntialSetup();
 
-            // Sets up the table and array list with the rows needed to hold the data
-            this.SecondarySetup();
-
-            // Connects the combo box with the list of categories
-            this.cmbCat.DataSource = this.AllCategoryOptions;
-
-            // Loads the data into the local data table
-            // based on the current date -per the default selected 
-            // category in the combo box
-            this.LoadMe();
-
-            // Sets the display of the start date to the value of the corresponding property
-            // -the value of the end date is set automatically
+            // Sets the display of the date time pickers to the value of the corresponding property
             this.dtpStartMonth.Value = this.StartDate;
+            this.dtpEndMonth.Value = this.EndDate;
 
-            // Sets the data bindings of the date time pickers so they dont cross over
-            this.dtpStartMonth.DataBindings.Add("MaxDate", this.dtpEndMonth, "Value");
-            this.dtpEndMonth.DataBindings.Add("MinDate", this.dtpStartMonth, "Value");
+            // Gets the category names
+            this.CategoryNames = GeneralCategoryHandler.GetAllCategoryNames();
+
+            // Sets the data bindings of the controls -excluding the chart
+            this.SetupDataBindings();
+            
+            // Gets the data for the current range selected
+            this.SetupDataSource();
+
+            // Connects the data to the chart
+            this.ShowDataOnChart();
         }
 
         /// <summary>
@@ -108,7 +94,7 @@ namespace MyHome2013
         private void cmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Resets the data bindings to reflect the change in the selected category
-            this.SetDataBindings();
+            this.ShowDataOnChart();
         }
 
         /// <summary>
@@ -126,14 +112,10 @@ namespace MyHome2013
             {
                 // Sets the end date with the new value
                 this.EndDate = this.dtpEndMonth.Value;
-                
-                // Clears the date sensitive data for the new data
-                this.AllMonths.Clear();
-                this.YearData.Clear();
 
                 // Refills the date sensitive data and reloads the chart
-                this.SecondarySetup();
-                this.LoadMe();
+                this.SetupDataSource();
+                this.ShowDataOnChart();
             }
         }
 
@@ -153,13 +135,9 @@ namespace MyHome2013
                 // Sets the end date with the new value
                 this.StartDate = this.dtpStartMonth.Value;
 
-                // Clears the date sensitive data for the new data
-                this.AllMonths.Clear();
-                this.YearData.Clear();
-
                 // Refills the date sensitive data and reloads the chart
-                this.SecondarySetup();
-                this.LoadMe();
+                this.SetupDataSource();
+                this.ShowDataOnChart();
             }
         }
 
@@ -168,168 +146,87 @@ namespace MyHome2013
         #region Other Methods
 
         /// <summary>
-        /// Sets the chart on the form with the data -based on the selected category
+        /// Sets the static data bindings for the form controls
         /// </summary>
-        /// <param name="nNum">UnKnown</param>
-        /// <param name="dtStart">The date until which to display data on the chart</param>
-        private void LoadMe()
+        private void SetupDataBindings()
         {
-            // An index variable to reach the row that corrosponds to the month currently being worked on
-            int nIndex = 0;
-            
-            // Goes over every Month view in the local array list
-            foreach (MonthViewBL mvcurr in this.AllMonths)
-            {
-                // Pulls up a table with the sum totals of the income, expense,
-                // and within each expense category for the month
-                DataTable dtCat = mvcurr.CuttingAll();
+            this.cmbCat.DataSource = this.CategoryNames;
 
-                // Goes over every row in the table with the sum totals
-                // and adds the total to the corresponding column 
-                foreach (DataRow drCurr in dtCat.Rows)
-                {
-                    this.YearData.Rows[nIndex][drCurr["KEY"].ToString()] =
-                        drCurr["VALUE"];
-                }
-
-                // Pulls up the table with the sum total of each income category
-                dtCat = mvcurr.CuttingInc();
-
-                // Goes over every row in the table with the sum totals
-                // and adds the total to the corresponding column 
-                foreach (DataRow drCurr in dtCat.Rows)
-                {
-                    this.YearData.Rows[nIndex][drCurr["KEY"].ToString()] =
-                        drCurr["VALUE"];
-                }
-
-                // Raises the index for the next months data
-                nIndex++;      
-            }
-
-            // Flips the data table so that it will display from left to right (older to newer)
-            this.YearData = this.FlipTable(this.YearData);
-
-            // Sets the data bindings of the chart
-            this.SetDataBindings();
+            // This prevents crossovers on the data time pickers
+            this.dtpStartMonth.DataBindings.Add("MaxDate", this.dtpEndMonth, "Value");
+            this.dtpEndMonth.DataBindings.Add("MinDate", this.dtpStartMonth, "Value");
         }
 
+        /// <summary>
+        /// Sets up the data source as a dictionary with the key being the category name
+        ///  and value being a dictionary of totals keyed by date
+        /// </summary>
+        private void SetupDataSource()
+        {
+            MonthData.Clear();
+
+            // Adds the category names as keys
+            foreach (string curCategoryName in CategoryNames)
+            {
+                MonthData.Add(curCategoryName, new Dictionary<DateTime, double>());
+            }
+
+            // Gets a list with the data of the months in the range
+            Dictionary<DateTime, Dictionary<string, double>> monthData = GetDataForMonthsInRange();
+
+            int monthRange = MonthsRange();
+
+            // Goes over each category getting the total for each month in the range being looked at
+            foreach (KeyValuePair<string, Dictionary<DateTime, double>> curCategoryData in MonthData)
+            {
+                DateTime curDate = this.StartDate;
+
+                // For each month in the range gets the total of the current category
+                for (int monthIndex = 0; monthIndex < monthRange; monthIndex++)
+                {
+                    curCategoryData.Value.Add(curDate, monthData[curDate][curCategoryData.Key]);
+                    curDate = curDate.AddMonths(1);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a dictionary of the totals of each category, per month in the range
+        /// </summary>
+        /// <returns>A dictionary keyed by date represented, value is the total of each category</returns>
+        private Dictionary<DateTime, Dictionary<string, double>> GetDataForMonthsInRange()
+        {
+            Dictionary<DateTime, Dictionary<string, double>> monthData = 
+                new Dictionary<DateTime, Dictionary<string, double>>();
+
+            DateTime curDate = this.StartDate;
+            for (int monthIndex = 0; monthIndex < MonthsRange(); monthIndex++)
+            {
+                monthData.Add(curDate, (new MonthHandler(curDate)).GetTotalsOfMonthByCategory());
+                curDate = curDate.AddMonths(1);
+            }
+
+            return monthData;
+        }
+
+        
         /// <summary>
         /// Sets the data bindings for the chart
         /// </summary>
-        private void SetDataBindings()
+        private void ShowDataOnChart()
         {
-            // Attaches the local data table to the chart on the form
-            // and sets up the axis
-            this.crtGraph.DataSource = this.YearData;
-            this.crtGraph.Series[0].YValueMembers =
-                this.cmbCat.SelectedItem.ToString();
-            this.crtGraph.Series[0].XValueMember = "Month";
+            // Shows the month in easy to read human format
+            // -in the future a value can be passed into this method that will control the format
+            List<string> monthsStringRepresentation = 
+                this.MonthData[cmbCat.Text].Keys.ToList<DateTime>()
+                    .Select(curDate => curDate.ToString("MMM--yyyy")).ToList<string>();
+
+            // Attaches the Month data to points collection of the series
+            this.crtGraph.Series[0].Points.DataBindXY(
+                monthsStringRepresentation,
+                this.MonthData[cmbCat.Text].Values);
             this.crtGraph.Series[0].Name =
                 this.cmbCat.SelectedItem.ToString();
-            this.crtGraph.ResetAutoValues();
-        }
-
-        /// <summary>
-        /// Sets up the data table and the aray list with the framework needed to hold the data
-        /// for the time period requested
-        /// </summary>
-        /// <param name="nNum">the number of months being shown</param>
-        /// <param name="dtStart">The date to start countng backwards from</param>
-        private void SecondarySetup()
-        {
-            // Sets variables with the starting month and year
-            // and gets the amount of months in the range
-            int nMonth = this.EndDate.Month;
-            int nYear = this.EndDate.Year;
-            int nMonthsInRange = this.MonthsRange();
-
-            // Loops once for each month of the year -setting up the data for the chart 
-            // in the process
-            for (int nMonthIndex = 0; nMonthIndex < nMonthsInRange; nMonthIndex++)
-            {
-                // Creates a new dat row to be added to the table
-                DataRow drNew = this.YearData.NewRow();
-
-                // Creates a variable with the date of the data currently being entered onto the
-                // chart
-                DateTime dtCurr = new DateTime(nYear, nMonth, 1);
-
-                // Adds a cut of the data for the month given to the local array list
-                this.AllMonths.Add(new MonthViewBL(dtCurr));
-
-                // Adds the months number to the new row
-                drNew["Month"] = dtCurr.GetDateTimeFormats('Y')[0];
-
-                // Adds the new row into the local data table
-                this.YearData.Rows.Add(drNew);
-
-                // Moves to the previous month
-                nMonth--;
-
-                // If the variable for the month has reached zero
-                // -the end of the calender year has been reached and the year has to be changed
-                if (nMonth == 0)
-                {
-                    nMonth = 12;
-                    nYear--;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Defines the local data table with the columns neccesary, and fills up 
-        /// the array list of category options
-        /// </summary>
-        private void IntialSetup()
-        {
-            // Adds columns to the local data table for the months name and total expense and income
-            this.YearData.Columns.Add("Month");
-            this.YearData.Columns.Add("Total expenses");
-            this.YearData.Columns.Add("Total income");
-
-            // Adds items for total income and expenses to the local array list
-            this.AllCategoryOptions.Add("Total expenses");
-            this.AllCategoryOptions.Add("Total income");
-
-            // Goes over every expense category in the database
-            foreach (KeyValuePair<int, BL.ExpCatBL> CurrCat in ExpCatBL.GetAll())
-            {
-                // Adds a column to the local table and an item to the local array list
-                // representing the current expense category
-                this.YearData.Columns.Add(CurrCat.Value.Name);
-                this.AllCategoryOptions.Add(CurrCat.Value.Name);
-            }
-
-            // Goes over every income category in the database
-            foreach (StaticDataSet.t_incomes_categoryRow drCurrCat in Cache.SDB.t_incomes_category)
-            {
-                // Adds a column to the local table and an item to the local array list
-                // representing the current income category
-                this.YearData.Columns.Add(drCurrCat.NAME);
-                this.AllCategoryOptions.Add(drCurrCat.NAME);
-            }
-        }
-        
-        /// <summary>
-        /// Turns the data table given upside down
-        /// </summary>
-        /// <param name="dtSource">The table to be flipped</param>
-        /// <returns>The table after the flipping</returns>
-        private DataTable FlipTable(DataTable dtSource)
-        {
-            // Copies the structure of the table onto the return variable
-            DataTable dtReturn = dtSource.Clone();
-
-            // Goes over the from the bottom to the top
-            for (int nRowIndex = dtSource.Rows.Count; nRowIndex > 0; nRowIndex--)
-            {
-                // Imports the row from the source into the return variable
-                dtReturn.ImportRow(dtSource.Rows[nRowIndex - 1]);
-            }
-
-            // Returns the flipped table
-            return (dtReturn);
         }
 
         /// <summary>
@@ -344,6 +241,6 @@ namespace MyHome2013
                                         (this.EndDate.Month - this.StartDate.Month) + 1);
         }
 
-        #endregion       
+        #endregion
     }
 }
