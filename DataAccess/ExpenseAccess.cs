@@ -105,13 +105,13 @@ namespace DataAccess
 
         #region Delete Methods
         
-        #endregion
-
         public static void DeleteExpense(int id)
         {
             Cache.SDB.t_expenses.FindByID(id).Delete();
         }
 
+        #endregion
+        
         #endregion
 
         #region Other Methods
