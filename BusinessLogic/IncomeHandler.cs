@@ -108,6 +108,24 @@ namespace BusinessLogic
             return categoryTotals;
         }
 
+        public static double GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
+        {
+            return IncomeHandler.LoadOfMonth(monthWanted)
+                .Where(curIncome => curIncome.Method.Name == methodWanted)
+                .Sum(curIncome => curIncome.Amount);
+        }
+
+        public static Dictionary<string, double> GetAllPaymentMethodTotals(DateTime monthWanted)
+        {
+            Dictionary<string, double> methodTotals = new Dictionary<string, double>();
+
+            foreach (PaymentMethod curMethod in (new PaymentMethodHandler()).LoadAll())
+            {
+                methodTotals.Add(curMethod.Name, GetPaymentMethodTotalForMonth(monthWanted, curMethod.Name));
+            }
+
+            return methodTotals;
+        }
         #endregion
     }
 }

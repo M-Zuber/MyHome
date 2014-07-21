@@ -70,6 +70,12 @@
     <Compile Include="AddCategoryUI.Designer.cs">
       <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataPerPaymentMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataPerPaymentMethod.Designer.cs">
+      <DependentUpon>DataPerPaymentMethod.cs</DependentUpon>
+    </Compile>
     <Compile Include="IncomeViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,12 @@
     <Compile Include="MonthChartUI.Designer.cs">
       <DependentUpon>MonthChartUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="MultipleCategoriesCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultipleCategoriesCompare.Designer.cs">
+      <DependentUpon>MultipleCategoriesCompare.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +175,9 @@
     <EmbeddedResource Include="AddCategoryUI.resx">
       <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DataPerPaymentMethod.resx">
+      <DependentUpon>DataPerPaymentMethod.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IncomeViewer.resx">
       <DependentUpon>IncomeViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MonthChartUI.resx">
       <DependentUpon>MonthChartUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultipleCategoriesCompare.resx">
+      <DependentUpon>MultipleCategoriesCompare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>

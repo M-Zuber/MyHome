@@ -247,10 +247,28 @@ namespace MyHome2013
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void pieChartToolStripMenuItem_Click(object sender, EventArgs e)
+        private void categoryPieChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.MdiChilrenSum++;
             MonthChartUI mcuNew = new MonthChartUI(DateTime.Now.Date);
+            mcuNew.MdiParent = this;
+            mcuNew.Show();
+            mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+        }
+
+        private void methodPieChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.MdiChilrenSum++;
+            DataPerPaymentMethod mcuNew = new DataPerPaymentMethod(DateTime.Now.Date);
+            mcuNew.MdiParent = this;
+            mcuNew.Show();
+            mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+        }
+
+        private void methodGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.MdiChilrenSum++;
+            MultipleCategoriesCompare mcuNew = new MultipleCategoriesCompare();
             mcuNew.MdiParent = this;
             mcuNew.Show();
             mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
@@ -333,7 +351,7 @@ namespace MyHome2013
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
+        private void categoryGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.MdiChilrenSum++;
             DataChartUI ChildData = new DataChartUI();
