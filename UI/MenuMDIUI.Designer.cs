@@ -54,17 +54,17 @@
             this.exCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.incomeCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paymentCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visualizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoryGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoryPieChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.methodGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.methodPieChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showStatusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.visualizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.categoryGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.categoryPieChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.methodGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.methodPieChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -268,23 +268,62 @@
             // exCatToolStripMenuItem
             // 
             this.exCatToolStripMenuItem.Name = "exCatToolStripMenuItem";
-            this.exCatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.exCatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exCatToolStripMenuItem.Text = "Expense Cat";
             this.exCatToolStripMenuItem.Click += new System.EventHandler(this.exCatToolStripMenuItem_Click);
             // 
             // incomeCatToolStripMenuItem
             // 
             this.incomeCatToolStripMenuItem.Name = "incomeCatToolStripMenuItem";
-            this.incomeCatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.incomeCatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.incomeCatToolStripMenuItem.Text = "Income Cat";
             this.incomeCatToolStripMenuItem.Click += new System.EventHandler(this.incomeCatToolStripMenuItem_Click);
             // 
             // paymentCatToolStripMenuItem
             // 
             this.paymentCatToolStripMenuItem.Name = "paymentCatToolStripMenuItem";
-            this.paymentCatToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.paymentCatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.paymentCatToolStripMenuItem.Text = "Payment Cat";
             this.paymentCatToolStripMenuItem.Click += new System.EventHandler(this.paymentCatToolStripMenuItem_Click);
+            // 
+            // visualizationToolStripMenuItem
+            // 
+            this.visualizationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.categoryGraphToolStripMenuItem,
+            this.methodGraphToolStripMenuItem,
+            this.categoryPieChartToolStripMenuItem,
+            this.methodPieChartToolStripMenuItem});
+            this.visualizationToolStripMenuItem.Name = "visualizationToolStripMenuItem";
+            this.visualizationToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.visualizationToolStripMenuItem.Text = "Visualization";
+            // 
+            // categoryGraphToolStripMenuItem
+            // 
+            this.categoryGraphToolStripMenuItem.Name = "categoryGraphToolStripMenuItem";
+            this.categoryGraphToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.categoryGraphToolStripMenuItem.Text = "Category Graph";
+            this.categoryGraphToolStripMenuItem.Click += new System.EventHandler(this.categoryGraphToolStripMenuItem_Click);
+            // 
+            // categoryPieChartToolStripMenuItem
+            // 
+            this.categoryPieChartToolStripMenuItem.Name = "categoryPieChartToolStripMenuItem";
+            this.categoryPieChartToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.categoryPieChartToolStripMenuItem.Text = "Category Pie Chart";
+            this.categoryPieChartToolStripMenuItem.Click += new System.EventHandler(this.categoryPieChartToolStripMenuItem_Click);
+            // 
+            // methodGraphToolStripMenuItem
+            // 
+            this.methodGraphToolStripMenuItem.Name = "methodGraphToolStripMenuItem";
+            this.methodGraphToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.methodGraphToolStripMenuItem.Text = "Multiple Category Graph";
+            this.methodGraphToolStripMenuItem.Click += new System.EventHandler(this.methodGraphToolStripMenuItem_Click);
+            // 
+            // methodPieChartToolStripMenuItem
+            // 
+            this.methodPieChartToolStripMenuItem.Name = "methodPieChartToolStripMenuItem";
+            this.methodPieChartToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.methodPieChartToolStripMenuItem.Text = "Method Pie Chart";
+            this.methodPieChartToolStripMenuItem.Click += new System.EventHandler(this.methodPieChartToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
@@ -333,45 +372,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // visualizationToolStripMenuItem
-            // 
-            this.visualizationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.categoryGraphToolStripMenuItem,
-            this.categoryPieChartToolStripMenuItem,
-            this.methodGraphToolStripMenuItem,
-            this.methodPieChartToolStripMenuItem});
-            this.visualizationToolStripMenuItem.Name = "visualizationToolStripMenuItem";
-            this.visualizationToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.visualizationToolStripMenuItem.Text = "Visualization";
-            // 
-            // categoryGraphToolStripMenuItem
-            // 
-            this.categoryGraphToolStripMenuItem.Name = "categoryGraphToolStripMenuItem";
-            this.categoryGraphToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.categoryGraphToolStripMenuItem.Text = "Category Graph";
-            this.categoryGraphToolStripMenuItem.Click += new System.EventHandler(this.categoryGraphToolStripMenuItem_Click);
-            // 
-            // categoryPieChartToolStripMenuItem
-            // 
-            this.categoryPieChartToolStripMenuItem.Name = "categoryPieChartToolStripMenuItem";
-            this.categoryPieChartToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.categoryPieChartToolStripMenuItem.Text = "Category Pie Chart";
-            this.categoryPieChartToolStripMenuItem.Click += new System.EventHandler(this.categoryPieChartToolStripMenuItem_Click);
-            // 
-            // methodGraphToolStripMenuItem
-            // 
-            this.methodGraphToolStripMenuItem.Name = "methodGraphToolStripMenuItem";
-            this.methodGraphToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.methodGraphToolStripMenuItem.Text = "Method Graph";
-            this.methodGraphToolStripMenuItem.Click += new System.EventHandler(this.methodGraphToolStripMenuItem_Click);
-            // 
-            // methodPieChartToolStripMenuItem
-            // 
-            this.methodPieChartToolStripMenuItem.Name = "methodPieChartToolStripMenuItem";
-            this.methodPieChartToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.methodPieChartToolStripMenuItem.Text = "Method Pie Chart";
-            this.methodPieChartToolStripMenuItem.Click += new System.EventHandler(this.methodPieChartToolStripMenuItem_Click);
             // 
             // MenuMDIUI
             // 

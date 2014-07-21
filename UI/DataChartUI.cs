@@ -209,7 +209,6 @@ namespace MyHome2013
             return monthData;
         }
 
-        
         /// <summary>
         /// Sets the data bindings for the chart
         /// </summary>

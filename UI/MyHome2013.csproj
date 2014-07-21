@@ -130,11 +130,11 @@
     <Compile Include="MonthChartUI.Designer.cs">
       <DependentUpon>MonthChartUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="PaymentMethodsOverTime.cs">
+    <Compile Include="MultipleCategoriesCompare.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PaymentMethodsOverTime.Designer.cs">
-      <DependentUpon>PaymentMethodsOverTime.cs</DependentUpon>
+    <Compile Include="MultipleCategoriesCompare.Designer.cs">
+      <DependentUpon>MultipleCategoriesCompare.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
@@ -205,8 +205,8 @@
     <EmbeddedResource Include="MonthChartUI.resx">
       <DependentUpon>MonthChartUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PaymentMethodsOverTime.resx">
-      <DependentUpon>PaymentMethodsOverTime.cs</DependentUpon>
+    <EmbeddedResource Include="MultipleCategoriesCompare.resx">
+      <DependentUpon>MultipleCategoriesCompare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>

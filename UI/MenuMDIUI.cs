@@ -268,7 +268,7 @@ namespace MyHome2013
         private void methodGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.MdiChilrenSum++;
-            PaymentMethodsOverTime mcuNew = new PaymentMethodsOverTime();
+            MultipleCategoriesCompare mcuNew = new MultipleCategoriesCompare();
             mcuNew.MdiParent = this;
             mcuNew.Show();
             mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
