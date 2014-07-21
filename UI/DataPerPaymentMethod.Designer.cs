@@ -95,7 +95,9 @@
             this.crtExpenses.Name = "crtExpenses";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.CustomProperties = "PieDrawingStyle=Concave";
+            series1.CustomProperties = "PieLineColor=Black, MinimumRelativePieSize=50, PieDrawingStyle=Concave, PieLabelS" +
+    "tyle=Outside";
+            series1.IsValueShownAsLabel = true;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.crtExpenses.Series.Add(series1);
@@ -114,7 +116,9 @@
             this.crtIncome.Name = "crtIncome";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.CustomProperties = "PieDrawingStyle=Concave";
+            series2.CustomProperties = "PieLineColor=Black, MinimumRelativePieSize=50, PieDrawingStyle=Concave, PieLabelS" +
+    "tyle=Outside";
+            series2.IsValueShownAsLabel = true;
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.crtIncome.Series.Add(series2);
