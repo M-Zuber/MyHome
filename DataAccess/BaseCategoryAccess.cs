@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LocalTypes;
-using MoreLinq;
 
 namespace DataAccess
 {
@@ -36,7 +35,7 @@ namespace DataAccess
 
         internal int GetNextId()
         {
-            return this.LoadAll().MaxBy(ct => ct.Id).Id + 1;
+            return this.LoadAll().Max(ct => (int?)ct.Id) ?? 1;
         }
 
         #endregion

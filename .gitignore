@@ -2,7 +2,7 @@
 ## User defined
 #################
 /packages/
-!packages/repositories.config
+!packages/packages.config
 
 #################
 ## Eclipse

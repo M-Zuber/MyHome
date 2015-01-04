@@ -159,7 +159,7 @@ namespace DataAccess
 
         internal static int GetNextId()
         {
-            return LoadAll().MaxBy(income => income.ID).ID + 1;
+            return LoadAll().Max(e => (int?)e.ID) ?? 1;
         }
 
         #endregion
