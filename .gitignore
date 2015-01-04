@@ -1,7 +1,8 @@
 #################
 ## User defined
 #################
-packages.config
+/packages/
+!packages/packages.config
 
 #################
 ## Eclipse
@@ -221,3 +222,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+.nuget/NuGet.exe
