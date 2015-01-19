@@ -7,6 +7,7 @@ using BusinessLogic;
 using FrameWork;
 using LocalTypes;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace MyHome2013
 {
@@ -15,6 +16,15 @@ namespace MyHome2013
     /// </summary>
     public partial class DataViewUI : Form
     {
+        static Tuple<string, ListSortDirection>[] baseSorting = new[]
+        {
+            Tuple.Create("ID", ListSortDirection.Ascending),
+            Tuple.Create("Date", ListSortDirection.Ascending)
+        };
+
+        SortableBindingList<Expense> expenseData = new SortableBindingList<Expense>(baseSorting);
+        SortableBindingList<Income> incomeData = new SortableBindingList<Income>(baseSorting);
+
         #region Properties
 
         /// <summary>
@@ -38,7 +48,7 @@ namespace MyHome2013
         {
             InitializeComponent();
         }
-        
+
         #endregion
 
         #region Control Event Methods
@@ -52,12 +62,18 @@ namespace MyHome2013
         {
             // Automatically forces the window to be open to its max size
             this.WindowState = FormWindowState.Maximized;
-            
-            // Binds the cache data to the form
-            this.DataBinding();
+
+            this.dgOut.DataSource = expenseData;
+            this.dgOut.Columns["ID"].Visible = false;
+            this.dgOut.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
+
+            this.dgIn.DataSource = incomeData;
+            this.dgIn.Columns["ID"].Visible = false;
+            this.dgIn.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
 
             // Due to only the month being displayed on the control, the day is set to '1',
             // so when going from a month with more days to a month with less an exception won't be thrown
+            // Note: this triggers ValueChanged event
             this.dtPick.Value = new DateTime(this.dtPick.Value.Year, this.dtPick.Value.Month, 1);
 
             // Sets up the event for re-entering the form
@@ -81,16 +97,15 @@ namespace MyHome2013
         /// <param name="e">standard MouseEvent object</param>
         private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (this.dgOut.CurrentCell != null)
-            {
-                using (ExpenseViewer viewAndEditExpense =
-                        new ExpenseViewer((Expense)this.dgOut.CurrentCell.OwningRow.DataBoundItem))
-                {
-                    viewAndEditExpense.ShowDialog();
-                }
+            var grid = sender as DataGridView;
+            if (grid.CurrentCell == null) return;
 
-                this.DataBinding(); 
+            using (var form = new ExpenseViewer(grid.CurrentCell.OwningRow.DataBoundItem as Expense))
+            {
+                form.ShowDialog();
             }
+
+            this.DataBinding();
         }
 
         /// <summary>
@@ -100,17 +115,17 @@ namespace MyHome2013
         /// <param name="e">standard MouseEvent object</param>
         private void dgIn_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (this.dgIn.CurrentCell != null)
-            {
-                using (IncomeViewer viewAndEditIncome =
-                        new IncomeViewer((Income)this.dgIn.CurrentCell.OwningRow.DataBoundItem))
-                {
-                    viewAndEditIncome.ShowDialog();
-                }
+            var grid = sender as DataGridView;
+            if (grid.CurrentCell == null) return;
 
-                this.DataBinding(); 
+            using (var form = new IncomeViewer(grid.CurrentCell.OwningRow.DataBoundItem as Income))
+            {
+                form.ShowDialog();
             }
+
+            this.DataBinding();
         }
+
 
         /// <summary>
         /// Refreshes the data in the form every time it gains focus
@@ -175,16 +190,9 @@ namespace MyHome2013
         private void MonthlyDataBinding()
         {
             // Updates the data in the expense and income chart views
-            this.dgOut.DataSource =
-                ExpenseHandler.LoadOfMonth(dtPick.Value);
-            this.dgOut.Columns["ID"].Visible = false;
-            this.dgOut.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
-            
-            this.dgIn.DataSource =
-                IncomeHandler.LoadOfMonth(dtPick.Value);
-            this.dgIn.Columns["ID"].Visible = false;
-            this.dgIn.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
-        } 
+            expenseData.Load(ExpenseHandler.LoadOfMonth(dtPick.Value));
+            incomeData.Load(IncomeHandler.LoadOfMonth(dtPick.Value));
+        }
 
         #endregion
     }
