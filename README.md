@@ -8,3 +8,7 @@ Some of the options avialible to the user are: viewing a pie chart representaion
 range of dates.
 
 More ways of accessing the data are planned for future versions.
+
+## License
+
+This project is released under the the MIT License. <br/> Please refer to the [LICENSE file](LICENSE) for full details.
