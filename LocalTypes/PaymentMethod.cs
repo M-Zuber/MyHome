@@ -1,6 +1,7 @@
-﻿namespace LocalTypes
+﻿using System;
+namespace LocalTypes
 {
-    public class PaymentMethod : BaseCategory
+    public class PaymentMethod : BaseCategory, IComparable<PaymentMethod>
     {
         #region C'Tor
 
@@ -35,5 +36,10 @@
         #endregion
 
         #endregion
+
+        public int CompareTo(PaymentMethod other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
     }
 }

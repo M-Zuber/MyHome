@@ -160,6 +160,7 @@
     <Compile Include="RecurringIncomeInput.Designer.cs">
       <DependentUpon>RecurringIncomeInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="SortableBindingList.cs" />
     <Compile Include="ViewCategoriesUI.cs">
       <SubType>Form</SubType>
     </Compile>

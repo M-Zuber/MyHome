@@ -1,6 +1,7 @@
-﻿namespace LocalTypes
+﻿using System;
+namespace LocalTypes
 {
-    public class ExpenseCategory : BaseCategory
+    public class ExpenseCategory : BaseCategory, IComparable<ExpenseCategory>
     {
         #region C'Tor
 
@@ -35,5 +36,10 @@
         #endregion
 
         #endregion
+
+        public int CompareTo(ExpenseCategory other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
     }
 }
