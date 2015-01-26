@@ -2,7 +2,6 @@
 using Data;
 using LocalTypes;
 using System.Linq;
-using MoreLinq;
 using System;
 using System.Data;
 
@@ -159,7 +158,7 @@ namespace DataAccess
 
         internal static int GetNextId()
         {
-            return LoadAll().Max(e => (int?)e.ID) ?? 1;
+            return LoadAll().Max(e => (int?)e.ID).GetValueOrDefault(0) + 1;
         }
 
         #endregion

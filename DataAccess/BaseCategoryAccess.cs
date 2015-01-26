@@ -35,7 +35,7 @@ namespace DataAccess
 
         internal int GetNextId()
         {
-            return this.LoadAll().Max(ct => (int?)ct.Id) ?? 1;
+            return this.LoadAll().Max(ct => (int?)ct.Id).GetValueOrDefault(0) + 1;
         }
 
         #endregion
