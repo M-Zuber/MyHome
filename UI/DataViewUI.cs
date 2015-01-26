@@ -6,6 +6,7 @@ using System.Linq;
 using BusinessLogic;
 using FrameWork;
 using LocalTypes;
+using System.Globalization;
 
 namespace MyHome2013
 {
@@ -177,10 +178,12 @@ namespace MyHome2013
             this.dgOut.DataSource =
                 ExpenseHandler.LoadOfMonth(dtPick.Value);
             this.dgOut.Columns["ID"].Visible = false;
+            this.dgOut.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
             
             this.dgIn.DataSource =
                 IncomeHandler.LoadOfMonth(dtPick.Value);
             this.dgIn.Columns["ID"].Visible = false;
+            this.dgIn.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
         } 
 
         #endregion
