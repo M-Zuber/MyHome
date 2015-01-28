@@ -19,14 +19,5 @@ namespace BusinessLogic
             double dbToParse;
             return double.TryParse(strText, out dbToParse);
         }
-
-        /// <summary>
-        /// Tests the Db connection with the current parameters in the settings
-        /// </summary>
-        /// <returns>True if the database can be connected to, otherwise false</returns>
-        public static bool TestConnection()
-        {
-            return ConnectionManager.Instance.TestConnection();
-        }
     }
 }

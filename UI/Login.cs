@@ -17,6 +17,7 @@ namespace MyHome2013
 
         // All the text-boxes in the form to allow for easy validation
         private List<TextBox> allTextBoxes;
+        private Func<bool> testConnection;
 
         #endregion
 
@@ -34,9 +35,10 @@ namespace MyHome2013
         /// <summary>
         /// Sets up the properties and data members of the form
         /// </summary>
-        public Login()
+        public Login(Func<bool> testConnection)
         {
             InitializeComponent();
+            this.testConnection = testConnection;
             this.ConnectionSuccess = false;
             this.allTextBoxes = new List<TextBox> { txtDatabaseName, txtUserId, txtPassword };
         }
@@ -78,7 +80,7 @@ namespace MyHome2013
 
                 // Tries to connect with the parameters entered into the form by the user
                 // If the connection fails, informs the user and clears the form
-                if (!TryConnect())
+                if (!this.testConnection())
                 {
                     MessageBox.Show("One or more fields contains incorrect information", "Error connecting...",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -115,19 +117,6 @@ namespace MyHome2013
             }
         }
         
-        #endregion
-
-        #region Other Methods
-
-        /// <summary>
-        /// Tests the Db connection with the current parameters in the settings
-        /// </summary>
-        /// <returns>True if the database can be connected to, otherwise false</returns>
-        private bool TryConnect()
-        {
-            return HelperMethods.TestConnection();
-        }
-
         #endregion
     }
 }

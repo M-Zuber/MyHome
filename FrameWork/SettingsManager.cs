@@ -50,7 +50,7 @@ namespace FrameWork
         /// </summary>
         /// <param name="settingNames">The list of settings being searched for</param>
         /// <returns>True only if all the settings are set</returns>
-        public bool AreSettingsSet(List<string> settingNames)
+        public bool AreSettingsSet(IEnumerable<string> settingNames)
         {
             // Gets all the settings of the file the class instance is place holding for
             Dictionary<string, string> allSettings = GetAllSettings();

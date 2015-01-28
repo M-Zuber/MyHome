@@ -1,10 +1,8 @@
-﻿using FrameWork;
-using MySql.Data.MySqlClient;
-using Data;
+﻿using Data;
+using FrameWork;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data.Common;
 
 namespace DataAccess
 {
@@ -19,21 +17,7 @@ namespace DataAccess
             "t_payment_methods",
             "t_expenses",
             "t_incomes"
-        }; 
-        
-        #endregion
-
-        #region Setup Methods
-
-        private static MySqlDataAdapter GetAdapter(string strTableName)
-        {
-            // Create select command
-            MySqlCommand cmdSelectCommand = new MySqlCommand("SELECT * FROM " + strTableName,
-                                                             ConnectionManager.Instance.Connection);
-
-            // Create an adapter to fill the table, and returns it to the calling function
-            return (new MySqlDataAdapter(cmdSelectCommand));
-        }
+        };
 
         #endregion
 
@@ -52,17 +36,26 @@ namespace DataAccess
         {
             try
             {
+                var factory = ConnectionManager.ProviderFactory;
 
-                // Loads the table using the appropiate data adapter
-                int nRowsFilled = GetAdapter(strTableName).Fill(Cache.SDB.Tables[strTableName]);
+                using (var conn = factory.CreateConnection())
+                using (var command = conn.CreateCommand())
+                using (var adapter = factory.CreateDataAdapter())
+                {
+                    command.CommandText = "SELECT * FROM " + strTableName;
+                    adapter.SelectCommand = command;
 
-                Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.READ.ToString() +
-                                                            " at " + DateTime.Now,
-                                                            "Command: Adapter.Fill(" + strTableName + ")",
-                                                            "Result: " + nRowsFilled.ToString());
+                    // Loads the table using the appropiate data adapter
+                    int nRowsFilled = adapter.Fill(Cache.SDB.Tables[strTableName]);
+
+                    Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.READ.ToString() +
+                                                                " at " + DateTime.Now,
+                                                                "Command: Adapter.Fill(" + strTableName + ")",
+                                                                "Result: " + nRowsFilled.ToString());
+                }
             }
             // In the event of a databse exception
-            catch (MySqlException e)
+            catch (DbException e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
@@ -91,21 +84,28 @@ namespace DataAccess
         {
             try
             {
+                var factory = ConnectionManager.ProviderFactory;
 
-                // Creates the data adapter and sets it with the update commands
-                MySqlDataAdapter daAdapter = GetAdapter(strTableName);
-                MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
+                using (var conn = factory.CreateConnection())
+                using (var command = conn.CreateCommand())
+                using (var adapter = factory.CreateDataAdapter())
+                using (var cbBuilder = factory.CreateCommandBuilder())
+                {
+                    command.CommandText = "SELECT * FROM " + strTableName;
+                    adapter.SelectCommand = command;
+                    cbBuilder.DataAdapter = adapter;
 
-                // Updating table as is
-                int nRowsUpdated = daAdapter.Update(Cache.SDB.Tables[strTableName]);
+                    // Updating table as is
+                    int nRowsUpdated = adapter.Update(Cache.SDB.Tables[strTableName]);
 
-                Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.WRITE.ToString() +
-                                                            " at " + DateTime.Now,
-                                                            "Command: Adapter.Update(" + strTableName + ")",
-                                                            "Result: " + nRowsUpdated.ToString());
+                    Globals.LogFiles["DataBaseLog"].AddMessages(Globals.DbActivity.WRITE.ToString() +
+                                                                " at " + DateTime.Now,
+                                                                "Command: Adapter.Update(" + strTableName + ")",
+                                                                "Result: " + nRowsUpdated.ToString());
+                }
             }
             // In the event of a databse exception
-            catch (MySqlException e)
+            catch (DbException e)
             {
                 Globals.LogFiles["ErrorLog"].AddError(e.ErrorCode, e.Message, DateTime.Now);
                 Globals.LogFiles["ErrorLog"].AddMessage(e.StackTrace);
