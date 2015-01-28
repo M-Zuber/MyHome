@@ -8,9 +8,14 @@ namespace DataAccess
         readonly string connectionString;
 
         public DbProviderFactoryProxy(string name, string connectionString)
+            : this(GetFactory(name), connectionString)
+        {
+        }
+
+        public DbProviderFactoryProxy(DbProviderFactory factory, string connectionString)
         {
             this.connectionString = connectionString;
-            this.factory = DbProviderFactories.GetFactory(name);
+            this.factory = factory;
         }
 
         public override bool CanCreateDataSourceEnumerator
@@ -73,6 +78,11 @@ namespace DataAccess
         public override string ToString()
         {
             return factory.ToString();
+        }
+
+        public static DbProviderFactory GetFactory(string providerName)
+        {
+            return DbProviderFactories.GetFactory(providerName);
         }
     }
 }

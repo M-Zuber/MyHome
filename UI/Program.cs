@@ -4,11 +4,14 @@ using System.Windows.Forms;
 using FrameWork;
 using MySql.Data.MySqlClient;
 using DataAccess;
+using System.Data.Common;
 
 namespace MyHome2013
 {
     static class Program
     {
+        static string ProviderName = "MySql.Data.MySqlClient";
+        static string Server = "127.0.0.10";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -47,7 +50,13 @@ namespace MyHome2013
                 Globals.Password = allSettings["Password"];
             }
 
-            ConnectionManager.ProviderFactory = BuildProvider(Globals.DataBaseName, Globals.UserId, Globals.Password);
+            ConnectionManager.ProviderFactory = ConnectionManager.GetDbProvider(ProviderName, new ConnectionOptions
+            {
+                Server = Server,
+                Database = Globals.DataBaseName,
+                Username = Globals.UserId,
+                Password = Globals.Password
+            });
 
             // Runs the main application
             Application.Run(new MenuMDIUI());
@@ -58,22 +67,17 @@ namespace MyHome2013
             Globals.LogFiles["ProgramActivityLog"].AddMessage("The program was closed at: " + DateTime.Now);
         }
 
-        static DbProviderFactoryProxy BuildProvider(string db, string username, string password)
-        {
-            var builder = new MySqlConnectionStringBuilder
-            {
-                Server = "127.0.0.10",
-                Database = db,
-                UserID = username,
-                Password = password
-            };
-
-            return new DbProviderFactoryProxy("MySql.Data.MySqlClient", builder.ToString());
-        }
-
         static bool TestConnection()
         {
-            return ConnectionManager.TestConnection(BuildProvider(Globals.DataBaseName, Globals.UserId, Globals.Password));
+            var provider = ConnectionManager.GetDbProvider(ProviderName, new ConnectionOptions
+            {
+                Server = Server,
+                Database = Globals.DataBaseName,
+                Username = Globals.UserId,
+                Password = Globals.Password
+            });
+
+            return ConnectionManager.TestConnection(provider);
         }
     }
 }

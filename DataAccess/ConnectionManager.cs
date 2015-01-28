@@ -1,4 +1,7 @@
-﻿using System.Data.Common;
+﻿using MySql.Data.MySqlClient;
+using Npgsql;
+using System.Data.Common;
+using System.Data.SQLite;
 
 namespace DataAccess
 {
@@ -15,7 +18,6 @@ namespace DataAccess
         /// <returns>If the connection succeeded</returns>
         public static bool TestConnection(DbProviderFactory factory)
         {
-            
             using (var conn = factory.CreateConnection())
             {
                 try
@@ -35,5 +37,61 @@ namespace DataAccess
                 }
             }
         }
+
+        public static string BuildConnectionString(DbProviderFactory factory, ConnectionOptions options)
+        {
+            var builder = factory.CreateConnectionStringBuilder();
+
+            if (builder is MySqlConnectionStringBuilder)
+            {
+                var b = builder as MySqlConnectionStringBuilder;
+                b.Server = options.Server;
+                b.Database = options.Database;
+                b.UserID = options.Username;
+                b.Password = options.Password;
+                b.IntegratedSecurity = false;
+                return b.ToString();
+            }
+            else if (builder is SQLiteConnectionStringBuilder)
+            {
+                var b = builder as SQLiteConnectionStringBuilder;
+                b.Version = 3;
+                b.DataSource = options.Database;
+                return b.ToString();
+            }
+            else if (builder is NpgsqlConnectionStringBuilder)
+            {
+                var b = builder as NpgsqlConnectionStringBuilder;
+                b.Host = options.Server;
+                b.Database = options.Database;
+                b.UserName = options.Username;
+                b.Password = options.Password;
+                b.IntegratedSecurity = false;
+                return b.ToString();
+            }
+
+            return null;
+        }
+
+        public static DbProviderFactory GetDbProvider(string providerName, string connectionString)
+        {
+            return new DbProviderFactoryProxy(providerName, connectionString);
+        }
+
+        public static DbProviderFactory GetDbProvider(string providerName, ConnectionOptions connectionOptions)
+        {
+            var provider = DbProviderFactoryProxy.GetFactory(providerName);
+            string connectionString = BuildConnectionString(provider, connectionOptions);
+            return new DbProviderFactoryProxy(provider, connectionString);
+        }
     }
+
+    public struct ConnectionOptions
+    {
+        public string Server;
+        public string Database;
+        public string Username;
+        public string Password;
+    }
+
 }
