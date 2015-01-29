@@ -10,7 +10,7 @@ namespace BusinessLogic
     {
         public static bool DataHasChanges()
         {
-            return DataStatusAccess.DataHasChanges();
+            return false;
         }
     }
 }

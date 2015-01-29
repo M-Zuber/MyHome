@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using Data;
 using LocalTypes;
 using System;
 using System.Linq;
 using System.Data;
+using System.Data.Common;
+using Dapper;
 
 namespace DataAccess
 {
@@ -11,155 +12,204 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of incomes
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public static class IncomeAccess
+    public class IncomeAccess : ITransactionRepository<Income, int>
     {
-        #region CRUD Methods
+        DbProviderFactory factory;
 
-        #region Read Methods
-
-        /// <summary>
-        /// Loads a specific income from the cache
-        /// </summary>
-        /// <param name="id">The id of the income wanted</param>
-        /// <returns>The income as it is in the cache</returns>
-        public static Income LoadById(int id)
+        public IncomeAccess(DbProviderFactory factory)
         {
-            StaticDataSet.t_incomesRow requestedRow =
-                Cache.SDB.t_incomes.FindByID(id);
-            return new Income(requestedRow.AMOUNT, requestedRow.INC_DATE,
-                IncomeCategoryAccess.LoadById(requestedRow.CATEGORY), 
-                PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
+            this.factory = factory;
         }
 
-        /// <summary>
-        /// Loads all the incomes from the cache
-        /// </summary>
-        /// <returns>All the incomes as they are in the cache in generic-based
-        /// list
-        /// </returns>
-        public static List<Income> LoadAll()
+        public List<Income> LoadMonth(DateTime month)
         {
-            List<Income> allIncomes = new List<Income>();
-
-            Cache.SDB.t_incomes.DefaultView.AllowDelete = false;
-            foreach (DataRowView currIncome in Cache.SDB.t_incomes.DefaultView)
+            using (var conn = this.factory.CreateConnection())
             {
-                allIncomes.Add(TranslateFromDataRow((StaticDataSet.t_incomesRow)currIncome.Row));
-            }
+                var startdate = new DateTime(month.Year, month.Month, 1);
+                var enddate = new DateTime(month.Year,
+                                           month.Month,
+                                           DateTime.DaysInMonth(month.Year, month.Month),
+                                           23, 59, 59, 999);
 
-            return allIncomes;
-        }
+                var sql = @"SELECT e.id, e.amount, e.inc_date as 'date', e.comments as 'comment',
+                                   c.id, c.name,
+                                   m.id, m.name
+                            FROM t_incomes as e
+                            INNER JOIN t_incomes_category as c ON e.category = c.id
+                            INNER JOIN t_payment_methods as m ON e.method = m.id
+                            WHERE e.inc_date BETWEEN @startdate AND @enddate;";
 
-        public static List<Income> LoadIncomesOfMonth(DateTime monthWanted)
-        {
-            return LoadAll()
-                    .Where(currExpense =>
-                            currExpense.Date.Month == monthWanted.Month &&
-                            currExpense.Date.Year == monthWanted.Year).ToList<Income>();
-        }
-
-        #endregion
-
-        #region Update Methods
-
-        /// <summary>
-        /// Updates the cache with the changes of the income
-        /// </summary>
-        /// <param name="expenseToSave">The income to be saved</param>
-        /// <returns>True on success, false on any exception</returns>
-        public static bool Save(Income incomeToSave)
-        {
-            try
-            {
-                UpdateDataBase(incomeToSave);
-                return true;
-            }
-            catch
-            {
-                return false;
+                // Note: When using multi-mapping the order of the returned columns
+                //       must match the order of types specified in the query method's
+                //       generic paramenters, and begin with the id column.
+                return conn.Query<Income, IncomeCategory, PaymentMethod, Income>(
+                        sql,
+                        (e, c, m) => { e.Category = c; e.Method = m; return e; },
+                        new { startdate, enddate })
+                    .ToList();
             }
         }
 
-        #endregion
-
-        #region Create Methods
-
-        public static int AddNewIncome(Income newIncome)
+        public Income LoadById(int id)
         {
-            StaticDataSet.t_incomesRow newDbIncome = Cache.SDB.t_incomes.Newt_incomesRow();
-            newDbIncome.ID = GetNextId();
-            newDbIncome.AMOUNT = newIncome.Amount;
-            newDbIncome.CATEGORY = newIncome.Category.Id;
-            newDbIncome.METHOD = newIncome.Method.Id;
-            newDbIncome.INC_DATE = newIncome.Date;
-            newDbIncome.COMMENTS = newIncome.Comment;
-
-            Cache.SDB.t_incomes.Addt_incomesRow(newDbIncome);
-
-            return newDbIncome.ID;
-        }
-
-        #endregion
-
-        #region Delete Methods
-
-        public static void DeleteIncome(int id)
-        {
-            Cache.SDB.t_incomes.FindByID(id).Delete();
-        }
-
-        #endregion
-        
-        #endregion
-
-        #region Other Methods
-
-        /// <summary>
-        /// Updates the row in the database that corrosponds to the income entity
-        /// passed in
-        /// </summary>
-        /// <param name="incomeTranslating">The income entity to update the database with</param>
-        private static void UpdateDataBase(Income incomeTranslating)
-        {
-            StaticDataSet.t_incomesRow translatedRow = Cache.SDB.t_incomes.FindByID(incomeTranslating.ID);
-
-            //Because this form is only for updating, there is no check if it exists in the database
-
-            translatedRow.ID = incomeTranslating.ID;
-            translatedRow.AMOUNT = incomeTranslating.Amount;
-            translatedRow.COMMENTS = incomeTranslating.Comment;
-            translatedRow.INC_DATE = incomeTranslating.Date;
-
-            // There is no check to see if they exist in the database or not
-            // because as of 20.02.2014 the form only shows categories/methods
-            // that already exist - and do not allow the user to create new ones
-            translatedRow.CATEGORY = incomeTranslating.Category.Id;
-            translatedRow.METHOD = incomeTranslating.Method.Id;
-        }
-
-        /// <summary>
-        /// Translates an income from the tabular data in the cache to entity form
-        /// </summary>
-        /// <param name="rowTranslating">The income row to be translated</param>
-        /// <returns>The entity representation of the income row passed in</returns>
-        internal static Income TranslateFromDataRow(StaticDataSet.t_incomesRow rowTranslating)
-        {
-            // Check for DBNull
-            if (rowTranslating.IsCOMMENTSNull())
+            using (var conn = this.factory.CreateConnection())
             {
-                rowTranslating.COMMENTS = string.Empty;
+                var sql = @"SELECT e.id, e.amount, e.inc_date as 'date', e.comments as 'comment',
+                                   c.id, c.name,
+                                   m.id, m.name
+                            FROM t_incomes as e
+                            INNER JOIN t_incomes_category as c ON e.category = c.id
+                            INNER JOIN t_payment_methods as m ON e.method = m.id
+                            WHERE e.id = @id;";
+
+                // Note: When using multi-mapping the order of the returned columns
+                //       must match the order of types specified in the query method's
+                //       generic paramenters, and begin with the id column.
+                return conn.Query<Income, IncomeCategory, PaymentMethod, Income>(
+                        sql,
+                        (e, c, m) => { e.Category = c; e.Method = m; return e; },
+                        new { id })
+                    .FirstOrDefault();
             }
-
-            return new Income(rowTranslating.AMOUNT, rowTranslating.INC_DATE,
-                IncomeCategoryAccess.LoadById(rowTranslating.CATEGORY),
-                PaymentMethodAccess.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
         }
 
-        internal static int GetNextId()
+        public List<Income> LoadAll()
         {
-            return LoadAll().Max(i => (int?)i.ID).GetValueOrDefault(0) + 1;
+            using (var conn = this.factory.CreateConnection())
+            {
+                var sql = @"SELECT e.id, e.amount, e.inc_date as 'date', e.comments as 'comment',
+                                   c.id, c.name,
+                                   m.id, m.name
+                            FROM t_incomes as e
+                            INNER JOIN t_incomes_category as c ON e.category = c.id
+                            INNER JOIN t_payment_methods as m ON e.method = m.id
+                            ORDER BY e.inc_date ASC, e.id ASC;";
+
+                // Note: When using multi-mapping the order of the returned columns
+                //       must match the order of types specified in the query method's
+                //       generic paramenters, and begin with the id column.
+                return conn.Query<Income, IncomeCategory, PaymentMethod, Income>(
+                        sql,
+                        (e, c, m) => { e.Category = c; e.Method = m; return e; })
+                    .ToList();
+            }
         }
 
-        #endregion
+        public Income Save(Income item)
+        {
+            using (var conn = this.factory.CreateConnection())
+            {
+                var itemData = new
+                {
+                    Amount = item.Amount,
+                    Date = item.Date,
+                    Category = item.Category.Id,
+                    Method = item.Method.Id,
+                    Comment = item.Comment
+                };
+
+                // No Id means the item is new, and should be inserted
+                if (item.ID == default(int))
+                {
+                    string insertsql = @"INSERT INTO t_incomes (amount, inc_date, category, method, comments)
+                                         VALUES (@Amount, @Date, @Category, @Method, @Comment);";
+
+                    string selectsql = @"SELECT e.id, e.amount, e.inc_date as 'date', e.comments,
+                                                c.id, c.name,
+                                                m.id, m.name
+                                         FROM t_incomes as e
+                                         INNER JOIN t_incomes_category as c ON e.category = c.id
+                                         INNER JOIN t_payment_methods as m ON e.method = m.id
+                                         WHERE e.id = LAST_INSERT_ID();";
+
+                    return conn.Query<Income, IncomeCategory, PaymentMethod, Income>(
+                            insertsql + selectsql,
+                            (e, c, m) => { e.Category = c; e.Method = m; return e; },
+                            itemData)
+                        .FirstOrDefault();
+
+                }
+
+                // Update the item
+                string sql = @"UPDATE t_incomes
+                               SET amount = @Amount, inc_date = @Date, category = @Category, method = @Method, comments = @Comment
+                               WHERE id = @Id;";
+                int result = conn.Execute(sql, itemData);
+                return (result == 1 ? item : null);
+            }
+        }
+
+        public void Remove(Income item)
+        {
+            this.Remove(item.ID);
+        }
+
+        public void Remove(int id)
+        {
+            if (id == default(int)) return;
+
+            using (var conn = this.factory.CreateConnection())
+            {
+                conn.Execute("DELETE FROM t_incomes WHERE id = @id;", new { id });
+            }
+        }
+    }
+
+
+    public class CachedIncomeRepository : ITransactionRepository<Income, int>
+    {
+        static Dictionary<int, Income> cache = new Dictionary<int, Income>();
+        ITransactionRepository<Income, int> source;
+
+        public CachedIncomeRepository(ITransactionRepository<Income, int> source)
+        {
+            this.source = source;
+        }
+
+        public List<Income> LoadMonth(DateTime month)
+        {
+            return source.LoadMonth(month);
+        }
+
+        public Income LoadById(int id)
+        {
+            if (!cache.ContainsKey(id))
+                cache[id] = source.LoadById(id);
+
+            return cache[id];
+        }
+
+        public List<Income> LoadAll()
+        {
+            return source.LoadAll();
+        }
+
+        public Income Save(Income item)
+        {
+            var result = source.Save(item);
+
+            // If the save fails and the item is not new, remove the item from the cache
+            if (result == null && item.ID != default(int) && cache.ContainsKey(item.ID))
+                cache.Remove(item.ID);
+
+            // If the save succeeded, update the cache
+            if (result != null)
+                cache[result.ID] = result;
+
+            return result;
+        }
+
+        public void Remove(Income item)
+        {
+            this.Remove(item.ID);
+        }
+
+        public void Remove(int id)
+        {
+            if (id != default(int) && cache.ContainsKey(id))
+                cache.Remove(id);
+
+            source.Remove(id);
+        }
     }
 }

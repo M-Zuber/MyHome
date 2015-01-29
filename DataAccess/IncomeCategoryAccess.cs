@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using Data;
 using LocalTypes;
+using System.Data.Common;
+using System.Linq;
+using Dapper;
 
 namespace DataAccess
 {
@@ -8,74 +10,86 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of income categories
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class IncomeCategoryAccess : BaseCategoryAccess
+    public class IncomeCategoryAccess : IRepository<IncomeCategory, int>
     {
-        #region CRUD Methods
+        DbProviderFactory factory;
 
-        #region Read Methods
-
-        /// <summary>
-        /// Loads a specific Income category from the cache
-        /// </summary>
-        /// <param name="id">The id of the Income category wanted</param>
-        /// <returns>The Income category as it is in the cache</returns>
-        public static IncomeCategory LoadById(int id)
+        public IncomeCategoryAccess(DbProviderFactory factory)
         {
-            StaticDataSet.t_incomes_categoryRow requestedRow =
-                Cache.SDB.t_incomes_category.FindByID(id);
-            return new IncomeCategory(requestedRow.ID, requestedRow.NAME);
+            this.factory = factory;
         }
 
-        /// <summary>
-        /// Loads all the Income categories from the cache
-        /// </summary>
-        /// <returns>All the Income categories as they are in the cache in generic-based
-        /// list
-        /// </returns>
-        public override List<BaseCategory> LoadAll()
+        public IncomeCategory LoadById(int id)
         {
-            List<BaseCategory> allIncomeCategories = new List<BaseCategory>();
-
-            foreach (StaticDataSet.t_incomes_categoryRow currIncomeCategory in Cache.SDB.t_incomes_category.Rows)
+            using (var conn = this.factory.CreateConnection())
             {
-                allIncomeCategories.Add(
-                    new IncomeCategory(currIncomeCategory.ID, currIncomeCategory.NAME));
+                return conn.Query<IncomeCategory>("SELECT id, name FROM t_incomes_category WHERE id = @id;", new { id })
+                    .FirstOrDefault();
             }
-
-            return allIncomeCategories;
         }
 
-        #endregion
-
-        #region Create Methods
-
-        public override int AddNewCategory(string categoryName)
+        public List<IncomeCategory> LoadAll()
         {
-            StaticDataSet.t_incomes_categoryRow newPaymentMethod = Cache.SDB.t_incomes_category.Newt_incomes_categoryRow();
-            newPaymentMethod.ID = this.GetNextId();
-            newPaymentMethod.NAME = categoryName;
-
-            Cache.SDB.t_incomes_category.Addt_incomes_categoryRow(newPaymentMethod);
-
-            return newPaymentMethod.ID;
+            using (var conn = this.factory.CreateConnection())
+            {
+                return conn.Query<IncomeCategory>("SELECT id, name FROM t_incomes_category;").ToList();
+            }
         }
 
-        #endregion
-
-        #endregion
-
-        #region Other Methods
-
-        internal override void UpdateDataBase(BaseCategory categoryTranslating)
+        public IncomeCategory Save(IncomeCategory item)
         {
-            StaticDataSet.t_incomes_categoryRow translatedRow = Cache.SDB.t_incomes_category.FindByID(categoryTranslating.Id);
+            using (var conn = this.factory.CreateConnection())
+            {
+                // No Id means the item is new, and should be inserted
+                if (item.Id == default(int))
+                {
+                    return conn.Query<IncomeCategory>("INSERT INTO t_incomes_category (name) VALUES (@Name); SELECT id, name FROM t_incomes_category WHERE id = LAST_INSERT_ID();", new { item.Name })
+                        .FirstOrDefault();
+                }
+                
+                // Update the item
+                int result = conn.Execute("UPDATE t_incomes_category SET name = @Name WHERE id = @Id;", new { item.Id, item.Name });
+                return (result == 1 ? item : null);
+            }
+        }
+    }
 
-            //Because this form is only for updating, there is no check if it exists in the database
+    public class CachedIncomeCategoryRepository : IRepository<IncomeCategory, int>
+    {
+        static Dictionary<int, IncomeCategory> cache = new Dictionary<int, IncomeCategory>();
+        IRepository<IncomeCategory, int> source;
 
-            translatedRow.ID = categoryTranslating.Id;
-            translatedRow.NAME = categoryTranslating.Name;
+        public CachedIncomeCategoryRepository(IRepository<IncomeCategory, int> source)
+        {
+            this.source = source;
         }
 
-        #endregion
+        public IncomeCategory LoadById(int id)
+        {
+            if (!cache.ContainsKey(id))
+                cache[id] = source.LoadById(id);
+
+            return cache[id];
+        }
+
+        public List<IncomeCategory> LoadAll()
+        {
+            return source.LoadAll();
+        }
+
+        public IncomeCategory Save(IncomeCategory item)
+        {
+            var result = source.Save(item);
+
+            // If the save fails and the item is not new, remove the item from the cache
+            if (result == null && item.Id != default(int) && cache.ContainsKey(item.Id))
+                cache.Remove(item.Id);
+
+            // If the save succeeded, update the cache
+            if (result != null)
+                cache[result.Id] = result;
+
+            return result;
+        }
     }
 }

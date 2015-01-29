@@ -23,7 +23,8 @@ namespace BusinessLogic
         /// <returns>The Income as it is in the cache</returns>
         public static Income LoadById(int id)
         {
-            return IncomeAccess.LoadById(id);
+            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
+            return r.LoadById(id);
         }
 
         /// <summary>
@@ -34,7 +35,8 @@ namespace BusinessLogic
         /// </returns>
         public static List<Income> LoadAll()
         {
-            return IncomeAccess.LoadAll();
+            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
+            return r.LoadAll();
         }
 
         /// <summary>
@@ -44,7 +46,8 @@ namespace BusinessLogic
         /// <returns>A list of Incomes filtered to a specific month</returns>
         public static List<Income> LoadOfMonth(DateTime monthWanted)
         {
-            return IncomeAccess.LoadIncomesOfMonth(monthWanted);
+            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
+            return r.LoadMonth(monthWanted);
         }
 
         #endregion
@@ -57,7 +60,8 @@ namespace BusinessLogic
         /// <param name="incomeToSave">The Income to be saved</param>
         public static void Save(Income incomeToSave)
         {
-            IncomeAccess.Save(incomeToSave);
+            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
+            r.Save(incomeToSave);
         }
 
         #endregion
@@ -66,7 +70,9 @@ namespace BusinessLogic
 
         public static int AddNewIncome(Income newIncome)
         {
-            return IncomeAccess.AddNewIncome(newIncome);
+            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
+            var result = r.Save(newIncome);
+            return (result != null ? 1 : default(int));
         }
 
         #endregion
@@ -75,7 +81,8 @@ namespace BusinessLogic
 
         public static void Delete(int id)
         {
-            IncomeAccess.DeleteIncome(id);
+            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
+            r.Remove(id);
         }
 
         #endregion

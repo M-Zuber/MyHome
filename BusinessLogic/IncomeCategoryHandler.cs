@@ -22,7 +22,8 @@ namespace BusinessLogic
         /// <returns>The Income category as it is in the cache</returns>
         public static IncomeCategory LoadById(int id)
         {
-            return IncomeCategoryAccess.LoadById(id);
+            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
+            return r.LoadById(id);
         }
 
         /// <summary>
@@ -33,7 +34,8 @@ namespace BusinessLogic
         /// </returns>
         public override List<BaseCategory> LoadAll()
         {
-            return (new IncomeCategoryAccess()).LoadAll();
+            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
+            return r.LoadAll().ToList<BaseCategory>();
         }
 
         #endregion
@@ -42,7 +44,9 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
-            return (new IncomeCategoryAccess()).AddNewCategory(categoryName);
+            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
+            var result = r.Save(new IncomeCategory { Name = categoryName});
+            return (result != null ? result.Id : default(int));
         }
 
         #endregion
@@ -51,7 +55,9 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            return (new IncomeCategoryAccess()).Save(categoryToSave);
+            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
+            var result = r.Save(categoryToSave as IncomeCategory);
+            return result != null;
         }
 
         #endregion

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using Data;
 using LocalTypes;
+using System.Linq;
+using Dapper;
+using System.Data.Common;
 
 namespace DataAccess
 {
@@ -8,74 +10,86 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of expense categories
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class ExpenseCategoryAccess : BaseCategoryAccess
+    public class ExpenseCategoryAccess : IRepository<ExpenseCategory, int>
     {
-        #region CRUD Methods
+        DbProviderFactory factory;
 
-        #region Read Methods
-
-        /// <summary>
-        /// Loads a specific Expense category from the cache
-        /// </summary>
-        /// <param name="id">The id of the Expense category wanted</param>
-        /// <returns>The expense category as it is in the cache</returns>
-        public static ExpenseCategory LoadById(int id)
+        public ExpenseCategoryAccess(DbProviderFactory factory)
         {
-            StaticDataSet.t_expenses_categoryRow requestedRow =
-                Cache.SDB.t_expenses_category.FindByID(id);
-            return new ExpenseCategory(requestedRow.ID, requestedRow.NAME);
+            this.factory = factory;
         }
 
-        /// <summary>
-        /// Loads all the Expense categories from the cache
-        /// </summary>
-        /// <returns>All the Expense categories as they are in the cache in generic-based
-        /// list
-        /// </returns>
-        public override List<BaseCategory> LoadAll()
+        public ExpenseCategory LoadById(int id)
         {
-            List<BaseCategory> allExpensesCategories = new List<BaseCategory>();
-
-            foreach (StaticDataSet.t_expenses_categoryRow currExpenseCategory in Cache.SDB.t_expenses_category.Rows)
+            using (var conn = this.factory.CreateConnection())
             {
-                allExpensesCategories.Add(
-                    new ExpenseCategory((int)currExpenseCategory.ID, currExpenseCategory.NAME));
+                return conn.Query<ExpenseCategory>("SELECT id, name FROM t_expenses_category WHERE id = @id;", new { id })
+                    .FirstOrDefault();
             }
-
-            return allExpensesCategories;
         }
 
-        #endregion
-
-        #region Create Methods
-
-        public override int AddNewCategory(string categoryName)
+        public List<ExpenseCategory> LoadAll()
         {
-            StaticDataSet.t_expenses_categoryRow newPaymentMethod = Cache.SDB.t_expenses_category.Newt_expenses_categoryRow();
-            newPaymentMethod.ID = this.GetNextId();
-            newPaymentMethod.NAME = categoryName;
-
-            Cache.SDB.t_expenses_category.Addt_expenses_categoryRow(newPaymentMethod);
-
-            return newPaymentMethod.ID;
+            using (var conn = this.factory.CreateConnection())
+            {
+                return conn.Query<ExpenseCategory>("SELECT id, name FROM t_expenses_category;").ToList();
+            }
         }
 
-        #endregion
-
-        #endregion
-
-        #region Other Methods
-
-        internal override void UpdateDataBase(BaseCategory categoryTranslating)
+        public ExpenseCategory Save(ExpenseCategory item)
         {
-            StaticDataSet.t_expenses_categoryRow translatedRow = Cache.SDB.t_expenses_category.FindByID(categoryTranslating.Id);
+            using (var conn = this.factory.CreateConnection())
+            {
+                // No Id means the item is new, and should be inserted
+                if (item.Id == default(int))
+                {
+                    return conn.Query<ExpenseCategory>("INSERT INTO t_expenses_category (name) VALUES (@Name); SELECT id, name FROM t_expenses_category WHERE id = LAST_INSERT_ID();", new { item.Name })
+                        .FirstOrDefault();
+                }
 
-            //Because this form is only for updating, there is no check if it exists in the database
+                // Update the item
+                int result = conn.Execute("UPDATE t_expenses_category SET name = @Name WHERE id = @Id;", new { item.Id, item.Name });
+                return (result == 1 ? item : null);
+            }
+        }
+    }
 
-            translatedRow.ID = categoryTranslating.Id;
-            translatedRow.NAME = categoryTranslating.Name;
+    public class CachedExpenseCategoryRepository : IRepository<ExpenseCategory, int>
+    {
+        static Dictionary<int, ExpenseCategory> cache = new Dictionary<int, ExpenseCategory>();
+        IRepository<ExpenseCategory, int> source;
+
+        public CachedExpenseCategoryRepository(IRepository<ExpenseCategory, int> source)
+        {
+            this.source = source;
         }
 
-        #endregion
+        public ExpenseCategory LoadById(int id)
+        {
+            if (!cache.ContainsKey(id))
+                cache[id] = source.LoadById(id);
+
+            return cache[id];
+        }
+
+        public List<ExpenseCategory> LoadAll()
+        {
+            return source.LoadAll();
+        }
+
+        public ExpenseCategory Save(ExpenseCategory item)
+        {
+            var result = source.Save(item);
+
+            // If the save fails and the item is not new, remove the item from the cache
+            if (result == null && item.Id != default(int) && cache.ContainsKey(item.Id))
+                cache.Remove(item.Id);
+
+            // If the save succeeded, update the cache
+            if (result != null)
+                cache[result.Id] = result;
+
+            return result;
+        }
     }
 }

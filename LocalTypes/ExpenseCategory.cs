@@ -4,6 +4,10 @@ namespace LocalTypes
     public class ExpenseCategory : BaseCategory, IComparable<ExpenseCategory>
     {
         #region C'Tor
+        
+        public ExpenseCategory()
+        {
+        }
 
         public ExpenseCategory(int id, string name)
         {

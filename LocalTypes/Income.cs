@@ -34,11 +34,15 @@ namespace LocalTypes
         /// <summary>
         /// ID number of the income in the data table
         /// </summary>
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         #endregion
 
         #region C'Tor
+        
+        public Income()
+        {
+        }
 
         public Income(double amount, DateTime date, IncomeCategory incomeCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)

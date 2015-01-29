@@ -22,7 +22,8 @@ namespace BusinessLogic
         /// <returns>The expense category as it is in the cache</returns>
         public static ExpenseCategory LoadById(int id)
         {
-            return ExpenseCategoryAccess.LoadById(id);
+            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
+            return ecr.LoadById(id);
         }
 
         /// <summary>
@@ -33,7 +34,8 @@ namespace BusinessLogic
         /// </returns>
         public override List<BaseCategory> LoadAll()
         {
-            return (new ExpenseCategoryAccess()).LoadAll();
+            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
+            return ecr.LoadAll().ToList<BaseCategory>();
         }
 
         #endregion
@@ -42,7 +44,9 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
-            return (new ExpenseCategoryAccess()).AddNewCategory(categoryName);
+            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
+            var result = ecr.Save(new ExpenseCategory { Name = categoryName });
+            return (result != null ? result.Id : default(int));
         }
 
         #endregion
@@ -51,7 +55,8 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            return (new ExpenseCategoryAccess()).Save(categoryToSave);
+            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
+            return ecr.Save(categoryToSave as ExpenseCategory) != null;
         }
 
         #endregion

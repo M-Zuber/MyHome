@@ -5,6 +5,10 @@ namespace LocalTypes
     {
         #region C'Tor
 
+        public IncomeCategory()
+        {
+        }
+
         public IncomeCategory(int id, string name)
         {
             base.Id = id;

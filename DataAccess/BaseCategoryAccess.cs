@@ -6,21 +6,27 @@ using LocalTypes;
 
 namespace DataAccess
 {
-    public abstract class BaseCategoryAccess
+    public abstract class BaseCategoryAccess<T> where T : BaseCategory
     {
         #region Abstract Methods
 
-        public abstract List<BaseCategory> LoadAll();
+        public virtual List<T> LoadAll()
+        {
+            return null;
+        }
 
-        internal abstract void UpdateDataBase(BaseCategory categoryTranslating);
+        internal virtual void UpdateDataBase(T categoryTranslating) { }
 
-        public abstract int AddNewCategory(string categoryName);
+        public virtual int AddNewCategory(string categoryName)
+        {
+            return -1;
+        }
 
         #endregion
 
         #region Implemented Methods
 
-        public bool Save(BaseCategory categoryToSave)
+        public bool Save(T categoryToSave)
         {
             try
             {

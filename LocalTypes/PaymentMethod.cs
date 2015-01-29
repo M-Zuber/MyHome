@@ -5,6 +5,8 @@ namespace LocalTypes
     {
         #region C'Tor
 
+        public PaymentMethod() { }
+
         public PaymentMethod(int id, string name)
         {
             base.Id = id;

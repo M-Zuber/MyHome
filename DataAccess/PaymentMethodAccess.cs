@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-using Data;
+﻿using Dapper;
 using LocalTypes;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -8,74 +10,86 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of payment methods
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class PaymentMethodAccess : BaseCategoryAccess
-	{
-        #region CRUD Methods
+    public class PaymentMethodAccess : IRepository<PaymentMethod, int>
+    {
+        DbProviderFactory factory;
 
-        #region Read Methods
-
-        /// <summary>
-        /// Loads a specific payment method from the cache
-        /// </summary>
-        /// <param name="id">The id of the payment method wanted</param>
-        /// <returns>The payment method as it is in the cache</returns>
-        public static PaymentMethod LoadById(int id)
+        public PaymentMethodAccess(DbProviderFactory factory)
         {
-            StaticDataSet.t_payment_methodsRow requestedRow =
-                Cache.SDB.t_payment_methods.FindByID(id);
-            return new PaymentMethod(requestedRow.ID, requestedRow.NAME);
+            this.factory = factory;
         }
 
-        /// <summary>
-        /// Loads all the payment methods from the cache
-        /// </summary>
-        /// <returns>All the payment methods as they are in the cache in generic-based
-        /// list
-        /// </returns>
-        public override List<BaseCategory> LoadAll()
+        public PaymentMethod LoadById(int id)
         {
-            List<BaseCategory> allPaymentMethods = new List<BaseCategory>();
-
-            foreach (StaticDataSet.t_payment_methodsRow currPaymentMethod in Cache.SDB.t_payment_methods.Rows)
+            using (var conn = this.factory.CreateConnection())
             {
-                allPaymentMethods.Add(
-                    new PaymentMethod(currPaymentMethod.ID, currPaymentMethod.NAME));
+                return conn.Query<PaymentMethod>("SELECT id, name FROM t_payment_methods WHERE id = @id;", new { id }).FirstOrDefault();
             }
-
-            return allPaymentMethods;
         }
 
-        #endregion
-
-        #region Create Methods
-
-        public override int AddNewCategory(string categoryName)
+        public List<PaymentMethod> LoadAll()
         {
-            StaticDataSet.t_payment_methodsRow newPaymentMethod = Cache.SDB.t_payment_methods.Newt_payment_methodsRow();
-            newPaymentMethod.ID = this.GetNextId();
-            newPaymentMethod.NAME = categoryName;
-
-            Cache.SDB.t_payment_methods.Addt_payment_methodsRow(newPaymentMethod);
-
-            return newPaymentMethod.ID;
+            using (var conn = this.factory.CreateConnection())
+            {
+                return conn.Query<PaymentMethod>("SELECT id, name FROM t_payment_methods;").ToList();
+            }
         }
 
-        #endregion
-        
-        #endregion
-
-        #region Other Methods
-
-        internal override void UpdateDataBase(BaseCategory categoryTranslating)
+        public PaymentMethod Save(PaymentMethod item)
         {
-            StaticDataSet.t_payment_methodsRow translatedRow = Cache.SDB.t_payment_methods.FindByID(categoryTranslating.Id);
+            using (var conn = this.factory.CreateConnection())
+            {
+                // No Id means the item is new, and should be inserted
+                if (item.Id == default(int))
+                {
+                    return conn.Query<PaymentMethod>("INSERT INTO t_payment_methods (name) VALUES (@Name); SELECT id, name FROM t_payment_methods WHERE id = LAST_INSERT_ID();", new { item.Name })
+                        .FirstOrDefault();
+                }
+                
+                // Update the item
+                int result = conn.Execute("UPDATE t_payment_methods SET name = @Name WHERE id = @Id;", new { item.Id, item.Name });
+                return (result == 1 ? item : null);
+            }
+        }
+    }
 
-            //Because this form is only for updating, there is no check if it exists in the database
 
-            translatedRow.ID = categoryTranslating.Id;
-            translatedRow.NAME = categoryTranslating.Name;
+    public class CachedPaymentMethodRepository : IRepository<PaymentMethod, int>
+    {
+        static Dictionary<int, PaymentMethod> cache = new Dictionary<int, PaymentMethod>();
+        IRepository<PaymentMethod, int> source;
+
+        public CachedPaymentMethodRepository(IRepository<PaymentMethod, int> source)
+        {
+            this.source = source;
         }
 
-        #endregion
+        public PaymentMethod LoadById(int id)
+        {
+            if (!cache.ContainsKey(id))
+                cache[id] = source.LoadById(id);
+
+            return cache[id];
+        }
+
+        public List<PaymentMethod> LoadAll()
+        {
+            return source.LoadAll();
+        }
+
+        public PaymentMethod Save(PaymentMethod item)
+        {
+            var result = source.Save(item);
+            
+            // If the save fails and the item is not new, remove the item from the cache
+            if (result == null && item.Id != default(int) && cache.ContainsKey(item.Id))
+                cache.Remove(item.Id);
+
+            // If the save succeeded, update the cache
+            if (result != null)
+                cache[result.Id] = result;
+
+            return result;
+        }
     }
 }

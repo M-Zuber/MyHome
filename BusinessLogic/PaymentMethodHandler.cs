@@ -22,7 +22,8 @@ namespace BusinessLogic
         /// <returns>The Payment Method as it is in the cache</returns>
         public static PaymentMethod LoadById(int id)
         {
-            return PaymentMethodAccess.LoadById(id);
+            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
+            return r.LoadById(id);
         }
 
         /// <summary>
@@ -33,7 +34,8 @@ namespace BusinessLogic
         /// </returns>
         public override List<BaseCategory> LoadAll()
         {
-            return (new PaymentMethodAccess()).LoadAll();
+            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
+            return r.LoadAll().ToList<BaseCategory>();
         }
 
         #endregion
@@ -42,7 +44,9 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
-            return (new PaymentMethodAccess()).AddNewCategory(categoryName);
+            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
+            var result = r.Save(new PaymentMethod { Name = categoryName });
+            return result != null ? result.Id : 0;
         }
 
         #endregion
@@ -51,7 +55,9 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            return (new PaymentMethodAccess()).Save(categoryToSave);
+            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
+            var result = r.Save(categoryToSave as PaymentMethod);
+            return result != null;
         }
 
         #endregion

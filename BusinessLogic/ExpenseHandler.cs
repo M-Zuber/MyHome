@@ -23,7 +23,8 @@ namespace BusinessLogic
         /// <returns>The expense as it is in the cache</returns>
         public static Expense LoadById(int id)
         {
-            return ExpenseAccess.LoadById(id);
+            var r = new CachedExpenseRepository(new ExpenseAccess(ConnectionManager.ProviderFactory));
+            return r.LoadById(id);
         }
 
         /// <summary>
@@ -34,7 +35,8 @@ namespace BusinessLogic
         /// </returns>
         public static List<Expense> LoadAll()
         {
-            return ExpenseAccess.LoadAll();
+            var r = new CachedExpenseRepository(new ExpenseAccess(ConnectionManager.ProviderFactory));
+            return r.LoadAll();
         }
 
         /// <summary>
@@ -44,7 +46,8 @@ namespace BusinessLogic
         /// <returns>A list of expenses filtered to a specific month</returns>
         public static List<Expense> LoadOfMonth(DateTime monthWanted)
         {
-            return ExpenseAccess.LoadExpensesOfMonth(monthWanted);
+            var r = new CachedExpenseRepository(new ExpenseAccess(ConnectionManager.ProviderFactory));
+            return r.LoadMonth(monthWanted);
         }
 
         #endregion
@@ -57,7 +60,8 @@ namespace BusinessLogic
         /// <param name="expenseToSave">The expense to be saved</param>
         public static void Save(Expense expenseToSave)
         {
-            ExpenseAccess.Save(expenseToSave);
+            var r = new CachedExpenseRepository(new ExpenseAccess(ConnectionManager.ProviderFactory));
+            r.Save(expenseToSave);
         }
 
         #endregion
@@ -66,7 +70,9 @@ namespace BusinessLogic
 
         public static int AddNewExpense(Expense newExpense)
         {
-            return ExpenseAccess.AddNewExpense(newExpense);
+            var r = new CachedExpenseRepository(new ExpenseAccess(ConnectionManager.ProviderFactory));
+            var result = r.Save(newExpense);
+            return (result != null ? 1 : default(int));
         }
 
         #endregion
@@ -75,7 +81,8 @@ namespace BusinessLogic
         
         public static void Delete(int id)
         {
-            ExpenseAccess.DeleteExpense(id);
+            var r = new CachedExpenseRepository(new ExpenseAccess(ConnectionManager.ProviderFactory));
+            r.Remove(id);
         }
 
         #endregion

@@ -33,7 +33,6 @@ namespace BusinessLogic
 
         public static void IntializeData()
         {
-            GlobalDataAccess.LoadAllToCache();
         }
         
         #endregion
@@ -42,7 +41,6 @@ namespace BusinessLogic
         
         public static void SaveData()
         {
-            GlobalDataAccess.SaveAllFromCache();
         }
 
         #endregion

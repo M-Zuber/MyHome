@@ -34,11 +34,15 @@ namespace LocalTypes
         /// <summary>
         /// ID number of the expense in the data table
         /// </summary>
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         #endregion
 
         #region C'Tor
+
+        public Expense()
+        {
+        }
 
         public Expense(double amount, DateTime date, ExpenseCategory expenseCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
