@@ -15,10 +15,15 @@ namespace BusinessLogic
         
         #endregion
 
+        IncomeHandler incomehandler;
+        ExpenseHandler expensehandler;
+
         #region C'Tor
 
-        public MonthHandler(DateTime monthToRepresent)
+        public MonthHandler(IncomeHandler incomehandler, ExpenseHandler expensehandler, DateTime monthToRepresent)
         {
+            this.incomehandler = incomehandler;
+            this.expensehandler = expensehandler;
             MonthRepresented = monthToRepresent;
         }
 
@@ -28,17 +33,17 @@ namespace BusinessLogic
 
         public List<Expense> GetAllExpenses()
         {
-            return ExpenseHandler.LoadOfMonth(MonthRepresented);
+            return expensehandler.LoadOfMonth(MonthRepresented);
         }
 
         public double GetMonthesExpenseTotal()
         {
-            return ExpenseHandler.GetMonthTotal(MonthRepresented);
+            return expensehandler.GetMonthTotal(MonthRepresented);
         }
 
         private double GetExpenseCategoryTotal(string categoryName)
         {
-            return ExpenseHandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
+            return expensehandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
         }
 
         #endregion
@@ -47,17 +52,17 @@ namespace BusinessLogic
         
         public List<Income> GetAllIncomes()
         {
-            return IncomeHandler.LoadOfMonth(MonthRepresented);
+            return incomehandler.LoadOfMonth(MonthRepresented);
         }
 
         public double GetMonthesIncomeTotal()
         {
-            return IncomeHandler.GetMonthTotal(MonthRepresented);
+            return incomehandler.GetMonthTotal(MonthRepresented);
         }
 
         private double GetIncomeCategoryTotal(string categoryName)
         {
-            return IncomeHandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
+            return incomehandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
         }
 
         #endregion
@@ -88,10 +93,10 @@ namespace BusinessLogic
             Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
 
             categoryTotals.Add("Total Expenses", GetMonthesExpenseTotal());
-            categoryTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(MonthRepresented));
+            categoryTotals.AddRange(expensehandler.GetAllCategoryTotals(MonthRepresented));
 
             categoryTotals.Add("Total Income", GetMonthesIncomeTotal());            
-            foreach (KeyValuePair<string, double> curIncomeCatTotal in IncomeHandler.GetAllCategoryTotals(MonthRepresented))
+            foreach (KeyValuePair<string, double> curIncomeCatTotal in incomehandler.GetAllCategoryTotals(MonthRepresented))
             {
                 if (categoryTotals.ContainsKey(curIncomeCatTotal.Key))
                 {

@@ -46,6 +46,7 @@
     <Compile Include="Expense.cs" />
     <Compile Include="ExpenseCategory.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="PaymentMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

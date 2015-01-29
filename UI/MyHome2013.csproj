@@ -43,6 +43,9 @@
     <ApplicationIcon>Diagram.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LightInject">
+      <HintPath>..\packages\LightInject.3.0.2.3\lib\net45\LightInject.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Mono.Security">
       <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Mono.Security.dll</HintPath>
@@ -88,6 +91,7 @@
     <Compile Include="DataPerPaymentMethod.Designer.cs">
       <DependentUpon>DataPerPaymentMethod.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelperMethods.cs" />
     <Compile Include="IncomeViewer.cs">
       <SubType>Form</SubType>
     </Compile>

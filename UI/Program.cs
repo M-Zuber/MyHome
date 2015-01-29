@@ -5,6 +5,9 @@ using FrameWork;
 using MySql.Data.MySqlClient;
 using DataAccess;
 using System.Data.Common;
+using LocalTypes;
+using BusinessLogic;
+using LightInject;
 
 namespace MyHome2013
 {
@@ -12,6 +15,9 @@ namespace MyHome2013
     {
         static string ProviderName = "MySql.Data.MySqlClient";
         static string Server = "127.0.0.10";
+
+        public static IServiceContainer Container = null;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -50,13 +56,15 @@ namespace MyHome2013
                 Globals.Password = allSettings["Password"];
             }
 
-            ConnectionManager.ProviderFactory = ConnectionManager.GetDbProvider(ProviderName, new ConnectionOptions
+            var dbprovider = ConnectionManager.GetDbProvider(ProviderName, new ConnectionOptions
             {
                 Server = Server,
                 Database = Globals.DataBaseName,
                 Username = Globals.UserId,
                 Password = Globals.Password
             });
+
+            Program.Container = BuildContainer(dbprovider);
 
             // Runs the main application
             Application.Run(new MenuMDIUI());
@@ -78,6 +86,30 @@ namespace MyHome2013
             });
 
             return ConnectionManager.TestConnection(provider);
+        }
+
+        static ServiceContainer BuildContainer(DbProviderFactory dbprovider)
+        {
+            var container = new ServiceContainer();
+
+            // Register Data Layer
+            container.Register<IRepository<PaymentMethod, int>>(context => new CachedPaymentMethodRepository(new PaymentMethodAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<IncomeCategory, int>>(context => new CachedIncomeCategoryRepository(new IncomeCategoryAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<ExpenseCategory, int>>(context => new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<ITransactionRepository<Income, int>>(context => new CachedIncomeRepository(new IncomeAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<ITransactionRepository<Expense, int>>(context => new CachedExpenseRepository(new ExpenseAccess(dbprovider)), new PerContainerLifetime());
+
+            // Register Business Layer
+            container.Register<PaymentMethodHandler>(new PerContainerLifetime());
+            container.Register<ExpenseCategoryHandler>(new PerContainerLifetime());
+            container.Register<IncomeCategoryHandler>(new PerContainerLifetime());
+            container.Register<IncomeHandler>(new PerContainerLifetime());
+            container.Register<ExpenseHandler>(new PerContainerLifetime());
+
+            container.Register<DateTime, MonthHandler>((context, value) => new MonthHandler(context.GetInstance<IncomeHandler>(), context.GetInstance<ExpenseHandler>(), value));
+            container.Register<Backup>();
+
+            return container;
         }
     }
 }

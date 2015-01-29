@@ -55,14 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseCategoryAccess.cs" />
     <Compile Include="ConnectionManager.cs" />
     <Compile Include="DbProviderFactoryProxy.cs" />
     <Compile Include="IncomeAccess.cs" />
     <Compile Include="IncomeCategoryAccess.cs" />
     <Compile Include="ExpenseAccess.cs" />
     <Compile Include="ExpenseCategoryAccess.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="PaymentMethodAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlMapper.cs" />

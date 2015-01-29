@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccess;
 using LocalTypes;
 using System.Linq;
 
@@ -10,7 +9,15 @@ namespace BusinessLogic
     /// Is also the bridge from the UI to the Dal
     /// </summary>
     public class PaymentMethodHandler : BaseCategoryHandler
-    {//TODO should the handler methods simply have a property of the appropiate access class?
+    {
+        IRepository<PaymentMethod, int> repository;
+
+        public PaymentMethodHandler(IRepository<PaymentMethod, int> repository)
+        {
+            this.repository = repository;
+        }
+        
+        //TODO should the handler methods simply have a property of the appropiate access class?
         #region CRUD Methods
 
         #region Read Methods
@@ -20,10 +27,9 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="id">The id of the Payment Method wanted</param>
         /// <returns>The Payment Method as it is in the cache</returns>
-        public static PaymentMethod LoadById(int id)
+        public PaymentMethod LoadById(int id)
         {
-            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
-            return r.LoadById(id);
+            return this.repository.LoadById(id);
         }
 
         /// <summary>
@@ -34,8 +40,7 @@ namespace BusinessLogic
         /// </returns>
         public override List<BaseCategory> LoadAll()
         {
-            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
-            return r.LoadAll().ToList<BaseCategory>();
+            return this.repository.LoadAll().ToList<BaseCategory>();
         }
 
         #endregion
@@ -44,8 +49,7 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
-            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
-            var result = r.Save(new PaymentMethod { Name = categoryName });
+            var result = this.repository.Save(new PaymentMethod { Name = categoryName });
             return result != null ? result.Id : 0;
         }
 
@@ -55,8 +59,7 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            var r = new CachedPaymentMethodRepository(new PaymentMethodAccess(ConnectionManager.ProviderFactory));
-            var result = r.Save(categoryToSave as PaymentMethod);
+            var result = this.repository.Save(categoryToSave as PaymentMethod);
             return result != null;
         }
 

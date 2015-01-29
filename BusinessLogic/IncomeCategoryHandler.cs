@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccess;
 using LocalTypes;
 using System.Linq;
 
@@ -11,6 +10,13 @@ namespace BusinessLogic
     /// </summary>
     public class IncomeCategoryHandler : BaseCategoryHandler
     {
+        IRepository<IncomeCategory, int> icRepository;
+
+        public IncomeCategoryHandler(IRepository<IncomeCategory, int> icRepository)
+        {
+            this.icRepository = icRepository;
+        }
+
         #region CRUD Methods
 
         #region Read Methods
@@ -20,10 +26,9 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="id">The id of the Income category wanted</param>
         /// <returns>The Income category as it is in the cache</returns>
-        public static IncomeCategory LoadById(int id)
+        public IncomeCategory LoadById(int id)
         {
-            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
-            return r.LoadById(id);
+            return icRepository.LoadById(id);
         }
 
         /// <summary>
@@ -34,8 +39,7 @@ namespace BusinessLogic
         /// </returns>
         public override List<BaseCategory> LoadAll()
         {
-            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
-            return r.LoadAll().ToList<BaseCategory>();
+            return icRepository.LoadAll().ToList<BaseCategory>();
         }
 
         #endregion
@@ -44,8 +48,7 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
-            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
-            var result = r.Save(new IncomeCategory { Name = categoryName});
+            var result = icRepository.Save(new IncomeCategory { Name = categoryName });
             return (result != null ? result.Id : default(int));
         }
 
@@ -55,8 +58,7 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            var r = new CachedIncomeCategoryRepository(new IncomeCategoryAccess(ConnectionManager.ProviderFactory));
-            var result = r.Save(categoryToSave as IncomeCategory);
+            var result = icRepository.Save(categoryToSave as IncomeCategory);
             return result != null;
         }
 

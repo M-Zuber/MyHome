@@ -74,7 +74,7 @@ namespace MyHome2013
             this.dtpEndMonth.Value = this.EndDate;
 
             // Gets the category names
-            this.CategoryNames = GeneralCategoryHandler.GetAllCategoryNames();
+            this.CategoryNames = HelperMethods.GetAllCategoryNames();
 
             // Sets the data bindings of the controls -excluding the chart
             this.SetupDataBindings();
@@ -196,13 +196,13 @@ namespace MyHome2013
         /// <returns>A dictionary keyed by date represented, value is the total of each category</returns>
         private Dictionary<DateTime, Dictionary<string, double>> GetDataForMonthsInRange()
         {
-            Dictionary<DateTime, Dictionary<string, double>> monthData = 
-                new Dictionary<DateTime, Dictionary<string, double>>();
+            var monthData = new Dictionary<DateTime, Dictionary<string, double>>();
 
             DateTime curDate = this.StartDate;
             for (int monthIndex = 0; monthIndex < MonthsRange(); monthIndex++)
             {
-                monthData.Add(curDate, (new MonthHandler(curDate)).GetTotalsOfMonthByCategory());
+                var handler = Program.Container.GetInstance<DateTime, MonthHandler>(curDate);
+                monthData.Add(curDate, handler.GetTotalsOfMonthByCategory());
                 curDate = curDate.AddMonths(1);
             }
 

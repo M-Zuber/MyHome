@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataAccess;
 using LocalTypes;
 
 namespace BusinessLogic
@@ -12,6 +11,17 @@ namespace BusinessLogic
     /// </summary>
     public class IncomeHandler
     {
+        ITransactionRepository<Income, int> incomeRepository;
+        IRepository<PaymentMethod, int> methodRepository;
+        IRepository<IncomeCategory, int> icRepository;
+
+        public IncomeHandler(ITransactionRepository<Income, int> incomeRepository, IRepository<PaymentMethod, int> methodRepository, IRepository<IncomeCategory, int> icRepository)
+        {
+            this.incomeRepository = incomeRepository;
+            this.methodRepository = methodRepository;
+            this.icRepository = icRepository;
+        }
+
         #region CRUD Methods
 
         #region Read Methods
@@ -21,10 +31,9 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="id">The id of the Income wanted</param>
         /// <returns>The Income as it is in the cache</returns>
-        public static Income LoadById(int id)
+        public Income LoadById(int id)
         {
-            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
-            return r.LoadById(id);
+            return incomeRepository.LoadById(id);
         }
 
         /// <summary>
@@ -33,10 +42,9 @@ namespace BusinessLogic
         /// <returns>All the Income as they are in the cache in generic-based
         /// list
         /// </returns>
-        public static List<Income> LoadAll()
+        public List<Income> LoadAll()
         {
-            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
-            return r.LoadAll();
+            return incomeRepository.LoadAll();
         }
 
         /// <summary>
@@ -44,10 +52,9 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="monthWanted">DateTime object with the wanted month and year</param>
         /// <returns>A list of Incomes filtered to a specific month</returns>
-        public static List<Income> LoadOfMonth(DateTime monthWanted)
+        public List<Income> LoadOfMonth(DateTime monthWanted)
         {
-            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
-            return r.LoadMonth(monthWanted);
+            return incomeRepository.LoadMonth(monthWanted);
         }
 
         #endregion
@@ -58,20 +65,18 @@ namespace BusinessLogic
         /// Updates the cache with the changes of the Income
         /// </summary>
         /// <param name="incomeToSave">The Income to be saved</param>
-        public static void Save(Income incomeToSave)
+        public void Save(Income incomeToSave)
         {
-            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
-            r.Save(incomeToSave);
+            incomeRepository.Save(incomeToSave);
         }
 
         #endregion
         
         #region Create Methods
 
-        public static int AddNewIncome(Income newIncome)
+        public int AddNewIncome(Income newIncome)
         {
-            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
-            var result = r.Save(newIncome);
+            var result = incomeRepository.Save(newIncome);
             return (result != null ? 1 : default(int));
         }
 
@@ -79,10 +84,9 @@ namespace BusinessLogic
 
         #region Delete Region
 
-        public static void Delete(int id)
+        public void Delete(int id)
         {
-            var r = new CachedIncomeRepository(new IncomeAccess(ConnectionManager.ProviderFactory));
-            r.Remove(id);
+            incomeRepository.Remove(id);
         }
 
         #endregion
@@ -91,23 +95,23 @@ namespace BusinessLogic
 
         #region Other Methods
 
-        public static double GetMonthTotal(DateTime monthWanted)
+        public double GetMonthTotal(DateTime monthWanted)
         {
-            return IncomeHandler.LoadOfMonth(monthWanted).Sum(curIncome => curIncome.Amount);
+            return this.LoadOfMonth(monthWanted).Sum(curIncome => curIncome.Amount);
         }
 
-        public static double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
+        public double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
         {
-            return IncomeHandler.LoadOfMonth(monthWanted)
+            return this.LoadOfMonth(monthWanted)
                 .Where(curIncome => curIncome.Category.Name == categoryWanted)
                 .Sum(curIncome => curIncome.Amount);
         }
 
-        public static Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
+        public Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
         {
-            Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
+            var categoryTotals = new Dictionary<string, double>();
 
-            foreach (IncomeCategory currCategory in (new IncomeCategoryHandler()).LoadAll())
+            foreach (IncomeCategory currCategory in icRepository.LoadAll())
             {
                 categoryTotals.Add(currCategory.Name, GetCategoryTotalForMonth(monthWanted, currCategory.Name));
             }
@@ -115,18 +119,18 @@ namespace BusinessLogic
             return categoryTotals;
         }
 
-        public static double GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
+        public double GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
         {
-            return IncomeHandler.LoadOfMonth(monthWanted)
+            return this.LoadOfMonth(monthWanted)
                 .Where(curIncome => curIncome.Method.Name == methodWanted)
                 .Sum(curIncome => curIncome.Amount);
         }
 
-        public static Dictionary<string, double> GetAllPaymentMethodTotals(DateTime monthWanted)
+        public Dictionary<string, double> GetAllPaymentMethodTotals(DateTime monthWanted)
         {
-            Dictionary<string, double> methodTotals = new Dictionary<string, double>();
+            var methodTotals = new Dictionary<string, double>();
 
-            foreach (PaymentMethod curMethod in (new PaymentMethodHandler()).LoadAll())
+            foreach (PaymentMethod curMethod in methodRepository.LoadAll())
             {
                 methodTotals.Add(curMethod.Name, GetPaymentMethodTotalForMonth(monthWanted, curMethod.Name));
             }

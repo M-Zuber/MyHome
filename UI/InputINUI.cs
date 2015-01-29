@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using BusinessLogic;
+﻿using BusinessLogic;
 using LocalTypes;
+using System;
+using System.Windows.Forms;
 
 namespace MyHome2013
 {
@@ -53,7 +53,7 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!BusinessLogic.HelperMethods.IsNumeric(this.txtAmount.Text))
+            else if (!HelperMethods.IsNumeric(this.txtAmount.Text))
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",
@@ -65,13 +65,17 @@ namespace MyHome2013
             // Otherwise saves the new income
             else
             {
+                var r = Program.Container.GetInstance<PaymentMethodHandler>();
+                var ih = Program.Container.GetInstance<IncomeHandler>();
+                var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+
                 Income newIncome = 
                     new Income(double.Parse(this.txtAmount.Text), this.dtPick.Value,
-                                IncomeCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                                ich.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                r.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
 
-                IncomeHandler.AddNewIncome(newIncome);
+                ih.AddNewIncome(newIncome);
 
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -102,14 +106,14 @@ namespace MyHome2013
         private void SetDataBindings()
         {
             // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
-                (new IncomeCategoryHandler()).LoadAll();
+            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            this.cmbCategory.DataSource = ich.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
-                (new PaymentMethodHandler()).LoadAll();
+            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
         }

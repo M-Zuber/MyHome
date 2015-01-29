@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using BusinessLogic;
+﻿using BusinessLogic;
 using LocalTypes;
+using System;
+using System.Windows.Forms;
 
 namespace MyHome2013
 {
@@ -64,7 +63,8 @@ namespace MyHome2013
         {
             if (!currentIncome.Equals(originalIncome))
             {
-                IncomeHandler.Save(this.currentIncome);
+                var ih = Program.Container.GetInstance<IncomeHandler>();
+                ih.Save(this.currentIncome);
 
                 this.Close();
             }
@@ -186,7 +186,8 @@ namespace MyHome2013
 
             if (canDelete == DialogResult.OK)
             {
-                IncomeHandler.Delete(this.currentIncome.ID);
+                var ih = Program.Container.GetInstance<IncomeHandler>();
+                ih.Delete(this.currentIncome.ID);
                 this.Close();
             }
         }
@@ -207,13 +208,15 @@ namespace MyHome2013
             this.dtPick.Value = currentIncome.Date;
 
             //Expense category bindings
-            this.cmbCategory.DataSource = (new IncomeCategoryHandler()).LoadAll();
+            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            this.cmbCategory.DataSource = ich.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
             this.cmbCategory.SelectedIndex = this.cmbCategory.FindString(this.currentIncome.Category.Name);
 
             //Payment Method bindings
-            this.cmbPayment.DataSource = (new PaymentMethodHandler()).LoadAll();
+            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
             this.cmbPayment.SelectedIndex = this.cmbPayment.FindString(this.currentIncome.Method.Name);

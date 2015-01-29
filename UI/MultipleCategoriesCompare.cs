@@ -45,7 +45,7 @@ namespace MyHome2013
         {
             // Initialzation
             this.MonthData = new Dictionary<string, Dictionary<DateTime, double>>();
-            this.CategoryNames = GeneralCategoryHandler.GetAllCategoryNames();
+            this.CategoryNames = HelperMethods.GetAllCategoryNames();
 
             //Auto-generated code
             InitializeComponent();
@@ -251,13 +251,13 @@ namespace MyHome2013
         /// <returns>A dictionary keyed by date represented, value is the total of each payment method</returns>
         private Dictionary<DateTime, Dictionary<string, double>> GetDataForMonthsInRange()
         {
-            Dictionary<DateTime, Dictionary<string, double>> monthData =
-                new Dictionary<DateTime, Dictionary<string, double>>();
+            var monthData = new Dictionary<DateTime, Dictionary<string, double>>();
 
             DateTime curDate = this.StartDate;
             for (int monthIndex = 0; monthIndex < MonthsRange(); monthIndex++)
             {
-                monthData.Add(curDate, (new MonthHandler(curDate)).GetTotalsOfMonthByCategory());
+                var handler = Program.Container.GetInstance<DateTime, MonthHandler>(curDate);
+                monthData.Add(curDate, handler.GetTotalsOfMonthByCategory());
                 curDate = curDate.AddMonths(1);
             }
 

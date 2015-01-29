@@ -9,9 +9,9 @@ namespace MyHome2013
     public partial class ProgressForm : Form
     {
         #region Data Members
-
+        
         // Instance of the backup class
-        Backup dataBackup = new Backup();
+        Backup dataBackup = Program.Container.GetInstance<Backup>();
 
         #endregion
 

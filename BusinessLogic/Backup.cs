@@ -51,13 +51,25 @@ namespace BusinessLogic
         
         #endregion
 
+        IncomeHandler incomehandler;
+        ExpenseHandler expensehandler;
+        ExpenseCategoryHandler expensecategoryhandler;
+        IncomeCategoryHandler incomecategoryhandler;
+        PaymentMethodHandler paymentmethodhandler;
+
         #region C'Tor
 
         /// <summary>
         /// Verifys that the folder and files exist before a backup is performed
         /// </summary>
-        public Backup()
+        public Backup(IncomeHandler incomehandler, ExpenseHandler expensehandler, ExpenseCategoryHandler expensecategoryhandler, IncomeCategoryHandler incomecategoryhandler, PaymentMethodHandler paymentmethodhandler)
         {
+            this.incomehandler = incomehandler;
+            this.expensehandler = expensehandler;
+            this.expensecategoryhandler = expensecategoryhandler;
+            this.incomecategoryhandler = incomecategoryhandler;
+            this.paymentmethodhandler = paymentmethodhandler;
+
             // If the folder doesnt exist yet -creates it
             if (!this.backupFolder.Exists)
             {
@@ -164,7 +176,7 @@ namespace BusinessLogic
         {
             XElement data = new XElement("Incomes");
 
-            foreach (Income curIncome in IncomeHandler.LoadAll())
+            foreach (Income curIncome in incomehandler.LoadAll())
             {
                 data.Add(new XElement("Income",
                             new XElement("ID", curIncome.ID),
@@ -186,7 +198,7 @@ namespace BusinessLogic
         {
             XElement data = new XElement("Expenses");
 
-            foreach (Expense curExpense in ExpenseHandler.LoadAll())
+            foreach (Expense curExpense in expensehandler.LoadAll())
             {
                 data.Add(new XElement("Expense",
                             new XElement("ID", curExpense.ID),
@@ -208,7 +220,7 @@ namespace BusinessLogic
         {
             XElement data = new XElement("PaymemtMethods");
 
-            foreach (PaymentMethod curPaymentMethod in (new PaymentMethodHandler()).LoadAll())
+            foreach (PaymentMethod curPaymentMethod in paymentmethodhandler.LoadAll())
             {
                 data.Add(new XElement("PaymentMethod",
                             new XElement("ID", curPaymentMethod.Id),
@@ -226,7 +238,7 @@ namespace BusinessLogic
         {
             XElement data = new XElement("IncomeCategories");
 
-            foreach (IncomeCategory curIncomeCategory in (new IncomeCategoryHandler()).LoadAll())
+            foreach (IncomeCategory curIncomeCategory in incomecategoryhandler.LoadAll())
             {
                 data.Add(new XElement("IncomeCategory",
                             new XElement("ID", curIncomeCategory.Id),
@@ -244,7 +256,7 @@ namespace BusinessLogic
         {
             XElement data = new XElement("ExpenseCategories");
 
-            foreach (ExpenseCategory curExpenseCategory in (new ExpenseCategoryHandler()).LoadAll())
+            foreach (ExpenseCategory curExpenseCategory in expensecategoryhandler.LoadAll())
             {
                 data.Add(new XElement("ExpenseCategory",
                             new XElement("ID", curExpenseCategory.Id),

@@ -159,11 +159,13 @@ namespace MyHome2013
             this.IncomeCategoriesTotals = new Dictionary<string, double>();
             this.ExpenseCategoriesTotals = new Dictionary<string, double>();
 
-            this.ExpenseCategoriesTotals.Add("Total Expenses", ExpenseHandler.GetMonthTotal(dtPick.Value));
-            this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(this.dtPick.Value));
+            var eh = Program.Container.GetInstance<ExpenseHandler>();
+            this.ExpenseCategoriesTotals.Add("Total Expenses", eh.GetMonthTotal(dtPick.Value));
+            this.ExpenseCategoriesTotals.AddRange(eh.GetAllCategoryTotals(this.dtPick.Value));
 
-            this.IncomeCategoriesTotals.Add("Total Income", IncomeHandler.GetMonthTotal(dtPick.Value));
-            this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetAllCategoryTotals(this.dtPick.Value));
+            var ih = Program.Container.GetInstance<IncomeHandler>();
+            this.IncomeCategoriesTotals.Add("Total Income", ih.GetMonthTotal(dtPick.Value));
+            this.IncomeCategoriesTotals.AddRange(ih.GetAllCategoryTotals(this.dtPick.Value));
 
             // Sets the bindings for the controls
             this.cmbIncomeCategories.DataSource = new ArrayList(this.IncomeCategoriesTotals);
@@ -189,9 +191,12 @@ namespace MyHome2013
         /// </summary>
         private void MonthlyDataBinding()
         {
+            var ih = Program.Container.GetInstance<IncomeHandler>();
+            var eh = Program.Container.GetInstance<ExpenseHandler>();
+
             // Updates the data in the expense and income chart views
-            expenseData.Load(ExpenseHandler.LoadOfMonth(dtPick.Value));
-            incomeData.Load(IncomeHandler.LoadOfMonth(dtPick.Value));
+            expenseData.Load(eh.LoadOfMonth(dtPick.Value));
+            incomeData.Load(ih.LoadOfMonth(dtPick.Value));
         }
 
         #endregion

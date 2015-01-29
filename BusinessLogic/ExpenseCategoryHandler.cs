@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataAccess;
 using LocalTypes;
 
 namespace BusinessLogic
@@ -11,6 +10,13 @@ namespace BusinessLogic
     /// </summary>
     public class ExpenseCategoryHandler : BaseCategoryHandler
     {
+        IRepository<ExpenseCategory, int> ecRepository;
+
+        public ExpenseCategoryHandler(IRepository<ExpenseCategory, int> ecRepository)
+        {
+            this.ecRepository = ecRepository;
+        }
+
         #region CRUD Methods
 
         #region Read Methods
@@ -20,10 +26,9 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="id">The id of the Expense category wanted</param>
         /// <returns>The expense category as it is in the cache</returns>
-        public static ExpenseCategory LoadById(int id)
+        public ExpenseCategory LoadById(int id)
         {
-            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
-            return ecr.LoadById(id);
+            return ecRepository.LoadById(id);
         }
 
         /// <summary>
@@ -34,8 +39,7 @@ namespace BusinessLogic
         /// </returns>
         public override List<BaseCategory> LoadAll()
         {
-            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
-            return ecr.LoadAll().ToList<BaseCategory>();
+            return ecRepository.LoadAll().ToList<BaseCategory>();
         }
 
         #endregion
@@ -44,8 +48,7 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
-            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
-            var result = ecr.Save(new ExpenseCategory { Name = categoryName });
+            var result = ecRepository.Save(new ExpenseCategory { Name = categoryName });
             return (result != null ? result.Id : default(int));
         }
 
@@ -55,8 +58,7 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
-            var ecr = new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(ConnectionManager.ProviderFactory));
-            return ecr.Save(categoryToSave as ExpenseCategory) != null;
+            return ecRepository.Save(categoryToSave as ExpenseCategory) != null;
         }
 
         #endregion

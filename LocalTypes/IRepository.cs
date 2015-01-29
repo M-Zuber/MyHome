@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DataAccess
+namespace LocalTypes
 {
     public interface IRepository<T, TKey>
     {

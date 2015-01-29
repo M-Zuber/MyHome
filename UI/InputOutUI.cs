@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using BusinessLogic;
+﻿using BusinessLogic;
 using LocalTypes;
+using System;
+using System.Windows.Forms;
 
 namespace MyHome2013
 {
@@ -65,13 +65,17 @@ namespace MyHome2013
             // Otherwise saves the new expense
             else
             {
+                var pmr = Program.Container.GetInstance<PaymentMethodHandler>();
+                var ecr = Program.Container.GetInstance<ExpenseCategoryHandler>();
+                var er = Program.Container.GetInstance<ExpenseHandler>();
+
                 Expense newExpense =
                     new Expense(double.Parse(this.txtAmount.Text), this.dtPick.Value,
-                                ExpenseCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                                ecr.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                pmr.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
 
-                ExpenseHandler.AddNewExpense(newExpense);
+                er.AddNewExpense(newExpense);
 
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -101,15 +105,16 @@ namespace MyHome2013
 
         private void SetDataBindings()
         {
+            var pmh = Program.Container.GetInstance<PaymentMethodHandler>();
+            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
+
             // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
-                (new ExpenseCategoryHandler()).LoadAll();
+            this.cmbCategory.DataSource = ech.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
-                (new PaymentMethodHandler()).LoadAll();
+            this.cmbPayment.DataSource = pmh.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
         }

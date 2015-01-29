@@ -10,8 +10,6 @@ namespace DataAccess
     /// </summary>
     public static class ConnectionManager
     {
-        public static DbProviderFactory ProviderFactory { get; set; }
-
         /// <summary>
         /// Tries the connection based on the current values for User-Id and password
         /// </summary>

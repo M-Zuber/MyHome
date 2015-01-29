@@ -118,7 +118,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_Load(object sender, EventArgs e)
         {
-            GlobalHandler.IntializeData();
             this.WindowState = FormWindowState.Maximized;
         }
 
@@ -368,27 +367,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // If the cache has any changes
-            if (DataStatusHandler.DataHasChanges())
-            {
-                DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
-                                               "Closing...",
-                                               MessageBoxButtons.YesNoCancel,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-
-                // If the user is saving the changes
-                // if the user wants to exit but not save changes the form will just close
-                if (DialogResult == DialogResult.Yes)
-                {
-                    GlobalHandler.SaveData();
-                }
-                // If the user does not want to exit the program
-                else if (DialogResult == DialogResult.Cancel)
-                {
-                    e.Cancel = true;
-                }
-            }
         }
 
         /// <summary>
@@ -398,21 +376,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            // If the cache has any changes
-            if (DataStatusHandler.DataHasChanges())
-            {
-                DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
-                                               "Saving...",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-
-                // If the user is saving the changes
-                if (DialogResult == DialogResult.Yes)
-                {
-                    GlobalHandler.SaveData();
-                }
-            }
         }
 
         /// <summary>

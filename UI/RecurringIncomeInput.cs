@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using BusinessLogic;
 using LocalTypes;
-using BusinessLogic;
+using System;
+using System.Windows.Forms;
 
 namespace MyHome2013
 {
@@ -36,14 +36,14 @@ namespace MyHome2013
         private void RecurringIncomeInput_Load(object sender, EventArgs e)
         {
             // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
-                (new IncomeCategoryHandler()).LoadAll();
+            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            this.cmbCategory.DataSource = ich.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
-                (new PaymentMethodHandler()).LoadAll();
+            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
 
@@ -221,10 +221,13 @@ namespace MyHome2013
 
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
+            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+
             Income newIncome =
                     new Income(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,
-                                IncomeCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                                ich.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                r.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
         }
 
