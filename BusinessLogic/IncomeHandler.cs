@@ -11,11 +11,11 @@ namespace BusinessLogic
     /// </summary>
     public class IncomeHandler
     {
-        ITransactionRepository<Income, int> incomeRepository;
-        IRepository<PaymentMethod, int> methodRepository;
-        IRepository<IncomeCategory, int> icRepository;
+        ITransactionRepository<Income> incomeRepository;
+        IRepository<PaymentMethod> methodRepository;
+        IRepository<IncomeCategory> icRepository;
 
-        public IncomeHandler(ITransactionRepository<Income, int> incomeRepository, IRepository<PaymentMethod, int> methodRepository, IRepository<IncomeCategory, int> icRepository)
+        public IncomeHandler(ITransactionRepository<Income> incomeRepository, IRepository<PaymentMethod> methodRepository, IRepository<IncomeCategory> icRepository)
         {
             this.incomeRepository = incomeRepository;
             this.methodRepository = methodRepository;

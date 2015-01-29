@@ -10,9 +10,9 @@ namespace BusinessLogic
     /// </summary>
     public class ExpenseCategoryHandler : BaseCategoryHandler
     {
-        IRepository<ExpenseCategory, int> ecRepository;
+        IRepository<ExpenseCategory> ecRepository;
 
-        public ExpenseCategoryHandler(IRepository<ExpenseCategory, int> ecRepository)
+        public ExpenseCategoryHandler(IRepository<ExpenseCategory> ecRepository)
         {
             this.ecRepository = ecRepository;
         }

@@ -12,7 +12,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of incomes
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class IncomeAccess : ITransactionRepository<Income, int>
+    public class IncomeAccess : ITransactionRepository<Income>
     {
         DbProviderFactory factory;
 
@@ -156,12 +156,12 @@ namespace DataAccess
     }
 
 
-    public class CachedIncomeRepository : ITransactionRepository<Income, int>
+    public class CachedIncomeRepository : ITransactionRepository<Income>
     {
         static Dictionary<int, Income> cache = new Dictionary<int, Income>();
-        ITransactionRepository<Income, int> source;
+        ITransactionRepository<Income> source;
 
-        public CachedIncomeRepository(ITransactionRepository<Income, int> source)
+        public CachedIncomeRepository(ITransactionRepository<Income> source)
         {
             this.source = source;
         }

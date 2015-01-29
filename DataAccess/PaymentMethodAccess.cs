@@ -10,7 +10,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of payment methods
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class PaymentMethodAccess : IRepository<PaymentMethod, int>
+    public class PaymentMethodAccess : IRepository<PaymentMethod>
     {
         DbProviderFactory factory;
 
@@ -54,12 +54,12 @@ namespace DataAccess
     }
 
 
-    public class CachedPaymentMethodRepository : IRepository<PaymentMethod, int>
+    public class CachedPaymentMethodRepository : IRepository<PaymentMethod>
     {
         static Dictionary<int, PaymentMethod> cache = new Dictionary<int, PaymentMethod>();
-        IRepository<PaymentMethod, int> source;
+        IRepository<PaymentMethod> source;
 
-        public CachedPaymentMethodRepository(IRepository<PaymentMethod, int> source)
+        public CachedPaymentMethodRepository(IRepository<PaymentMethod> source)
         {
             this.source = source;
         }

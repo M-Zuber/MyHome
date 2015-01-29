@@ -10,7 +10,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of expense categories
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class ExpenseCategoryAccess : IRepository<ExpenseCategory, int>
+    public class ExpenseCategoryAccess : IRepository<ExpenseCategory>
     {
         DbProviderFactory factory;
 
@@ -54,12 +54,12 @@ namespace DataAccess
         }
     }
 
-    public class CachedExpenseCategoryRepository : IRepository<ExpenseCategory, int>
+    public class CachedExpenseCategoryRepository : IRepository<ExpenseCategory>
     {
         static Dictionary<int, ExpenseCategory> cache = new Dictionary<int, ExpenseCategory>();
-        IRepository<ExpenseCategory, int> source;
+        IRepository<ExpenseCategory> source;
 
-        public CachedExpenseCategoryRepository(IRepository<ExpenseCategory, int> source)
+        public CachedExpenseCategoryRepository(IRepository<ExpenseCategory> source)
         {
             this.source = source;
         }

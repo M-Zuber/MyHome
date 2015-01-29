@@ -10,9 +10,9 @@ namespace BusinessLogic
     /// </summary>
     public class PaymentMethodHandler : BaseCategoryHandler
     {
-        IRepository<PaymentMethod, int> repository;
+        IRepository<PaymentMethod> repository;
 
-        public PaymentMethodHandler(IRepository<PaymentMethod, int> repository)
+        public PaymentMethodHandler(IRepository<PaymentMethod> repository)
         {
             this.repository = repository;
         }

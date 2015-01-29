@@ -12,7 +12,7 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of expenses
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public class ExpenseAccess : ITransactionRepository<Expense, int>
+    public class ExpenseAccess : ITransactionRepository<Expense>
     {
         DbProviderFactory factory;
 
@@ -155,12 +155,12 @@ namespace DataAccess
         }
     }
 
-    public class CachedExpenseRepository : ITransactionRepository<Expense, int>
+    public class CachedExpenseRepository : ITransactionRepository<Expense>
     {
         static Dictionary<int, Expense> cache = new Dictionary<int, Expense>();
-        ITransactionRepository<Expense, int> source;
+        ITransactionRepository<Expense> source;
 
-        public CachedExpenseRepository(ITransactionRepository<Expense, int> source)
+        public CachedExpenseRepository(ITransactionRepository<Expense> source)
         {
             this.source = source;
         }

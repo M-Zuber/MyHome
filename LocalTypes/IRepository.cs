@@ -5,20 +5,20 @@ using System.Text;
 
 namespace LocalTypes
 {
-    public interface IRepository<T, TKey>
+    public interface IRepository<T>
     {
-        T LoadById(TKey id);
+        T LoadById(int id);
         List<T> LoadAll();
         T Save(T item);
     }
 
-    public interface IRemovableRepository<T, TKey>
+    public interface IRemovableRepository<T>
     {
         void Remove(T item);
-        void Remove(TKey item);
+        void Remove(int item);
     }
 
-    public interface ITransactionRepository<T, TKey> : IRepository<T, TKey>, IRemovableRepository<T, TKey>
+    public interface ITransactionRepository<T> : IRepository<T>, IRemovableRepository<T>
     {
         List<T> LoadMonth(DateTime month);
     }

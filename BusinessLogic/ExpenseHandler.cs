@@ -11,11 +11,11 @@ namespace BusinessLogic
     /// </summary>
     public class ExpenseHandler
     {
-        ITransactionRepository<Expense, int> eRepository;
+        ITransactionRepository<Expense> eRepository;
         ExpenseCategoryHandler ecHandler;
         PaymentMethodHandler pmHandler;
 
-        public ExpenseHandler(ITransactionRepository<Expense, int> eRepository, ExpenseCategoryHandler ecHandler, PaymentMethodHandler pmHandler)
+        public ExpenseHandler(ITransactionRepository<Expense> eRepository, ExpenseCategoryHandler ecHandler, PaymentMethodHandler pmHandler)
         {
             this.eRepository = eRepository;
             this.ecHandler = ecHandler;

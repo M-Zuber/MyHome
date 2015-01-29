@@ -10,9 +10,9 @@ namespace BusinessLogic
     /// </summary>
     public class IncomeCategoryHandler : BaseCategoryHandler
     {
-        IRepository<IncomeCategory, int> icRepository;
+        IRepository<IncomeCategory> icRepository;
 
-        public IncomeCategoryHandler(IRepository<IncomeCategory, int> icRepository)
+        public IncomeCategoryHandler(IRepository<IncomeCategory> icRepository)
         {
             this.icRepository = icRepository;
         }

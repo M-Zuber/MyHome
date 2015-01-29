@@ -93,11 +93,11 @@ namespace MyHome2013
             var container = new ServiceContainer();
 
             // Register Data Layer
-            container.Register<IRepository<PaymentMethod, int>>(context => new CachedPaymentMethodRepository(new PaymentMethodAccess(dbprovider)), new PerContainerLifetime());
-            container.Register<IRepository<IncomeCategory, int>>(context => new CachedIncomeCategoryRepository(new IncomeCategoryAccess(dbprovider)), new PerContainerLifetime());
-            container.Register<IRepository<ExpenseCategory, int>>(context => new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(dbprovider)), new PerContainerLifetime());
-            container.Register<ITransactionRepository<Income, int>>(context => new CachedIncomeRepository(new IncomeAccess(dbprovider)), new PerContainerLifetime());
-            container.Register<ITransactionRepository<Expense, int>>(context => new CachedExpenseRepository(new ExpenseAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<PaymentMethod>>(context => new CachedPaymentMethodRepository(new PaymentMethodAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<IncomeCategory>>(context => new CachedIncomeCategoryRepository(new IncomeCategoryAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<ExpenseCategory>>(context => new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<ITransactionRepository<Income>>(context => new CachedIncomeRepository(new IncomeAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<ITransactionRepository<Expense>>(context => new CachedExpenseRepository(new ExpenseAccess(dbprovider)), new PerContainerLifetime());
 
             // Register Business Layer
             container.Register<PaymentMethodHandler>(new PerContainerLifetime());
