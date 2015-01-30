@@ -1,9 +1,8 @@
-﻿using System;
+﻿using FrameWork;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using BusinessLogic;
-using FrameWork;
 
 namespace MyHome2013
 {

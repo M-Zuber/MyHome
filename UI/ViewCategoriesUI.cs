@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using BusinessLogic;
 using LocalTypes;
 using System.ComponentModel;
 using System.Collections.Generic;
@@ -24,9 +23,9 @@ namespace MyHome2013
         /// A placeholder for the original value of a category the is being edited
         /// </summary>
         object CellPreEditValue = null;
-        SortableBindingList<BaseCategory> edata = new SortableBindingList<BaseCategory>(baseSorting);
-        SortableBindingList<BaseCategory> idata = new SortableBindingList<BaseCategory>(baseSorting);
-        SortableBindingList<BaseCategory> pmdata = new SortableBindingList<BaseCategory>(baseSorting);
+        SortableBindingList<ExpenseCategory> edata = new SortableBindingList<ExpenseCategory>(baseSorting);
+        SortableBindingList<IncomeCategory> idata = new SortableBindingList<IncomeCategory>(baseSorting);
+        SortableBindingList<PaymentMethod> pmdata = new SortableBindingList<PaymentMethod>(baseSorting);
 
         #region C'tor
 
@@ -76,19 +75,19 @@ namespace MyHome2013
 
         private void dgvExpenseCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            bool result = CellEndEdit<ExpenseCategory, ExpenseCategoryHandler>(edata, sender, e);
+            bool result = CellEndEdit<ExpenseCategory>(edata, sender, e);
             if (result) loadExpenseCategoryData();
         }
 
         private void dgvIncomeCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            bool result = CellEndEdit<IncomeCategory, IncomeCategoryHandler>(idata, sender, e);
+            bool result = CellEndEdit<IncomeCategory>(idata, sender, e);
             if (result) loadIncomeCategoryData();
         }
 
         private void dgvPaymentMethodNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            bool result = CellEndEdit<PaymentMethod, PaymentMethodHandler>(pmdata, sender, e);
+            bool result = CellEndEdit<PaymentMethod>(pmdata, sender, e);
             if (result) loadPaymentMethodData();
         }
 
@@ -101,25 +100,24 @@ namespace MyHome2013
 
         private void loadExpenseCategoryData()
         {
-            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
+            var ech = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
             edata.Load(ech.LoadAll());
         }
 
         private void loadIncomeCategoryData()
         {
-            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
             idata.Load(ich.LoadAll());
         }
 
         private void loadPaymentMethodData()
         {
-            var pmh = Program.Container.GetInstance<PaymentMethodHandler>();
+            var pmh = Program.Container.GetInstance<IRepository<PaymentMethod>>();
             pmdata.Load(pmh.LoadAll());
         }
 
-        private bool CellEndEdit<T, U>(IEnumerable<BaseCategory> data, object sender, DataGridViewCellEventArgs e)
+        private bool CellEndEdit<T>(IEnumerable<T> data, object sender, DataGridViewCellEventArgs e)
             where T : BaseCategory, new()
-            where U : BaseCategoryHandler
         {
             var grid = sender as DataGridView;
             var item = grid.CurrentRow.DataBoundItem as T;
@@ -149,7 +147,7 @@ namespace MyHome2013
             // Trim existing values before saving to prevent extra whitespace
             if (item != null) item.Name = item.Name.Trim();
 
-            var h = Program.Container.GetInstance<U>();
+            var h = Program.Container.GetInstance<IRepository<T>>();
             h.Save(item ?? new T { Name = newValue.Trim() });
 
             return true;

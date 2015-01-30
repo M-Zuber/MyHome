@@ -65,9 +65,9 @@ namespace MyHome2013
             // Otherwise saves the new income
             else
             {
-                var r = Program.Container.GetInstance<PaymentMethodHandler>();
+                var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
                 var ih = Program.Container.GetInstance<IncomeHandler>();
-                var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+                var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
 
                 Income newIncome = 
                     new Income(double.Parse(this.txtAmount.Text), this.dtPick.Value,
@@ -106,13 +106,13 @@ namespace MyHome2013
         private void SetDataBindings()
         {
             // Sets up the combo box of the income categories
-            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
             this.cmbCategory.DataSource = ich.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
             this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";

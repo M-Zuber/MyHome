@@ -88,7 +88,7 @@ namespace MyHome2013
             return ConnectionManager.TestConnection(provider);
         }
 
-        static ServiceContainer BuildContainer(DbProviderFactory dbprovider)
+        public static IServiceContainer BuildContainer(DbProviderFactory dbprovider)
         {
             var container = new ServiceContainer();
 
@@ -100,9 +100,6 @@ namespace MyHome2013
             container.Register<ITransactionRepository<Expense>>(context => new CachedExpenseRepository(new ExpenseAccess(dbprovider)), new PerContainerLifetime());
 
             // Register Business Layer
-            container.Register<PaymentMethodHandler>(new PerContainerLifetime());
-            container.Register<ExpenseCategoryHandler>(new PerContainerLifetime());
-            container.Register<IncomeCategoryHandler>(new PerContainerLifetime());
             container.Register<IncomeHandler>(new PerContainerLifetime());
             container.Register<ExpenseHandler>(new PerContainerLifetime());
 

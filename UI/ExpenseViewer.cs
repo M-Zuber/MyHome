@@ -208,14 +208,14 @@ namespace MyHome2013
             this.dtPick.Value = currentExpense.Date;
 
             //Expense category bindings
-            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
+            var ech = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
             this.cmbCategory.DataSource = ech.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
             this.cmbCategory.SelectedIndex = this.cmbCategory.FindString(this.currentExpense.Category.Name);
 
             //Payment Method bindings
-            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
             this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";

@@ -56,7 +56,7 @@ namespace DataAccess
 
     public class CachedPaymentMethodRepository : IRepository<PaymentMethod>
     {
-        static Dictionary<int, PaymentMethod> cache = new Dictionary<int, PaymentMethod>();
+        Dictionary<int, PaymentMethod> cache = new Dictionary<int, PaymentMethod>();
         IRepository<PaymentMethod> source;
 
         public CachedPaymentMethodRepository(IRepository<PaymentMethod> source)

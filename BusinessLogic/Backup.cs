@@ -53,16 +53,16 @@ namespace BusinessLogic
 
         IncomeHandler incomehandler;
         ExpenseHandler expensehandler;
-        ExpenseCategoryHandler expensecategoryhandler;
-        IncomeCategoryHandler incomecategoryhandler;
-        PaymentMethodHandler paymentmethodhandler;
+        IRepository<ExpenseCategory> expensecategoryhandler;
+        IRepository<IncomeCategory> incomecategoryhandler;
+        IRepository<PaymentMethod> paymentmethodhandler;
 
         #region C'Tor
 
         /// <summary>
         /// Verifys that the folder and files exist before a backup is performed
         /// </summary>
-        public Backup(IncomeHandler incomehandler, ExpenseHandler expensehandler, ExpenseCategoryHandler expensecategoryhandler, IncomeCategoryHandler incomecategoryhandler, PaymentMethodHandler paymentmethodhandler)
+        public Backup(IncomeHandler incomehandler, ExpenseHandler expensehandler, IRepository<ExpenseCategory> expensecategoryhandler, IRepository<IncomeCategory> incomecategoryhandler, IRepository<PaymentMethod> paymentmethodhandler)
         {
             this.incomehandler = incomehandler;
             this.expensehandler = expensehandler;

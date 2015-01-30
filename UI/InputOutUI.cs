@@ -65,8 +65,8 @@ namespace MyHome2013
             // Otherwise saves the new expense
             else
             {
-                var pmr = Program.Container.GetInstance<PaymentMethodHandler>();
-                var ecr = Program.Container.GetInstance<ExpenseCategoryHandler>();
+                var pmr = Program.Container.GetInstance<IRepository<PaymentMethod>>();
+                var ecr = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
                 var er = Program.Container.GetInstance<ExpenseHandler>();
 
                 Expense newExpense =
@@ -105,8 +105,8 @@ namespace MyHome2013
 
         private void SetDataBindings()
         {
-            var pmh = Program.Container.GetInstance<PaymentMethodHandler>();
-            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
+            var pmh = Program.Container.GetInstance<IRepository<PaymentMethod>>();
+            var ech = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
 
             // Sets up the combo box of the income categories
             this.cmbCategory.DataSource = ech.LoadAll();

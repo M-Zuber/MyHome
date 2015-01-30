@@ -1,5 +1,4 @@
-﻿using BusinessLogic;
-using LocalTypes;
+﻿using LocalTypes;
 using System;
 using System.Windows.Forms;
 
@@ -36,13 +35,13 @@ namespace MyHome2013
         private void RecurringIncomeInput_Load(object sender, EventArgs e)
         {
             // Sets up the combo box of the income categories
-            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
             this.cmbCategory.DataSource = ich.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
             this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
@@ -221,8 +220,8 @@ namespace MyHome2013
 
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
-            var r = Program.Container.GetInstance<PaymentMethodHandler>();
-            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
+            var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
 
             Income newIncome =
                     new Income(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,

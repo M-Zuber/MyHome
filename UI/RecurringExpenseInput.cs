@@ -36,13 +36,13 @@ namespace MyHome2013
         private void RecurringExpenseInput_Load(object sender, EventArgs e)
         {
             // Sets up the combo box of the income categories
-            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
+            var ech = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
             this.cmbCategory.DataSource = ech.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            var r = Program.Container.GetInstance<PaymentMethodHandler>();
+            var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
             this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
@@ -221,8 +221,8 @@ namespace MyHome2013
 
         private void SaveNewExpense(DateTime dtCurrentSaveDate)
         {
-            var pmr = Program.Container.GetInstance<PaymentMethodHandler>();
-            var er = Program.Container.GetInstance<ExpenseCategoryHandler>();
+            var pmr = Program.Container.GetInstance<IRepository<PaymentMethod>>();
+            var er = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
             var eh = Program.Container.GetInstance<ExpenseHandler>();
 
             Expense newExpense =

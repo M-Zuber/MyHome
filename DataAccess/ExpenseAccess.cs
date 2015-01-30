@@ -157,7 +157,7 @@ namespace DataAccess
 
     public class CachedExpenseRepository : ITransactionRepository<Expense>
     {
-        static Dictionary<int, Expense> cache = new Dictionary<int, Expense>();
+        Dictionary<int, Expense> cache = new Dictionary<int, Expense>();
         ITransactionRepository<Expense> source;
 
         public CachedExpenseRepository(ITransactionRepository<Expense> source)

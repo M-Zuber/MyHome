@@ -1,9 +1,6 @@
-﻿using System;
+﻿using LocalTypes;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using DataAccess;
-using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -23,16 +20,16 @@ namespace MyHome2013
 
         public static List<string> GetAllCategoryNames()
         {
-            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
-            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            var ech = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
+            var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
 
             var allCategoryNames = new List<string>();
 
             allCategoryNames.Add("Total Expenses");
-            allCategoryNames.AddRange(ech.LoadAll().Select(cat => cat.Name).ToList<string>());
+            allCategoryNames.AddRange(ech.LoadAll().Select(cat => cat.Name));
 
             allCategoryNames.Add("Total Income");
-            foreach (string incomeCategoryName in ich.LoadAll().Select(cat => cat.Name).ToList<string>())
+            foreach (string incomeCategoryName in ich.LoadAll().Select(cat => cat.Name))
             {
                 if (allCategoryNames.Contains(incomeCategoryName))
                 {

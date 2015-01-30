@@ -9,12 +9,6 @@ namespace LocalTypes
         {
         }
 
-        public IncomeCategory(int id, string name)
-        {
-            base.Id = id;
-            base.Name = name;
-        }
-
         #endregion
 
         #region Other Methods

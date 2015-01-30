@@ -7,12 +7,6 @@ namespace LocalTypes
 
         public PaymentMethod() { }
 
-        public PaymentMethod(int id, string name)
-        {
-            base.Id = id;
-            base.Name = name;
-        }
-
         #endregion
 
         #region Other Methods

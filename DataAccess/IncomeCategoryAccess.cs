@@ -56,7 +56,7 @@ namespace DataAccess
 
     public class CachedIncomeCategoryRepository : IRepository<IncomeCategory>
     {
-        static Dictionary<int, IncomeCategory> cache = new Dictionary<int, IncomeCategory>();
+        Dictionary<int, IncomeCategory> cache = new Dictionary<int, IncomeCategory>();
         IRepository<IncomeCategory> source;
 
         public CachedIncomeCategoryRepository(IRepository<IncomeCategory> source)

@@ -5,10 +5,14 @@ using System.Text;
 
 namespace LocalTypes
 {
-    public interface IRepository<T>
+    public interface IQuery<T>
     {
         T LoadById(int id);
         List<T> LoadAll();
+    }
+
+    public interface IRepository<T> : IQuery<T>
+    {
         T Save(T item);
     }
 
