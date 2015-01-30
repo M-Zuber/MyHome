@@ -79,12 +79,6 @@
     <Compile Include="AboutUI.Designer.cs">
       <DependentUpon>AboutUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddCategoryUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddCategoryUI.Designer.cs">
-      <DependentUpon>AddCategoryUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataPerPaymentMethod.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,9 +182,6 @@
     <EmbeddedResource Include="AboutUI.resx">
       <DependentUpon>AboutUI.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddCategoryUI.resx">
-      <DependentUpon>AddCategoryUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataPerPaymentMethod.resx">
       <DependentUpon>DataPerPaymentMethod.cs</DependentUpon>

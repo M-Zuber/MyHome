@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
 using LocalTypes;
+using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace MyHome2013
 {
@@ -12,19 +14,19 @@ namespace MyHome2013
     /// </summary>
     public partial class ViewCategoriesUI : Form
     {
-        #region Properties
-
-        /// <summary>
-        /// Represents which category group the form is displaying for
-        /// </summary>
-        public int CategoryType { get; set; }
+        static Tuple<string, ListSortDirection>[] baseSorting = new[]
+        {
+            Tuple.Create("Id", ListSortDirection.Ascending),
+            Tuple.Create("Name", ListSortDirection.Ascending)
+        };
 
         /// <summary>
         /// A placeholder for the original value of a category the is being edited
         /// </summary>
-        public string OriginalCategoryName { get; set; }
-        
-        #endregion
+        object CellPreEditValue = null;
+        SortableBindingList<BaseCategory> edata = new SortableBindingList<BaseCategory>(baseSorting);
+        SortableBindingList<BaseCategory> idata = new SortableBindingList<BaseCategory>(baseSorting);
+        SortableBindingList<BaseCategory> pmdata = new SortableBindingList<BaseCategory>(baseSorting);
 
         #region C'tor
 
@@ -32,15 +34,15 @@ namespace MyHome2013
         /// C'tor that intializes the category group property
         /// </summary>
         /// <param name="nCategoryId">The category group id</param>
-        public ViewCategoriesUI(int nCategoryId)
+        public ViewCategoriesUI()
         {
-            // Sets the property with the id given
-            this.CategoryType = nCategoryId;
+            edata.AllowNew = true;
+            idata.AllowNew = true;
+            pmdata.AllowNew = true;
 
-            // Auto generated code for the form
             InitializeComponent();
         }
-        
+
         #endregion
 
         #region Control Event Methods
@@ -53,53 +55,106 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void ViewCategoriesUI_Load(object sender, EventArgs e)
         {
-            // Loads the table that corrosponds to the wanted categry group
-            this.dgvCategoryNames.DataSource =
-                GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
-            
-            // Connects the data grid with the names only and displays the category group
-            // name as the title of the form
-            this.dgvCategoryNames.Columns[0].Visible = false;
+            this.dgvExpenseCategoryNames.DataSource = edata;
+            this.dgvExpenseCategoryNames.Columns[0].Visible = false;
 
-            this.Text = GlobalHandler.CategoryTypeNames[this.CategoryType];
+            this.dgvIncomeCategoryNames.DataSource = idata;
+            this.dgvIncomeCategoryNames.Columns[0].Visible = false;
+
+            this.dgvPaymentMethodNames.DataSource = pmdata;
+            this.dgvPaymentMethodNames.Columns[0].Visible = false;
+
+            loadExpenseCategoryData();
+            loadIncomeCategoryData();
+            loadPaymentMethodData();
         }
 
-        /// <summary>
-        /// Opens the form for adding new categories as a dialog
-        /// -passes the propery with the the category group id
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            // Opens a dialog of the form for adding new categories
-            using (AddCategoryUI addNewCategory = new AddCategoryUI(this.CategoryType))
-            {
-                addNewCategory.ShowDialog();
-            }
-
-            // Refreshes the list so the new category is displayed
-            this.dgvCategoryNames.DataSource = GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
-        } 
-
-        private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
-            {
-                GlobalHandler.CategoryHandlers[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
-            }
-            else
-            {
-                this.dgvCategoryNames.CurrentCell.Value = this.OriginalCategoryName;
-            }
+            this.CellPreEditValue = (sender as DataGridView).CurrentCell.Value;
         }
 
-        private void dgvCategoryNames_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void dgvExpenseCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            this.OriginalCategoryName = this.dgvCategoryNames.CurrentCell.Value.ToString();
+            bool result = CellEndEdit<ExpenseCategory, ExpenseCategoryHandler>(edata, sender, e);
+            if (result) loadExpenseCategoryData();
+        }
+
+        private void dgvIncomeCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            bool result = CellEndEdit<IncomeCategory, IncomeCategoryHandler>(idata, sender, e);
+            if (result) loadIncomeCategoryData();
+        }
+
+        private void dgvPaymentMethodNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            bool result = CellEndEdit<PaymentMethod, PaymentMethodHandler>(pmdata, sender, e);
+            if (result) loadPaymentMethodData();
         }
 
         #endregion
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void loadExpenseCategoryData()
+        {
+            var ech = Program.Container.GetInstance<ExpenseCategoryHandler>();
+            edata.Load(ech.LoadAll());
+        }
+
+        private void loadIncomeCategoryData()
+        {
+            var ich = Program.Container.GetInstance<IncomeCategoryHandler>();
+            idata.Load(ich.LoadAll());
+        }
+
+        private void loadPaymentMethodData()
+        {
+            var pmh = Program.Container.GetInstance<PaymentMethodHandler>();
+            pmdata.Load(pmh.LoadAll());
+        }
+
+        private bool CellEndEdit<T, U>(IEnumerable<BaseCategory> data, object sender, DataGridViewCellEventArgs e)
+            where T : BaseCategory, new()
+            where U : BaseCategoryHandler
+        {
+            var grid = sender as DataGridView;
+            var item = grid.CurrentRow.DataBoundItem as T;
+            var newValue = grid.CurrentCell.Value as string;
+
+            grid.CurrentCell.Value = CellPreEditValue;
+
+            // The value was not changed
+            if (newValue == CellPreEditValue as string)
+                return false;
+
+            // Filter the source data, to remove the current item, for the duplicate check
+            var d = data;
+            if (item != null) d = d.Where(x => x.Id != item.Id);
+
+            // The new value is either empty or duplicates an existing value
+            if (string.IsNullOrWhiteSpace(newValue) || d.Any(x => x.Name == newValue.Trim()))
+            {
+                if (item != null)
+                    grid.CurrentCell.Value = CellPreEditValue;
+                else
+                    grid.Rows.Remove(grid.CurrentRow);
+
+                return false;
+            }
+
+            // Trim existing values before saving to prevent extra whitespace
+            if (item != null) item.Name = item.Name.Trim();
+
+            var h = Program.Container.GetInstance<U>();
+            h.Save(item ?? new T { Name = newValue.Trim() });
+
+            return true;
+        }
+
 
     }
 }
