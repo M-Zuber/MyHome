@@ -24,6 +24,10 @@ First off: thank you for showing intrest in this project.
  		  select y;
  ```
  - Use `XML` style comments on `functions`, ``properties`, ect.
+ - Take the space to write fully informative variable names.
+ 	- Exception: if it is a temporary variable in a small scope.
+ - __CTRl + K + D__ (auto formating).
+ - Remove and sort `usings`.
 
 ### Contributing
 #### General
