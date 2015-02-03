@@ -1,6 +1,7 @@
 ﻿using FrameWork;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -61,14 +62,11 @@ namespace MyHome2013
             Globals.Password = "";
 
             // Checks that all the text boxes are filled in
-            if (allTextBoxes.Where(currTextbox => currTextbox.Text == "").Count() != 0)
+            if (string.IsNullOrWhiteSpace(txtDatabaseName.Text)
+                || !File.Exists(txtDatabaseName.Text.Trim()))
             {
-                MessageBox.Show("All fields must be filled in to try and connect", "Error connecting...",
+                MessageBox.Show("The database path must be filled in to try and connect", "Error connecting...",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-                foreach (TextBox CurrTextbox in allTextBoxes)
-                {
-                    CurrTextbox.Text = "";
-                }
             }
             else
             {
@@ -104,6 +102,7 @@ namespace MyHome2013
                     // Creates a dictionary of the connection parameters in order to save it into the file
                     Dictionary<string, string> databaseSettings = new Dictionary<string, string>() 
                     {
+                        {"ProviderName", "System.Data.SQLite"},
                         {"Database Name", Globals.DataBaseName},
                         {"User Id", Globals.UserId},
                         {"Password", Globals.Password}

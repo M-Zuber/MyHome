@@ -120,7 +120,7 @@ namespace DataAccess
                                          FROM t_incomes as e
                                          INNER JOIN t_incomes_category as c ON e.category = c.id
                                          INNER JOIN t_payment_methods as m ON e.method = m.id
-                                         WHERE e.id = LAST_INSERT_ID();";
+                                         WHERE e.ROWID = LAST_INSERT_ROWID();";
 
                     return conn.Query<Income, IncomeCategory, PaymentMethod, Income>(
                             insertsql + selectsql,

@@ -13,7 +13,7 @@ namespace MyHome2013
 {
     static class Program
     {
-        static string ProviderName = "MySql.Data.MySqlClient";
+        public static string ProviderName = "System.Data.SQLite";
         static string Server = "127.0.0.10";
 
         public static IServiceContainer Container = null;
@@ -31,7 +31,7 @@ namespace MyHome2013
             Globals.LogFiles["ProgramActivityLog"].AddMessage("The program was started at: " + DateTime.Now);
 
             // If the settings for connecting to the database are not set yet
-            if (!Globals.SettingFiles["DatabaseSettings"].AreSettingsSet(new[] { "Database Name", "User Id", "Password" }))
+            if (!Globals.SettingFiles["DatabaseSettings"].AreSettingsSet(new[] { "ProviderName", "Database Name" }))
             {
                 // Intializes and runs an instance of the login form
                 Login connecting = new Login(TestConnection);
@@ -51,10 +51,13 @@ namespace MyHome2013
                 var allSettings = Globals.SettingFiles["DatabaseSettings"].GetAllSettings();
 
                 // Sets the local variables with the parameters saved in the database
+                ProviderName = allSettings["ProviderName"];
                 Globals.DataBaseName = allSettings["Database Name"];
                 Globals.UserId = allSettings["User Id"];
                 Globals.Password = allSettings["Password"];
             }
+
+             
 
             var dbprovider = ConnectionManager.GetDbProvider(ProviderName, new ConnectionOptions
             {

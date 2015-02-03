@@ -43,7 +43,7 @@ namespace DataAccess
                 // No Id means the item is new, and should be inserted
                 if (item.Id == default(int))
                 {
-                    return conn.Query<IncomeCategory>("INSERT INTO t_incomes_category (name) VALUES (@Name); SELECT id, name FROM t_incomes_category WHERE id = LAST_INSERT_ID();", new { item.Name })
+                    return conn.Query<IncomeCategory>("INSERT INTO t_incomes_category (name) VALUES (@Name); SELECT id, name FROM t_incomes_category WHERE ROWID = LAST_INSERT_ROWID();", new { item.Name })
                         .FirstOrDefault();
                 }
                 

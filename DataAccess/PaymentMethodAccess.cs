@@ -42,7 +42,7 @@ namespace DataAccess
                 // No Id means the item is new, and should be inserted
                 if (item.Id == default(int))
                 {
-                    return conn.Query<PaymentMethod>("INSERT INTO t_payment_methods (name) VALUES (@Name); SELECT id, name FROM t_payment_methods WHERE id = LAST_INSERT_ID();", new { item.Name })
+                    return conn.Query<PaymentMethod>("INSERT INTO t_payment_methods (name) VALUES (@Name); SELECT id, name FROM t_payment_methods WHERE ROWID = LAST_INSERT_ROWID();", new { item.Name })
                         .FirstOrDefault();
                 }
                 
