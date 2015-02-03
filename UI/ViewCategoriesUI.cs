@@ -121,22 +121,21 @@ namespace MyHome2013
         {
             var grid = sender as DataGridView;
             var item = grid.CurrentRow.DataBoundItem as T;
-            var newValue = grid.CurrentCell.Value as string;
-
-            grid.CurrentCell.Value = CellPreEditValue;
+            bool isNew = item.Id == default(int);
 
             // The value was not changed
-            if (newValue == CellPreEditValue as string)
+            if (item.Name == CellPreEditValue as string)
                 return false;
 
             // Filter the source data, to remove the current item, for the duplicate check
             var d = data;
-            if (item != null) d = d.Where(x => x.Id != item.Id);
+            if (!isNew) d = d.Where(x => x.Id != item.Id);
 
             // The new value is either empty or duplicates an existing value
-            if (string.IsNullOrWhiteSpace(newValue) || d.Any(x => x.Name == newValue.Trim()))
+            if (string.IsNullOrWhiteSpace(item.Name) || d.Any(x => x.Name == item.Name.Trim() && x.Id != default(int)))
             {
-                if (item != null)
+                // Reset the cell value, or, if the cell is new, remove the whole row
+                if (!isNew)
                     grid.CurrentCell.Value = CellPreEditValue;
                 else
                     grid.Rows.Remove(grid.CurrentRow);
@@ -145,12 +144,10 @@ namespace MyHome2013
             }
 
             // Trim existing values before saving to prevent extra whitespace
-            if (item != null) item.Name = item.Name.Trim();
+            item.Name = item.Name.Trim();
 
             var h = Program.Container.GetInstance<IRepository<T>>();
-            h.Save(item ?? new T { Name = newValue.Trim() });
-
-            return true;
+            return h.Save(item) != null;
         }
 
 
