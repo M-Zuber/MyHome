@@ -49,7 +49,6 @@ In order to suggest a feature follow the following procedure:
   - __Extra Credit__: Estimation of impact on code base.
 - Discuss the feature in the issue.
 - Once it is ready, the issue will have the `Ready` label applied.
-- Ask to be assigned to the issue.
 - Test your code.
 - Keep commits small and with meaningful commit messages.
 - Open `Pull Request`.
