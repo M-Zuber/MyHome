@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LocalTypes;
-using FrameWork;
+using MyHome2013.Core.LocalTypes;
+using MyHome2013.Core.FrameWork;
 
 namespace BusinessLogic
 {

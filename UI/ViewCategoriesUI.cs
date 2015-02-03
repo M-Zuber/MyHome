@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using LocalTypes;
+using MyHome2013.Core.LocalTypes;
 using System.ComponentModel;
 using System.Collections.Generic;
 

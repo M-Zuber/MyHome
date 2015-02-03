@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FrameWork
+namespace MyHome2013.Core.FrameWork
 {
     public static class Extensions
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FrameWork
+namespace MyHome2013.Core.FrameWork
 {
     public static class Globals
     {

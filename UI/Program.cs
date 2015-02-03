@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using FrameWork;
+using MyHome2013.Core.FrameWork;
 using MySql.Data.MySqlClient;
 using DataAccess;
 using System.Data.Common;
-using LocalTypes;
+using MyHome2013.Core.LocalTypes;
 using BusinessLogic;
 using LightInject;
 

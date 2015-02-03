@@ -1,4 +1,4 @@
-﻿using LocalTypes;
+﻿using MyHome2013.Core.LocalTypes;
 using System;
 using System.Windows.Forms;
 

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{89C7A321-B6DC-455A-B99F-594A9570FB20}</ProjectGuid>
+    <ProjectGuid>{09AE15C4-9DB0-4CA8-83BB-EB3B6DEA6A55}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameWork</RootNamespace>
-    <AssemblyName>FrameWork</AssemblyName>
+    <RootNamespace>MyHome2013.Core</RootNamespace>
+    <AssemblyName>MyHome2013.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,11 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Globals.cs" />
-    <Compile Include="Log.cs" />
+    <Compile Include="Framework\Extensions.cs" />
+    <Compile Include="Framework\Globals.cs" />
+    <Compile Include="Framework\Log.cs" />
+    <Compile Include="Framework\SettingsManager.cs" />
+    <Compile Include="LocalTypes\BaseCategory.cs" />
+    <Compile Include="LocalTypes\Expense.cs" />
+    <Compile Include="LocalTypes\ExpenseCategory.cs" />
+    <Compile Include="LocalTypes\Extensions.cs" />
+    <Compile Include="LocalTypes\Income.cs" />
+    <Compile Include="LocalTypes\IncomeCategory.cs" />
+    <Compile Include="LocalTypes\IRepository.cs" />
+    <Compile Include="LocalTypes\PaymentMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LocalTypes
+namespace MyHome2013.Core.LocalTypes
 {
     /// <summary>
     /// Conatains extension methods for the types defined in the LocalType namespace

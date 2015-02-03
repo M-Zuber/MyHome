@@ -1,54 +1,54 @@
 ﻿using System;
 
-namespace LocalTypes
+namespace MyHome2013.Core.LocalTypes
 {
-    public class Income
+    public class Expense
     {
          #region Properties
 
         /// <summary>
-        /// The amount of the income
+        /// The amount of the expense
         /// </summary>
         public double Amount { get; set; }
 
         /// <summary>
-        /// The date of the income
+        /// The date of the expense
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// Category of the income
+        /// Category of the expense
         /// </summary>
-        public IncomeCategory Category { get; set; }
+        public ExpenseCategory Category { get; set; }
 
         /// <summary>
-        /// How the income was payed
+        /// How the expense was payed
         /// </summary>
         public PaymentMethod Method { get; set; }
 
         /// <summary>
-        /// Additional info about the income
+        /// Additional info about the expense
         /// </summary>
         public string Comment { get; set; }
 
         /// <summary>
-        /// ID number of the income in the data table
+        /// ID number of the expense in the data table
         /// </summary>
         public int ID { get; set; }
 
         #endregion
 
         #region C'Tor
-        
-        public Income()
+
+        public Expense()
         {
         }
 
-        public Income(double amount, DateTime date, IncomeCategory incomeCategory,
+        public Expense(double amount, DateTime date, ExpenseCategory expenseCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
             this.Amount = amount;
-            this.Category = incomeCategory;
+            this.Category = expenseCategory;
             this.Comment = comment;
             this.Date = date;
             this.ID = id;
@@ -61,14 +61,14 @@ namespace LocalTypes
 
         public override bool Equals(object obj)
         {
-            Income incomeComparing = (Income)obj;
+            Expense expenseComparing = (Expense)obj;
 
-            return ((this.Amount == incomeComparing.Amount) &&
-                    (this.Category.Equals(incomeComparing.Category)) &&
-                    (this.Comment == incomeComparing.Comment) &&
-                    (this.Date == incomeComparing.Date) &&
-                    (this.ID == incomeComparing.ID) &&
-                    (this.Method.Equals(incomeComparing.Method)));
+            return ((this.Amount == expenseComparing.Amount) &&
+                    (this.Category.Equals(expenseComparing.Category)) &&
+                    (this.Comment == expenseComparing.Comment) &&
+                    (this.Date == expenseComparing.Date) &&
+                    (this.ID == expenseComparing.ID) &&
+                    (this.Method.Equals(expenseComparing.Method)));
         }
 
         public override int GetHashCode()

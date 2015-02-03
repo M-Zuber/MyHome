@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace FrameWork
+namespace MyHome2013.Core.FrameWork
 {
     /// <summary>
     /// Represents an instance of a file used for logging

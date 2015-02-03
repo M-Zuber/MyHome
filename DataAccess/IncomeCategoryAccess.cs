@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LocalTypes;
+using MyHome2013.Core.LocalTypes;
 using System.Data.Common;
 using System.Linq;
 using Dapper;

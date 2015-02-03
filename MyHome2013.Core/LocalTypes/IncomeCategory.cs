@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LocalTypes
+namespace MyHome2013.Core.LocalTypes
 {
     public class IncomeCategory : BaseCategory, IComparable<IncomeCategory>
     {

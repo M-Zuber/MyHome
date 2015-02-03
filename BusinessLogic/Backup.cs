@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using LocalTypes;
+using MyHome2013.Core.LocalTypes;
 
 namespace BusinessLogic
 {

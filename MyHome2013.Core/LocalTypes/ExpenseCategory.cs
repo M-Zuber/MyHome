@@ -1,11 +1,13 @@
 ﻿using System;
-namespace LocalTypes
+namespace MyHome2013.Core.LocalTypes
 {
-    public class PaymentMethod : BaseCategory, IComparable<PaymentMethod>
+    public class ExpenseCategory : BaseCategory, IComparable<ExpenseCategory>
     {
         #region C'Tor
-
-        public PaymentMethod() { }
+        
+        public ExpenseCategory()
+        {
+        }
 
         #endregion
 
@@ -18,10 +20,10 @@ namespace LocalTypes
             return this.Name;
         }
 
-        public bool Equals(PaymentMethod paymentMethod)
+        public bool Equals(ExpenseCategory expenseCategory)
         {
-            return ((this.Id == paymentMethod.Id) &&
-                    (this.Name == paymentMethod.Name));
+            return ((this.Id == expenseCategory.Id) &&
+                    (this.Name == expenseCategory.Name));
         }
 
         public override int GetHashCode()
@@ -33,7 +35,7 @@ namespace LocalTypes
 
         #endregion
 
-        public int CompareTo(PaymentMethod other)
+        public int CompareTo(ExpenseCategory other)
         {
             return this.Name.CompareTo(other.Name);
         }

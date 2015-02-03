@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using BusinessLogic;
-using FrameWork;
-using LocalTypes;
+using MyHome2013.Core.FrameWork;
+using MyHome2013.Core.LocalTypes;
 using System.Globalization;
 using System.ComponentModel;
 

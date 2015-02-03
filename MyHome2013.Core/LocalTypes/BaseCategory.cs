@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LocalTypes
+namespace MyHome2013.Core.LocalTypes
 {
     public class BaseCategory
     {
