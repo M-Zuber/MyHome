@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Security">
@@ -57,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ConnectionManager.cs" />
     <Compile Include="DbProviderFactoryProxy.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IncomeAccess.cs" />
     <Compile Include="IncomeCategoryAccess.cs" />
     <Compile Include="ExpenseAccess.cs" />
