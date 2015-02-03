@@ -95,21 +95,21 @@ namespace BusinessLogic
 
         #region Other Methods
 
-        public double GetMonthTotal(DateTime monthWanted)
+        public decimal GetMonthTotal(DateTime monthWanted)
         {
             return this.LoadOfMonth(monthWanted).Sum(curIncome => curIncome.Amount);
         }
 
-        public double GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
+        public decimal GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
         {
             return this.LoadOfMonth(monthWanted)
                 .Where(curIncome => curIncome.Category.Name == categoryWanted)
                 .Sum(curIncome => curIncome.Amount);
         }
 
-        public Dictionary<string, double> GetAllCategoryTotals(DateTime monthWanted)
+        public Dictionary<string, decimal> GetAllCategoryTotals(DateTime monthWanted)
         {
-            var categoryTotals = new Dictionary<string, double>();
+            var categoryTotals = new Dictionary<string, decimal>();
 
             foreach (IncomeCategory currCategory in icRepository.LoadAll())
             {
@@ -119,16 +119,16 @@ namespace BusinessLogic
             return categoryTotals;
         }
 
-        public double GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
+        public decimal GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
         {
             return this.LoadOfMonth(monthWanted)
                 .Where(curIncome => curIncome.Method.Name == methodWanted)
                 .Sum(curIncome => curIncome.Amount);
         }
 
-        public Dictionary<string, double> GetAllPaymentMethodTotals(DateTime monthWanted)
+        public Dictionary<string, decimal> GetAllPaymentMethodTotals(DateTime monthWanted)
         {
-            var methodTotals = new Dictionary<string, double>();
+            var methodTotals = new Dictionary<string, decimal>();
 
             foreach (PaymentMethod curMethod in methodRepository.LoadAll())
             {

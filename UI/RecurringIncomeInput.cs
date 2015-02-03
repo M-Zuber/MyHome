@@ -224,7 +224,7 @@ namespace MyHome2013
             var ich = Program.Container.GetInstance<IRepository<IncomeCategory>>();
 
             Income newIncome =
-                    new Income(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,
+                    new Income(decimal.Parse(this.txtAmount.Text), dtCurrentSaveDate,
                                 ich.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 r.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);

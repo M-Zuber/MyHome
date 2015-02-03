@@ -9,7 +9,7 @@ namespace MyHome2013.Core.LocalTypes
         /// <summary>
         /// The amount of the income
         /// </summary>
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// The date of the income
@@ -44,7 +44,7 @@ namespace MyHome2013.Core.LocalTypes
         {
         }
 
-        public Income(double amount, DateTime date, IncomeCategory incomeCategory,
+        public Income(decimal amount, DateTime date, IncomeCategory incomeCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
             this.Amount = amount;

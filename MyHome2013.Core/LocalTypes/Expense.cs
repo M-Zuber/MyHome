@@ -9,7 +9,7 @@ namespace MyHome2013.Core.LocalTypes
         /// <summary>
         /// The amount of the expense
         /// </summary>
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// The date of the expense
@@ -44,7 +44,7 @@ namespace MyHome2013.Core.LocalTypes
         {
         }
 
-        public Expense(double amount, DateTime date, ExpenseCategory expenseCategory,
+        public Expense(decimal amount, DateTime date, ExpenseCategory expenseCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
             this.Amount = amount;

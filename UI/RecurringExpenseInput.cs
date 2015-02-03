@@ -226,7 +226,7 @@ namespace MyHome2013
             var eh = Program.Container.GetInstance<ExpenseHandler>();
 
             Expense newExpense =
-                    new Expense(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,
+                    new Expense(decimal.Parse(this.txtAmount.Text), dtCurrentSaveDate,
                                 er.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 pmr.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);

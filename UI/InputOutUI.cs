@@ -70,7 +70,7 @@ namespace MyHome2013
                 var er = Program.Container.GetInstance<ExpenseHandler>();
 
                 Expense newExpense =
-                    new Expense(double.Parse(this.txtAmount.Text), this.dtPick.Value,
+                    new Expense(decimal.Parse(this.txtAmount.Text), this.dtPick.Value,
                                 ecr.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 pmr.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);

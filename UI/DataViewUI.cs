@@ -30,12 +30,12 @@ namespace MyHome2013
         /// <summary>
         /// Holds the list of income categories
         /// </summary>
-        public Dictionary<string, double> IncomeCategoriesTotals { get; set; }
+        public Dictionary<string, decimal> IncomeCategoriesTotals { get; set; }
 
         /// <summary>
         /// Holds the list of expense categories
         /// </summary>
-        public Dictionary<string, double> ExpenseCategoriesTotals { get; set; }
+        public Dictionary<string, decimal> ExpenseCategoriesTotals { get; set; }
 
         #endregion
 
@@ -156,8 +156,8 @@ namespace MyHome2013
             this.txtExpenseCategoryTotal.DataBindings.Clear();
 
             // Intializes the category total dictionarys
-            this.IncomeCategoriesTotals = new Dictionary<string, double>();
-            this.ExpenseCategoriesTotals = new Dictionary<string, double>();
+            this.IncomeCategoriesTotals = new Dictionary<string, decimal>();
+            this.ExpenseCategoriesTotals = new Dictionary<string, decimal>();
 
             var eh = Program.Container.GetInstance<ExpenseHandler>();
             this.ExpenseCategoriesTotals.Add("Total Expenses", eh.GetMonthTotal(dtPick.Value));

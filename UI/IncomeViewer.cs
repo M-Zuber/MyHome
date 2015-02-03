@@ -117,7 +117,7 @@ namespace MyHome2013
             }
             else
             {
-                this.currentIncome.Amount = double.Parse(this.txtAmount.Text);
+                this.currentIncome.Amount = decimal.Parse(this.txtAmount.Text);
             }
         }
 

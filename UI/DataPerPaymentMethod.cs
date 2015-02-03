@@ -67,13 +67,13 @@ namespace MyHome2013
 
             // Connects the data of the expenses to the corrosponding chart
             var eh = Program.Container.GetInstance<ExpenseHandler>();
-            Dictionary<string, double> expenseData = eh.GetAllPaymentMethodTotals(this.m_dtMonth);
+            Dictionary<string, decimal> expenseData = eh.GetAllPaymentMethodTotals(this.m_dtMonth);
             this.crtExpenses.Series[0].Points.DataBind(expenseData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtExpenses.Series[0].Points);
 
             // Connects the data of the income to the corrosponding chart
             var ih = Program.Container.GetInstance<IncomeHandler>();
-            Dictionary<string, double> incomeData = ih.GetAllPaymentMethodTotals(this.m_dtMonth);
+            Dictionary<string, decimal> incomeData = ih.GetAllPaymentMethodTotals(this.m_dtMonth);
             this.crtIncome.Series[0].Points.DataBind(incomeData, "KEY", "VALUE", "");
             this.UpdatePoints(this.crtIncome.Series[0].Points);
         }
