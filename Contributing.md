@@ -23,6 +23,7 @@ First off: thank you for showing intrest in this project.
 		  where y.x
  		  select y;
  ```
+ - Use `XML` style comments on `functions`, ``properties`, ect.
 
 ### Contributing
 #### General
@@ -47,7 +48,7 @@ In order to suggest a feature follow the following procedure:
 - Ask to be assigned to the issue.
 - Test your code.
 - Keep commits small and with meaningful commit messages.
-- Open `PR`.
+- Open `Pull Request`.
 - Enjoy the new feature.
 
 #### Refactoring
