@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MyHome2013.Core.FrameWork;
-using MySql.Data.MySqlClient;
 using DataAccess;
 using System.Data.Common;
 using MyHome2013.Core.LocalTypes;
@@ -96,9 +95,9 @@ namespace MyHome2013
             var container = new ServiceContainer();
 
             // Register Data Layer
-            container.Register<IRepository<PaymentMethod>>(context => new CachedPaymentMethodRepository(new PaymentMethodAccess(dbprovider)), new PerContainerLifetime());
-            container.Register<IRepository<IncomeCategory>>(context => new CachedIncomeCategoryRepository(new IncomeCategoryAccess(dbprovider)), new PerContainerLifetime());
-            container.Register<IRepository<ExpenseCategory>>(context => new CachedExpenseCategoryRepository(new ExpenseCategoryAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<PaymentMethod>>(context => new CachedKeyValueRepository<PaymentMethod>(new PaymentMethodAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<IncomeCategory>>(context => new CachedKeyValueRepository<IncomeCategory>(new IncomeCategoryAccess(dbprovider)), new PerContainerLifetime());
+            container.Register<IRepository<ExpenseCategory>>(context => new CachedKeyValueRepository<ExpenseCategory>(new ExpenseCategoryAccess(dbprovider)), new PerContainerLifetime());
             container.Register<ITransactionRepository<Income>>(context => new CachedIncomeRepository(new IncomeAccess(dbprovider)), new PerContainerLifetime());
             container.Register<ITransactionRepository<Expense>>(context => new CachedExpenseRepository(new ExpenseAccess(dbprovider)), new PerContainerLifetime());
 
