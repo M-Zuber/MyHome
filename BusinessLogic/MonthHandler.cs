@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LocalTypes;
-using FrameWork;
+using MyHome2013.Core.LocalTypes;
+using MyHome2013.Core.FrameWork;
 
 namespace BusinessLogic
 {
@@ -15,10 +15,15 @@ namespace BusinessLogic
         
         #endregion
 
+        IncomeHandler incomehandler;
+        ExpenseHandler expensehandler;
+
         #region C'Tor
 
-        public MonthHandler(DateTime monthToRepresent)
+        public MonthHandler(IncomeHandler incomehandler, ExpenseHandler expensehandler, DateTime monthToRepresent)
         {
+            this.incomehandler = incomehandler;
+            this.expensehandler = expensehandler;
             MonthRepresented = monthToRepresent;
         }
 
@@ -28,17 +33,17 @@ namespace BusinessLogic
 
         public List<Expense> GetAllExpenses()
         {
-            return ExpenseHandler.LoadOfMonth(MonthRepresented);
+            return expensehandler.LoadOfMonth(MonthRepresented);
         }
 
-        public double GetMonthesExpenseTotal()
+        public decimal GetMonthesExpenseTotal()
         {
-            return ExpenseHandler.GetMonthTotal(MonthRepresented);
+            return expensehandler.GetMonthTotal(MonthRepresented);
         }
 
-        private double GetExpenseCategoryTotal(string categoryName)
+        private decimal GetExpenseCategoryTotal(string categoryName)
         {
-            return ExpenseHandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
+            return expensehandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
         }
 
         #endregion
@@ -47,24 +52,24 @@ namespace BusinessLogic
         
         public List<Income> GetAllIncomes()
         {
-            return IncomeHandler.LoadOfMonth(MonthRepresented);
+            return incomehandler.LoadOfMonth(MonthRepresented);
         }
 
-        public double GetMonthesIncomeTotal()
+        public decimal GetMonthesIncomeTotal()
         {
-            return IncomeHandler.GetMonthTotal(MonthRepresented);
+            return incomehandler.GetMonthTotal(MonthRepresented);
         }
 
-        private double GetIncomeCategoryTotal(string categoryName)
+        private decimal GetIncomeCategoryTotal(string categoryName)
         {
-            return IncomeHandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
+            return incomehandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
         }
 
         #endregion
 
         #region General Methods
 
-        public double GetCategoryTotal(string categoryType, string categoryName) 
+        public decimal GetCategoryTotal(string categoryType, string categoryName) 
         {
             switch (categoryType.ToLower())
             {
@@ -83,19 +88,19 @@ namespace BusinessLogic
             }
         }
 
-        public Dictionary<string, double> GetTotalsOfMonthByCategory()
+        public Dictionary<string, decimal> GetTotalsOfMonthByCategory()
         {
-            Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
+            Dictionary<string, decimal> categoryTotals = new Dictionary<string, decimal>();
 
             categoryTotals.Add("Total Expenses", GetMonthesExpenseTotal());
-            categoryTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(MonthRepresented));
+            categoryTotals.AddRange(expensehandler.GetAllCategoryTotals(MonthRepresented));
 
-            categoryTotals.Add("Total Income", GetMonthesIncomeTotal());            
-            foreach (KeyValuePair<string, double> curIncomeCatTotal in IncomeHandler.GetAllCategoryTotals(MonthRepresented))
+            categoryTotals.Add("Total Income", GetMonthesIncomeTotal());
+            foreach (KeyValuePair<string, decimal> curIncomeCatTotal in incomehandler.GetAllCategoryTotals(MonthRepresented))
             {
                 if (categoryTotals.ContainsKey(curIncomeCatTotal.Key))
                 {
-                    double placeholder = categoryTotals[curIncomeCatTotal.Key];
+                    decimal placeholder = categoryTotals[curIncomeCatTotal.Key];
                     categoryTotals.Remove(curIncomeCatTotal.Key);
                     categoryTotals.Add(string.Format("{0} - {1}", curIncomeCatTotal.Key, "Expense"), placeholder);
                     categoryTotals.Add(string.Format("{0} - {1}", curIncomeCatTotal.Key, "Income"), curIncomeCatTotal.Value);

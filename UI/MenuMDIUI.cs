@@ -1,5 +1,4 @@
-﻿using BusinessLogic;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace MyHome2013
@@ -20,16 +19,6 @@ namespace MyHome2013
         /// Single instance of expense categories form
         /// </summary>
         public ViewCategoriesUI ExpCatForm { get; set; }
-
-        /// <summary>
-        /// Single instance of income categories form
-        /// </summary>
-        public ViewCategoriesUI IncCatForm { get; set; }
-
-        /// <summary>
-        /// Single instance of payment method categories form
-        /// </summary>
-        public ViewCategoriesUI PaymentCatForm { get; set; }
 
         /// <summary>
         /// Single instance of new income form
@@ -118,7 +107,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_Load(object sender, EventArgs e)
         {
-            GlobalHandler.IntializeData();
             this.WindowState = FormWindowState.Maximized;
         }
 
@@ -285,7 +273,7 @@ namespace MyHome2013
             if (this.ExpCatForm == null)
             {
                 this.MdiChilrenSum++;
-                this.ExpCatForm = new ViewCategoriesUI(1);
+                this.ExpCatForm = new ViewCategoriesUI();
                 this.ExpCatForm.MdiParent = this;
                 this.ExpCatForm.Show();
                 this.ExpCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
@@ -295,54 +283,6 @@ namespace MyHome2013
             else
             {
                 this.ExpCatForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// Shows a list of the options in the income category group
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void incomeCatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // If the instance is not already open
-            if (this.IncCatForm == null)
-            {
-                this.MdiChilrenSum++;
-                this.IncCatForm = new ViewCategoriesUI(2);
-                this.IncCatForm.MdiParent = this;
-                this.IncCatForm.Show();
-                this.IncCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.IncCatForm.FormClosed += new FormClosedEventHandler(this.IncCatClose);
-            }
-            // Forces the form to the front
-            else
-            {
-                this.IncCatForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// Shows a list of the options in the payment method category group
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void paymentCatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // If the instance is not already open
-            if (this.PaymentCatForm == null)
-            {
-                this.MdiChilrenSum++;
-                this.PaymentCatForm = new ViewCategoriesUI(3);
-                this.PaymentCatForm.MdiParent = this;
-                this.PaymentCatForm.Show();
-                this.PaymentCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.PaymentCatForm.FormClosed += new FormClosedEventHandler(this.PaymentCatClose);
-            }
-            // Forces the form to the front
-            else
-            {
-                this.PaymentCatForm.BringToFront();
             }
         }
 
@@ -368,27 +308,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // If the cache has any changes
-            if (DataStatusHandler.DataHasChanges())
-            {
-                DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
-                                               "Closing...",
-                                               MessageBoxButtons.YesNoCancel,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-
-                // If the user is saving the changes
-                // if the user wants to exit but not save changes the form will just close
-                if (DialogResult == DialogResult.Yes)
-                {
-                    GlobalHandler.SaveData();
-                }
-                // If the user does not want to exit the program
-                else if (DialogResult == DialogResult.Cancel)
-                {
-                    e.Cancel = true;
-                }
-            }
         }
 
         /// <summary>
@@ -398,21 +317,6 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            // If the cache has any changes
-            if (DataStatusHandler.DataHasChanges())
-            {
-                DialogResult = MessageBox.Show("Changes detected\nDo you want to save the changes?",
-                                               "Saving...",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-
-                // If the user is saving the changes
-                if (DialogResult == DialogResult.Yes)
-                {
-                    GlobalHandler.SaveData();
-                }
-            }
         }
 
         /// <summary>
@@ -521,26 +425,6 @@ namespace MyHome2013
         private void ExpCatClose(object sender, FormClosedEventArgs e)
         {
             this.ExpCatForm = null;
-        }
-
-        /// <summary>
-        /// When the income categories form is closed, sets the main forms property to null
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void IncCatClose(object sender, FormClosedEventArgs e)
-        {
-            this.IncCatForm = null;
-        }
-
-        /// <summary>
-        /// When the payment method categories form is closed, sets the main forms property to null
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void PaymentCatClose(object sender, FormClosedEventArgs e)
-        {
-            this.PaymentCatForm = null;
         }
 
         /// <summary>

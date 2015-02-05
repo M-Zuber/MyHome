@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BusinessLogic;
+using MyHome2013.Core.LocalTypes;
+using System;
 using System.Windows.Forms;
-using LocalTypes;
-using BusinessLogic;
 
 namespace MyHome2013
 {
@@ -36,14 +36,14 @@ namespace MyHome2013
         private void RecurringExpenseInput_Load(object sender, EventArgs e)
         {
             // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
-                (new ExpenseCategoryHandler()).LoadAll();
+            var ech = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
+            this.cmbCategory.DataSource = ech.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
-                (new PaymentMethodHandler()).LoadAll();
+            var r = Program.Container.GetInstance<IRepository<PaymentMethod>>();
+            this.cmbPayment.DataSource = r.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
 
@@ -221,13 +221,17 @@ namespace MyHome2013
 
         private void SaveNewExpense(DateTime dtCurrentSaveDate)
         {
+            var pmr = Program.Container.GetInstance<IRepository<PaymentMethod>>();
+            var er = Program.Container.GetInstance<IRepository<ExpenseCategory>>();
+            var eh = Program.Container.GetInstance<ExpenseHandler>();
+
             Expense newExpense =
-                    new Expense(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,
-                                ExpenseCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                    new Expense(decimal.Parse(this.txtAmount.Text), dtCurrentSaveDate,
+                                er.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                pmr.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
 
-            ExpenseHandler.AddNewExpense(newExpense);
+            eh.AddNewExpense(newExpense);
         }
 
         /// <summary>

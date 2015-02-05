@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using Data;
-using LocalTypes;
+using MyHome2013.Core.LocalTypes;
 using System.Linq;
 using System;
 using System.Data;
+using System.Data.Common;
+using Dapper;
 
 namespace DataAccess
 {
@@ -11,156 +12,203 @@ namespace DataAccess
     /// Contains methods neccesary for CRUD methods of expenses
     /// -Before sending to the next tier translates into Local types
     /// </summary>
-    public static class ExpenseAccess
+    public class ExpenseAccess : ITransactionRepository<Expense>
     {
-        #region CRUD Methods
+        DbProviderFactory factory;
 
-        #region Read Methods
-
-        /// <summary>
-        /// Loads a specific Expense from the cache
-        /// </summary>
-        /// <param name="id">The id of the Expense wanted</param>
-        /// <returns>The expense as it is in the cache</returns>
-        public static Expense LoadById(int id)
+        public ExpenseAccess(DbProviderFactory factory)
         {
-            StaticDataSet.t_expensesRow requestedRow =
-                Cache.SDB.t_expenses.FindByID(id);
-            return new Expense(requestedRow.AMOUNT, requestedRow.EXP_DATE,
-                ExpenseCategoryAccess.LoadById(requestedRow.CATEGORY), 
-                PaymentMethodAccess.LoadById(requestedRow.METHOD), requestedRow.COMMENTS, requestedRow.ID);
+            this.factory = factory;
         }
 
-        /// <summary>
-        /// Loads all the Expenses from the cache
-        /// </summary>
-        /// <returns>All the Expenses as they are in the cache in generic-based
-        /// list
-        /// </returns>
-        public static List<Expense> LoadAll()
+        public List<Expense> LoadMonth(DateTime month)
         {
-            List<Expense> allExpenses = new List<Expense>();
-
-            Cache.SDB.t_expenses.DefaultView.AllowDelete = false;
-            
-            foreach (DataRowView currExpense in Cache.SDB.t_expenses.DefaultView)
+            using (var conn = this.factory.CreateConnection())
             {
-                allExpenses.Add(TranslateFromDataRow((StaticDataSet.t_expensesRow)currExpense.Row));
-            }
+                var startdate = new DateTime(month.Year, month.Month, 1);
+                var enddate = new DateTime(month.Year,
+                                           month.Month,
+                                           DateTime.DaysInMonth(month.Year, month.Month),
+                                           23, 59, 59, 999);
 
-            return allExpenses;
-        }
+                var sql = @"SELECT e.id, e.amount, e.exp_date as 'date', e.comments as 'comment',
+                                   c.id, c.name,
+                                   m.id, m.name
+                            FROM t_expenses as e
+                            INNER JOIN t_expenses_category as c ON e.category = c.id
+                            INNER JOIN t_payment_methods as m ON e.method = m.id
+                            WHERE e.exp_date BETWEEN @startdate AND @enddate;";
 
-        public static List<Expense> LoadExpensesOfMonth(DateTime monthWanted)
-        {
-            return LoadAll()
-                    .Where(currExpense =>
-                            currExpense.Date.Month == monthWanted.Month &&
-                            currExpense.Date.Year == monthWanted.Year).ToList<Expense>();
-        }
-
-        #endregion
-
-        #region Update Methods
-
-        /// <summary>
-        /// Updates the cache with the changes of the expense
-        /// </summary>
-        /// <param name="expenseToSave">The expense to be saved</param>
-        /// <returns>True on success, false on any exception</returns>
-        public static bool Save(Expense expenseToSave)
-        {
-            try
-            {
-                UpdateDataBase(expenseToSave);
-                return true;
-            }
-            catch
-            {
-                return false;
+                // Note: When using multi-mapping the order of the returned columns
+                //       must match the order of types specified in the query method's
+                //       generic paramenters, and begin with the id column.
+                return conn.Query<Expense, ExpenseCategory, PaymentMethod, Expense>(
+                        sql,
+                        (e, c, m) => { e.Category = c; e.Method = m; return e; },
+                        new { startdate, enddate })
+                    .ToList();
             }
         }
 
-        #endregion
-
-        #region Create Methods
-
-        public static int AddNewExpense(Expense newExpense)
+        public Expense LoadById(int id)
         {
-            StaticDataSet.t_expensesRow newDbExpense = Cache.SDB.t_expenses.Newt_expensesRow();
-            newDbExpense.ID = GetNextId();
-            newDbExpense.AMOUNT = newExpense.Amount;
-            newDbExpense.CATEGORY = newExpense.Category.Id;
-            newDbExpense.METHOD = newExpense.Method.Id;
-            newDbExpense.EXP_DATE = newExpense.Date;
-            newDbExpense.COMMENTS = newExpense.Comment;
-
-            Cache.SDB.t_expenses.Addt_expensesRow(newDbExpense);
-
-            return newDbExpense.ID;
-        }
-
-        #endregion
-
-        #region Delete Methods
-        
-        public static void DeleteExpense(int id)
-        {
-            Cache.SDB.t_expenses.FindByID(id).Delete();
-        }
-
-        #endregion
-        
-        #endregion
-
-        #region Other Methods
-
-        /// <summary>
-        /// Updates the row in the database that corrosponds to the expense entity
-        /// passed in
-        /// </summary>
-        /// <param name="expenseTranslating">The expense entity to update the database with</param>
-        private static void UpdateDataBase(Expense expenseTranslating)
-        {
-            StaticDataSet.t_expensesRow translatedRow = Cache.SDB.t_expenses.FindByID(expenseTranslating.ID);
-
-            //Because this form is only for updating, there is no check if it exists in the database
-
-            translatedRow.ID = expenseTranslating.ID;
-            translatedRow.AMOUNT = expenseTranslating.Amount;
-            translatedRow.COMMENTS = expenseTranslating.Comment;
-            translatedRow.EXP_DATE = expenseTranslating.Date;
-
-            // There is no check to see if they exist in the database or not
-            // because as of 20.02.2014 the form only shows categories/methods
-            // that already exist - and does not allow the user to create new ones
-            translatedRow.CATEGORY = expenseTranslating.Category.Id;
-            translatedRow.METHOD = expenseTranslating.Method.Id;
-        }
-
-        /// <summary>
-        /// Translates an expense from the tabular data in the cache to entity form
-        /// </summary>
-        /// <param name="rowTranslating">The expense row to be translated</param>
-        /// <returns>The entity representation of the expense row passed in</returns>
-        internal static Expense TranslateFromDataRow(StaticDataSet.t_expensesRow rowTranslating)
-        {
-            // Check for DBNull
-            if (rowTranslating.IsCOMMENTSNull())
+            using (var conn = this.factory.CreateConnection())
             {
-                rowTranslating.COMMENTS = string.Empty;
+                var sql = @"SELECT e.id, e.amount, e.exp_date as 'date', e.comments as 'comment',
+                                   c.id, c.name,
+                                   m.id, m.name
+                            FROM t_expenses as e
+                            INNER JOIN t_expenses_category as c ON e.category = c.id
+                            INNER JOIN t_payment_methods as m ON e.method = m.id
+                            WHERE e.id = @id;";
+
+                // Note: When using multi-mapping the order of the returned columns
+                //       must match the order of types specified in the query method's
+                //       generic paramenters, and begin with the id column.
+                return conn.Query<Expense, ExpenseCategory, PaymentMethod, Expense>(
+                        sql,
+                        (e, c, m) => { e.Category = c; e.Method = m; return e; },
+                        new { id })
+                    .FirstOrDefault();
             }
-
-            return new Expense(rowTranslating.AMOUNT, rowTranslating.EXP_DATE,
-                ExpenseCategoryAccess.LoadById(rowTranslating.CATEGORY),
-                PaymentMethodAccess.LoadById(rowTranslating.METHOD), rowTranslating.COMMENTS, rowTranslating.ID);
         }
 
-        internal static int GetNextId()
+        public List<Expense> LoadAll()
         {
-            return LoadAll().Max(e => (int?)e.ID).GetValueOrDefault(0) + 1;
+            using (var conn = this.factory.CreateConnection())
+            {
+                var sql = @"SELECT e.id, e.amount, e.exp_date as 'date', e.comments as 'comment',
+                                   c.id, c.name,
+                                   m.id, m.name
+                            FROM t_expenses as e
+                            INNER JOIN t_expenses_category as c ON e.category = c.id
+                            INNER JOIN t_payment_methods as m ON e.method = m.id
+                            ORDER BY e.exp_date ASC, e.id ASC;";
+
+                // Note: When using multi-mapping the order of the returned columns
+                //       must match the order of types specified in the query method's
+                //       generic paramenters, and begin with the id column.
+                return conn.Query<Expense, ExpenseCategory, PaymentMethod, Expense>(
+                        sql,
+                        (e, c, m) => { e.Category = c; e.Method = m; return e; })
+                    .ToList();
+            }
         }
 
-        #endregion
+        public Expense Save(Expense item)
+        {
+            using (var conn = this.factory.CreateConnection())
+            {
+                var itemData = new
+                {
+                    Amount = item.Amount,
+                    Date = item.Date,
+                    Category = item.Category.Id,
+                    Method = item.Method.Id,
+                    Comment = item.Comment
+                };
+
+                // No Id means the item is new, and should be inserted
+                if (item.ID == default(int))
+                {
+                    string insertsql = @"INSERT INTO t_expenses (amount, exp_date, category, method, comments)
+                                         VALUES (@Amount, @Date, @Category, @Method, @Comment);";
+
+                    string selectsql = @"SELECT e.id, e.amount, e.exp_date as 'date', e.comments,
+                                                c.id, c.name,
+                                                m.id, m.name
+                                         FROM t_expenses as e
+                                         INNER JOIN t_expenses_category as c ON e.category = c.id
+                                         INNER JOIN t_payment_methods as m ON e.method = m.id
+                                         WHERE e.ROWID = LAST_INSERT_ROWID();";
+
+                    return conn.Query<Expense, ExpenseCategory, PaymentMethod, Expense>(
+                            insertsql + selectsql,
+                            (e, c, m) => { e.Category = c; e.Method = m; return e; },
+                            itemData)
+                        .FirstOrDefault();
+
+                }
+
+                // Update the item
+                string sql = @"UPDATE t_expenses
+                               SET amount = @Amount, exp_date = @Date, category = @Category, method = @Method, comments = @Comment
+                               WHERE id = @Id;";
+                int result = conn.Execute(sql, itemData);
+                return (result == 1 ? item : null);
+            }
+        }
+
+        public void Remove(Expense item)
+        {
+            this.Remove(item.ID);
+        }
+
+        public void Remove(int id)
+        {
+            if (id == default(int)) return;
+
+            using (var conn = this.factory.CreateConnection())
+            {
+                conn.Execute("DELETE FROM t_expenses WHERE id = @id;", new { id });
+            }
+        }
+    }
+
+    public class CachedExpenseRepository : ITransactionRepository<Expense>
+    {
+        Dictionary<int, Expense> cache = new Dictionary<int, Expense>();
+        ITransactionRepository<Expense> source;
+
+        public CachedExpenseRepository(ITransactionRepository<Expense> source)
+        {
+            this.source = source;
+        }
+
+        public List<Expense> LoadMonth(DateTime month)
+        {
+            return source.LoadMonth(month);
+        }
+
+        public Expense LoadById(int id)
+        {
+            if (!cache.ContainsKey(id))
+                cache[id] = source.LoadById(id);
+
+            return cache[id];
+        }
+
+        public List<Expense> LoadAll()
+        {
+            return source.LoadAll();
+        }
+
+        public Expense Save(Expense item)
+        {
+            var result = source.Save(item);
+
+            // If the save fails and the item is not new, remove the item from the cache
+            if (result == null && item.ID != default(int) && cache.ContainsKey(item.ID))
+                cache.Remove(item.ID);
+
+            // If the save succeeded, update the cache
+            if (result != null)
+                cache[result.ID] = result;
+
+            return result;
+        }
+
+        public void Remove(Expense item)
+        {
+            this.Remove(item.ID);
+        }
+
+        public void Remove(int id)
+        {
+            if (id != default(int) && cache.ContainsKey(id))
+                cache.Remove(id);
+
+            source.Remove(id);
+        }
     }
 }

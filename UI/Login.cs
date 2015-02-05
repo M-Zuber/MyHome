@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MyHome2013.Core.FrameWork;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using BusinessLogic;
-using FrameWork;
 
 namespace MyHome2013
 {
@@ -17,6 +17,7 @@ namespace MyHome2013
 
         // All the text-boxes in the form to allow for easy validation
         private List<TextBox> allTextBoxes;
+        private Func<bool> testConnection;
 
         #endregion
 
@@ -34,9 +35,10 @@ namespace MyHome2013
         /// <summary>
         /// Sets up the properties and data members of the form
         /// </summary>
-        public Login()
+        public Login(Func<bool> testConnection)
         {
             InitializeComponent();
+            this.testConnection = testConnection;
             this.ConnectionSuccess = false;
             this.allTextBoxes = new List<TextBox> { txtDatabaseName, txtUserId, txtPassword };
         }
@@ -60,14 +62,11 @@ namespace MyHome2013
             Globals.Password = "";
 
             // Checks that all the text boxes are filled in
-            if (allTextBoxes.Where(currTextbox => currTextbox.Text == "").Count() != 0)
+            if (string.IsNullOrWhiteSpace(txtDatabaseName.Text)
+                || !File.Exists(txtDatabaseName.Text.Trim()))
             {
-                MessageBox.Show("All fields must be filled in to try and connect", "Error connecting...",
+                MessageBox.Show("The database path must be filled in to try and connect", "Error connecting...",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-                foreach (TextBox CurrTextbox in allTextBoxes)
-                {
-                    CurrTextbox.Text = "";
-                }
             }
             else
             {
@@ -78,7 +77,7 @@ namespace MyHome2013
 
                 // Tries to connect with the parameters entered into the form by the user
                 // If the connection fails, informs the user and clears the form
-                if (!TryConnect())
+                if (!this.testConnection())
                 {
                     MessageBox.Show("One or more fields contains incorrect information", "Error connecting...",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -103,6 +102,7 @@ namespace MyHome2013
                     // Creates a dictionary of the connection parameters in order to save it into the file
                     Dictionary<string, string> databaseSettings = new Dictionary<string, string>() 
                     {
+                        {"ProviderName", "System.Data.SQLite"},
                         {"Database Name", Globals.DataBaseName},
                         {"User Id", Globals.UserId},
                         {"Password", Globals.Password}
@@ -115,19 +115,6 @@ namespace MyHome2013
             }
         }
         
-        #endregion
-
-        #region Other Methods
-
-        /// <summary>
-        /// Tests the Db connection with the current parameters in the settings
-        /// </summary>
-        /// <returns>True if the database can be connected to, otherwise false</returns>
-        private bool TryConnect()
-        {
-            return HelperMethods.TestConnection();
-        }
-
         #endregion
     }
 }

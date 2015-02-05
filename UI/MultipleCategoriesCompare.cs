@@ -35,7 +35,7 @@ namespace MyHome2013
         /// <summary>
         /// Holds the data for each category by month in range being looked at
         /// </summary>
-        private Dictionary<string, Dictionary<DateTime, double>> MonthData { get; set; }
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; }
 
         #endregion
 
@@ -44,8 +44,8 @@ namespace MyHome2013
         public MultipleCategoriesCompare()
         {
             // Initialzation
-            this.MonthData = new Dictionary<string, Dictionary<DateTime, double>>();
-            this.CategoryNames = GeneralCategoryHandler.GetAllCategoryNames();
+            this.MonthData = new Dictionary<string, Dictionary<DateTime, decimal>>();
+            this.CategoryNames = HelperMethods.GetAllCategoryNames();
 
             //Auto-generated code
             InitializeComponent();
@@ -223,16 +223,16 @@ namespace MyHome2013
             // Adds the category names as keys
             foreach (string curCategoryName in CategoryNames)
             {
-                MonthData.Add(curCategoryName, new Dictionary<DateTime, double>());
+                MonthData.Add(curCategoryName, new Dictionary<DateTime, decimal>());
             }
 
             // Gets a list with the data of the months in the range
-            Dictionary<DateTime, Dictionary<string, double>> monthData = GetDataForMonthsInRange();
+            Dictionary<DateTime, Dictionary<string, decimal>> monthData = GetDataForMonthsInRange();
 
             int monthRange = MonthsRange();
 
             // Goes over each category getting the total for each month in the range being looked at
-            foreach (KeyValuePair<string, Dictionary<DateTime, double>> curCategoryData in MonthData)
+            foreach (KeyValuePair<string, Dictionary<DateTime, decimal>> curCategoryData in MonthData)
             {
                 DateTime curDate = this.StartDate;
 
@@ -249,15 +249,15 @@ namespace MyHome2013
         /// Gets a dictionary of the totals of each payment method, per month in the range
         /// </summary>
         /// <returns>A dictionary keyed by date represented, value is the total of each payment method</returns>
-        private Dictionary<DateTime, Dictionary<string, double>> GetDataForMonthsInRange()
+        private Dictionary<DateTime, Dictionary<string, decimal>> GetDataForMonthsInRange()
         {
-            Dictionary<DateTime, Dictionary<string, double>> monthData =
-                new Dictionary<DateTime, Dictionary<string, double>>();
+            var monthData = new Dictionary<DateTime, Dictionary<string, decimal>>();
 
             DateTime curDate = this.StartDate;
             for (int monthIndex = 0; monthIndex < MonthsRange(); monthIndex++)
             {
-                monthData.Add(curDate, (new MonthHandler(curDate)).GetTotalsOfMonthByCategory());
+                var handler = Program.Container.GetInstance<DateTime, MonthHandler>(curDate);
+                monthData.Add(curDate, handler.GetTotalsOfMonthByCategory());
                 curDate = curDate.AddMonths(1);
             }
 

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using BusinessLogic;
-using FrameWork;
-using LocalTypes;
+using MyHome2013.Core.FrameWork;
+using MyHome2013.Core.LocalTypes;
 using System.Globalization;
 using System.ComponentModel;
 
@@ -30,12 +30,12 @@ namespace MyHome2013
         /// <summary>
         /// Holds the list of income categories
         /// </summary>
-        public Dictionary<string, double> IncomeCategoriesTotals { get; set; }
+        public Dictionary<string, decimal> IncomeCategoriesTotals { get; set; }
 
         /// <summary>
         /// Holds the list of expense categories
         /// </summary>
-        public Dictionary<string, double> ExpenseCategoriesTotals { get; set; }
+        public Dictionary<string, decimal> ExpenseCategoriesTotals { get; set; }
 
         #endregion
 
@@ -156,14 +156,16 @@ namespace MyHome2013
             this.txtExpenseCategoryTotal.DataBindings.Clear();
 
             // Intializes the category total dictionarys
-            this.IncomeCategoriesTotals = new Dictionary<string, double>();
-            this.ExpenseCategoriesTotals = new Dictionary<string, double>();
+            this.IncomeCategoriesTotals = new Dictionary<string, decimal>();
+            this.ExpenseCategoriesTotals = new Dictionary<string, decimal>();
 
-            this.ExpenseCategoriesTotals.Add("Total Expenses", ExpenseHandler.GetMonthTotal(dtPick.Value));
-            this.ExpenseCategoriesTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(this.dtPick.Value));
+            var eh = Program.Container.GetInstance<ExpenseHandler>();
+            this.ExpenseCategoriesTotals.Add("Total Expenses", eh.GetMonthTotal(dtPick.Value));
+            this.ExpenseCategoriesTotals.AddRange(eh.GetAllCategoryTotals(this.dtPick.Value));
 
-            this.IncomeCategoriesTotals.Add("Total Income", IncomeHandler.GetMonthTotal(dtPick.Value));
-            this.IncomeCategoriesTotals.AddRange(IncomeHandler.GetAllCategoryTotals(this.dtPick.Value));
+            var ih = Program.Container.GetInstance<IncomeHandler>();
+            this.IncomeCategoriesTotals.Add("Total Income", ih.GetMonthTotal(dtPick.Value));
+            this.IncomeCategoriesTotals.AddRange(ih.GetAllCategoryTotals(this.dtPick.Value));
 
             // Sets the bindings for the controls
             this.cmbIncomeCategories.DataSource = new ArrayList(this.IncomeCategoriesTotals);
@@ -189,9 +191,12 @@ namespace MyHome2013
         /// </summary>
         private void MonthlyDataBinding()
         {
+            var ih = Program.Container.GetInstance<IncomeHandler>();
+            var eh = Program.Container.GetInstance<ExpenseHandler>();
+
             // Updates the data in the expense and income chart views
-            expenseData.Load(ExpenseHandler.LoadOfMonth(dtPick.Value));
-            incomeData.Load(IncomeHandler.LoadOfMonth(dtPick.Value));
+            expenseData.Load(eh.LoadOfMonth(dtPick.Value));
+            incomeData.Load(ih.LoadOfMonth(dtPick.Value));
         }
 
         #endregion

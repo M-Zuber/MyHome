@@ -46,6 +46,7 @@
             // 
             // txtUserId
             // 
+            this.txtUserId.Enabled = false;
             this.txtUserId.Location = new System.Drawing.Point(117, 35);
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(100, 20);
@@ -53,6 +54,7 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.Enabled = false;
             this.txtPassword.Location = new System.Drawing.Point(117, 61);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '#';
@@ -64,9 +66,9 @@
             this.lblDatabaseName.AutoSize = true;
             this.lblDatabaseName.Location = new System.Drawing.Point(12, 9);
             this.lblDatabaseName.Name = "lblDatabaseName";
-            this.lblDatabaseName.Size = new System.Drawing.Size(84, 13);
+            this.lblDatabaseName.Size = new System.Drawing.Size(78, 13);
             this.lblDatabaseName.TabIndex = 3;
-            this.lblDatabaseName.Text = "Database Name";
+            this.lblDatabaseName.Text = "Database Path";
             // 
             // lblUserId
             // 
@@ -96,7 +98,7 @@
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // DatabaseSettings
+            // Login
             // 
             this.AcceptButton = this.btnConnect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -110,7 +112,7 @@
             this.Controls.Add(this.txtUserId);
             this.Controls.Add(this.txtDatabaseName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "DatabaseSettings";
+            this.Name = "Login";
             this.Text = "Connecting to MyHome2013";
             this.ResumeLayout(false);
             this.PerformLayout();
