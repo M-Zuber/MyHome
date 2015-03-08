@@ -1,5 +1,5 @@
-[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome2013.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome2013)
-MyHome2013
+[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome)
+MyHome
 ==========
 
 Home finance management
