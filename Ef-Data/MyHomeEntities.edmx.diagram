@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2422866161bc42eebfa4d8c4b606777f" Name="Diagram1">
+        <EntityTypeShape EntityType="MyHome.t_expenses" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyHome.t_expenses_category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyHome.t_incomes" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyHome.t_incomes_category" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyHome.t_payment_methods" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="MyHome.EXP_CATEGORY_NAME" ManuallyRouted="false" />
+        <AssociationConnector Association="MyHome.EXP_PAYMENT_METHOD" ManuallyRouted="false" />
+        <AssociationConnector Association="MyHome.INC_CATEGORY_NAME" ManuallyRouted="false" />
+        <AssociationConnector Association="MyHome.INC_PAYMENT_METHOD" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

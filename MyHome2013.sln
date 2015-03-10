@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9DC552
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ef-Data", "Ef-Data\Ef-Data.csproj", "{30F650F2-86D8-4146-BB13-51B1F2E52FD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,16 @@ Global
 		{5424771D-5CD2-4E89-883D-46343DC4B543}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5424771D-5CD2-4E89-883D-46343DC4B543}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5424771D-5CD2-4E89-883D-46343DC4B543}.Release|x86.ActiveCfg = Release|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{30F650F2-86D8-4146-BB13-51B1F2E52FD6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
