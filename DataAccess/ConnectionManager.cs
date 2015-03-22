@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using FrameWork;
+using Ef_Data;
 
 namespace DataAccess
 {
@@ -8,6 +9,10 @@ namespace DataAccess
     /// </summary>
     public class ConnectionManager
     {
+        #region EF
+
+        public static MyHomeEntities EfInstance = new MyHomeEntities();
+        #endregion
         #region Properties
 
         /// <summary>
