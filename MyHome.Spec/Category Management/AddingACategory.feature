@@ -1,6 +1,6 @@
-﻿Feature: CategoryManagement
-	As a user I want to be able to manage the 
-	categories for the flow items
+﻿Feature: AddingACategory
+	In order to caetgorize the flow items
+	I need to have categories with unique names
 
 Scenario: Adding a category with an unique name
 	Given I have entered "food" as the name of the category

@@ -56,19 +56,29 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CategoryManagement.feature.cs">
+    <Compile Include="Category Management\AddingACategorySteps.cs" />
+    <Compile Include="Category Management\AddingACategory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CategoryManagement.feature</DependentUpon>
+      <DependentUpon>AddingACategory.feature</DependentUpon>
     </Compile>
-    <Compile Include="Steps\CategoryManagementSteps.cs" />
+    <Compile Include="Category Management\UpdatingCategory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdatingCategory.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Category Management\UpdatingCategorySteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="CategoryManagement.feature">
+    <None Include="Category Management\AddingACategory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CategoryManagement.feature.cs</LastGenOutput>
+      <LastGenOutput>AddingACategory.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Category Management\UpdatingCategory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>UpdatingCategory.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
