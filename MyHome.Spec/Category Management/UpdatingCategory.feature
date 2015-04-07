@@ -1,6 +1,6 @@
 ﻿Feature: UpdatingCategory
 	In order to ensure user comfort
-	I need to allow for updating categories
+	I need to allow for the updating of categories
 
 Scenario: Chaning the name of a category to a new unique name
 	Given A category with the name "medical"

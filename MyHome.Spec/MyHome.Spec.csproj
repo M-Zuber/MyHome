@@ -82,6 +82,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
+      <Project>{977477bf-6cca-4ffe-aa4b-b77f9b7d2c68}</Project>
+      <Name>LocalTypes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿Feature: AddingACategory
-	In order to caetgorize the flow items
+	In order to caetgorize the transactions
 	I need to have categories with unique names
 
 Scenario: Adding a category with an unique name
@@ -11,5 +11,10 @@ Scenario: Adding a category with an unique name
 Scenario: Adding a category with a duplicate name
 	Given I have entered "food" as the name of the category
 	And there is another category with the same name
+	When I press add
+	Then the category is not added to the list
+
+Scenario: Blank name for a category
+	Given I have entered "" as the name of the category
 	When I press add
 	Then the category is not added to the list
