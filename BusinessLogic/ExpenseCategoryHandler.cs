@@ -42,6 +42,11 @@ namespace BusinessLogic
 
         public override int AddNewCategory(string categoryName)
         {
+            if (string.IsNullOrWhiteSpace(categoryName) || base.DoesNameExist(categoryName))
+            {
+                return -1;
+            }
+
             return (new ExpenseCategoryAccess()).AddNewCategory(categoryName);
         }
 

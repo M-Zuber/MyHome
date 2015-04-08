@@ -7,6 +7,11 @@ namespace LocalTypes
 
         public PaymentMethod(int id, string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("name");
+            }
+
             base.Id = id;
             base.Name = name;
         }
