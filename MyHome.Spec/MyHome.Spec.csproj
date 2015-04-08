@@ -39,6 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.XML" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
@@ -56,12 +60,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Category Management\AddingACategorySteps.cs" />
     <Compile Include="Category Management\AddingACategory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddingACategory.feature</DependentUpon>
     </Compile>
+    <Compile Include="Category Management\AddingACategorySteps.cs" />
     <Compile Include="Category Management\UpdatingCategory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +87,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{4cf9d86b-3a55-44f1-9c75-189d7fb50e1d}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{5424771d-5cd2-4e89-883d-46343dc4b543}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
       <Project>{977477bf-6cca-4ffe-aa4b-b77f9b7d2c68}</Project>
       <Name>LocalTypes</Name>
