@@ -56,6 +56,11 @@ namespace BusinessLogic
 
         public override bool Save(BaseCategory categoryToSave)
         {
+            if (string.IsNullOrWhiteSpace(categoryToSave.Name) || base.DoesNameExist(categoryToSave.Name))
+            {
+                return false;
+            }
+
             return (new ExpenseCategoryAccess()).Save(categoryToSave);
         }
 

@@ -68,46 +68,177 @@ namespace MyHome.Spec.CategoryManagement
             testRunner.CollectScenarioErrors();
         }
         
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Chaning the name of a category to a new unique name")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
-        public virtual void ChaningTheNameOfACategoryToANewUniqueName()
+        public virtual void ChangingTheNameOfACategoryToANewUniqueName(string testName, string categoryName, string categoryType, string newName, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Chaning the name of a category to a new unique name", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changing the name of a category to a new unique name", exampleTags);
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
- testRunner.Given("A category with the name \"medical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("The category type is \'{0}\'", categoryType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.When("I press change name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And(string.Format("the current name is \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
- testRunner.And("provide \"medicine\" as the new name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("there is no other category with that name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
- testRunner.Then("the name is changed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When(string.Format("I change the name to \'{0}\'", newName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 10
+ testRunner.Then("the category is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Chaning the name of a category to a new non-unique name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changing the name of a category to a new unique name")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
-        public virtual void ChaningTheNameOfACategoryToANewNon_UniqueName()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "updateExpenseCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "updateExpenseCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "food")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "expense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:newName", "medicine")]
+        public virtual void ChangingTheNameOfACategoryToANewUniqueName_UpdateExpenseCategory()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Chaning the name of a category to a new non-unique name", ((string[])(null)));
-#line 11
+            this.ChangingTheNameOfACategoryToANewUniqueName("updateExpenseCategory", "food", "expense", "medicine", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changing the name of a category to a new unique name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "updateIncomeCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "updateIncomeCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "salary")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "income")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:newName", "gift")]
+        public virtual void ChangingTheNameOfACategoryToANewUniqueName_UpdateIncomeCategory()
+        {
+            this.ChangingTheNameOfACategoryToANewUniqueName("updateIncomeCategory", "salary", "income", "gift", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changing the name of a category to a new unique name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "updatePaymentMethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "updatePaymentMethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "check")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "paymentmethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:newName", "credit card")]
+        public virtual void ChangingTheNameOfACategoryToANewUniqueName_UpdatePaymentMethod()
+        {
+            this.ChangingTheNameOfACategoryToANewUniqueName("updatePaymentMethod", "check", "paymentmethod", "credit card", ((string[])(null)));
+        }
+        
+        public virtual void ChangingTheNameOfACategoryToANon_UniqueName(string testName, string categoryName, string categoryType, string newName, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changing the name of a category to a non-unique name", exampleTags);
+#line 18
 this.ScenarioSetup(scenarioInfo);
-#line 12
- testRunner.Given("A category with the name \"books\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
- testRunner.And("a category with the same name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
- testRunner.When("I press change name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
- testRunner.And("provide \"school\" as the new name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
- testRunner.Then("the name stays the same", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 19
+ testRunner.Given(string.Format("The category type is \'{0}\'", categoryType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 20
+ testRunner.And(string.Format("the current name is \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+ testRunner.And(string.Format("the \'{0}\' already exists", newName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+ testRunner.When(string.Format("I change the name to \'{0}\'", newName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
+ testRunner.Then("the handler returns an error indicator False", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 24
+ testRunner.And(string.Format("the category name remains \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changing the name of a category to a non-unique name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "updateNonUniqueExpenseCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "updateNonUniqueExpenseCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "food")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "expense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:newName", "medicine")]
+        public virtual void ChangingTheNameOfACategoryToANon_UniqueName_UpdateNonUniqueExpenseCategory()
+        {
+            this.ChangingTheNameOfACategoryToANon_UniqueName("updateNonUniqueExpenseCategory", "food", "expense", "medicine", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changing the name of a category to a non-unique name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "updateNonUniqueIncomeCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "updateNonUniqueIncomeCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "salary")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "income")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:newName", "gift")]
+        public virtual void ChangingTheNameOfACategoryToANon_UniqueName_UpdateNonUniqueIncomeCategory()
+        {
+            this.ChangingTheNameOfACategoryToANon_UniqueName("updateNonUniqueIncomeCategory", "salary", "income", "gift", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Changing the name of a category to a non-unique name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "updateNonUniquePaymentMethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "updateNonUniquePaymentMethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "check")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "paymentmethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:newName", "credit card")]
+        public virtual void ChangingTheNameOfACategoryToANon_UniqueName_UpdateNonUniquePaymentMethod()
+        {
+            this.ChangingTheNameOfACategoryToANon_UniqueName("updateNonUniquePaymentMethod", "check", "paymentmethod", "credit card", ((string[])(null)));
+        }
+        
+        public virtual void UpdatingACategory_WithABlankName(string testName, string categoryName, string categoryType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Updating a category - with a blank name", exampleTags);
+#line 32
+this.ScenarioSetup(scenarioInfo);
+#line 33
+ testRunner.Given(string.Format("The category type is \'{0}\'", categoryType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 34
+ testRunner.And(string.Format("the current name is \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 35
+ testRunner.When("I have entered nothing for the name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
+ testRunner.Then("the handler returns an error indicator False", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 37
+ testRunner.And(string.Format("the category name remains \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Updating a category - with a blank name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "blankNameExpenseCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "blankNameExpenseCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "food")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "expense")]
+        public virtual void UpdatingACategory_WithABlankName_BlankNameExpenseCategory()
+        {
+            this.UpdatingACategory_WithABlankName("blankNameExpenseCategory", "food", "expense", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Updating a category - with a blank name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "blankNameIncomeCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "blankNameIncomeCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "salary")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "income")]
+        public virtual void UpdatingACategory_WithABlankName_BlankNameIncomeCategory()
+        {
+            this.UpdatingACategory_WithABlankName("blankNameIncomeCategory", "salary", "income", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Updating a category - with a blank name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UpdatingCategory")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "blankNamePaymentMethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "blankNamePaymentMethod")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryName", "check")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:categoryType", "paymentmethod")]
+        public virtual void UpdatingACategory_WithABlankName_BlankNamePaymentMethod()
+        {
+            this.UpdatingACategory_WithABlankName("blankNamePaymentMethod", "check", "paymentmethod", ((string[])(null)));
         }
     }
 }

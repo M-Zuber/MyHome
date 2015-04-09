@@ -12,7 +12,6 @@ namespace MyHome.Spec
     [Binding]
     public class AddingACategorySteps
     {
-        CatListTempMocker list;
         BaseCategoryHandler handler;
         string m_categoryType;
         string categoryName;
@@ -20,12 +19,13 @@ namespace MyHome.Spec
         [BeforeScenario]
         public void Setup()
         {
-            list = new CatListTempMocker();
             handler = null;
             m_categoryType = "";
             categoryName = "";
             Cache.SDB.Clear();
         }
+
+        #region Given
 
         [Given(@"The category type is '(.*)'")]
         public void GivenTheCategoryTypeIs(string categoryType)
@@ -81,7 +81,7 @@ namespace MyHome.Spec
                         var paymentMethodRow = Cache.SDB.t_payment_methods.Where(r => r.NAME.ToLower() == categoryName.ToLower()).FirstOrDefault();
                         if (paymentMethodRow != null)
                         {
-                            Cache.SDB.t_payment_methods.Removet_payment_methodsRow(paymentMethodRow); 
+                            Cache.SDB.t_payment_methods.Removet_payment_methodsRow(paymentMethodRow);
                         }
                         break;
                     }
@@ -100,20 +100,28 @@ namespace MyHome.Spec
         public void GivenIHaveEnteredNothingForTheName()
         {
             var result = handler.AddNewCategory(categoryName);
-            ScenarioContext.Current.Add("blank_name_result", result);
+            ScenarioContext.Current.Add("add_category_result", result);
         }
+
+        #endregion
+
+        #region When
 
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
-            handler.AddNewCategory(categoryName);
+            var result = handler.AddNewCategory(categoryName);
+            ScenarioContext.Current.Add("add_category_result", result);
         }
 
+        #endregion
+
+        #region Then
 
         [Then(@"the handler returns an error indicator (.*)")]
         public void TheHandlerReturnsAnErrorIndicator(string error)
         {
-            var errorFromContext = ScenarioContext.Current.Get<int>("blank_name_result");
+            var errorFromContext = ScenarioContext.Current.Get<int>("add_category_result");
             Assert.AreEqual(int.Parse(error), errorFromContext);
         }
 
@@ -124,39 +132,6 @@ namespace MyHome.Spec
             Assert.IsNotNull(result);
         }
 
-        [Then(@"the category is not added to the list")]
-        public void ThenTheCategoryIsNotAddedToTheList()
-        {
-            var result = handler.LoadAll().Count(c => string.Equals(c.Name, categoryName));
-            Assert.IsTrue(result <= 1);
-        }
-    }
-
-    class CatListTempMocker
-    {
-        List<BaseCategory> list { get; set; }
-
-        public CatListTempMocker()
-        {
-            list = new List<BaseCategory>();
-        }
-
-        public void AddCategory(BaseCategory cat)
-        {
-            if (!list.Any(c => string.Equals(c.Name, cat.Name)) && !string.IsNullOrWhiteSpace(cat.Name))
-            {
-                list.Add(cat);
-            }
-        }
-
-        public void RemoveCategory(BaseCategory cat)
-        {
-            list.Remove(cat);
-        }
-
-        public bool ContainsCategory(BaseCategory cat)
-        {
-            return list.Contains(cat);
-        }
+        #endregion
     }
 }

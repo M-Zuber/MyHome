@@ -20,7 +20,7 @@ Scenario Outline: Adding a category - with a duplicate name
 	And I have entered '<categoryName>' as the name
 	And there is another category with the same name
 	When I press add
-	Then the category is not added to the list
+	Then the handler returns an error indicator -1
 
 	Examples: 
 	| testName                     | categoryName | categoryType  |
