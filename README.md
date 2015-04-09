@@ -2,6 +2,8 @@
 MyHome
 ==========
 
+[![Join the chat at https://gitter.im/M-Zuber/MyHome](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/M-Zuber/MyHome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Home finance management
 
 This program allows the user to keep track of their monthly incomes and expences. The program ships with no data set.
