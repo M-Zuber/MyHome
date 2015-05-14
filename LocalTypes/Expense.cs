@@ -62,7 +62,7 @@ namespace LocalTypes
             return ((this.Amount == expenseComparing.Amount) &&
                     (this.Category.Equals(expenseComparing.Category)) &&
                     (this.Comment == expenseComparing.Comment) &&
-                    (this.Date == expenseComparing.Date) &&
+                    (this.Date.Date == expenseComparing.Date) &&
                     (this.ID == expenseComparing.ID) &&
                     (this.Method.Equals(expenseComparing.Method)));
         }

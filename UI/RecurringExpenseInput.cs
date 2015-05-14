@@ -139,6 +139,11 @@ namespace MyHome2013
                     this.MultiDaySave();
                     break;
                 }
+                case ("week"):
+                {
+                    this.MultiWeekSave();
+                    break;
+                }
                 // The expense recurrs every month
                 case ("month"):
                 {
@@ -257,6 +262,14 @@ namespace MyHome2013
         }
 
         /// <summary>
+        /// Calculates the months in the range from the start date to the end date
+        /// </summary>
+        /// <returns>The number of months in the range</returns>
+        private int CalcWeeksInRange()
+        {
+            return (int)((this.dtpEndDate.Value - this.dtpStartDate.Value).TotalDays / 7);
+        }
+        /// <summary>
         /// Saves multiple expenses into the cache -with a frequency of every month
         /// </summary>
         private void MultiMonthSave()
@@ -301,6 +314,28 @@ namespace MyHome2013
         }
 
         /// <summary>
+        /// Saves multiple expenses into the cache -with a frequency of every week
+        /// </summary>
+        private void MultiWeekSave()
+        {
+            DialogResult resultSaveExp = DialogResult.OK;
+
+            if (resultSaveExp == DialogResult.OK)
+            {
+                int weeksInRange = this.CalcWeeksInRange();
+                DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
+
+                //Loops for the amount of weeks in range
+                for (int weekIndex = 0; weekIndex < weeksInRange; weekIndex++)
+                {
+                    SaveNewExpense(dtCurrentSaveDate);
+
+                    //Set the date for the next expense
+                    dtCurrentSaveDate = dtCurrentSaveDate.AddMonths(1);
+                }
+            }
+        }
+        /// <summary>
         /// Saves multiple expenses into the cache -with a frequency of every year
         /// </summary>
         private void MultiYearSave()
@@ -323,5 +358,6 @@ namespace MyHome2013
         }
 
         #endregion
+
     }
 }

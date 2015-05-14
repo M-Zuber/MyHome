@@ -127,6 +127,16 @@ namespace BusinessLogic
             return methodTotals;
         }
 
+        public static bool IsDuplicate(Expense currentExpense)
+        {
+            List<Expense> expenses = ExpenseHandler.LoadAll();
+
+            return expenses.Any(e => e.Category.Equals(currentExpense.Category) &&
+                                     e.Amount == currentExpense.Amount &&
+                                     e.Comment == currentExpense.Comment &&
+                                     e.Method.Equals(currentExpense.Method) &&
+                                     e.Date.Date.Equals(currentExpense.Date.Date));
+        }
         #endregion
     }
 }

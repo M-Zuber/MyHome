@@ -61,6 +61,7 @@ namespace MyHome2013
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
+       
             if (!currentExpense.Equals(originalExpense))
             {
                 ExpenseHandler.Save(this.currentExpense);

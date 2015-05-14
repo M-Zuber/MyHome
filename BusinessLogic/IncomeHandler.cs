@@ -126,6 +126,17 @@ namespace BusinessLogic
 
             return methodTotals;
         }
+
+        public static bool IsDuplicate(Income currentIncome)
+        {
+            List<Income> incomes = IncomeHandler.LoadAll();
+
+            return incomes.Any(i => i.Category.Equals(currentIncome.Category) &&
+                                    i.Amount == currentIncome.Amount &&
+                                    i.Comment == currentIncome.Comment &&
+                                    i.Method.Equals(i.Method) &&
+                                    i.Date.Date.Equals(currentIncome.Date.Date));
+        }
         #endregion
     }
 }
