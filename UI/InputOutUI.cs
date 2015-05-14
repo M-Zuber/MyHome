@@ -65,38 +65,49 @@ namespace MyHome2013
             // Otherwise saves the new expense
             else
             {
+
                 Expense newExpense =
                     new Expense(double.Parse(this.txtAmount.Text), this.dtPick.Value,
                                 ExpenseCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
                                 PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
 
-                ExpenseHandler.AddNewExpense(newExpense);
+                //Ask confirmation from the user in case it is a duplicate expense
+                bool saveExpense = true;
+                if (ExpenseHandler.IsDuplicate(newExpense))
+                {
+                    if (MessageBox.Show("The expense already exists. Do you wish to save anyway?", "Confirmation",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.No)
+                        saveExpense = false;
+                }
+                if (saveExpense)
+                {
+                    ExpenseHandler.AddNewExpense(newExpense);
 
-                // Asks if more data is being entered
-                DialogResult = MessageBox.Show("The entry was saved" +
-                                               "\nDo you want to add another expense? ",
-                                               "Save successful",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-                if (DialogResult != DialogResult.Yes)
-                {
-                    this.Close();
+                    // Asks if more data is being entered
+                    DialogResult = MessageBox.Show("The entry was saved" +
+                                                   "\nDo you want to add another expense? ",
+                                                   "Save successful",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question,
+                                                   MessageBoxDefaultButton.Button1);
+                    if (DialogResult != DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    // If more data is being entered clears the user entered data for the new data
+                    else
+                    {
+                        // Puts the focus back to the top of the form and resets the selected values
+                        ClearExpenseFields();
+                    }
                 }
-                // If more data is being entered clears the user entered data for the new data
                 else
-                {
-                    // Puts the focus back to the top of the form and resets the selected values
-                    this.cmbCategory.Focus();
-                    this.txtAmount.Text = "";
-                    this.txtDetail.Text = "";
-                }
+                    ClearExpenseFields();
+
             }
         }
-
         #endregion
-
         #region Other Methods
 
         private void SetDataBindings()
@@ -114,6 +125,12 @@ namespace MyHome2013
             this.cmbPayment.ValueMember = "ID";
         }
 
+        private void ClearExpenseFields()
+        { 
+              this.cmbCategory.Focus();
+              this.txtAmount.Text = "";
+              this.txtDetail.Text = "";
+        }
         #endregion
     }
 }

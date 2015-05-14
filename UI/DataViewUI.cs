@@ -87,6 +87,8 @@ namespace MyHome2013
         /// <param name="e">Standard event object</param>
         private void dtPick_ValueChanged(object sender, EventArgs e)
         {
+            DateTime value = this.dtPick.Value;
+            this.dtPick.Value = value.AddMonths(1);
             this.DataBinding();
         }
 

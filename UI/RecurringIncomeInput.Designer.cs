@@ -46,6 +46,7 @@
             this.rbYear = new System.Windows.Forms.RadioButton();
             this.rbDay = new System.Windows.Forms.RadioButton();
             this.rbMonth = new System.Windows.Forms.RadioButton();
+            this.rbWeek = new System.Windows.Forms.RadioButton();
             this.pnRecurrenceOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,7 +147,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(151, 248);
+            this.btnSave.Location = new System.Drawing.Point(151, 265);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 43;
@@ -174,18 +175,19 @@
             // 
             // pnRecurrenceOptions
             // 
+            this.pnRecurrenceOptions.Controls.Add(this.rbWeek);
             this.pnRecurrenceOptions.Controls.Add(this.rbYear);
             this.pnRecurrenceOptions.Controls.Add(this.rbDay);
             this.pnRecurrenceOptions.Controls.Add(this.rbMonth);
             this.pnRecurrenceOptions.Location = new System.Drawing.Point(89, 174);
             this.pnRecurrenceOptions.Name = "pnRecurrenceOptions";
-            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 68);
+            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 98);
             this.pnRecurrenceOptions.TabIndex = 42;
             // 
             // rbYear
             // 
             this.rbYear.AutoSize = true;
-            this.rbYear.Location = new System.Drawing.Point(6, 49);
+            this.rbYear.Location = new System.Drawing.Point(6, 72);
             this.rbYear.Name = "rbYear";
             this.rbYear.Size = new System.Drawing.Size(47, 17);
             this.rbYear.TabIndex = 2;
@@ -206,7 +208,7 @@
             // 
             this.rbMonth.AutoSize = true;
             this.rbMonth.Checked = true;
-            this.rbMonth.Location = new System.Drawing.Point(6, 26);
+            this.rbMonth.Location = new System.Drawing.Point(6, 49);
             this.rbMonth.Name = "rbMonth";
             this.rbMonth.Size = new System.Drawing.Size(55, 17);
             this.rbMonth.TabIndex = 1;
@@ -214,11 +216,22 @@
             this.rbMonth.Text = "Month";
             this.rbMonth.UseVisualStyleBackColor = true;
             // 
+            // rbWeek
+            // 
+            this.rbWeek.AutoSize = true;
+            this.rbWeek.Location = new System.Drawing.Point(6, 26);
+            this.rbWeek.Name = "rbWeek";
+            this.rbWeek.Size = new System.Drawing.Size(54, 17);
+            this.rbWeek.TabIndex = 51;
+            this.rbWeek.TabStop = true;
+            this.rbWeek.Text = "Week";
+            this.rbWeek.UseVisualStyleBackColor = true;
+            // 
             // RecurringIncomeInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(236, 287);
+            this.ClientSize = new System.Drawing.Size(236, 312);
             this.Controls.Add(this.lblRecuurence);
             this.Controls.Add(this.lblInEndDate);
             this.Controls.Add(this.dtpEndDate);
@@ -268,5 +281,6 @@
         private System.Windows.Forms.RadioButton rbYear;
         private System.Windows.Forms.RadioButton rbDay;
         private System.Windows.Forms.RadioButton rbMonth;
+        private System.Windows.Forms.RadioButton rbWeek;
     }
 }
