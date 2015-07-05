@@ -54,24 +54,24 @@ namespace MyHome2013
                                 MessageBoxDefaultButton.Button1);
                 this.txtCategoryName.Focus();
             }
-            else if (GlobalHandler.CategoryHandlers[this.CategoryType].DoesNameExist(this.txtCategoryName.Text))
-            {
-                MessageBox.Show("There can not be two  categories with the same name\n" + 
-                                "Please choose a new name",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning,
-                                MessageBoxDefaultButton.Button1);
-                this.txtCategoryName.Text = "";
-                this.txtCategoryName.Focus();
-            }
+            //else if (GlobalHandler.CategoryHandlers[this.CategoryType].DoesNameExist(this.txtCategoryName.Text))
+            //{
+            //    MessageBox.Show("There can not be two  categories with the same name\n" + 
+            //                    "Please choose a new name",
+            //                    "Error",
+            //                    MessageBoxButtons.OK,
+            //                    MessageBoxIcon.Warning,
+            //                    MessageBoxDefaultButton.Button1);
+            //    this.txtCategoryName.Text = "";
+            //    this.txtCategoryName.Focus();
+            //}
             // Saves the category to the appropiate category group
-            else
-            {
-                GlobalHandler.CategoryHandlers[this.CategoryType].AddNewCategory(this.txtCategoryName.Text);
+            //else
+            //{
+            //    GlobalHandler.CategoryHandlers[this.CategoryType].AddNewCategory(this.txtCategoryName.Text);
 
-                this.Close();            
-            }
+            //    this.Close();            
+            //}
         } 
 
         /// <summary>

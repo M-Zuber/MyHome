@@ -2,6 +2,7 @@
 
 namespace LocalTypes
 {
+    // TODO - QC - Income and Expense are exactly the same, maybe we could do something about it.
     public class Income
     {
          #region Properties
@@ -9,7 +10,7 @@ namespace LocalTypes
         /// <summary>
         /// The amount of the income
         /// </summary>
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// The date of the income
@@ -34,21 +35,24 @@ namespace LocalTypes
         /// <summary>
         /// ID number of the income in the data table
         /// </summary>
-        public int ID { get; private set; }
+        public int Id { get; set; }
+
+        public int CategoryId { get; set; }
+        public int PaymentMethodId { get; set; }
 
         #endregion
 
         #region C'Tor
 
-        public Income(double amount, DateTime date, IncomeCategory incomeCategory,
+        public Income(decimal amount, DateTime date, IncomeCategory incomeCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
-            this.Amount = amount;
-            this.Category = incomeCategory;
-            this.Comment = comment;
-            this.Date = date;
-            this.ID = id;
-            this.Method = paymentMethod;
+            Amount = amount;
+            Category = incomeCategory;
+            Comment = comment;
+            Date = date;
+            Id = id;
+            Method = paymentMethod;
         }
 
         #endregion
@@ -59,14 +63,15 @@ namespace LocalTypes
         {
             Income incomeComparing = (Income)obj;
 
-            return ((this.Amount == incomeComparing.Amount) &&
-                    (this.Category.Equals(incomeComparing.Category)) &&
-                    (this.Comment == incomeComparing.Comment) &&
-                    (this.Date == incomeComparing.Date) &&
-                    (this.ID == incomeComparing.ID) &&
-                    (this.Method.Equals(incomeComparing.Method)));
+            return ((Amount == incomeComparing.Amount) &&
+                    (Category.Equals(incomeComparing.Category)) &&
+                    (Comment == incomeComparing.Comment) &&
+                    (Date == incomeComparing.Date) &&
+                    (Id == incomeComparing.Id) &&
+                    (Method.Equals(incomeComparing.Method)));
         }
 
+        // TODO - QC - override get hash code as well.
         public override int GetHashCode()
         {
             return base.GetHashCode();

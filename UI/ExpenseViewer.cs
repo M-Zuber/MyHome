@@ -63,7 +63,7 @@ namespace MyHome2013
         {
             if (!currentExpense.Equals(originalExpense))
             {
-                ExpenseHandler.Save(this.currentExpense);
+                ExpenseService.Save(this.currentExpense);
 
                 this.Close();
             }
@@ -185,7 +185,7 @@ namespace MyHome2013
 
             if (canDelete == DialogResult.OK)
             {
-                ExpenseHandler.Delete(this.currentExpense.ID);
+                ExpenseService.Delete(this.currentExpense.Id);
                 this.Close(); 
             }
         }
@@ -206,13 +206,13 @@ namespace MyHome2013
             this.dtPick.Value = currentExpense.Date;
 
             //Expense category bindings
-            this.cmbCategory.DataSource = (new ExpenseCategoryHandler()).LoadAll();
+            this.cmbCategory.DataSource = (new ExpenseCategoryService()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
             this.cmbCategory.SelectedIndex = this.cmbCategory.FindString(this.currentExpense.Category.Name);
 
             //Payment Method bindings
-            this.cmbPayment.DataSource = (new PaymentMethodHandler()).LoadAll();
+            this.cmbPayment.DataSource = (new PaymentMethodService()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
             this.cmbPayment.SelectedIndex = this.cmbPayment.FindString(this.currentExpense.Method.Name);

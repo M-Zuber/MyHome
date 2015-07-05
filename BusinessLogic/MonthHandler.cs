@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using LocalTypes;
 using FrameWork;
 
@@ -9,36 +7,34 @@ namespace BusinessLogic
 {
     public class MonthHandler
     {
-        #region Properties
 
         public DateTime MonthRepresented { get; private set; } 
         
-        #endregion
-
-        #region C'Tor
 
         public MonthHandler(DateTime monthToRepresent)
         {
             MonthRepresented = monthToRepresent;
         }
 
-        #endregion
 
         #region Expense Methods
 
         public List<Expense> GetAllExpenses()
         {
-            return ExpenseHandler.LoadOfMonth(MonthRepresented);
+            return new List<Expense>();
+            //return ExpenseService.LoadOfMonth(MonthRepresented);
         }
 
         public double GetMonthesExpenseTotal()
         {
-            return ExpenseHandler.GetMonthTotal(MonthRepresented);
+            return 0;
+            //return ExpenseService.GetMonthTotal(MonthRepresented);
         }
 
         private double GetExpenseCategoryTotal(string categoryName)
         {
-            return ExpenseHandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
+            return 0;
+            //return ExpenseService.GetCategoryTotalForMonth(MonthRepresented, categoryName);
         }
 
         #endregion
@@ -47,17 +43,20 @@ namespace BusinessLogic
         
         public List<Income> GetAllIncomes()
         {
-            return IncomeHandler.LoadOfMonth(MonthRepresented);
+            return new List<Income>();
+            //return IncomeService.LoadOfMonth(MonthRepresented);
         }
 
         public double GetMonthesIncomeTotal()
         {
-            return IncomeHandler.GetMonthTotal(MonthRepresented);
+            return 0;
+            //return IncomeService.GetMonthTotal(MonthRepresented);
         }
 
         private double GetIncomeCategoryTotal(string categoryName)
         {
-            return IncomeHandler.GetCategoryTotalForMonth(MonthRepresented, categoryName);
+            return 0;
+            //return IncomeService.GetCategoryTotalForMonth(MonthRepresented, categoryName);
         }
 
         #endregion
@@ -85,28 +84,30 @@ namespace BusinessLogic
 
         public Dictionary<string, double> GetTotalsOfMonthByCategory()
         {
-            Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
+            return new Dictionary<string, double>();
 
-            categoryTotals.Add("Total Expenses", GetMonthesExpenseTotal());
-            categoryTotals.AddRange(ExpenseHandler.GetAllCategoryTotals(MonthRepresented));
+            //Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
 
-            categoryTotals.Add("Total Income", GetMonthesIncomeTotal());            
-            foreach (KeyValuePair<string, double> curIncomeCatTotal in IncomeHandler.GetAllCategoryTotals(MonthRepresented))
-            {
-                if (categoryTotals.ContainsKey(curIncomeCatTotal.Key))
-                {
-                    double placeholder = categoryTotals[curIncomeCatTotal.Key];
-                    categoryTotals.Remove(curIncomeCatTotal.Key);
-                    categoryTotals.Add(string.Format("{0} - {1}", curIncomeCatTotal.Key, "Expense"), placeholder);
-                    categoryTotals.Add(string.Format("{0} - {1}", curIncomeCatTotal.Key, "Income"), curIncomeCatTotal.Value);
-                }
-                else
-                {
-                    categoryTotals.Add(curIncomeCatTotal.Key, curIncomeCatTotal.Value);
-                }
-            }
+            //categoryTotals.Add("Total Expenses", GetMonthesExpenseTotal());
+            //categoryTotals.AddRange(ExpenseService.GetAllCategoryTotals(MonthRepresented));
 
-            return categoryTotals;
+            //categoryTotals.Add("Total Income", GetMonthesIncomeTotal());            
+            //foreach (KeyValuePair<string, double> curIncomeCatTotal in IncomeService.GetAllCategoryTotals(MonthRepresented))
+            //{
+            //    if (categoryTotals.ContainsKey(curIncomeCatTotal.Key))
+            //    {
+            //        double placeholder = categoryTotals[curIncomeCatTotal.Key];
+            //        categoryTotals.Remove(curIncomeCatTotal.Key);
+            //        categoryTotals.Add(string.Format("{0} - {1}", curIncomeCatTotal.Key, "Expense"), placeholder);
+            //        categoryTotals.Add(string.Format("{0} - {1}", curIncomeCatTotal.Key, "Income"), curIncomeCatTotal.Value);
+            //    }
+            //    else
+            //    {
+            //        categoryTotals.Add(curIncomeCatTotal.Key, curIncomeCatTotal.Value);
+            //    }
+            //}
+
+            //return categoryTotals;
         }
 
         #endregion

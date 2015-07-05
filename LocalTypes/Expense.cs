@@ -9,12 +9,17 @@ namespace LocalTypes
         /// <summary>
         /// The amount of the expense
         /// </summary>
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// The date of the expense
         /// </summary>
         public DateTime Date { get; set; }
+
+
+        public int CategoryId { get; set; }
+
+        public int PaymentMethodId { get; set; }
 
         /// <summary>
         /// Category of the expense
@@ -34,21 +39,21 @@ namespace LocalTypes
         /// <summary>
         /// ID number of the expense in the data table
         /// </summary>
-        public int ID { get; private set; }
+        public int Id { get; set; }
 
         #endregion
 
         #region C'Tor
 
-        public Expense(double amount, DateTime date, ExpenseCategory expenseCategory,
+        public Expense(decimal amount, DateTime date, ExpenseCategory expenseCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
-            this.Amount = amount;
-            this.Category = expenseCategory;
-            this.Comment = comment;
-            this.Date = date;
-            this.ID = id;
-            this.Method = paymentMethod;
+            Amount = amount;
+            Category = expenseCategory;
+            Comment = comment;
+            Date = date;
+            Id = id;
+            Method = paymentMethod;
         }
 
         #endregion
@@ -59,14 +64,15 @@ namespace LocalTypes
         {
             Expense expenseComparing = (Expense)obj;
 
-            return ((this.Amount == expenseComparing.Amount) &&
-                    (this.Category.Equals(expenseComparing.Category)) &&
-                    (this.Comment == expenseComparing.Comment) &&
-                    (this.Date == expenseComparing.Date) &&
-                    (this.ID == expenseComparing.ID) &&
-                    (this.Method.Equals(expenseComparing.Method)));
+            return ((Amount == expenseComparing.Amount) &&
+                    (Category.Equals(expenseComparing.Category)) &&
+                    (Comment == expenseComparing.Comment) &&
+                    (Date == expenseComparing.Date) &&
+                    (Id == expenseComparing.Id) &&
+                    (Method.Equals(expenseComparing.Method)));
         }
 
+        // TODO - QC - override get hash code as well.
         public override int GetHashCode()
         {
             return base.GetHashCode();

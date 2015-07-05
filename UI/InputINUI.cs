@@ -67,11 +67,11 @@ namespace MyHome2013
             {
                 Income newIncome = 
                     new Income(double.Parse(this.txtAmount.Text), this.dtPick.Value,
-                                IncomeCategoryHandler.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodHandler.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                                IncomeCategoryService.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                PaymentMethodService.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
 
-                IncomeHandler.AddNewIncome(newIncome);
+                IncomeService.AddNewIncome(newIncome);
 
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -103,13 +103,13 @@ namespace MyHome2013
         {
             // Sets up the combo box of the income categories
             this.cmbCategory.DataSource =
-                (new IncomeCategoryHandler()).LoadAll();
+                (new IncomeCategoryService()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
             this.cmbPayment.DataSource =
-                (new PaymentMethodHandler()).LoadAll();
+                (new PaymentMethodService()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
         }

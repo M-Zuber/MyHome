@@ -9,20 +9,23 @@ namespace BusinessLogic
     /// Holds methods for sorting and making calculations on the data of expense categories
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class ExpenseCategoryHandler : BaseCategoryHandler
+    public class ExpenseCategoryService 
     {
-        #region CRUD Methods
+        private readonly ExpenseCategoryRepository _repository;
 
-        #region Read Methods
+        public ExpenseCategoryService(ExpenseCategoryRepository repository)
+        {
+            _repository = repository;
+        }
 
         /// <summary>
         /// Loads a specific Expense Category from the cache
         /// </summary>
         /// <param name="id">The id of the Expense category wanted</param>
         /// <returns>The expense category as it is in the cache</returns>
-        public static ExpenseCategory LoadById(int id)
+        public ExpenseCategory LoadById(int id)
         {
-            return ExpenseCategoryAccess.LoadById(id);
+            return _repository.GetById(id);
         }
 
         /// <summary>
@@ -31,31 +34,20 @@ namespace BusinessLogic
         /// <returns>All the Expense Categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public override List<BaseCategory> LoadAll()
+        public IEnumerable<ExpenseCategory> LoadAll()
         {
-            return (new ExpenseCategoryAccess()).LoadAll();
+            return _repository.GetAll();
         }
 
-        #endregion
-
-        #region Create Methods
-
-        public override int AddNewCategory(string categoryName)
+        public void Create(ExpenseCategory expenseCategory)
         {
-            return (new ExpenseCategoryAccess()).AddNewCategory(categoryName);
+            _repository.Create(expenseCategory);
         }
 
-        #endregion
-
-        #region Update Methods
-
-        public override bool Save(BaseCategory categoryToSave)
+        
+        public void Save(ExpenseCategory expenseCategory)
         {
-            return (new ExpenseCategoryAccess()).Save(categoryToSave);
+            _repository.Save(expenseCategory);
         }
-
-        #endregion
-
-        #endregion
     }
 }

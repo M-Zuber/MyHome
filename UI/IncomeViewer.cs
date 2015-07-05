@@ -64,7 +64,7 @@ namespace MyHome2013
         {
             if (!currentIncome.Equals(originalIncome))
             {
-                IncomeHandler.Save(this.currentIncome);
+                IncomeService.Save(this.currentIncome);
 
                 this.Close();
             }
@@ -186,7 +186,7 @@ namespace MyHome2013
 
             if (canDelete == DialogResult.OK)
             {
-                IncomeHandler.Delete(this.currentIncome.ID);
+                IncomeService.Delete(this.currentIncome.ID);
                 this.Close();
             }
         }
@@ -207,13 +207,13 @@ namespace MyHome2013
             this.dtPick.Value = currentIncome.Date;
 
             //Expense category bindings
-            this.cmbCategory.DataSource = (new IncomeCategoryHandler()).LoadAll();
+            this.cmbCategory.DataSource = (new IncomeCategoryService()).LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
             this.cmbCategory.SelectedIndex = this.cmbCategory.FindString(this.currentIncome.Category.Name);
 
             //Payment Method bindings
-            this.cmbPayment.DataSource = (new PaymentMethodHandler()).LoadAll();
+            this.cmbPayment.DataSource = (new PaymentMethodService()).LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
             this.cmbPayment.SelectedIndex = this.cmbPayment.FindString(this.currentIncome.Method.Name);

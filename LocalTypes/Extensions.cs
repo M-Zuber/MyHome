@@ -20,7 +20,7 @@ namespace LocalTypes
         public static Expense Copy(this Expense orginalExpense)
         {
             return new Expense(orginalExpense.Amount, orginalExpense.Date,
-                orginalExpense.Category, orginalExpense.Method, orginalExpense.Comment, orginalExpense.ID);
+                orginalExpense.Category, orginalExpense.Method, orginalExpense.Comment, orginalExpense.Id);
         }
 
         #endregion
@@ -35,7 +35,7 @@ namespace LocalTypes
         public static Income Copy(this Income orginalIncome)
         {
             return new Income(orginalIncome.Amount, orginalIncome.Date,
-                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comment, orginalIncome.ID);
+                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comment, orginalIncome.Id);
         }
 
         #endregion
