@@ -12,6 +12,11 @@ range of dates.
 
 More ways of accessing the data are planned for future versions.
 
+## For Developers
+
+### Testing Frameworks
+- For Feature/Integration testing `[SpecFlow](http://www.specflow.org/)` is used.
+
 ## License
 
 This project is released under the the MIT License. <br/> Please refer to the [LICENSE file](LICENSE) for full details.
