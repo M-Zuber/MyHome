@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using LocalTypes;
 using BusinessLogic;
+using Data;
+using DataAccess;
 
 namespace MyHome2013
 {
@@ -12,7 +14,12 @@ namespace MyHome2013
     /// </summary>
     public partial class RecurringIncomeInput : Form
     {
-         #region C'Tor
+        #region C'Tor
+
+        private readonly AccountingDataContext _dataContext;
+        private readonly IncomeCategoryService _incomeCategoryService;
+        private readonly IncomeService _incomeService;
+        private readonly PaymentMethodService _paymentMethodService;
 
         /// <summary>
         /// Standard Default Ctor
@@ -20,6 +27,11 @@ namespace MyHome2013
         public RecurringIncomeInput()
         {
             InitializeComponent();
+
+            _dataContext = new AccountingDataContext();
+            _incomeService = new IncomeService(new IncomeRepository(_dataContext));
+            _incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(_dataContext));
+            _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(_dataContext));
         }
 
         #endregion
@@ -37,13 +49,13 @@ namespace MyHome2013
         {
             // Sets up the combo box of the income categories
             this.cmbCategory.DataSource =
-                (new IncomeCategoryService()).LoadAll();
+                _incomeCategoryService.LoadAll();
             this.cmbCategory.DisplayMember = "NAME";
             this.cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
             this.cmbPayment.DataSource =
-                (new PaymentMethodService()).LoadAll();
+                _paymentMethodService.LoadAll();
             this.cmbPayment.DisplayMember = "NAME";
             this.cmbPayment.ValueMember = "ID";
 
@@ -222,9 +234,9 @@ namespace MyHome2013
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
             Income newIncome =
-                    new Income(double.Parse(this.txtAmount.Text), dtCurrentSaveDate,
-                                IncomeCategoryService.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodService.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
+                    new Income(decimal.Parse(this.txtAmount.Text), dtCurrentSaveDate,
+                                _incomeCategoryService.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
+                                _paymentMethodService.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
                                 this.txtDetail.Text);
         }
 
@@ -318,6 +330,12 @@ namespace MyHome2013
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddYears(1);
             }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _dataContext?.Dispose();
         }
 
         #endregion

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ExpenseCategoryRepository.cs" />
     <Compile Include="ExpenseRepository.cs" />
+    <Compile Include="GeneralCategoryHandler.cs" />
     <Compile Include="IncomeCategoryRepository.cs" />
     <Compile Include="IncomeRepository.cs" />
     <Compile Include="PaymentMethodRepository.cs" />

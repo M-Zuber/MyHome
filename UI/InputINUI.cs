@@ -1,99 +1,37 @@
 ﻿using System;
 using System.Windows.Forms;
 using BusinessLogic;
+using Data;
+using DataAccess;
 using LocalTypes;
 
 namespace MyHome2013
 {
     /// <summary>
-    /// Enables the user to add new income data
-    ///  allows for continuous data entry
+    ///     Enables the user to add new income data
+    ///     allows for continuous data entry
     /// </summary>
     public partial class InputINUI : Form
     {
+        private readonly AccountingDataContext _dataContext;
+        private readonly IncomeCategoryService _incomeCategoryService;
+        private readonly PaymentMethodService _paymentMethodService;
+        private readonly IncomeService _incomeService;
+
         #region C'tor
 
         /// <summary>
-        /// Standard Default Ctor
+        ///     Standard Default Ctor
         /// </summary>
         public InputINUI()
         {
             InitializeComponent();
+
+            _dataContext = new AccountingDataContext();
+            _incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(_dataContext));
+            _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(_dataContext));
+            _incomeService = new IncomeService(new IncomeRepository(_dataContext));
         }
-
-        #endregion
-
-        #region Control Event Methods
-
-        /// <summary>
-        /// Connects the combo boxes on the form with the data from the cache
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void InputINUI_Load(object sender, EventArgs e)
-        {
-            this.SetDataBindings();
-        }
-
-        /// <summary>
-        /// Saves the new income into the cache -validates the amount
-        ///  and gives an option to enter more data
-        /// </summary>
-        /// <param name="sender">Standard sender object</param>
-        /// <param name="e">Standard event object</param>
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            // If the amount is blank
-            if (this.txtAmount.Text == "")
-            {
-                MessageBox.Show("The amount can not be blank",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1);
-            }
-            // Checks that the amount is in numbers
-            else if (!BusinessLogic.HelperMethods.IsNumeric(this.txtAmount.Text))
-            {
-                MessageBox.Show("The amount must be in numbers",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1);
-                this.txtAmount.Text = "";
-            }
-            // Otherwise saves the new income
-            else
-            {
-                Income newIncome = 
-                    new Income(double.Parse(this.txtAmount.Text), this.dtPick.Value,
-                                IncomeCategoryService.LoadById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                PaymentMethodService.LoadById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
-                                this.txtDetail.Text);
-
-                IncomeService.AddNewIncome(newIncome);
-
-                // Asks if more data is being entered
-                DialogResult = MessageBox.Show("The entry was saved" +
-                                               "\nDo you want to add another income? ",
-                                               "Save successful",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Question,
-                                               MessageBoxDefaultButton.Button1);
-                if (DialogResult != DialogResult.Yes)
-                {
-                    this.Close();
-                }
-                // If more data is being entered clears the user entered data for the new data
-                else
-                {
-                    // Puts the focus back to the top of the form and resets the selected values
-                    this.cmbCategory.Focus();
-                    this.txtAmount.Text = "";
-                    this.txtDetail.Text = "";
-                }
-            }
-        } 
 
         #endregion
 
@@ -102,16 +40,94 @@ namespace MyHome2013
         private void SetDataBindings()
         {
             // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
-                (new IncomeCategoryService()).LoadAll();
-            this.cmbCategory.DisplayMember = "NAME";
-            this.cmbCategory.ValueMember = "ID";
+            cmbCategory.DataSource = _incomeCategoryService.LoadAll();
+            cmbCategory.DisplayMember = "NAME";
+            cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
-                (new PaymentMethodService()).LoadAll();
-            this.cmbPayment.DisplayMember = "NAME";
-            this.cmbPayment.ValueMember = "ID";
+            cmbPayment.DataSource = _paymentMethodService.LoadAll();
+            cmbPayment.DisplayMember = "NAME";
+            cmbPayment.ValueMember = "ID";
+        }
+
+        #endregion
+
+        #region Control Event Methods
+
+        /// <summary>
+        ///     Connects the combo boxes on the form with the data from the cache
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void InputINUI_Load(object sender, EventArgs e)
+        {
+            SetDataBindings();
+        }
+
+        /// <summary>
+        ///     Saves the new income into the cache -validates the amount
+        ///     and gives an option to enter more data
+        /// </summary>
+        /// <param name="sender">Standard sender object</param>
+        /// <param name="e">Standard event object</param>
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // If the amount is blank
+            if (txtAmount.Text == "")
+            {
+                MessageBox.Show("The amount can not be blank",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1);
+            }
+            // Checks that the amount is in numbers
+            else if (!HelperMethods.IsNumeric(txtAmount.Text))
+            {
+                MessageBox.Show("The amount must be in numbers",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1);
+                txtAmount.Text = "";
+            }
+            // Otherwise saves the new income
+            else
+            {
+                var newIncome =
+                    new Income(decimal.Parse(txtAmount.Text), dtPick.Value,
+                        _incomeCategoryService.LoadById(Convert.ToInt32(cmbCategory.SelectedValue)),
+                        _paymentMethodService.LoadById(Convert.ToInt32(cmbPayment.SelectedValue)),
+                        txtDetail.Text);
+
+                _incomeService.Create(newIncome);
+
+                // Asks if more data is being entered
+                DialogResult = MessageBox.Show("The entry was saved" +
+                                               "\nDo you want to add another income? ",
+                    "Save successful",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1);
+                if (DialogResult != DialogResult.Yes)
+                {
+                    Close();
+                }
+                // If more data is being entered clears the user entered data for the new data
+                else
+                {
+                    // Puts the focus back to the top of the form and resets the selected values
+                    cmbCategory.Focus();
+                    txtAmount.Text = "";
+                    txtDetail.Text = "";
+                }
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _dataContext?.Dispose();
         }
 
         #endregion

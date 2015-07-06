@@ -1,105 +1,113 @@
-﻿using BusinessLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using BusinessLogic;
+using Data;
+using DataAccess;
 
 namespace MyHome2013
 {
     /// <summary>
-    /// Provides data per category for the range of dates given
-    /// -the default is the past year
+    ///     Provides data per category for the range of dates given
+    ///     -the default is the past year
     /// </summary>
     public partial class DataChartUI : Form
     {
-        #region Properties
-
-        /// <summary>
-        /// The start date for the range of time data is being looked at
-        /// </summary>
-        private DateTime StartDate { get; set; }
-        
-        /// <summary>
-        /// The end date for the range of time data is being looked at
-        /// </summary>
-        private DateTime EndDate { get; set; }
-
-        /// <summary>
-        /// Holds a list of all the category options that be can be looked at for the range
-        /// </summary>
-        private List<string> CategoryNames { get; set; }
-
-        /// <summary>
-        /// Holds the data for each category by month in range being looked at
-        /// </summary>
-        private Dictionary<string, Dictionary<DateTime, double>> MonthData { get; set; }
-
-        #endregion
+        private readonly AccountingDataContext _dataContext;
+        private readonly GeneralCategoryHandler _generalCategoryHandler;
 
         #region C'tor
 
         /// <summary>
-        /// Default Ctor - intializes the properies of the form
+        ///     Default Ctor - intializes the properies of the form
         /// </summary>
         public DataChartUI()
         {
             // Intializes the local properties of the form
-            this.CategoryNames = new List<string>();
-            this.MonthData = new Dictionary<string, Dictionary<DateTime, double>>();
+            CategoryNames = new List<string>();
+            MonthData = new Dictionary<string, Dictionary<DateTime, decimal>>();
 
             // Auto generated code for the form
             InitializeComponent();
+
+            _dataContext = new AccountingDataContext();
+            _generalCategoryHandler = new GeneralCategoryHandler(_dataContext);
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     The start date for the range of time data is being looked at
+        /// </summary>
+        private DateTime StartDate { get; set; }
+
+        /// <summary>
+        ///     The end date for the range of time data is being looked at
+        /// </summary>
+        private DateTime EndDate { get; set; }
+
+        /// <summary>
+        ///     Holds a list of all the category options that be can be looked at for the range
+        /// </summary>
+        private List<string> CategoryNames { get; set; }
+
+        /// <summary>
+        ///     Holds the data for each category by month in range being looked at
+        /// </summary>
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; }
 
         #endregion
 
         #region Control Event Methods
 
         /// <summary>
-        /// Sets up the infrastructure and connects the controls on the form 
-        /// with the properties when the form loads
+        ///     Sets up the infrastructure and connects the controls on the form
+        ///     with the properties when the form loads
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event arg object</param>
         private void DataChartUI_Load(object sender, EventArgs e)
         {
             // Sets the end date property to the date now
-            this.EndDate = DateTime.Now;
+            EndDate = DateTime.Now;
 
             // The standard start date is a year before the end date
-            this.StartDate = this.EndDate.Subtract(new TimeSpan(365, 0, 0, 0));
+            StartDate = EndDate.Subtract(new TimeSpan(365, 0, 0, 0));
 
             // Sets the display of the date time pickers to the value of the corresponding property
-            this.dtpStartMonth.Value = this.StartDate;
-            this.dtpEndMonth.Value = this.EndDate;
+            dtpStartMonth.Value = StartDate;
+            dtpEndMonth.Value = EndDate;
 
             // Gets the category names
-            this.CategoryNames = GeneralCategoryHandler.GetAllCategoryNames();
+            CategoryNames = _generalCategoryHandler.GetAllCategoryNames().ToList();
 
             // Sets the data bindings of the controls -excluding the chart
-            this.SetupDataBindings();
-            
+            SetupDataBindings();
+
             // Gets the data for the current range selected
-            this.SetupDataSource();
+            SetupDataSource();
 
             // Connects the data to the chart
-            this.ShowDataOnChart();
+            ShowDataOnChart();
         }
 
         /// <summary>
-        /// Reloads the data into the chart based on the currently selected category
+        ///     Reloads the data into the chart based on the currently selected category
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event arg object</param>
         private void cmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Resets the data bindings to reflect the change in the selected category
-            this.ShowDataOnChart();
+            ShowDataOnChart();
         }
 
         /// <summary>
-        /// Reloads the data into the chart based on the date selected
-        ///  -if there is a change in the date that affects the data
+        ///     Reloads the data into the chart based on the date selected
+        ///     -if there is a change in the date that affects the data
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
@@ -107,21 +115,21 @@ namespace MyHome2013
         {
             // Checks that either the month or the year was changed
             // if it was the day there is no reason to reload
-            if ((this.EndDate.Month != this.dtpEndMonth.Value.Month) ||
-                (this.EndDate.Year != this.dtpEndMonth.Value.Year))
+            if ((EndDate.Month != dtpEndMonth.Value.Month) ||
+                (EndDate.Year != dtpEndMonth.Value.Year))
             {
                 // Sets the end date with the new value
-                this.EndDate = this.dtpEndMonth.Value;
+                EndDate = dtpEndMonth.Value;
 
                 // Refills the date sensitive data and reloads the chart
-                this.SetupDataSource();
-                this.ShowDataOnChart();
+                SetupDataSource();
+                ShowDataOnChart();
             }
         }
 
         /// <summary>
-        /// Reloads the data into the chart based on the date selected
-        ///  -if there is a change in the date that affects the data
+        ///     Reloads the data into the chart based on the date selected
+        ///     -if there is a change in the date that affects the data
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
@@ -129,15 +137,15 @@ namespace MyHome2013
         {
             // Checks that either the month or the year was changed
             // if it was the day there is no reason to reload
-            if ((this.StartDate.Month != this.dtpStartMonth.Value.Month) ||
-                (this.StartDate.Year != this.dtpStartMonth.Value.Year))
+            if ((StartDate.Month != dtpStartMonth.Value.Month) ||
+                (StartDate.Year != dtpStartMonth.Value.Year))
             {
                 // Sets the end date with the new value
-                this.StartDate = this.dtpStartMonth.Value;
+                StartDate = dtpStartMonth.Value;
 
                 // Refills the date sensitive data and reloads the chart
-                this.SetupDataSource();
-                this.ShowDataOnChart();
+                SetupDataSource();
+                ShowDataOnChart();
             }
         }
 
@@ -146,43 +154,43 @@ namespace MyHome2013
         #region Other Methods
 
         /// <summary>
-        /// Sets the static data bindings for the form controls
+        ///     Sets the static data bindings for the form controls
         /// </summary>
         private void SetupDataBindings()
         {
-            this.cmbCat.DataSource = this.CategoryNames;
+            cmbCat.DataSource = CategoryNames;
 
             // This prevents crossovers on the data time pickers
-            this.dtpStartMonth.DataBindings.Add("MaxDate", this.dtpEndMonth, "Value");
-            this.dtpEndMonth.DataBindings.Add("MinDate", this.dtpStartMonth, "Value");
+            dtpStartMonth.DataBindings.Add("MaxDate", dtpEndMonth, "Value");
+            dtpEndMonth.DataBindings.Add("MinDate", dtpStartMonth, "Value");
         }
 
         /// <summary>
-        /// Sets up the data source as a dictionary with the key being the category name
-        ///  and value being a dictionary of totals keyed by date
+        ///     Sets up the data source as a dictionary with the key being the category name
+        ///     and value being a dictionary of totals keyed by date
         /// </summary>
         private void SetupDataSource()
         {
             MonthData.Clear();
 
             // Adds the category names as keys
-            foreach (string curCategoryName in CategoryNames)
+            foreach (var curCategoryName in CategoryNames)
             {
-                MonthData.Add(curCategoryName, new Dictionary<DateTime, double>());
+                MonthData.Add(curCategoryName, new Dictionary<DateTime, decimal>());
             }
 
             // Gets a list with the data of the months in the range
-            Dictionary<DateTime, Dictionary<string, double>> monthData = GetDataForMonthsInRange();
+            var monthData = GetDataForMonthsInRange();
 
-            int monthRange = MonthsRange();
+            var monthRange = MonthsRange();
 
             // Goes over each category getting the total for each month in the range being looked at
-            foreach (KeyValuePair<string, Dictionary<DateTime, double>> curCategoryData in MonthData)
+            foreach (var curCategoryData in MonthData)
             {
-                DateTime curDate = this.StartDate;
+                var curDate = StartDate;
 
                 // For each month in the range gets the total of the current category
-                for (int monthIndex = 0; monthIndex < monthRange; monthIndex++)
+                for (var monthIndex = 0; monthIndex < monthRange; monthIndex++)
                 {
                     curCategoryData.Value.Add(curDate, monthData[curDate][curCategoryData.Key]);
                     curDate = curDate.AddMonths(1);
@@ -191,16 +199,15 @@ namespace MyHome2013
         }
 
         /// <summary>
-        /// Gets a dictionary of the totals of each category, per month in the range
+        ///     Gets a dictionary of the totals of each category, per month in the range
         /// </summary>
         /// <returns>A dictionary keyed by date represented, value is the total of each category</returns>
-        private Dictionary<DateTime, Dictionary<string, double>> GetDataForMonthsInRange()
+        private Dictionary<DateTime, Dictionary<string, decimal>> GetDataForMonthsInRange()
         {
-            Dictionary<DateTime, Dictionary<string, double>> monthData = 
-                new Dictionary<DateTime, Dictionary<string, double>>();
+            var monthData = new Dictionary<DateTime, Dictionary<string, decimal>>();
 
-            DateTime curDate = this.StartDate;
-            for (int monthIndex = 0; monthIndex < MonthsRange(); monthIndex++)
+            var curDate = StartDate;
+            for (var monthIndex = 0; monthIndex < MonthsRange(); monthIndex++)
             {
                 monthData.Add(curDate, (new MonthHandler(curDate)).GetTotalsOfMonthByCategory());
                 curDate = curDate.AddMonths(1);
@@ -210,34 +217,40 @@ namespace MyHome2013
         }
 
         /// <summary>
-        /// Sets the data bindings for the chart
+        ///     Sets the data bindings for the chart
         /// </summary>
         private void ShowDataOnChart()
         {
             // Shows the month in easy to read human format
             // -in the future a value can be passed into this method that will control the format
-            List<string> monthsStringRepresentation = 
-                this.MonthData[cmbCat.Text].Keys.ToList<DateTime>()
-                    .Select(curDate => curDate.ToString("MMM--yyyy")).ToList<string>();
+            var monthsStringRepresentation =
+                MonthData[cmbCat.Text].Keys.ToList()
+                    .Select(curDate => curDate.ToString("MMM--yyyy")).ToList();
 
             // Attaches the Month data to points collection of the series
-            this.crtGraph.Series[0].Points.DataBindXY(
+            crtGraph.Series[0].Points.DataBindXY(
                 monthsStringRepresentation,
-                this.MonthData[cmbCat.Text].Values);
-            this.crtGraph.Series[0].Name =
-                this.cmbCat.SelectedItem.ToString();
+                MonthData[cmbCat.Text].Values);
+            crtGraph.Series[0].Name =
+                cmbCat.SelectedItem.ToString();
         }
 
         /// <summary>
-        /// Calculates the months in the range from the start date to the end date
+        ///     Calculates the months in the range from the start date to the end date
         /// </summary>
         /// <returns>The number of months in the range</returns>
         private int MonthsRange()
         {
             // Calculates the months in the range, taking the year into account
             // plus one so that if the dates are the same day, it will still return one
-            return (((this.EndDate.Year - this.StartDate.Year) * 12) + 
-                                        (this.EndDate.Month - this.StartDate.Month) + 1);
+            return (((EndDate.Year - StartDate.Year)*12) +
+                    (EndDate.Month - StartDate.Month) + 1);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _dataContext?.Dispose();
         }
 
         #endregion

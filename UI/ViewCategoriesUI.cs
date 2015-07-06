@@ -54,14 +54,14 @@ namespace MyHome2013
         private void ViewCategoriesUI_Load(object sender, EventArgs e)
         {
             // Loads the table that corrosponds to the wanted categry group
-            this.dgvCategoryNames.DataSource =
-                GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
+            //this.dgvCategoryNames.DataSource =
+            //    GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
             
             // Connects the data grid with the names only and displays the category group
             // name as the title of the form
             this.dgvCategoryNames.Columns[0].Visible = false;
 
-            this.Text = GlobalHandler.CategoryTypeNames[this.CategoryType];
+            //this.Text = GlobalHandler.CategoryTypeNames[this.CategoryType];
         }
 
         /// <summary>
@@ -79,19 +79,19 @@ namespace MyHome2013
             }
 
             // Refreshes the list so the new category is displayed
-            this.dgvCategoryNames.DataSource = GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
+            //this.dgvCategoryNames.DataSource = GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll();
         } 
 
         private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
-            {
-                GlobalHandler.CategoryHandlers[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
-            }
-            else
-            {
-                this.dgvCategoryNames.CurrentCell.Value = this.OriginalCategoryName;
-            }
+            //if (GlobalHandler.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
+            //{
+            //    GlobalHandler.CategoryHandlers[this.CategoryType].Save((BaseCategory)this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem);
+            //}
+            //else
+            //{
+            //    this.dgvCategoryNames.CurrentCell.Value = this.OriginalCategoryName;
+            //}
         }
 
         private void dgvCategoryNames_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)

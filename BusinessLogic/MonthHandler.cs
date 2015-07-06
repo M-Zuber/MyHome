@@ -82,9 +82,9 @@ namespace BusinessLogic
             }
         }
 
-        public Dictionary<string, double> GetTotalsOfMonthByCategory()
+        public Dictionary<string, decimal> GetTotalsOfMonthByCategory()
         {
-            return new Dictionary<string, double>();
+            return new Dictionary<string, decimal>();
 
             //Dictionary<string, double> categoryTotals = new Dictionary<string, double>();
 
