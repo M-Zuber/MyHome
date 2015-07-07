@@ -15,7 +15,7 @@ More ways of accessing the data are planned for future versions.
 ## For Developers
 
 ### Testing Frameworks
-- For Feature/Integration testing `[SpecFlow](http://www.specflow.org/)` is used.
+- For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
 
 ## License
 
