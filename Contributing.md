@@ -32,6 +32,7 @@ First off: thank you for showing intrest in this project.
 ### Contributing
 #### General
 - Work should be `PR'ed` to the `Development` branch -unless it is for a feature that has a specific branch.
+- Please try and add your changes to [Changelogs/Changelog-staging.md](https://github.com/M-Zuber/MyHome2013/tree/master/Changelogs/Changelog-staging.md)
 
 #### Issues
 See the [Waffle Board](https://waffle.io/M-Zuber/MyHome2013) to get an idea of what issues are available.
