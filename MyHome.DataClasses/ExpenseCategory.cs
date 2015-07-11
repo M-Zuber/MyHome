@@ -2,45 +2,32 @@
 
 namespace MyHome.DataClasses
 {
-    public class ExpenseCategory : BaseCategory, IComparable<ExpenseCategory>
+    public class ExpenseCategory : Category, IComparable<ExpenseCategory>
     {
-        #region C'Tor
 
-        public ExpenseCategory(int id, string name)
+        public ExpenseCategory(int id, string name) : base(id, name)
         {
-            base.Id = id;
-            base.Name = name;
         }
 
-        #endregion
-
-        #region Other Methods
-
-        #region Override Methods
+        public int CompareTo(ExpenseCategory other)
+        {
+            return Name.CompareTo(other.Name);
+        }
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
 
         public bool Equals(ExpenseCategory expenseCategory)
         {
-            return ((this.Id == expenseCategory.Id) &&
-                    (this.Name == expenseCategory.Name));
+            return ((Id == expenseCategory.Id) &&
+                    (Name == expenseCategory.Name));
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
-
-        #endregion
-
-        #endregion
-
-        public int CompareTo(ExpenseCategory other)
-        {
-            return this.Name.CompareTo(other.Name);
         }
     }
 }

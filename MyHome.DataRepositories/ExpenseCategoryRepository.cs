@@ -16,7 +16,12 @@ namespace MyHome.DataRepository
 
         public ExpenseCategory GetById(int id)
         {
-            return _context.ExpenseCategories.FirstOrDefault(i => i.Id == id);
+            return _context.ExpenseCategories.FirstOrDefault(x => x.Id == id);
+        }
+
+        public ExpenseCategory GetByName(string name)
+        {
+            return _context.ExpenseCategories.FirstOrDefault(x => x.Name == name);
         }
 
         public IEnumerable<ExpenseCategory> GetAll()

@@ -59,7 +59,7 @@ namespace MyHome.UI
         /// <summary>
         ///     Holds the data for each category by month in range being looked at
         /// </summary>
-        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; }
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; }
 
         #endregion
 
@@ -252,7 +252,11 @@ namespace MyHome.UI
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _dataContext?.Dispose();
+            if (_dataContext != null)
+            {
+                _dataContext.Dispose();    
+            }
+            
         }
 
         #endregion

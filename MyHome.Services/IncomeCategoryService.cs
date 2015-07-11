@@ -8,7 +8,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of income categories
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class IncomeCategoryService
+    public class IncomeCategoryService : ICategoryService
     {
         private readonly IncomeCategoryRepository _repository;
 
@@ -23,7 +23,7 @@ namespace MyHome.Services
         }
 
         
-        public IEnumerable<BaseCategory> LoadAll()
+        public IEnumerable<Category> LoadAll()
         {
             return _repository.GetAll();
         }
@@ -36,6 +36,16 @@ namespace MyHome.Services
         public void Save(IncomeCategory category)
         {
             _repository.Save(category);
+        }
+
+        public bool Exists(string name)
+        {
+            return _repository.GetByName(name) != null;
+        }
+
+        public void Add(string name)
+        {
+            Save(new IncomeCategory(0, name));
         }
     }
 }

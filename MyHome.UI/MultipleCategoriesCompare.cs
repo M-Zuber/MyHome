@@ -13,7 +13,6 @@ namespace MyHome.UI
     public partial class MultipleCategoriesCompare : Form
     {
         private readonly AccountingDataContext _dataContext;
-        private readonly GeneralCategoryHandler _generalCategoryHandler;
         private readonly MonthService _monthService;
 
 
@@ -23,9 +22,9 @@ namespace MyHome.UI
 
             MonthData = new Dictionary<string, Dictionary<DateTime, decimal>>();
             _dataContext = new AccountingDataContext();
-            _generalCategoryHandler = new GeneralCategoryHandler(_dataContext);
+            var generalCategoryHandler = new GeneralCategoryHandler(_dataContext);
             _monthService = new MonthService(_dataContext);
-            CategoryNames = _generalCategoryHandler.GetAllCategoryNames().ToList();
+            CategoryNames = generalCategoryHandler.GetAllCategoryNames().ToList();
         }
 
 
@@ -49,12 +48,12 @@ namespace MyHome.UI
         /// <summary>
         ///     The category names that can be displayed
         /// </summary>
-        private List<string> CategoryNames { get; }
+        private List<string> CategoryNames { get; set; }
 
         /// <summary>
         ///     Holds the data for each category by month in range being looked at
         /// </summary>
-        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; }
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; }
 
         #endregion
 
@@ -306,7 +305,10 @@ namespace MyHome.UI
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _dataContext?.Dispose();
+            if (_dataContext != null)
+            {
+                _dataContext.Dispose();    
+            }
         }
 
         #endregion

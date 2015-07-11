@@ -82,10 +82,11 @@ namespace MyHome.Services
             {
                 if (categoryTotals.ContainsKey(totalIncomeByCategory.Key))
                 {
-                    decimal placeholder = categoryTotals[totalIncomeByCategory.Key];
+                    var placeholder = categoryTotals[totalIncomeByCategory.Key];
                     categoryTotals.Remove(totalIncomeByCategory.Key);
-                    categoryTotals.Add($"{totalIncomeByCategory.Key} - {"Expense"}", placeholder);
-                    categoryTotals.Add($"{totalIncomeByCategory.Key} - {"Income"}", totalIncomeByCategory.Value);
+#warning Verify that part.. >.<
+                    categoryTotals.Add(string.Format("{0} - Expense", totalIncomeByCategory.Key), placeholder);
+                    categoryTotals.Add(string.Format("{0} - Income", totalIncomeByCategory.Key), placeholder);
                 }
                 else
                 {

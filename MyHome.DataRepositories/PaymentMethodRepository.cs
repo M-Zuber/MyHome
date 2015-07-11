@@ -16,7 +16,12 @@ namespace MyHome.DataRepository
 
         public PaymentMethod GetById(int id)
         {
-            return _context.PaymentMethods.FirstOrDefault(i => i.Id == id);
+            return _context.PaymentMethods.FirstOrDefault(x => x.Id == id);
+        }
+
+        public PaymentMethod GetByName(string name)
+        {
+            return _context.PaymentMethods.FirstOrDefault(x => x.Name == name);
         }
 
         public IEnumerable<PaymentMethod> GetAll()

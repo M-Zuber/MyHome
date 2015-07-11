@@ -2,45 +2,31 @@
 
 namespace MyHome.DataClasses
 {
-    public class PaymentMethod : BaseCategory, IComparable<PaymentMethod>
+    public class PaymentMethod : Category, IComparable<PaymentMethod>
     {
-        #region C'Tor
-
-        public PaymentMethod(int id, string name)
+        public PaymentMethod(int id, string name) : base(id, name)
         {
-            base.Id = id;
-            base.Name = name;
         }
 
-        #endregion
-
-        #region Other Methods
-
-        #region Override Methods
+        public int CompareTo(PaymentMethod other)
+        {
+            return Name.CompareTo(other.Name);
+        }
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
 
         public bool Equals(PaymentMethod paymentMethod)
         {
-            return ((this.Id == paymentMethod.Id) &&
-                    (this.Name == paymentMethod.Name));
+            return ((Id == paymentMethod.Id) &&
+                    (Name == paymentMethod.Name));
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
-
-        #endregion
-
-        #endregion
-
-        public int CompareTo(PaymentMethod other)
-        {
-            return this.Name.CompareTo(other.Name);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using MyHome.Persistence;
+using MyHome.Services;
 
 namespace MyHome.UI
 {
@@ -9,6 +11,9 @@ namespace MyHome.UI
     /// </summary>
     public partial class AddCategoryUI : Form
     {
+        private readonly AccountingDataContext _context;
+        private readonly CategoryService _categoryService;
+
         #region Properties
 
         /// <summary>
@@ -28,7 +33,10 @@ namespace MyHome.UI
         public AddCategoryUI(int nCategoryType)
         {
             InitializeComponent();
-            this.CategoryType = nCategoryType;
+            CategoryType = nCategoryType;
+
+            _context = new AccountingDataContext();
+            _categoryService = new CategoryService(_context);
         }
         
         #endregion
@@ -53,24 +61,23 @@ namespace MyHome.UI
                                 MessageBoxDefaultButton.Button1);
                 this.txtCategoryName.Focus();
             }
-            //else if (GlobalHandler.CategoryHandlers[this.CategoryType].DoesNameExist(this.txtCategoryName.Text))
-            //{
-            //    MessageBox.Show("There can not be two  categories with the same name\n" + 
-            //                    "Please choose a new name",
-            //                    "Error",
-            //                    MessageBoxButtons.OK,
-            //                    MessageBoxIcon.Warning,
-            //                    MessageBoxDefaultButton.Button1);
-            //    this.txtCategoryName.Text = "";
-            //    this.txtCategoryName.Focus();
-            //}
-            // Saves the category to the appropiate category group
-            //else
-            //{
-            //    GlobalHandler.CategoryHandlers[this.CategoryType].AddNewCategory(this.txtCategoryName.Text);
+            else if (_categoryService.CategoryHandlers[this.CategoryType].Exists(txtCategoryName.Text))
+            {
+                MessageBox.Show("There can not be two  categories with the same name\n" +
+                                "Please choose a new name",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1);
+                this.txtCategoryName.Text = "";
+                this.txtCategoryName.Focus();
+            }
+            else
+            {
+                _categoryService.CategoryHandlers[this.CategoryType].Add(txtCategoryName.Text);
 
-            //    this.Close();            
-            //}
+                Close();
+            }
         } 
 
         /// <summary>
@@ -100,6 +107,16 @@ namespace MyHome.UI
                     // Refocus the form on the text box
                     this.txtCategoryName.Focus();
                 } 
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            if (_context != null)
+            {
+                _context.Dispose();
             }
         }
 

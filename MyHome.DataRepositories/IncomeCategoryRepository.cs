@@ -19,6 +19,11 @@ namespace MyHome.DataRepository
             return _context.IncomeCategories.FirstOrDefault(i => i.Id == id);
         }
 
+        public IncomeCategory GetByName(string name)
+        {
+            return _context.IncomeCategories.FirstOrDefault(i => i.Name == name);
+        }
+
         public IEnumerable<IncomeCategory> GetAll()
         {
             return _context.IncomeCategories.ToList();

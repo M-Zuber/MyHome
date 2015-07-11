@@ -8,7 +8,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of expense categories
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class ExpenseCategoryService 
+    public class ExpenseCategoryService : ICategoryService
     {
         private readonly ExpenseCategoryRepository _repository;
 
@@ -33,7 +33,7 @@ namespace MyHome.Services
         /// <returns>All the Expense Categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<ExpenseCategory> LoadAll()
+        public IEnumerable<Category> LoadAll()
         {
             return _repository.GetAll();
         }
@@ -47,6 +47,16 @@ namespace MyHome.Services
         public void Save(ExpenseCategory expenseCategory)
         {
             _repository.Save(expenseCategory);
+        }
+
+        public bool Exists(string name)
+        {
+            return _repository.GetByName(name) != null;
+        }
+
+        public void Add(string name)
+        {
+            Save(new ExpenseCategory(0, name));
         }
     }
 }

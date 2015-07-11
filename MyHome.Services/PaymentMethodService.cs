@@ -8,7 +8,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of payment methods
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class PaymentMethodService
+    public class PaymentMethodService : ICategoryService
     {
         private readonly PaymentMethodRepository _repository;
 
@@ -28,7 +28,7 @@ namespace MyHome.Services
         /// <returns>All the Payment Methods as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<BaseCategory> LoadAll()
+        public IEnumerable<Category> LoadAll()
         {
             return _repository.GetAll();
         }
@@ -42,6 +42,16 @@ namespace MyHome.Services
         public void Save(PaymentMethod paymentMethod)
         {
             _repository.Save(paymentMethod);
+        }
+
+        public bool Exists(string name)
+        {
+            return _repository.GetByName(name) != null;
+        }
+
+        public void Add(string name)
+        {
+            Save(new PaymentMethod(0, name));
         }
     }
 }

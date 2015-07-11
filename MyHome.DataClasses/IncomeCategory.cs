@@ -2,45 +2,31 @@
 
 namespace MyHome.DataClasses
 {
-    public class IncomeCategory : BaseCategory, IComparable<IncomeCategory>
+    public class IncomeCategory : Category, IComparable<IncomeCategory>
     {
-        #region C'Tor
-
-        public IncomeCategory(int id, string name)
+        public IncomeCategory(int id, string name) : base(id, name)
         {
-            base.Id = id;
-            base.Name = name;
         }
 
-        #endregion
-
-        #region Other Methods
-
-        #region Override Methods
+        public int CompareTo(IncomeCategory other)
+        {
+            return Name.CompareTo(other.Name);
+        }
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
 
         public bool Equals(IncomeCategory incomeCategory)
         {
-            return ((this.Id == incomeCategory.Id) &&
-                    (this.Name == incomeCategory.Name));
+            return ((Id == incomeCategory.Id) &&
+                    (Name == incomeCategory.Name));
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
-
-        #endregion
-
-        #endregion
-
-        public int CompareTo(IncomeCategory other)
-        {
-            return this.Name.CompareTo(other.Name);
         }
     }
 }

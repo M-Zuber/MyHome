@@ -195,7 +195,10 @@ namespace MyHome.UI
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _dataContext?.Dispose();
+            if (_dataContext != null)
+            {
+                _dataContext.Dispose();
+            }
         }
 
         #endregion
