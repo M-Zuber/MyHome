@@ -20,7 +20,7 @@ Scenario Outline: Adding a category - with a duplicate name
 	And I have entered '<categoryName>' as the name
 	And there is another category with the same name
 	When I press add
-	Then the handler returns an error indicator -1
+	Then the handler returns an error indicator
 
 	Examples: 
 	| testName                     | categoryName | categoryType  |
@@ -31,7 +31,7 @@ Scenario Outline: Adding a category - with a duplicate name
 Scenario Outline: Adding a category - with a blank name
 	Given The category type is '<categoryType>'
 	And I have entered nothing for the name
-	Then the handler returns an error indicator -1
+	Then the handler returns an error indicator
 
 	Examples: 
 	| testName                 | categoryName | categoryType  |

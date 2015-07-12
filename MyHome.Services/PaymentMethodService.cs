@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
+using MyHome.Infrastructure.Validation;
 
 namespace MyHome.Services
 {
@@ -17,9 +19,15 @@ namespace MyHome.Services
             _repository = repository;
         }
 
-        public PaymentMethod LoadById(int id)
+        public PaymentMethod GetById(int id)
         {
             return _repository.GetById(id);
+        }
+
+        public void Remove(string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            _repository.RemoveByName(name);
         }
 
         /// <summary>
@@ -28,30 +36,50 @@ namespace MyHome.Services
         /// <returns>All the Payment Methods as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<Category> LoadAll()
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
 
         public void Create(PaymentMethod paymentMethod)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(paymentMethod.Name));
            _repository.Create(paymentMethod);
-        }
-
-
-        public void Save(PaymentMethod paymentMethod)
-        {
-            _repository.Save(paymentMethod);
         }
 
         public bool Exists(string name)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
             return _repository.GetByName(name) != null;
         }
 
         public void Add(string name)
         {
+            if (Exists(name))
+            {
+                throw new Exception(string.Format("Payment method '{0}' is already defined", name));
+            }
             Save(new PaymentMethod(0, name));
+        }
+
+        public void Update(int id, string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+
+            if (Exists(name))
+            {
+                throw new Exception(string.Format("Payment method '{0}' is already defined", name));
+            }
+
+            var category = _repository.GetById(id);
+            category.Name = name;
+            _repository.Save(category);
+        }
+
+        private void Save(PaymentMethod paymentMethod)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(paymentMethod.Name));
+            _repository.Save(paymentMethod);
         }
     }
 }

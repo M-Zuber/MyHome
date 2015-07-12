@@ -41,12 +41,12 @@ namespace MyHome.UI
         private void SetDataBindings()
         {
             // Sets up the combo box of the income categories
-            cmbCategory.DataSource = _incomeCategoryService.LoadAll();
+            cmbCategory.DataSource = _incomeCategoryService.GetAll();
             cmbCategory.DisplayMember = "NAME";
             cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            cmbPayment.DataSource = _paymentMethodService.LoadAll();
+            cmbPayment.DataSource = _paymentMethodService.GetAll();
             cmbPayment.DisplayMember = "NAME";
             cmbPayment.ValueMember = "ID";
         }
@@ -97,8 +97,8 @@ namespace MyHome.UI
             {
                 var newIncome =
                     new Income(decimal.Parse(txtAmount.Text), dtPick.Value,
-                        _incomeCategoryService.LoadById(Convert.ToInt32(cmbCategory.SelectedValue)),
-                        _paymentMethodService.LoadById(Convert.ToInt32(cmbPayment.SelectedValue)),
+                        _incomeCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
+                        _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
                         txtDetail.Text);
 
                 _incomeService.Create(newIncome);

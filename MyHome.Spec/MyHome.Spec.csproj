@@ -38,8 +38,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.XML" />
@@ -72,6 +81,7 @@
       <DependentUpon>UpdatingCategory.feature</DependentUpon>
     </Compile>
     <Compile Include="Category Management\UpdatingCategorySteps.cs" />
+    <Compile Include="Helpers\ConnectionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,17 +97,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+    <ProjectReference Include="..\MyHome.DataRepositories\MyHome.DataRepositories.csproj">
+      <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
+      <Name>MyHome.DataRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHome.Services\MyHome.Services.csproj">
       <Project>{4cf9d86b-3a55-44f1-9c75-189d7fb50e1d}</Project>
-      <Name>BusinessLogic</Name>
+      <Name>MyHome.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
+    <ProjectReference Include="..\MyHome.Persistence\MyHome.Persistence.csproj">
       <Project>{5424771d-5cd2-4e89-883d-46343dc4b543}</Project>
-      <Name>Data</Name>
+      <Name>MyHome.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LocalTypes\LocalTypes.csproj">
+    <ProjectReference Include="..\MyHome.DataClasses\MyHome.DataClasses.csproj">
       <Project>{977477bf-6cca-4ffe-aa4b-b77f9b7d2c68}</Project>
-      <Name>LocalTypes</Name>
+      <Name>MyHome.DataClasses</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

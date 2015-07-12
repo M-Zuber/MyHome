@@ -18,7 +18,7 @@ namespace MyHome.Persistence.Configurations
             HasRequired(e => e.Method).WithMany().HasForeignKey(e => e.PaymentMethodId);
             HasRequired(e => e.Category).WithMany().HasForeignKey(e => e.CategoryId);
 
-            ToTable("Expense", "Accounting");
+            ToTable("Income", "Accounting");
         }
     }
 }

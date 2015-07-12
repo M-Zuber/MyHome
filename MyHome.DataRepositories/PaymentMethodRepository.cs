@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using MyHome.DataClasses;
 using MyHome.Persistence;
@@ -16,17 +17,17 @@ namespace MyHome.DataRepository
 
         public PaymentMethod GetById(int id)
         {
-            return _context.PaymentMethods.FirstOrDefault(x => x.Id == id);
+            return _context.PaymentMethods.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
         public PaymentMethod GetByName(string name)
         {
-            return _context.PaymentMethods.FirstOrDefault(x => x.Name == name);
+            return _context.PaymentMethods.AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
 
         public IEnumerable<PaymentMethod> GetAll()
         {
-            return _context.PaymentMethods.ToList();
+            return _context.PaymentMethods.AsNoTracking().ToList();
         }
 
         public void Save(PaymentMethod paymentMethod)
@@ -43,7 +44,8 @@ namespace MyHome.DataRepository
 
         public void Update(PaymentMethod paymentMethod)
         {
-            _context.PaymentMethods.Attach(paymentMethod);
+            var existing = _context.PaymentMethods.Find(paymentMethod.Id);
+            existing.Name = paymentMethod.Name;
             _context.SaveChanges();
         }
 
@@ -51,6 +53,13 @@ namespace MyHome.DataRepository
         {
             _context.PaymentMethods.Add(paymentMethod);
             _context.SaveChanges();
+        }
+
+        public void RemoveByName(string name)
+        {
+            var existing = _context.PaymentMethods.FirstOrDefault(x => x.Name == name);
+            if (existing == null) return;
+            _context.PaymentMethods.Remove(existing);
         }
     }
 }

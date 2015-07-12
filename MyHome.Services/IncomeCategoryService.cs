@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
+using MyHome.Infrastructure.Validation;
 
 namespace MyHome.Services
 {
@@ -17,35 +19,56 @@ namespace MyHome.Services
             _repository = repository;
         }
 
-        public IncomeCategory LoadById(int id)
+        public IncomeCategory GetById(int id)
         {
             return _repository.GetById(id);
         }
 
-        
-        public IEnumerable<Category> LoadAll()
+        public void Remove(string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            _repository.RemoveByName(name);
+        }
+
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
         
-        public void AddNewCategory(IncomeCategory category)
-        {
-            _repository.Create(category);
-        }
-        
-        public void Save(IncomeCategory category)
-        {
-            _repository.Save(category);
-        }
-
         public bool Exists(string name)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
             return _repository.GetByName(name) != null;
         }
 
         public void Add(string name)
         {
+            if (Exists(name))
+            {
+                throw new Exception(string.Format("Income category '{0}' is already defined", name));
+            }
+
             Save(new IncomeCategory(0, name));
+        }
+
+        public void Update(int id, string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+
+            if (Exists(name))
+            {
+                throw new Exception(string.Format("Expense category '{0}' is already defined", name));
+            }
+
+            var category = _repository.GetById(id);
+            category.Name = name;
+            _repository.Save(category);
+        }
+
+        private void Save(IncomeCategory category)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(category.Name));
+            _repository.Save(category);
         }
     }
 }

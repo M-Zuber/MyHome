@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using MyHome.DataClasses;
 using MyHome.Persistence;
@@ -16,17 +17,17 @@ namespace MyHome.DataRepository
 
         public ExpenseCategory GetById(int id)
         {
-            return _context.ExpenseCategories.FirstOrDefault(x => x.Id == id);
+            return _context.ExpenseCategories.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
         public ExpenseCategory GetByName(string name)
         {
-            return _context.ExpenseCategories.FirstOrDefault(x => x.Name == name);
+            return _context.ExpenseCategories.AsNoTracking().FirstOrDefault(x => x.Name == name);
         }
 
         public IEnumerable<ExpenseCategory> GetAll()
         {
-            return _context.ExpenseCategories.ToList();
+            return _context.ExpenseCategories.AsNoTracking().ToList();
         }
         
         public void Save(ExpenseCategory expenseCategory)
@@ -43,7 +44,8 @@ namespace MyHome.DataRepository
 
         public void Update(ExpenseCategory expenseCategory)
         {
-            _context.ExpenseCategories.Attach(expenseCategory);
+            var existing = _context.ExpenseCategories.Find(expenseCategory.Id);
+            existing.Name = expenseCategory.Name;
             _context.SaveChanges();
         }
 
@@ -51,6 +53,13 @@ namespace MyHome.DataRepository
         {
             _context.ExpenseCategories.Add(expenseCategory);
             _context.SaveChanges();
+        }
+
+        public void RemoveByName(string name)
+        {
+            var existing = _context.ExpenseCategories.FirstOrDefault(x => x.Name == name);
+            if (existing == null) return;
+            _context.ExpenseCategories.Remove(existing);
         }
     }
 }

@@ -221,13 +221,13 @@ namespace MyHome.UI
             dtPick.Value = currentIncome.Date;
 
             //Expense category bindings
-            cmbCategory.DataSource = _incomeCategoryService.LoadAll();
+            cmbCategory.DataSource = _incomeCategoryService.GetAll();
             cmbCategory.DisplayMember = "NAME";
             cmbCategory.ValueMember = "ID";
             cmbCategory.SelectedIndex = cmbCategory.FindString(currentIncome.Category.Name);
 
             //Payment Method bindings
-            cmbPayment.DataSource = _paymentMethodService.LoadAll();
+            cmbPayment.DataSource = _paymentMethodService.GetAll();
             cmbPayment.DisplayMember = "NAME";
             cmbPayment.ValueMember = "ID";
             cmbPayment.SelectedIndex = cmbPayment.FindString(currentIncome.Method.Name);

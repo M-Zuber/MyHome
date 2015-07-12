@@ -64,7 +64,7 @@ namespace MyHome.UI
         {
             // Loads the table that corrosponds to the wanted categry group
             this.dgvCategoryNames.DataSource =
-                _categoryService.CategoryHandlers[this.CategoryType].LoadAll();
+                _categoryService.CategoryHandlers[this.CategoryType].GetAll();
             
             // Connects the data grid with the names only and displays the category group
             // name as the title of the form
@@ -88,12 +88,12 @@ namespace MyHome.UI
             }
 
             // Refreshes the list so the new category is displayed
-            this.dgvCategoryNames.DataSource = _categoryService.CategoryHandlers[this.CategoryType].LoadAll();
+            this.dgvCategoryNames.DataSource = _categoryService.CategoryHandlers[this.CategoryType].GetAll();
         } 
 
         private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (_categoryService.CategoryHandlers[this.CategoryType].LoadAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
+            if (_categoryService.CategoryHandlers[this.CategoryType].GetAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
                 var editedItem = (Category) this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem;
                 _categoryService.CategoryHandlers[this.CategoryType].Add(editedItem.Name);

@@ -4,6 +4,10 @@ namespace MyHome.DataClasses
 {
     public class PaymentMethod : Category, IComparable<PaymentMethod>
     {
+        public PaymentMethod()
+        {
+        }
+
         public PaymentMethod(int id, string name) : base(id, name)
         {
         }

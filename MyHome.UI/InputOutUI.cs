@@ -80,8 +80,8 @@ namespace MyHome.UI
             {
                 var newExpense =
                     new Expense(decimal.Parse(txtAmount.Text), dtPick.Value,
-                        _expenseCategoryService.LoadById(Convert.ToInt32(cmbCategory.SelectedValue)),
-                        _paymentMethodService.LoadById(Convert.ToInt32(cmbPayment.SelectedValue)),
+                        _expenseCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
+                        _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
                         txtDetail.Text);
 
                 _expenseService.Create(newExpense);
@@ -116,13 +116,13 @@ namespace MyHome.UI
         {
             // Sets up the combo box of the income categories
             cmbCategory.DataSource =
-                _expenseCategoryService.LoadAll();
+                _expenseCategoryService.GetAll();
             cmbCategory.DisplayMember = "NAME";
             cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
             cmbPayment.DataSource =
-                _paymentMethodService.LoadAll();
+                _paymentMethodService.GetAll();
             cmbPayment.DisplayMember = "NAME";
             cmbPayment.ValueMember = "ID";
         }

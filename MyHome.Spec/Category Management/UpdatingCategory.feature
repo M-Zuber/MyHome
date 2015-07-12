@@ -6,6 +6,7 @@ Scenario Outline: Changing the name of a category to a new unique name
 	Given The category type is '<categoryType>'
 	And the current name is '<categoryName>'
 	And there is no other category with that name
+	And I save the category
 	When I change the name to '<newName>'
 	Then the category is updated
 
@@ -18,9 +19,10 @@ Scenario Outline: Changing the name of a category to a new unique name
 Scenario Outline: Changing the name of a category to a non-unique name
 	Given The category type is '<categoryType>'
 	And the current name is '<categoryName>'
+	And I save the category
 	And the '<newName>' already exists
 	When I change the name to '<newName>'
-	Then the handler returns an error indicator False
+	Then the handler returns an error indicator
 	And the category name remains '<categoryName>'
 
 	Examples: 
@@ -32,8 +34,9 @@ Scenario Outline: Changing the name of a category to a non-unique name
 Scenario Outline: Updating a category - with a blank name
 	Given The category type is '<categoryType>'
 	And the current name is '<categoryName>'
+	And I save the category
 	When I have entered nothing for the name
-	Then the handler returns an error indicator False
+	Then the handler returns an error indicator
 	And the category name remains '<categoryName>'
 
 	Examples: 

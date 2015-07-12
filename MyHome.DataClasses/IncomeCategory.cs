@@ -4,6 +4,10 @@ namespace MyHome.DataClasses
 {
     public class IncomeCategory : Category, IComparable<IncomeCategory>
     {
+        public IncomeCategory()
+        {
+        }
+
         public IncomeCategory(int id, string name) : base(id, name)
         {
         }

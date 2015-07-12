@@ -166,7 +166,7 @@
 //        {
 //            XElement data = new XElement("Incomes");
 
-//            foreach (Income curIncome in IncomeService.LoadAll())
+//            foreach (Income curIncome in IncomeService.GetAll())
 //            {
 //                data.Add(new XElement("Income",
 //                            new XElement("ID", curIncome.Id),
@@ -188,7 +188,7 @@
 //        {
 //            XElement data = new XElement("Expenses");
 
-//            foreach (Expense curExpense in ExpenseService.LoadAll())
+//            foreach (Expense curExpense in ExpenseService.GetAll())
 //            {
 //                data.Add(new XElement("Expense",
 //                            new XElement("ID", curExpense.Id),
@@ -210,7 +210,7 @@
 //        {
 //            XElement data = new XElement("PaymemtMethods");
 
-//            foreach (PaymentMethod curPaymentMethod in (new PaymentMethodService()).LoadAll())
+//            foreach (PaymentMethod curPaymentMethod in (new PaymentMethodService()).GetAll())
 //            {
 //                data.Add(new XElement("PaymentMethod",
 //                            new XElement("ID", curPaymentMethod.Id),
@@ -228,7 +228,7 @@
 //        {
 //            XElement data = new XElement("IncomeCategories");
 
-//            foreach (IncomeCategory curIncomeCategory in (new IncomeCategoryService()).LoadAll())
+//            foreach (IncomeCategory curIncomeCategory in (new IncomeCategoryService()).GetAll())
 //            {
 //                data.Add(new XElement("IncomeCategory",
 //                            new XElement("ID", curIncomeCategory.Id),
@@ -246,7 +246,7 @@
 //        {
 //            XElement data = new XElement("ExpenseCategories");
 
-//            foreach (ExpenseCategory curExpenseCategory in (new ExpenseCategoryService()).LoadAll())
+//            foreach (ExpenseCategory curExpenseCategory in (new ExpenseCategoryService()).GetAll())
 //            {
 //                data.Add(new XElement("ExpenseCategory",
 //                            new XElement("ID", curExpenseCategory.Id),

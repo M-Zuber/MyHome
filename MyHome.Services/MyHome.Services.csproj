@@ -49,12 +49,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -78,9 +75,9 @@
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>MyHome.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+    <ProjectReference Include="..\FrameWork\MyHome.Infrastructure.csproj">
       <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
-      <Name>FrameWork</Name>
+      <Name>MyHome.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHome.DataClasses\MyHome.DataClasses.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Data;
+using System.Data.Common;
+using System.Data.Entity;
 using MyHome.DataClasses;
 using MyHome.Persistence.Configurations;
 
@@ -6,10 +8,13 @@ namespace MyHome.Persistence
 {
     public class AccountingDataContext : DbContext
     {
-        // TODO : move to configuration file 
         public const string ConnectionString = @"Server=.;Database=MyHome2013;User Id=home_user;Password=homeuser;";
 
         public AccountingDataContext() : base(ConnectionString)
+        {
+        }
+
+        public AccountingDataContext(string connectionString) : base(connectionString)
         {
         }
 

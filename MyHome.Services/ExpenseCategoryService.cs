@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
+using MyHome.Infrastructure.Validation;
 
 namespace MyHome.Services
 {
@@ -22,7 +24,7 @@ namespace MyHome.Services
         /// </summary>
         /// <param name="id">The id of the Expense category wanted</param>
         /// <returns>The expense category as it is in the cache</returns>
-        public ExpenseCategory LoadById(int id)
+        public ExpenseCategory GetById(int id)
         {
             return _repository.GetById(id);
         }
@@ -33,30 +35,57 @@ namespace MyHome.Services
         /// <returns>All the Expense Categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<Category> LoadAll()
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
 
         public void Create(ExpenseCategory expenseCategory)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expenseCategory.Name));
             _repository.Create(expenseCategory);
         }
-
         
-        public void Save(ExpenseCategory expenseCategory)
-        {
-            _repository.Save(expenseCategory);
-        }
-
         public bool Exists(string name)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
             return _repository.GetByName(name) != null;
         }
 
         public void Add(string name)
         {
+            if (Exists(name))
+            {
+                throw new Exception(string.Format("Expense category '{0}' is already defined", name));
+            }
+
             Save(new ExpenseCategory(0, name));
+        }
+
+        public void Remove(string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            _repository.RemoveByName(name);
+        }
+
+        public void Update(int id, string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+
+            if (Exists(name))
+            {
+                throw new Exception(string.Format("Expense category '{0}' is already defined", name));
+            }
+
+            var category = _repository.GetById(id);
+            category.Name = name;
+            _repository.Save(category);
+        }
+
+        private void Save(ExpenseCategory expenseCategory)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expenseCategory.Name));
+            _repository.Save(expenseCategory);
         }
     }
 }

@@ -50,17 +50,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\MySql.Data.6.9.6\lib\net45\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -84,13 +73,9 @@
       <Project>{5424771d-5cd2-4e89-883d-46343dc4b543}</Project>
       <Name>MyHome.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ef-Data\Ef-Data.csproj">
-      <Project>{30f650f2-86d8-4146-bb13-51b1f2e52fd6}</Project>
-      <Name>Ef-Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FrameWork\FrameWork.csproj">
+    <ProjectReference Include="..\FrameWork\MyHome.Infrastructure.csproj">
       <Project>{89C7A321-B6DC-455A-B99F-594A9570FB20}</Project>
-      <Name>FrameWork</Name>
+      <Name>MyHome.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHome.DataClasses\MyHome.DataClasses.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>
@@ -101,7 +86,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

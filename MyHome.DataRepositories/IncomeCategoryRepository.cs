@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using MyHome.DataClasses;
 using MyHome.Persistence;
@@ -16,17 +17,17 @@ namespace MyHome.DataRepository
 
         public IncomeCategory GetById(int id)
         {
-            return _context.IncomeCategories.FirstOrDefault(i => i.Id == id);
+            return _context.IncomeCategories.AsNoTracking().FirstOrDefault(i => i.Id == id);
         }
 
         public IncomeCategory GetByName(string name)
         {
-            return _context.IncomeCategories.FirstOrDefault(i => i.Name == name);
+            return _context.IncomeCategories.AsNoTracking().FirstOrDefault(i => i.Name == name);
         }
 
         public IEnumerable<IncomeCategory> GetAll()
         {
-            return _context.IncomeCategories.ToList();
+            return _context.IncomeCategories.AsNoTracking().ToList();
         }
 
         public void Save(IncomeCategory incomeCategory)
@@ -43,7 +44,8 @@ namespace MyHome.DataRepository
 
         public void Update(IncomeCategory incomeCategory)
         {
-            _context.IncomeCategories.Attach(incomeCategory);
+            var existing = _context.IncomeCategories.Find(incomeCategory.Id);
+            existing.Name = incomeCategory.Name;
             _context.SaveChanges();
         }
 
@@ -51,6 +53,13 @@ namespace MyHome.DataRepository
         {
             _context.IncomeCategories.Add(incomeCategory);
             _context.SaveChanges();
+        }
+
+        public void RemoveByName(string name)
+        {
+            var existing = _context.IncomeCategories.FirstOrDefault(x => x.Name == name);
+            if (existing == null) return;
+            _context.IncomeCategories.Remove(existing);
         }
     }
 }

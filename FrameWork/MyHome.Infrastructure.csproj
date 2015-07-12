@@ -8,8 +8,8 @@
     <ProjectGuid>{89C7A321-B6DC-455A-B99F-594A9570FB20}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameWork</RootNamespace>
-    <AssemblyName>FrameWork</AssemblyName>
+    <RootNamespace>MyHome.Infrastructure</RootNamespace>
+    <AssemblyName>MyHome.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,6 +45,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsManager.cs" />
+    <Compile Include="Validation\Contract.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
