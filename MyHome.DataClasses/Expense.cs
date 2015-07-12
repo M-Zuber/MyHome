@@ -4,6 +4,10 @@ namespace MyHome.DataClasses
 {
     public class Expense
     {
+        public Expense()
+        {
+        }
+
         public Expense(decimal amount, DateTime date, ExpenseCategory expenseCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
@@ -24,7 +28,6 @@ namespace MyHome.DataClasses
         ///     The date of the expense
         /// </summary>
         public DateTime Date { get; set; }
-
 
         public int CategoryId { get; set; }
 
@@ -62,10 +65,9 @@ namespace MyHome.DataClasses
                     (Method.Equals(expenseComparing.Method)));
         }
 
-        // TODO - QC - override get hash code as well.
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return new {Id, Amount, Category, Comment, Date, Method}.GetHashCode();
         }
     }
 }

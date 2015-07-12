@@ -2,7 +2,6 @@
 
 namespace MyHome.DataClasses
 {
-    // TODO - QC - Income and Expense are exactly the same, maybe we could do something about it.
     public class Income
     {
          #region Properties
@@ -44,6 +43,10 @@ namespace MyHome.DataClasses
 
         #region C'Tor
 
+        public Income()
+        {
+        }
+
         public Income(decimal amount, DateTime date, IncomeCategory incomeCategory,
             PaymentMethod paymentMethod, string comment, int id = 0)
         {
@@ -71,10 +74,9 @@ namespace MyHome.DataClasses
                     (Method.Equals(incomeComparing.Method)));
         }
 
-        // TODO - QC - override get hash code as well.
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return new {Id, Amount, Category, Comment, Date, Method}.GetHashCode();
         }
 
         #endregion

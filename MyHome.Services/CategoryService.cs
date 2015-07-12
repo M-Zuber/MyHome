@@ -10,10 +10,9 @@ namespace MyHome.Services
         
         public CategoryService(AccountingDataContext context)
         {
-            var context1 = context;
-            var expenseCategoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context1));
-            var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context1));
-            var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context1));
+            var expenseCategoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
+            var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
+            var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
 
             _categoryServicesById = new Dictionary<int, ICategoryService>
             {

@@ -84,7 +84,7 @@ namespace MyHome.UI
                                 MessageBoxDefaultButton.Button1);
             }
             // Checks that the amount is in numbers
-            else if (!txtAmount.Text.IsDouble())
+            else if (!txtAmount.Text.IsDecimal())
             {
                 MessageBox.Show("The amount must be in numbers",
                                 "Error",

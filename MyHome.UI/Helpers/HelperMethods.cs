@@ -2,10 +2,10 @@
 {
     public static class HelperMethods
     {
-        public static bool IsDouble(this string input)
+        public static bool IsDecimal(this string input)
         {
-            double dbToParse; 
-            return double.TryParse(input, out dbToParse);
+            decimal dbToParse;
+            return decimal.TryParse(input, out dbToParse);
         }
     }
 }

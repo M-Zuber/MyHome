@@ -70,7 +70,7 @@ namespace MyHome.Services
 
         public Dictionary<string, decimal> GetTotalFlowPerCategoriesForMonth(DateTime month)
         {
-            Dictionary<string, decimal> categoryTotals = new Dictionary<string, decimal>
+            var categoryTotals = new Dictionary<string, decimal>
             {
                 {"Total Expenses", GetTotalExpenseForMonth(month)}
             };
@@ -84,9 +84,8 @@ namespace MyHome.Services
                 {
                     var placeholder = categoryTotals[totalIncomeByCategory.Key];
                     categoryTotals.Remove(totalIncomeByCategory.Key);
-#warning Verify that part.. >.<
                     categoryTotals.Add(string.Format("{0} - Expense", totalIncomeByCategory.Key), placeholder);
-                    categoryTotals.Add(string.Format("{0} - Income", totalIncomeByCategory.Key), placeholder);
+                    categoryTotals.Add(string.Format("{0} - Income", totalIncomeByCategory.Key), totalIncomeByCategory.Value);
                 }
                 else
                 {
