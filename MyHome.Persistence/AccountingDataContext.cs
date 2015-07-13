@@ -33,10 +33,10 @@ namespace MyHome.Persistence
 
         public IDbSet<Expense> Expenses { get; set; }
 
-        public IDbSet<IncomeCategory> IncomeCategories { get; set; }
+        public virtual IDbSet<IncomeCategory> IncomeCategories { get; set; }
 
-        public IDbSet<ExpenseCategory> ExpenseCategories { get; set; }
+        public virtual IDbSet<ExpenseCategory> ExpenseCategories { get; set; }
 
-        public IDbSet<PaymentMethod> PaymentMethods { get; set; }
+        public virtual IDbSet<PaymentMethod> PaymentMethods { get; set; }
     }
 }

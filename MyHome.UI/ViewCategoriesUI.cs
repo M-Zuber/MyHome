@@ -7,7 +7,6 @@ using MyHome.Services;
 
 namespace MyHome.UI
 {
-#warning Make it work
 
     /// <summary>
     /// Presents a list of category items from the given category group

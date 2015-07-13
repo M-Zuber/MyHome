@@ -46,6 +46,18 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.Testing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFrameworkTesting.1.1.4\lib\net45\EntityFramework.Testing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.Testing.Moq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFrameworkTesting.Moq.1.1.5\lib\net45\EntityFramework.Testing.Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1409.1722, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -97,19 +109,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHome.DataRepositories\MyHome.DataRepositories.csproj">
+    <ProjectReference Include="..\..\..\MyHome.DataRepositories\MyHome.DataRepositories.csproj">
       <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
       <Name>MyHome.DataRepositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHome.Services\MyHome.Services.csproj">
+    <ProjectReference Include="..\..\..\MyHome.Services\MyHome.Services.csproj">
       <Project>{4cf9d86b-3a55-44f1-9c75-189d7fb50e1d}</Project>
       <Name>MyHome.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHome.Persistence\MyHome.Persistence.csproj">
+    <ProjectReference Include="..\..\..\MyHome.Persistence\MyHome.Persistence.csproj">
       <Project>{5424771d-5cd2-4e89-883d-46343dc4b543}</Project>
       <Name>MyHome.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHome.DataClasses\MyHome.DataClasses.csproj">
+    <ProjectReference Include="..\..\..\MyHome.DataClasses\MyHome.DataClasses.csproj">
       <Project>{977477bf-6cca-4ffe-aa4b-b77f9b7d2c68}</Project>
       <Name>MyHome.DataClasses</Name>
     </ProjectReference>

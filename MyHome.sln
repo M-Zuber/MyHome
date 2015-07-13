@@ -31,7 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C404D53E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{C09F3FC7-D399-449E-8A76-5BFBE783B5A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.Spec", "MyHome.Spec\MyHome.Spec.csproj", "{6FA95DDD-4A4A-45FC-A65B-30D2B23B67D4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{2B22FA29-6B0D-4293-968E-1AE340B52E3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.Spec", "Tests\Features\MyHome.Spec\MyHome.Spec.csproj", "{6FA95DDD-4A4A-45FC-A65B-30D2B23B67D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C09F3FC7-D399-449E-8A76-5BFBE783B5A8} = {C404D53E-C09E-43EA-B529-E2AD7688790B}
+		{2B22FA29-6B0D-4293-968E-1AE340B52E3C} = {C404D53E-C09E-43EA-B529-E2AD7688790B}
 		{6FA95DDD-4A4A-45FC-A65B-30D2B23B67D4} = {C09F3FC7-D399-449E-8A76-5BFBE783B5A8}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
