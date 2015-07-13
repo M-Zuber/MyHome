@@ -1,35 +1,45 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
-using BusinessLogic;
-using Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyHome.DataRepository;
+using MyHome.Persistence;
+using MyHome.Services;
 using TechTalk.SpecFlow;
 
 namespace MyHome.Spec.Category_Management
 {
     [Binding]
     [Scope(Feature = "UpdatingCategory")]
-
     public class UpdatingCategorySteps
     {
-        const string ADD_CATEGORY_RESULT_KEY = "add_category_result";
-        BaseCategoryHandler handler;
-        string m_categoryType;
-        string categoryName;
-        string m_currentName;
-        string m_newName;
-        int categoryID;
+        const string AddCategoryResultKey = "add_category_result";
+
+        
+        private string _categoryName;
+        private string _newName;
+        private int _categoryId;
+
+        private AccountingDataContext _dataContext;
+        ICategoryService _categoryService;
 
         [BeforeScenario]
         public void Setup()
         {
-            handler = null;
-            m_categoryType = "";
-            categoryName = "";
-            m_currentName = "";
-            m_newName = "";
-            categoryID = -1;
-            Cache.SDB.Clear();
+            var connectionString = ConfigurationManager.ConnectionStrings["Database"];
+            _dataContext = new AccountingDataContext(connectionString.ConnectionString);
+            _dataContext.Database.BeginTransaction();
+
+            _categoryName = "";
+            _newName = "";
+            _categoryId = -1;
+        }
+
+        [AfterScenario]
+        public void TearDown()
+        {
+            _dataContext.Database.CurrentTransaction.Rollback();
+            _dataContext.Dispose();
         }
 
         #region Given
@@ -37,40 +47,52 @@ namespace MyHome.Spec.Category_Management
         [Given(@"The category type is '(.*)'")]
         public void GivenTheCategoryTypeIs(string categoryType)
         {
-            m_categoryType = categoryType;
             switch (categoryType)
             {
                 case "expense":
-                    handler = new ExpenseCategoryHandler();
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(_dataContext));
                     break;
                 case "income":
-                    handler = new IncomeCategoryHandler();
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(_dataContext));
                     break;
                 case "paymentmethod":
-                    handler = new PaymentMethodHandler();
-                    break;
-                default:
+                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(_dataContext));
                     break;
             }
         }
-
         [Given(@"the current name is '(.*)'")]
         public void GivenTheCurrentNameIs(string currentName)
         {
-            categoryName = m_currentName = currentName;
-            categoryID = handler.AddNewCategory(categoryName);
+            _categoryName = currentName;
         }
 
         [Given(@"there is another category with the same name")]
         public void GivenThereIsAnotherCategoryWithTheSameName()
         {
-            handler.AddNewCategory(categoryName);
+            _categoryService.Add(_categoryName);
+        }
+
+        [Given(@"there is no other category with that name")]
+        public void GivenThereIsNoOtherCategoryWithThatName()
+        {
+            if (_categoryService.Exists(_categoryName))
+            {
+                _categoryService.Remove(_categoryName);
+            }
+        }
+
+        [Given(@"I save the category")]
+        public void SaveCategory()
+        {
+            _categoryService.Add(_categoryName);
+            var category = _categoryService.GetAll().First(x => x.Name == _categoryName);
+            _categoryId = category.Id;
         }
 
         [Given(@"the '(.*)' already exists")]
         public void GivenTheAlreadyExists(string newName)
         {
-            handler.AddNewCategory(newName);
+            _categoryService.Add(newName);
         }
 
         #endregion
@@ -80,19 +102,32 @@ namespace MyHome.Spec.Category_Management
         [When(@"I have entered nothing for the name")]
         public void GivenIHaveEnteredNothingForTheName()
         {
-            var cat = handler.LoadAll().Where(c => string.Equals(c.Name, categoryName, StringComparison.CurrentCultureIgnoreCase)).First();
-            cat.Name = "";
-            var result = handler.Save(cat);
-            ScenarioContext.Current.Add(ADD_CATEGORY_RESULT_KEY, result);
+            var category = _categoryService.GetAll().First(c => string.Equals(c.Name, _categoryName, StringComparison.CurrentCultureIgnoreCase));
+            category.Name = "";
+            try
+            {
+                _categoryService.Update(category.Id, category.Name);
+            }
+            catch (Exception e)
+            {
+                ScenarioContext.Current.Add(AddCategoryResultKey, e);
+            }
         }
 
         [When(@"I change the name to '(.*)'")]
         public void WhenIChangeTheNameTo(string newName)
         {
-            var cat = handler.LoadAll().Where(c => string.Equals(c.Name, categoryName, StringComparison.CurrentCultureIgnoreCase)).First();
-            cat.Name = m_newName = newName;
-            var result = handler.Save(cat);
-            ScenarioContext.Current.Add(ADD_CATEGORY_RESULT_KEY, result);
+            var category = _categoryService.GetAll().First(c => string.Equals(c.Name, _categoryName, StringComparison.CurrentCultureIgnoreCase));
+            category.Name = _newName = newName;
+
+            try
+            {
+                _categoryService.Update(category.Id, category.Name);
+            }
+            catch (Exception e)
+            {
+                ScenarioContext.Current.Add(AddCategoryResultKey, e);    
+            }
         }
 
         #endregion
@@ -102,22 +137,24 @@ namespace MyHome.Spec.Category_Management
         [Then(@"the category is updated")]
         public void ThenTheCategoryIsUpdated()
         {
-            var cat = handler.LoadAll().Where(c => c.Id == categoryID).FirstOrDefault();
-            Assert.AreEqual(m_newName, cat.Name, true);
+            var category = _categoryService.GetAll().FirstOrDefault(c => c.Id == _categoryId);
+            Assert.IsNotNull(category);
+            Assert.AreEqual(_newName, category.Name, true);
         }
 
-        [Then(@"the handler returns an error indicator (.*)")]
-        public void TheHandlerReturnsAnErrorIndicator(string error)
+        [Then(@"the handler returns an error indicator")]
+        public void TheHandlerReturnsAnErrorIndicator()
         {
-            var errorFromContext = ScenarioContext.Current.Get<object>(ADD_CATEGORY_RESULT_KEY);
-            Assert.AreEqual(error, errorFromContext.ToString());
+            var exception = ScenarioContext.Current.Get<Exception>(AddCategoryResultKey);
+            Assert.IsNotNull(exception);
         }
 
         [Then(@"the category name remains '(.*)'")]
         public void ThenTheCategoryNameRemains(string oldName)
         {
-            var cat = handler.LoadAll().Where(c => c.Id == categoryID).FirstOrDefault();
-            Assert.AreEqual(oldName, cat.Name, true);
+            var category = _categoryService.GetAll().FirstOrDefault(c => c.Id == _categoryId);
+            Assert.IsNotNull(category);
+            Assert.AreEqual(oldName, category.Name, true);
         }
 
         #endregion
