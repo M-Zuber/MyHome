@@ -9,6 +9,7 @@ using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
+using MyHome.Spec.Mocks;
 using TechTalk.SpecFlow;
 
 namespace MyHome.Spec
@@ -19,13 +20,10 @@ namespace MyHome.Spec
     {
         ICategoryService _categoryService;
         string _categoryName;
-        Mock<AccountingDataContext> mockContext;
 
         [BeforeScenario]
         public void Setup()
         {
-            mockContext = new Mock<AccountingDataContext>();
-            
             _categoryService = null;
             _categoryName = "";
         }
@@ -33,7 +31,6 @@ namespace MyHome.Spec
         [AfterScenario]
         public void TearDown()
         {
-            mockContext = null;
         }
 
         #region Given
@@ -44,22 +41,13 @@ namespace MyHome.Spec
             switch (categoryType)
             {
                 case "expense":
-                    var mockExpenseCategorySet = new Mock<DbSet<ExpenseCategory>>().SetupData();
-                    mockExpenseCategorySet.Setup(c => c.AsNoTracking()).Returns(mockExpenseCategorySet.Object);
-                    mockContext.Setup(c => c.ExpenseCategories).Returns(mockExpenseCategorySet.Object);
-                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(mockContext.Object));
+                    _categoryService = ServiceMocks.GetMockExpenseCategoryService();
                     break;
                 case "income":
-                    var mockIncomeCategorySet = new Mock<DbSet<IncomeCategory>>().SetupData();
-                    mockIncomeCategorySet.Setup(c => c.AsNoTracking()).Returns(mockIncomeCategorySet.Object);
-                    mockContext.Setup(c => c.IncomeCategories).Returns(mockIncomeCategorySet.Object);
-                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(mockContext.Object));
+                    _categoryService = ServiceMocks.GetMockIncomeCategoryService();
                     break;
                 case "paymentmethod":
-                    var mockPaymentMethodSet = new Mock<DbSet<PaymentMethod>>().SetupData();
-                    mockPaymentMethodSet.Setup(c => c.AsNoTracking()).Returns(mockPaymentMethodSet.Object);
-                    mockContext.Setup(c => c.PaymentMethods).Returns(mockPaymentMethodSet.Object);
-                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(mockContext.Object));
+                    _categoryService = ServiceMocks.GetMockPaymentMethodService();
                     break;
             }
         }

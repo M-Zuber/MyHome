@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Category Management\UpdatingCategorySteps.cs" />
     <Compile Include="Helpers\ConnectionHelper.cs" />
+    <Compile Include="Mocks\ServiceMocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
