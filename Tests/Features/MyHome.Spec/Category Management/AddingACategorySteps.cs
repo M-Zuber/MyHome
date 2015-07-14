@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
@@ -15,16 +19,13 @@ namespace MyHome.Spec
     {
         ICategoryService _categoryService;
         string _categoryName;
-
-        private AccountingDataContext _dataContext;
+        Mock<AccountingDataContext> mockContext;
 
         [BeforeScenario]
         public void Setup()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Database"];
-            _dataContext = new AccountingDataContext(connectionString.ConnectionString);
-            _dataContext.Database.BeginTransaction();
-
+            mockContext = new Mock<AccountingDataContext>();
+            
             _categoryService = null;
             _categoryName = "";
         }
@@ -32,8 +33,7 @@ namespace MyHome.Spec
         [AfterScenario]
         public void TearDown()
         {
-            _dataContext.Database.CurrentTransaction.Rollback();
-            _dataContext.Dispose();
+            mockContext = null;
         }
 
         #region Given
@@ -44,13 +44,22 @@ namespace MyHome.Spec
             switch (categoryType)
             {
                 case "expense":
-                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(_dataContext));
+                    var mockExpenseCategorySet = new Mock<DbSet<ExpenseCategory>>().SetupData();
+                    mockExpenseCategorySet.Setup(c => c.AsNoTracking()).Returns(mockExpenseCategorySet.Object);
+                    mockContext.Setup(c => c.ExpenseCategories).Returns(mockExpenseCategorySet.Object);
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(mockContext.Object));
                     break;
                 case "income":
-                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(_dataContext));
+                    var mockIncomeCategorySet = new Mock<DbSet<IncomeCategory>>().SetupData();
+                    mockIncomeCategorySet.Setup(c => c.AsNoTracking()).Returns(mockIncomeCategorySet.Object);
+                    mockContext.Setup(c => c.IncomeCategories).Returns(mockIncomeCategorySet.Object);
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(mockContext.Object));
                     break;
                 case "paymentmethod":
-                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(_dataContext));
+                    var mockPaymentMethodSet = new Mock<DbSet<PaymentMethod>>().SetupData();
+                    mockPaymentMethodSet.Setup(c => c.AsNoTracking()).Returns(mockPaymentMethodSet.Object);
+                    mockContext.Setup(c => c.PaymentMethods).Returns(mockPaymentMethodSet.Object);
+                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(mockContext.Object));
                     break;
             }
         }
@@ -90,9 +99,9 @@ namespace MyHome.Spec
             {
                 _categoryService.Add(_categoryName);
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
-                ScenarioContext.Current.Add("add_category_result", e);    
+                ScenarioContext.Current.Add("add_category_result", e);
             }
         }
 
