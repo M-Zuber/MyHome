@@ -2,7 +2,7 @@
 
 namespace MyHome.DataClasses
 {
-    public class Expense
+    public class Expense: Transaction
     {
         public Expense()
         {
@@ -19,15 +19,15 @@ namespace MyHome.DataClasses
             Method = paymentMethod;
         }
 
-        /// <summary>
-        ///     The amount of the expense
-        /// </summary>
-        public decimal Amount { get; set; }
+        ///// <summary>
+        /////     The amount of the expense
+        ///// </summary>
+        //public decimal Amount { get; set; }
 
-        /// <summary>
-        ///     The date of the expense
-        /// </summary>
-        public DateTime Date { get; set; }
+        ///// <summary>
+        /////     The date of the expense
+        ///// </summary>
+        //public DateTime Date { get; set; }
 
         public int CategoryId { get; set; }
 
@@ -36,12 +36,12 @@ namespace MyHome.DataClasses
         /// <summary>
         ///     Category of the expense
         /// </summary>
-        public ExpenseCategory Category { get; set; }
+        public new ExpenseCategory Category { get; set; }
 
         /// <summary>
         ///     How the expense was payed
         /// </summary>
-        public PaymentMethod Method { get; set; }
+        //public PaymentMethod Method { get; set; }
 
         /// <summary>
         ///     Additional info about the expense

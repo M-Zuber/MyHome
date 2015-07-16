@@ -29,9 +29,9 @@ namespace MyHome.Persistence
             modelBuilder.Configurations.Add(new PaymentMethodConfiguration());
         }
 
-        public IDbSet<Income> Incomes { get; set; }
+        public virtual IDbSet<Income> Incomes { get; set; }
 
-        public IDbSet<Expense> Expenses { get; set; }
+        public virtual IDbSet<Expense> Expenses { get; set; }
 
         public virtual IDbSet<IncomeCategory> IncomeCategories { get; set; }
 

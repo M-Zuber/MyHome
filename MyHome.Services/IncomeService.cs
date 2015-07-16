@@ -10,7 +10,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of incomes
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class IncomeService
+    public class IncomeService: ITransactionService
     {
         private readonly IncomeRepository _repository;
 
@@ -39,7 +39,6 @@ namespace MyHome.Services
             _repository.Save(incomeToSave);
         }
 
-        
         public void Create(Income newIncome)
         {
             _repository.Create(newIncome);
@@ -49,7 +48,6 @@ namespace MyHome.Services
         {
             _repository.Remove(id);
         }
-
 
         public decimal GetMonthTotal(DateTime monthWanted)
         {
@@ -83,5 +81,24 @@ namespace MyHome.Services
                 .GroupBy(i => i.Method.Name)
                 .ToDictionary(g => g.Key, g => g.Sum(i => i.Amount));
         }
+
+        #region ITransactionService Members
+
+        void ITransactionService.Create(Transaction transaction)
+        {
+            var income = transaction as Income;
+            if (income == null)
+            {
+                throw new ArgumentException("The transaction is the wrong type");
+            }
+            Create(income);
+        }
+
+        IEnumerable<Transaction> ITransactionService.GetAll()
+        {
+            return LoadAll();
+        }
+
+        #endregion
     }
 }

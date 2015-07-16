@@ -62,6 +62,7 @@
     <Compile Include="IncomeCategoryService.cs" />
     <Compile Include="ExpenseCategoryService.cs" />
     <Compile Include="ExpenseService.cs" />
+    <Compile Include="ITransactionService.cs" />
     <Compile Include="MonthService.cs" />
     <Compile Include="PaymentMethodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

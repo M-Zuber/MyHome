@@ -6,7 +6,7 @@ using MyHome.DataRepository;
 
 namespace MyHome.Services
 {
-    public class ExpenseService
+    public class ExpenseService: ITransactionService
     {
         private readonly ExpenseRepository _repository;
 
@@ -77,5 +77,24 @@ namespace MyHome.Services
                 .GroupBy(e => e.Method.Name)
                 .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount));
         }
+
+        #region ITransactionService Members
+
+        void ITransactionService.Create(Transaction transaction)
+        {
+            var expense = transaction as Expense;
+            if (expense == null)
+            {
+                throw new ArgumentException("The transaction is the wrong type");
+            }
+            Create(expense);
+        }
+
+        IEnumerable<Transaction> ITransactionService.GetAll()
+        {
+            return LoadAll();
+        }
+
+        #endregion
     }
 }

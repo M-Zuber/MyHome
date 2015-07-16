@@ -2,29 +2,29 @@
 
 namespace MyHome.DataClasses
 {
-    public class Income
+    public class Income : Transaction
     {
-         #region Properties
+        #region Properties
 
-        /// <summary>
-        /// The amount of the income
-        /// </summary>
-        public decimal Amount { get; set; }
+        ///// <summary>
+        ///// The amount of the income
+        ///// </summary>
+        //public decimal Amount { get; set; }
 
-        /// <summary>
-        /// The date of the income
-        /// </summary>
-        public DateTime Date { get; set; }
+        ///// <summary>
+        ///// The date of the income
+        ///// </summary>
+        //public DateTime Date { get; set; }
 
         /// <summary>
         /// Category of the income
         /// </summary>
-        public IncomeCategory Category { get; set; }
+        public new IncomeCategory Category { get; set; }
 
         /// <summary>
         /// How the income was payed
         /// </summary>
-        public PaymentMethod Method { get; set; }
+        //public PaymentMethod Method { get; set; }
 
         /// <summary>
         /// Additional info about the income
@@ -76,7 +76,7 @@ namespace MyHome.DataClasses
 
         public override int GetHashCode()
         {
-            return new {Id, Amount, Category, Comment, Date, Method}.GetHashCode();
+            return new { Id, Amount, Category, Comment, Date, Method }.GetHashCode();
         }
 
         #endregion

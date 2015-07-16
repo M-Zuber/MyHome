@@ -95,8 +95,15 @@
     </Compile>
     <Compile Include="Category Management\UpdatingCategorySteps.cs" />
     <Compile Include="Helpers\ConnectionHelper.cs" />
+    <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Mocks\ServiceMocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction Managment\AddingATransaction.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddingATransaction.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction Managment\AddingATransactionSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -109,6 +116,10 @@
       <LastGenOutput>UpdatingCategory.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="Transaction Managment\AddingATransaction.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddingATransaction.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\MyHome.DataRepositories\MyHome.DataRepositories.csproj">

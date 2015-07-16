@@ -40,5 +40,23 @@ namespace MyHome.Spec.Mocks
             mockContext.Setup(c => c.PaymentMethods).Returns(mockSet.Object);
             return new PaymentMethodService(new PaymentMethodRepository(mockContext.Object));
         }
+
+        public static IncomeService GetMockIncomeService()
+        {
+            var mockContext = new Mock<AccountingDataContext>();
+            var mockSet = new Mock<DbSet<Income>>();
+            mockSet.Setup(c => c.AsNoTracking()).Returns(mockSet.Object);
+            mockContext.Setup(c => c.Incomes).Returns(mockSet.Object);
+            return new IncomeService(new IncomeRepository(mockContext.Object));
+        }
+
+        public static ITransactionService GetMockExpenseService()
+        {
+            var mockContext = new Mock<AccountingDataContext>();
+            var mockSet = new Mock<DbSet<Expense>>();
+            mockSet.Setup(c => c.AsNoTracking()).Returns(mockSet.Object);
+            mockContext.Setup(c => c.Expenses).Returns(mockSet.Object);
+            return new ExpenseService(new ExpenseRepository(mockContext.Object));
+        }
     }
 }
