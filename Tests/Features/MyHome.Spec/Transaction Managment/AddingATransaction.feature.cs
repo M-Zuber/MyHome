@@ -87,19 +87,13 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "20.5"});
             table1.AddRow(new string[] {
-                        "Category",
-                        "food"});
-            table1.AddRow(new string[] {
-                        "Method",
-                        "cash"});
-            table1.AddRow(new string[] {
                         "Comments",
                         ""});
 #line 7
- testRunner.And("the following transaction data", ((string)(null)), table1, "And ");
-#line 14
+ testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table1, "And ");
+#line 12
  testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
+#line 13
  testRunner.Then("the transaction should be added to the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

@@ -11,6 +11,7 @@ using TechTalk.SpecFlow.Assist;
 namespace MyHome.Spec.Transaction_Managment
 {
     [Binding]
+    [Scope(Feature = "AddingATransaction")]
     public class AddingATransactionSteps
     {
         private TransactionTypes _transactionType;
@@ -18,6 +19,8 @@ namespace MyHome.Spec.Transaction_Managment
         private ITransactionService _transactionService;
         private PaymentMethodService _paymentMethodService = ServiceMocks.GetMockPaymentMethodService();
         private ICategoryService _categoryService;
+        private Category _category;
+        private PaymentMethod _paymentMethod;
 
         [BeforeScenario]
         public void Setup()
@@ -25,6 +28,8 @@ namespace MyHome.Spec.Transaction_Managment
             _transaction = null;
             _transactionService = null;
             _categoryService = null;
+            _category = null;
+            _paymentMethod = null;
         }
 
         [Given(@"The transaction type is '(.*)'")]
@@ -32,12 +37,10 @@ namespace MyHome.Spec.Transaction_Managment
         {
             _transactionType = transactionType;
         }
-        
-        [Given(@"the following transaction data")]
-        public void GivenTheFollowingTransaction(Table data)
+
+        [Given(@"the following transaction data with a category '(.*)' and payment method '(.*)'")]
+        public void GivenTheFollowingTransaction(string category, string paymentMethod, Table data)
         {
-            //TODO CreateInstance does not create the category/payment method within transaction
-            // add them to mock service from here - maybe change the step to have three paramaters?
             switch (_transactionType)
             {
                 case TransactionTypes.Income:
@@ -53,8 +56,13 @@ namespace MyHome.Spec.Transaction_Managment
                 default:
                     break;
             }
+
+            _paymentMethod = new PaymentMethod(0, paymentMethod);
+            _category = new Category(0, category);
+            _transaction.Category = _category;
+            _transaction.Method = _paymentMethod;
         }
-        
+
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
@@ -62,13 +70,13 @@ namespace MyHome.Spec.Transaction_Managment
             _paymentMethodService.Add(_transaction.Method.Name);
             _transactionService.Create(_transaction);
         }
-        
+
         [Then(@"the transaction should be added to the list")]
         public void ThenTheTransactionShouldBeAddedToTheList()
         {
-            //var actual = _transactionService.GetAll().FirstOrDefault(t => t.Amount == _transaction.Amount && t.Date == _transaction.Date);
+            var actual = _transactionService.GetAll().FirstOrDefault(t => t.Amount == _transaction.Amount && t.Date == _transaction.Date);
 
-            //Assert.IsNotNull(actual);
+            Assert.IsNotNull(actual);
         }
     }
 }
