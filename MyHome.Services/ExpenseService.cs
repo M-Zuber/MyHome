@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
+using MyHome.Infrastructure.Validation;
 
 namespace MyHome.Services
 {
@@ -37,6 +38,9 @@ namespace MyHome.Services
 
         public void Create(Expense newExpense)
         {
+            Contract.Requires<ArgumentException>(newExpense.Category != null, "There must be a category selected");
+            Contract.Requires<ArgumentException>(newExpense.Method != null, "There must be a payment method selected");
+
             _repository.Create(newExpense);
         }
         
@@ -87,6 +91,7 @@ namespace MyHome.Services
             {
                 throw new ArgumentException("The transaction is the wrong type");
             }
+            expense.Category = new ExpenseCategory(transaction.Category?.Id ?? 0, transaction.Category?.Name ?? "");
             Create(expense);
         }
 

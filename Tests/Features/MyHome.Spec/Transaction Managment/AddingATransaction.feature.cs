@@ -88,7 +88,7 @@ this.ScenarioSetup(scenarioInfo);
                         "20.5"});
             table1.AddRow(new string[] {
                         "Comments",
-                        ""});
+                        "Stuff"});
 #line 7
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table1, "And ");
 #line 12
@@ -140,7 +140,7 @@ this.ScenarioSetup(scenarioInfo);
                         "20.5"});
             table2.AddRow(new string[] {
                         "Comments",
-                        ""});
+                        "Stuff"});
 #line 22
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table2, "And ");
 #line 27
@@ -192,7 +192,7 @@ this.ScenarioSetup(scenarioInfo);
                         "20.5"});
             table3.AddRow(new string[] {
                         "Comments",
-                        ""});
+                        "Stuff"});
 #line 37
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table3, "And ");
 #line 42
@@ -246,7 +246,7 @@ this.ScenarioSetup(scenarioInfo);
                         "0"});
             table4.AddRow(new string[] {
                         "Comments",
-                        ""});
+                        "Stuff"});
 #line 53
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table4, "And ");
 #line 58
@@ -277,6 +277,163 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddingATransactionWith0AsTheAmount_AddIncome()
         {
             this.AddingATransactionWith0AsTheAmount("addIncome", "income", ((string[])(null)));
+        }
+        
+        public virtual void AddingATransactionWithNoComment(string testName, string transactionType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with no comment", exampleTags);
+#line 66
+this.ScenarioSetup(scenarioInfo);
+#line 67
+ testRunner.Given(string.Format("The transaction type is \'{0}\'", transactionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Value"});
+            table5.AddRow(new string[] {
+                        "Date",
+                        "2015-06-06"});
+            table5.AddRow(new string[] {
+                        "Amount",
+                        "0"});
+            table5.AddRow(new string[] {
+                        "Comments",
+                        ""});
+#line 68
+ testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table5, "And ");
+#line 73
+ testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 74
+ testRunner.Then("the transaction should be added to the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no comment")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "expense")]
+        public virtual void AddingATransactionWithNoComment_AddExpense()
+        {
+            this.AddingATransactionWithNoComment("addExpense", "expense", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no comment")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "income")]
+        public virtual void AddingATransactionWithNoComment_AddIncome()
+        {
+            this.AddingATransactionWithNoComment("addIncome", "income", ((string[])(null)));
+        }
+        
+        public virtual void AddingATransactionWithNoCategory(string testName, string transactionType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with no Category", exampleTags);
+#line 81
+this.ScenarioSetup(scenarioInfo);
+#line 82
+ testRunner.Given(string.Format("The transaction type is \'{0}\'", transactionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Value"});
+            table6.AddRow(new string[] {
+                        "Date",
+                        "2015-06-06"});
+            table6.AddRow(new string[] {
+                        "Amount",
+                        "12"});
+            table6.AddRow(new string[] {
+                        "Comments",
+                        "Stuff"});
+#line 83
+ testRunner.And("the following transaction data with a category \'\' and payment method \'cash\'", ((string)(null)), table6, "And ");
+#line 88
+ testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 89
+ testRunner.Then("the handler returns an error indicator - \'There must be a category selected\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no Category")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "expense")]
+        public virtual void AddingATransactionWithNoCategory_AddExpense()
+        {
+            this.AddingATransactionWithNoCategory("addExpense", "expense", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no Category")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "income")]
+        public virtual void AddingATransactionWithNoCategory_AddIncome()
+        {
+            this.AddingATransactionWithNoCategory("addIncome", "income", ((string[])(null)));
+        }
+        
+        public virtual void AddingATransactionWithNoMethod(string testName, string transactionType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with no method", exampleTags);
+#line 96
+this.ScenarioSetup(scenarioInfo);
+#line 97
+ testRunner.Given(string.Format("The transaction type is \'{0}\'", transactionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Value"});
+            table7.AddRow(new string[] {
+                        "Date",
+                        "2015-06-06"});
+            table7.AddRow(new string[] {
+                        "Amount",
+                        "12"});
+            table7.AddRow(new string[] {
+                        "Comments",
+                        "Stuff"});
+#line 98
+ testRunner.And("the following transaction data with a category \'food\' and payment method \'\'", ((string)(null)), table7, "And ");
+#line 103
+ testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 104
+ testRunner.Then("the handler returns an error indicator - \'There must be a payment method selected" +
+                    "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no method")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "expense")]
+        public virtual void AddingATransactionWithNoMethod_AddExpense()
+        {
+            this.AddingATransactionWithNoMethod("addExpense", "expense", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no method")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "income")]
+        public virtual void AddingATransactionWithNoMethod_AddIncome()
+        {
+            this.AddingATransactionWithNoMethod("addIncome", "income", ((string[])(null)));
         }
     }
 }
