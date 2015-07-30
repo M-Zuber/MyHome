@@ -14,6 +14,7 @@ namespace MyHome.Spec.Transaction_Managment
     [Scope(Feature = "AddingATransaction")]
     public class AddingATransactionSteps
     {
+        const string EXCEPTION_CONTEXT_KEY = "add_transaction_result";
         private TransactionTypes _transactionType;
         private Transaction _transaction;
         private ITransactionService _transactionService;
@@ -57,18 +58,38 @@ namespace MyHome.Spec.Transaction_Managment
                     break;
             }
 
-            _paymentMethod = new PaymentMethod(0, paymentMethod);
-            _category = new Category(0, category);
-            _transaction.Category = _category;
-            _transaction.Method = _paymentMethod;
+            if (!string.IsNullOrWhiteSpace(paymentMethod))
+            {
+                _paymentMethod = new PaymentMethod(0, paymentMethod);
+                _transaction.Method = _paymentMethod;
+            }
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                _category = new Category(0, category);
+                _transaction.Category = _category;
+            }
+
+
+            if (_transaction.Date.Equals(default(DateTime)))
+            {
+                _transaction.Date = DateTime.Today;
+            }
         }
 
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
-            _categoryService.Add(_transaction.Category.Name);
-            _paymentMethodService.Add(_transaction.Method.Name);
-            _transactionService.Create(_transaction);
+            try
+            {
+                _categoryService.Add(_transaction.Category?.Name ?? "not this one");
+                _paymentMethodService.Add(_transaction.Method?.Name ?? "not this one");
+                _transactionService.Create(_transaction);
+            }
+            catch (Exception e)
+            {
+                ScenarioContext.Current.Add(EXCEPTION_CONTEXT_KEY, e);
+            }
         }
 
         [Then(@"the transaction should be added to the list")]
@@ -78,5 +99,22 @@ namespace MyHome.Spec.Transaction_Managment
 
             Assert.IsNotNull(actual);
         }
+
+        [Then(@"the handler returns an error indicator - '(.*)'")]
+        public void ThenTheHandlerReturnsAnErrorIndicator(string errorMessage)
+        {
+            var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
+            Assert.IsNotNull(e);
+            Assert.IsInstanceOfType(e, typeof(ArgumentException));
+            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); //TODO check this once issue with Contract.Require is sorted out
+        }
+
+        [Then(@"the date is the current date")]
+        public void ThenTheDateIsTheCurrentDate()
+        {
+            Assert.AreEqual(DateTime.Today, _transaction.Date);
+        }
+
+
     }
 }
