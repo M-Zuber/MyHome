@@ -69,9 +69,9 @@ namespace MyHome.Spec.TransactionManagment
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void AddingATransaction(string testName, string transactionType, string[] exampleTags)
+        public virtual void AddingATransactionWithADateInThePast(string testName, string transactionType, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with a date in the past", exampleTags);
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -100,30 +100,30 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with a date in the past")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addExpense")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addExpense")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "expense")]
-        public virtual void AddingATransaction_AddExpense()
+        public virtual void AddingATransactionWithADateInThePast_AddExpense()
         {
-            this.AddingATransaction("addExpense", "expense", ((string[])(null)));
+            this.AddingATransactionWithADateInThePast("addExpense", "expense", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with a date in the past")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addIncome")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addIncome")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "income")]
-        public virtual void AddingATransaction_AddIncome()
+        public virtual void AddingATransactionWithADateInThePast_AddIncome()
         {
-            this.AddingATransaction("addIncome", "income", ((string[])(null)));
+            this.AddingATransactionWithADateInThePast("addIncome", "income", ((string[])(null)));
         }
         
-        public virtual void AddingATransactionWith0AsTheAmount(string testName, string transactionType, string[] exampleTags)
+        public virtual void AddingATransactionWithADateInTheFuture(string testName, string transactionType, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with 0 as the amount", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with a date in the future", exampleTags);
 #line 20
 this.ScenarioSetup(scenarioInfo);
 #line 21
@@ -134,10 +134,10 @@ this.ScenarioSetup(scenarioInfo);
                         "Value"});
             table2.AddRow(new string[] {
                         "Date",
-                        "2015-06-06"});
+                        "3000-06-06"});
             table2.AddRow(new string[] {
                         "Amount",
-                        "0"});
+                        "20.5"});
             table2.AddRow(new string[] {
                         "Comments",
                         ""});
@@ -146,6 +146,112 @@ this.ScenarioSetup(scenarioInfo);
 #line 27
  testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 28
+ testRunner.Then("the transaction should be added to the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with a date in the future")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "expense")]
+        public virtual void AddingATransactionWithADateInTheFuture_AddExpense()
+        {
+            this.AddingATransactionWithADateInTheFuture("addExpense", "expense", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with a date in the future")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "income")]
+        public virtual void AddingATransactionWithADateInTheFuture_AddIncome()
+        {
+            this.AddingATransactionWithADateInTheFuture("addIncome", "income", ((string[])(null)));
+        }
+        
+        public virtual void AddingATransactionWithNoDate(string testName, string transactionType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with no date", exampleTags);
+#line 35
+this.ScenarioSetup(scenarioInfo);
+#line 36
+ testRunner.Given(string.Format("The transaction type is \'{0}\'", transactionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Date",
+                        ""});
+            table3.AddRow(new string[] {
+                        "Amount",
+                        "20.5"});
+            table3.AddRow(new string[] {
+                        "Comments",
+                        ""});
+#line 37
+ testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table3, "And ");
+#line 42
+ testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 43
+ testRunner.Then("the transaction should be added to the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 44
+ testRunner.And("the date is the current date", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no date")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addExpense")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "expense")]
+        public virtual void AddingATransactionWithNoDate_AddExpense()
+        {
+            this.AddingATransactionWithNoDate("addExpense", "expense", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Adding a Transaction with no date")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AddingATransaction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:testName", "addIncome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:transactionType", "income")]
+        public virtual void AddingATransactionWithNoDate_AddIncome()
+        {
+            this.AddingATransactionWithNoDate("addIncome", "income", ((string[])(null)));
+        }
+        
+        public virtual void AddingATransactionWith0AsTheAmount(string testName, string transactionType, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a Transaction with 0 as the amount", exampleTags);
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 52
+ testRunner.Given(string.Format("The transaction type is \'{0}\'", transactionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Value"});
+            table4.AddRow(new string[] {
+                        "Date",
+                        "2015-06-06"});
+            table4.AddRow(new string[] {
+                        "Amount",
+                        "0"});
+            table4.AddRow(new string[] {
+                        "Comments",
+                        ""});
+#line 53
+ testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table4, "And ");
+#line 58
+ testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
  testRunner.Then("the transaction should be added to the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

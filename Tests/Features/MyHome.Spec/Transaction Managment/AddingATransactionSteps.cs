@@ -62,6 +62,11 @@ namespace MyHome.Spec.Transaction_Managment
             _category = new Category(0, category);
             _transaction.Category = _category;
             _transaction.Method = _paymentMethod;
+
+            if (_transaction.Date.Equals(default(DateTime)))
+            {
+                _transaction.Date = DateTime.Today;
+            }
         }
 
         [When(@"I press add")]
@@ -87,14 +92,21 @@ namespace MyHome.Spec.Transaction_Managment
             Assert.IsNotNull(actual);
         }
 
-        [Then(@"the handler returns an error indicator")]
-        public void ThenTheHandlerReturnsAnErrorIndicator()
+        [Then(@"the handler returns an error indicator - '(.*)'")]
+        public void ThenTheHandlerReturnsAnErrorIndicator(string errorMessage)
         {
             var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
             Assert.IsNotNull(e);
             Assert.IsInstanceOfType(e, typeof(ArgumentException));
-            Assert.AreEqual("The amount can not be empty", e.Message);
+            Assert.AreEqual(errorMessage, e.Message, ignoreCase: true);
         }
+
+        [Then(@"the date is the current date")]
+        public void ThenTheDateIsTheCurrentDate()
+        {
+            Assert.AreEqual(DateTime.Today, _transaction.Date);
+        }
+
 
     }
 }
