@@ -14,6 +14,7 @@ namespace MyHome.Spec.Transaction_Managment
     [Scope(Feature = "AddingATransaction")]
     public class AddingATransactionSteps
     {
+        const string EXCEPTION_CONTEXT_KEY = "add_transaction_result";
         private TransactionTypes _transactionType;
         private Transaction _transaction;
         private ITransactionService _transactionService;
@@ -66,9 +67,16 @@ namespace MyHome.Spec.Transaction_Managment
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
-            _categoryService.Add(_transaction.Category.Name);
-            _paymentMethodService.Add(_transaction.Method.Name);
-            _transactionService.Create(_transaction);
+            try
+            {
+                _categoryService.Add(_transaction.Category.Name);
+                _paymentMethodService.Add(_transaction.Method.Name);
+                _transactionService.Create(_transaction);
+            }
+            catch (Exception e)
+            {
+                ScenarioContext.Current.Add(EXCEPTION_CONTEXT_KEY, e);
+            }
         }
 
         [Then(@"the transaction should be added to the list")]
@@ -78,5 +86,15 @@ namespace MyHome.Spec.Transaction_Managment
 
             Assert.IsNotNull(actual);
         }
+
+        [Then(@"the handler returns an error indicator")]
+        public void ThenTheHandlerReturnsAnErrorIndicator()
+        {
+            var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
+            Assert.IsNotNull(e);
+            Assert.IsInstanceOfType(e, typeof(ArgumentException));
+            Assert.AreEqual("The amount can not be empty", e.Message);
+        }
+
     }
 }
