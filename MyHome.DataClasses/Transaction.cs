@@ -14,5 +14,8 @@ namespace MyHome.DataClasses
         public DateTime Date { get; set; }
 
         public PaymentMethod Method { get; set; }
+
+        public int Id { get; set; }
+        public string Comment { get; set; }
     }
 }

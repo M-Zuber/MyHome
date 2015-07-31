@@ -54,8 +54,6 @@ namespace MyHome.Spec.Transaction_Managment
                     _transactionService = ServiceMocks.GetMockExpenseService();
                     _categoryService = ServiceMocks.GetMockExpenseCategoryService();
                     break;
-                default:
-                    break;
             }
 
             if (!string.IsNullOrWhiteSpace(paymentMethod))

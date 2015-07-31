@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyHome.Spec</RootNamespace>
     <AssemblyName>MyHome.Spec</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -104,6 +104,12 @@
       <DependentUpon>AddingATransaction.feature</DependentUpon>
     </Compile>
     <Compile Include="Transaction Managment\AddingATransactionSteps.cs" />
+    <Compile Include="Transaction Managment\EditingATransaction.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditingATransaction.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction Managment\EditingATransactionSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -119,6 +125,10 @@
     <None Include="Transaction Managment\AddingATransaction.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddingATransaction.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Transaction Managment\EditingATransaction.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EditingATransaction.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +148,9 @@
       <Project>{977477bf-6cca-4ffe-aa4b-b77f9b7d2c68}</Project>
       <Name>MyHome.DataClasses</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\SwitchEnumAnalyzer.1.0.0.3\tools\analyzers\SwitchEnum.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -4,10 +4,11 @@ using System.Linq;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Infrastructure.Validation;
+using static MyHome.Services.TransactionExtensions;
 
 namespace MyHome.Services
 {
-    public class ExpenseService: ITransactionService
+    public class ExpenseService : ITransactionService
     {
         private readonly ExpenseRepository _repository;
 
@@ -30,20 +31,22 @@ namespace MyHome.Services
         {
             return _repository.GetForMonthAndYear(month.Month, month.Year);
         }
-        
+
         public void Save(Expense expenseToSave)
         {
+            Contract.Requires<ArgumentNullException>(expenseToSave.Category != null, "There must be a category selected");
+            Contract.Requires<ArgumentNullException>(expenseToSave.Method != null, "There must be a payment method selected");
             _repository.Save(expenseToSave);
         }
 
         public void Create(Expense newExpense)
         {
-            Contract.Requires<ArgumentException>(newExpense.Category != null, "There must be a category selected");
-            Contract.Requires<ArgumentException>(newExpense.Method != null, "There must be a payment method selected");
+            Contract.Requires<ArgumentNullException>(newExpense.Category != null, "There must be a category selected");
+            Contract.Requires<ArgumentNullException>(newExpense.Method != null, "There must be a payment method selected");
 
             _repository.Create(newExpense);
         }
-        
+
         public void Delete(int id)
         {
             _repository.Remove(id);
@@ -86,18 +89,19 @@ namespace MyHome.Services
 
         void ITransactionService.Create(Transaction transaction)
         {
-            var expense = transaction as Expense;
-            if (expense == null)
-            {
-                throw new ArgumentException("The transaction is the wrong type");
-            }
-            expense.Category = new ExpenseCategory(transaction.Category?.Id ?? 0, transaction.Category?.Name ?? "");
+            var expense = TryParseToExpense(transaction);
             Create(expense);
         }
 
         IEnumerable<Transaction> ITransactionService.GetAll()
         {
             return LoadAll();
+        }
+
+        void ITransactionService.Save(Transaction transaction)
+        {
+            var expense = TryParseToExpense(transaction);
+            Save(expense);
         }
 
         #endregion

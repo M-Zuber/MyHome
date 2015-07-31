@@ -9,12 +9,12 @@ namespace MyHome.DataClasses
         ///// <summary>
         ///// The amount of the income
         ///// </summary>
-        //public decimal Amount { get; set; }
+        public new decimal Amount { get; set; }
 
         ///// <summary>
         ///// The date of the income
         ///// </summary>
-        //public DateTime Date { get; set; }
+        public new DateTime Date { get; set; }
 
         /// <summary>
         /// Category of the income
@@ -24,17 +24,17 @@ namespace MyHome.DataClasses
         /// <summary>
         /// How the income was payed
         /// </summary>
-        //public PaymentMethod Method { get; set; }
+        public new PaymentMethod Method { get; set; }
 
         /// <summary>
         /// Additional info about the income
         /// </summary>
-        public string Comment { get; set; }
+        public new string Comment { get; set; }
 
         /// <summary>
         /// ID number of the income in the data table
         /// </summary>
-        public int Id { get; set; }
+        public new int Id { get; set; }
 
         public int CategoryId { get; set; }
         public int PaymentMethodId { get; set; }
