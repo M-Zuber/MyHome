@@ -87,7 +87,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "20.5"});
             table1.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         "Stuff"});
 #line 7
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table1, "And ");
@@ -139,7 +139,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "20.5"});
             table2.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         "Stuff"});
 #line 22
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table2, "And ");
@@ -191,7 +191,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "20.5"});
             table3.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         "Stuff"});
 #line 37
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table3, "And ");
@@ -245,7 +245,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "0"});
             table4.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         "Stuff"});
 #line 53
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table4, "And ");
@@ -297,7 +297,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "0"});
             table5.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         ""});
 #line 68
  testRunner.And("the following transaction data with a category \'food\' and payment method \'cash\'", ((string)(null)), table5, "And ");
@@ -349,7 +349,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "12"});
             table6.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         "Stuff"});
 #line 83
  testRunner.And("the following transaction data with a category \'\' and payment method \'cash\'", ((string)(null)), table6, "And ");
@@ -401,7 +401,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Amount",
                         "12"});
             table7.AddRow(new string[] {
-                        "Comments",
+                        "Comment",
                         "Stuff"});
 #line 98
  testRunner.And("the following transaction data with a category \'food\' and payment method \'\'", ((string)(null)), table7, "And ");

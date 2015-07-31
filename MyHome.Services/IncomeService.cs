@@ -4,6 +4,7 @@ using System.Linq;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Infrastructure.Validation;
+using static MyHome.Services.TransactionExtensions;
 
 namespace MyHome.Services
 {
@@ -11,7 +12,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of incomes
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class IncomeService: ITransactionService
+    public class IncomeService : ITransactionService
     {
         private readonly IncomeRepository _repository;
 
@@ -34,16 +35,18 @@ namespace MyHome.Services
         {
             return _repository.GetForMonthAndYear(monthWanted.Month, monthWanted.Year);
         }
-        
+
         public void Save(Income incomeToSave)
         {
+            Contract.Requires<ArgumentNullException>(incomeToSave.Category != null, "There must be a category selected");
+            Contract.Requires<ArgumentNullException>(incomeToSave.Method != null, "There must be a payment method selected");
             _repository.Save(incomeToSave);
         }
 
         public void Create(Income newIncome)
         {
-            Contract.Requires<ArgumentException>(newIncome.Category != null, "There must be a category selected");
-            Contract.Requires<ArgumentException>(newIncome.Method != null, "There must be a payment method selected");
+            Contract.Requires<ArgumentNullException>(newIncome.Category != null, "There must be a category selected");
+            Contract.Requires<ArgumentNullException>(newIncome.Method != null, "There must be a payment method selected");
 
             _repository.Create(newIncome);
         }
@@ -90,18 +93,19 @@ namespace MyHome.Services
 
         void ITransactionService.Create(Transaction transaction)
         {
-            var income = transaction as Income;
-            if (income == null)
-            {
-                throw new ArgumentException("The transaction is the wrong type");
-            }
-            income.Category = new IncomeCategory(transaction.Category?.Id ?? 0, transaction.Category?.Name ?? "");
+            var income = TryParseToIncome(transaction);
             Create(income);
         }
 
         IEnumerable<Transaction> ITransactionService.GetAll()
         {
             return LoadAll();
+        }
+
+        void ITransactionService.Save(Transaction transaction)
+        {
+            var income = TryParseToIncome(transaction);
+            Save(income);
         }
 
         #endregion
