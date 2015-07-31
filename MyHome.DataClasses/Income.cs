@@ -29,7 +29,7 @@ namespace MyHome.DataClasses
         /// <summary>
         /// Additional info about the income
         /// </summary>
-        public string Comment { get; set; }
+        public new string Comment { get; set; }
 
         /// <summary>
         /// ID number of the income in the data table
