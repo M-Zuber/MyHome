@@ -1,7 +1,7 @@
 ﻿namespace MyHome.DataClasses
 {
     /// <summary>
-    /// Conatains extension methods for the types defined in the LocalType namespace
+    /// Conatains extension methods for the types defined in the MyHome.DataClasses namespace
     /// </summary>
     public static class Extensions
     {
