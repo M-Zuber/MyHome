@@ -71,8 +71,8 @@ namespace MyHome.Spec.Transaction_Managment
             _transaction.Category = _category;
             _transaction.Date = DateTime.Today;
 
-            _categoryService.Add(_transaction.Category.Name);
-            _paymentMethodService.Add(_transaction.Method.Name);
+            _categoryService.Create(_transaction.Category.Name);
+            _paymentMethodService.Create(_transaction.Method.Name);
 
             _transaction.Id = 1;
             _transactionService.Create(_transaction);
@@ -95,7 +95,7 @@ namespace MyHome.Spec.Transaction_Managment
                 case Properties.Category:
                     if (!string.IsNullOrWhiteSpace(value))
                     {
-                        _categoryService.Add(value);
+                        _categoryService.Create(value);
                         _transaction.Category = new Category { Name = value };
                     }
                     else
@@ -106,7 +106,7 @@ namespace MyHome.Spec.Transaction_Managment
                 case Properties.Method:
                     if (!string.IsNullOrWhiteSpace(value))
                     {
-                        _paymentMethodService.Add(value);
+                        _paymentMethodService.Create(value);
                         _transaction.Method = new PaymentMethod { Name = value };
                     }
                     else

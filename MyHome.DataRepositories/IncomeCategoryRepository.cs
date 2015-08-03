@@ -44,8 +44,7 @@ namespace MyHome.DataRepository
 
         public void Update(IncomeCategory incomeCategory)
         {
-            var existing = _context.IncomeCategories.Find(incomeCategory.Id);
-            existing.Name = incomeCategory.Name;
+            _context.IncomeCategories.Attach(incomeCategory);
             _context.SaveChanges();
         }
 

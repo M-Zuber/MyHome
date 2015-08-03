@@ -74,7 +74,7 @@ namespace MyHome.UI
             }
             else
             {
-                _categoryService.CategoryHandlers[this.CategoryType].Add(txtCategoryName.Text);
+                _categoryService.CategoryHandlers[this.CategoryType].Create(txtCategoryName.Text);
 
                 Close();
             }

@@ -76,14 +76,10 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Given(string.Format("The category type is \'{0}\'", categoryType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.And(string.Format("the current name is \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("a category with the name \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
- testRunner.And("there is no other category with that name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 9
- testRunner.And("I save the category", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
  testRunner.When(string.Format("I change the name to \'{0}\'", newName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
+#line 9
  testRunner.Then("the category is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -131,21 +127,19 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ChangingTheNameOfACategoryToANon_UniqueName(string testName, string categoryName, string categoryType, string newName, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changing the name of a category to a non-unique name", exampleTags);
-#line 19
+#line 17
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 18
  testRunner.Given(string.Format("The category type is \'{0}\'", categoryType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
- testRunner.And(string.Format("the current name is \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
- testRunner.And("I save the category", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
+#line 19
+ testRunner.And(string.Format("a category with the name \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
  testRunner.And(string.Format("the \'{0}\' already exists", newName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
+#line 21
  testRunner.When(string.Format("I change the name to \'{0}\'", newName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 25
+#line 22
  testRunner.Then("the handler returns an error indicator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 26
+#line 23
  testRunner.And(string.Format("the category name remains \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -193,19 +187,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void UpdatingACategory_WithABlankName(string testName, string categoryName, string categoryType, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Updating a category - with a blank name", exampleTags);
-#line 34
+#line 31
 this.ScenarioSetup(scenarioInfo);
-#line 35
+#line 32
  testRunner.Given(string.Format("The category type is \'{0}\'", categoryType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 36
- testRunner.And(string.Format("the current name is \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
- testRunner.And("I save the category", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
+#line 33
+ testRunner.And(string.Format("a category with the name \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
  testRunner.When("I have entered nothing for the name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 39
+#line 35
  testRunner.Then("the handler returns an error indicator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 40
+#line 36
  testRunner.And(string.Format("the category name remains \'{0}\'", categoryName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

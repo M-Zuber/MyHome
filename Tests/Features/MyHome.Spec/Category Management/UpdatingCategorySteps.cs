@@ -61,11 +61,21 @@ namespace MyHome.Spec.Category_Management
         {
             _categoryName = currentName;
         }
+        [Given(@"a category with the name '(.*)'")]
+        public void GivenACategoryWithTheName(string categoryName)
+        {
+            _categoryName = categoryName;
+            if (_categoryService.Exists(categoryName))
+            {
+                _categoryService.Delete(categoryName);
+            }
+            _categoryService.Create(categoryName, 1);
+        }
 
         [Given(@"there is another category with the same name")]
         public void GivenThereIsAnotherCategoryWithTheSameName()
         {
-            _categoryService.Add(_categoryName);
+            _categoryService.Create(_categoryName);
         }
 
         [Given(@"there is no other category with that name")]
@@ -73,14 +83,14 @@ namespace MyHome.Spec.Category_Management
         {
             if (_categoryService.Exists(_categoryName))
             {
-                _categoryService.Remove(_categoryName);
+                _categoryService.Delete(_categoryName);
             }
         }
 
         [Given(@"I save the category")]
         public void SaveCategory()
         {
-            _categoryService.Add(_categoryName);
+            _categoryService.Create(_categoryName);
             var category = _categoryService.GetAll().First(x => x.Name == _categoryName);
             _categoryId = category.Id;
         }
@@ -88,7 +98,7 @@ namespace MyHome.Spec.Category_Management
         [Given(@"the '(.*)' already exists")]
         public void GivenTheAlreadyExists(string newName)
         {
-            _categoryService.Add(newName);
+            _categoryService.Create(newName);
         }
 
         #endregion
@@ -102,7 +112,7 @@ namespace MyHome.Spec.Category_Management
 
             try
             {
-                _categoryService.Update(category.Id, "");
+                _categoryService.Save(category.Id, "");
             }
             catch (Exception e)
             {
@@ -118,11 +128,11 @@ namespace MyHome.Spec.Category_Management
 
             try
             {
-                _categoryService.Update(category.Id, _newName);
+                _categoryService.Save(category.Id, _newName);
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(AddCategoryResultKey, e);    
+                ScenarioContext.Current.Add(AddCategoryResultKey, e);
             }
         }
 
@@ -133,7 +143,7 @@ namespace MyHome.Spec.Category_Management
         [Then(@"the category is updated")]
         public void ThenTheCategoryIsUpdated()
         {
-            var category = _categoryService.GetAll().FirstOrDefault(c => c.Id == _categoryId);
+            var category = _categoryService.GetAll().FirstOrDefault(c => c.Id == 1);
             Assert.IsNotNull(category);
             Assert.AreEqual(_newName, category.Name, true);
         }
@@ -148,7 +158,7 @@ namespace MyHome.Spec.Category_Management
         [Then(@"the category name remains '(.*)'")]
         public void ThenTheCategoryNameRemains(string oldName)
         {
-            var category = _categoryService.GetAll().FirstOrDefault(c => c.Id == _categoryId);
+            var category = _categoryService.GetAll().FirstOrDefault(c => c.Id == 1);
             Assert.IsNotNull(category);
             Assert.AreEqual(oldName, category.Name, true);
         }

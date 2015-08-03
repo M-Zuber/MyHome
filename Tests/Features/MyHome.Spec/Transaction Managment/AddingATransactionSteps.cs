@@ -80,8 +80,8 @@ namespace MyHome.Spec.Transaction_Managment
         {
             try
             {
-                _categoryService.Add(_transaction.Category?.Name ?? "not this one");
-                _paymentMethodService.Add(_transaction.Method?.Name ?? "not this one");
+                _categoryService.Create(_transaction.Category?.Name ?? "not this one");
+                _paymentMethodService.Create(_transaction.Method?.Name ?? "not this one");
                 _transactionService.Create(_transaction);
             }
             catch (Exception e)

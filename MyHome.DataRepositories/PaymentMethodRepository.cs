@@ -44,8 +44,7 @@ namespace MyHome.DataRepository
 
         public void Update(PaymentMethod paymentMethod)
         {
-            var existing = _context.PaymentMethods.Find(paymentMethod.Id);
-            existing.Name = paymentMethod.Name;
+            _context.PaymentMethods.Attach(paymentMethod);
             _context.SaveChanges();
         }
 

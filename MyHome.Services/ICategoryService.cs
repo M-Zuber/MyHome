@@ -7,8 +7,8 @@ namespace MyHome.Services
     {
         IEnumerable<Category> GetAll();
         bool Exists(string name);
-        void Add(string name);
-        void Remove(string name);
-        void Update(int id, string name);
+        void Create(string name, int id = 0);
+        void Delete(string name);
+        void Save(int id, string name);
     }
 }
