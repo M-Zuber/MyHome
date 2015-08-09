@@ -15,7 +15,7 @@ namespace MyHome.Infrastructure.Tests.Validation
 
             // Assert
             var message = Assert.Throws<Exception>(() => failingRequire()).Message;
-            Assert.That(message, Is.Null);
+            Assert.That(message, Is.Empty);
         }
 
         [Test]
