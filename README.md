@@ -16,7 +16,6 @@ More ways of accessing the data are planned for future versions.
 
 Minmum requirements:
 [Visual Studio 2015 - includes .net 4.6](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
- - It's free and fun :smile:
 
 ### Testing Frameworks
 - For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
