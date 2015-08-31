@@ -149,9 +149,6 @@
       <Name>MyHome.DataClasses</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\..\packages\SwitchEnumAnalyzer.1.0.0.3\tools\analyzers\SwitchEnum.dll" />
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
