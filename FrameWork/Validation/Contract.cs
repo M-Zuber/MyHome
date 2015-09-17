@@ -11,7 +11,8 @@ namespace MyHome.Infrastructure.Validation
             if (!predicate)
             {
                 Debug.WriteLine(message);
-                throw new TException();
+                Exception ex = (Exception)Activator.CreateInstance(typeof(TException), message);
+                throw ex;
             }
         }
     }

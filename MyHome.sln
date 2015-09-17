@@ -38,6 +38,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{DC0E6966-15A3-48B6-B152-A925FE10B4FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.DataClasses.Tests", "Tests\Unit Tests\MyHome.DataClasses.Tests\MyHome.DataClasses.Tests.csproj", "{BC417E8A-F6FA-412B-9EF3-945BBE619E91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.Infrastructure.Tests", "MyHome.Infrastructure.Tests\MyHome.Infrastructure.Tests.csproj", "{39D19E5C-2857-43E7-8A50-150C72A0EEED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +132,18 @@ Global
 		{BC417E8A-F6FA-412B-9EF3-945BBE619E91}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BC417E8A-F6FA-412B-9EF3-945BBE619E91}.Release|x86.ActiveCfg = Release|Any CPU
 		{BC417E8A-F6FA-412B-9EF3-945BBE619E91}.Release|x86.Build.0 = Release|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Debug|x86.Build.0 = Debug|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|x86.ActiveCfg = Release|Any CPU
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +154,7 @@ Global
 		{6FA95DDD-4A4A-45FC-A65B-30D2B23B67D4} = {C09F3FC7-D399-449E-8A76-5BFBE783B5A8}
 		{DC0E6966-15A3-48B6-B152-A925FE10B4FD} = {C404D53E-C09E-43EA-B529-E2AD7688790B}
 		{BC417E8A-F6FA-412B-9EF3-945BBE619E91} = {DC0E6966-15A3-48B6-B152-A925FE10B4FD}
+		{39D19E5C-2857-43E7-8A50-150C72A0EEED} = {C404D53E-C09E-43EA-B529-E2AD7688790B}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MyHome2013.vsmdi
