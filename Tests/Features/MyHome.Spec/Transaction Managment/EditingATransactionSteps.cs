@@ -163,7 +163,8 @@ namespace MyHome.Spec.Transaction_Managment
             var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
             Assert.IsNotNull(e);
             Assert.IsInstanceOfType(e, typeof(ArgumentException));
-            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); //TODO check this once issue with Contract.Require is sorted out
+            //TODO check this once issue with Contract.Require is sorted out
+            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); 
         }
 
         [Then(@"the date is the current date")]
