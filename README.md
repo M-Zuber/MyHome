@@ -17,6 +17,13 @@ More ways of accessing the data are planned for future versions.
 Minmum requirements:
 [Visual Studio 2015 - includes .net 4.6](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
 
+### Setup
+- Database
+  - The curent database is [`MMSQL`](http://www.microsoft.com/web/platform/database.aspx)
+  - Once that is installed and set up run the program
+  - In the prompt enter the connection information used when installing the database
+  - There is a goal to move to a database system that will not involve any additional setup
+
 ### Testing Frameworks
 - For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
 
