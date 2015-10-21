@@ -19,7 +19,7 @@ Minmum requirements:
 
 ### Setup
 - Database
-  - The curent database is [`MMSQL`](http://www.microsoft.com/web/platform/database.aspx)
+  - The curent database is [`SQL Server Express`](http://www.microsoft.com/en-us/server-cloud/Products/sql-server-editions/sql-server-express.aspx)
   - Once that is installed and set up run the program
   - In the prompt enter the connection information used when installing the database
   - There is a goal to move to a database system that will not involve any additional setup
