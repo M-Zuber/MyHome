@@ -13,11 +13,11 @@ namespace FrameWork
         {
             if (target == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             }
             if (source == null)
             {
-                throw new ArgumentNullException("source");                
+                throw new ArgumentNullException(nameof(source));                
             }
             foreach (var element in source)
             {
