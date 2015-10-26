@@ -53,7 +53,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FrameWork\MyHome.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\FrameWork\MyHome.Infrastructure.csproj">
       <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
       <Name>MyHome.Infrastructure</Name>
     </ProjectReference>

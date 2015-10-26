@@ -80,9 +80,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\MyHome.DataRepositories\MyHome.DataRepositories.csproj">
       <Project>{306b249a-744f-4c66-9365-07cb3ec58a7a}</Project>
       <Name>MyHome.DataRepositories</Name>
