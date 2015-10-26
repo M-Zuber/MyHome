@@ -5,12 +5,14 @@ using MyHome.DataRepository;
 using MyHome.TestUtils;
 using System.Collections.Generic;
 using MyHome.DataClasses;
+using System.Linq;
 
 namespace MyHome.DataRepositories.Tests
 {
     [TestClass]
     public class ExpenseCategoryRepositoryTests
     {
+        private ExpenseCategory baseTestData = new ExpenseCategory(1, "test");
         [TestMethod]
         public void ExpenseCategoryRepository_GetById_Null_If_Not_Found()
         {
@@ -23,12 +25,88 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseCategoryRepository_GetById_Returns_Object_If_Exists()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { new ExpenseCategory(1, "test")});
-            var result = mock.GetById(1);
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
+            var result = mock.GetById(baseTestData.Id);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Id);
-            Assert.AreEqual("test", result.Name);
+            Assert.AreEqual(baseTestData.Id, result.Id);
+            Assert.AreEqual(baseTestData.Name, result.Name);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetByName_Null_If_Not_found()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData});
+            var result = mock.GetByName("not-test");
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetByName_Returns_Object_If_Exists()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData});
+            var result = mock.GetByName(baseTestData.Name);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(baseTestData.Id, result.Id);
+            Assert.AreEqual(baseTestData.Name, result.Name);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetByName_Works_With_Diff_In_Casing()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
+            var result = mock.GetByName(baseTestData.Name.ToUpper());
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(baseTestData.Id, result.Id);
+            Assert.AreEqual(baseTestData.Name, result.Name);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetByName_Returns_Null_For_Empty_String()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
+            var result = mock.GetByName(string.Empty);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetByName_Returns_Null_For_Null_String()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
+            var result = mock.GetByName(null);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetAll_Returns_Empty_Non_Null_List_If_No_Data()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
+
+            var result = mock.GetAll();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_GetAll_Returns_All_Data()
+        {
+            var expected = new List<ExpenseCategory>();
+            for (int i = 0; i < 5; i++)
+            {
+                expected.Add(new ExpenseCategory(baseTestData.Id + i, $"{baseTestData.Name}::{i}"));
+            }
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(expected);
+
+            var result = mock.GetAll();
+
+            Assert.IsNotNull(result);
+            CollectionAssert.AreEqual(expected, result.ToList());
         }
     }
 }

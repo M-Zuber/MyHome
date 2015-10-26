@@ -22,7 +22,7 @@ namespace MyHome.DataRepository
 
         public ExpenseCategory GetByName(string name)
         {
-            return _context.ExpenseCategories.AsNoTracking().FirstOrDefault(x => x.Name == name);
+            return _context.ExpenseCategories.AsNoTracking().FirstOrDefault(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<ExpenseCategory> GetAll()
