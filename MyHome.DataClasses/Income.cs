@@ -29,7 +29,7 @@ namespace MyHome.DataClasses
         /// <summary>
         /// Additional info about the income
         /// </summary>
-        public new string Comment { get; set; }
+        public new string Comments { get; set; }
 
         /// <summary>
         /// ID number of the income in the data table
@@ -52,7 +52,7 @@ namespace MyHome.DataClasses
         {
             Amount = amount;
             Category = incomeCategory;
-            Comment = comment;
+            Comments = comment;
             Date = date;
             Id = id;
             Method = paymentMethod;
@@ -68,7 +68,7 @@ namespace MyHome.DataClasses
 
             return ((Amount == incomeComparing.Amount) &&
                     (Category.Equals(incomeComparing.Category)) &&
-                    (Comment == incomeComparing.Comment) &&
+                    (Comments == incomeComparing.Comments) &&
                     (Date == incomeComparing.Date) &&
                     (Id == incomeComparing.Id) &&
                     (Method.Equals(incomeComparing.Method)));
@@ -76,7 +76,7 @@ namespace MyHome.DataClasses
 
         public override int GetHashCode()
         {
-            return new { Id, Amount, Category, Comment, Date, Method }.GetHashCode();
+            return new { Id, Amount, Category, Comments, Date, Method }.GetHashCode();
         }
 
         #endregion

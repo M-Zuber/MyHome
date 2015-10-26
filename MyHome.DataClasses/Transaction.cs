@@ -16,6 +16,6 @@ namespace MyHome.DataClasses
         public PaymentMethod Method { get; set; }
 
         public int Id { get; set; }
-        public string Comment { get; set; }
+        public string Comments { get; set; }
     }
 }

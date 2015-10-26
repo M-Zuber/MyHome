@@ -17,7 +17,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -45,7 +45,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod

@@ -17,7 +17,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -35,7 +35,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -61,7 +61,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -79,7 +79,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -105,7 +105,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Other_Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -123,7 +123,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -149,7 +149,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff, but not that kind",
+                Comments = "Stuff, but not that kind",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -167,7 +167,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -193,7 +193,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.MinValue,
                 Id = 0,
                 Method = new PaymentMethod
@@ -211,7 +211,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -237,7 +237,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 10,
                 Method = new PaymentMethod
@@ -255,7 +255,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -281,7 +281,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -299,7 +299,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -325,7 +325,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -343,7 +343,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod
@@ -368,7 +368,7 @@ namespace MyHome.DataClasses.Tests
                     Id = 0,
                     Name = "Category"
                 },
-                Comment = "Stuff",
+                Comments = "Stuff",
                 Date = DateTime.Today,
                 Id = 0,
                 Method = new PaymentMethod

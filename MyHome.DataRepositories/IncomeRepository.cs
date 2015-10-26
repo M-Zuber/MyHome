@@ -32,7 +32,8 @@ namespace MyHome.DataRepository
 
         public IEnumerable<Income> GetForMonthAndYear(int month, int year)
         {
-            return _context.Incomes.Where(i => i.Date.Month == month
+            return _context.Incomes.Include(i => i.Category)
+                           .Include(i => i.Method).Where(i => i.Date.Month == month
                 && i.Date.Year == year).ToList();
         }
 

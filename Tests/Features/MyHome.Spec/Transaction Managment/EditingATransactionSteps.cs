@@ -90,7 +90,7 @@ namespace MyHome.Spec.Transaction_Managment
                     _transaction.Amount = decimal.Parse(value);
                     break;
                 case Properties.Comment:
-                    _transaction.Comment = value;
+                    _transaction.Comments = value;
                     break;
                 case Properties.Category:
                     if (!string.IsNullOrWhiteSpace(value))
@@ -138,7 +138,7 @@ namespace MyHome.Spec.Transaction_Managment
                     Assert.AreEqual(transactionFromDB.Amount.ToString(), value);
                     break;
                 case Properties.Comment:
-                    Assert.AreEqual(transactionFromDB.Comment, value);
+                    Assert.AreEqual(transactionFromDB.Comments, value);
                     break;
                 case Properties.Category:
                     Assert.AreEqual(transactionFromDB.Category.Name, value);

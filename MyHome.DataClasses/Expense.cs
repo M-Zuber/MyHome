@@ -13,7 +13,7 @@ namespace MyHome.DataClasses
         {
             Amount = amount;
             Category = expenseCategory;
-            Comment = comment;
+            Comments = comment;
             Date = date;
             Id = id;
             Method = paymentMethod;
@@ -46,7 +46,7 @@ namespace MyHome.DataClasses
         /// <summary>
         ///     Additional info about the expense
         /// </summary>
-        public new string Comment { get; set; }
+        public new string Comments { get; set; }
 
         /// <summary>
         ///     ID number of the expense in the data table
@@ -59,7 +59,7 @@ namespace MyHome.DataClasses
 
             return ((Amount == expenseComparing.Amount) &&
                     (Category.Equals(expenseComparing.Category)) &&
-                    (Comment == expenseComparing.Comment) &&
+                    (Comments == expenseComparing.Comments) &&
                     (Date == expenseComparing.Date) &&
                     (Id == expenseComparing.Id) &&
                     (Method.Equals(expenseComparing.Method)));
@@ -67,7 +67,7 @@ namespace MyHome.DataClasses
 
         public override int GetHashCode()
         {
-            return new {Id, Amount, Category, Comment, Date, Method}.GetHashCode();
+            return new {Id, Amount, Category, Comments, Date, Method}.GetHashCode();
         }
     }
 }

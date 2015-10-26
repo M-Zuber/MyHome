@@ -19,7 +19,7 @@ namespace MyHome.UI
     {
         private static readonly Tuple<string, ListSortDirection>[] baseSorting =
         {
-            Tuple.Create("ID", ListSortDirection.Ascending),
+            Tuple.Create("Id", ListSortDirection.Ascending),
             Tuple.Create("Date", ListSortDirection.Ascending)
         };
 
