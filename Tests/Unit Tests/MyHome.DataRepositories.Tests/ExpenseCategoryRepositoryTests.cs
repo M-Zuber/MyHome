@@ -133,5 +133,50 @@ namespace MyHome.DataRepositories.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result.Count());
         }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_Update_Changes_The_Name()
+        {
+            var newName = "new-test";
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+
+            var expected = mock.GetById(baseTestData.Id);
+            expected.Name = newName;
+
+            mock.Update(expected);
+
+            var actual = mock.GetByName(newName);
+
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_Update_Changes_The_Id()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+
+            var expected = mock.GetById(baseTestData.Id);
+            expected.Id++;
+
+            mock.Update(expected);
+
+            var actual = mock.GetById(expected.Id);
+
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_Update_Object_That_Was_Not_In_Database_Does_Nothing()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
+
+            mock.Update(baseTestData);
+
+            var actual = mock.GetById(baseTestData.Id);
+
+            Assert.IsNull(actual);
+        }
     }
 }
