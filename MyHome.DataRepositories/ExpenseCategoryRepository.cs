@@ -50,6 +50,10 @@ namespace MyHome.DataRepository
 
         public void Create(ExpenseCategory expenseCategory)
         {
+            if (expenseCategory == null)
+            {
+                return;
+            }
             _context.ExpenseCategories.Add(expenseCategory);
             _context.SaveChanges();
         }

@@ -29,8 +29,7 @@ namespace MyHome.DataRepositories.Tests
             var result = mock.GetById(baseTestData.Id);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(baseTestData.Id, result.Id);
-            Assert.AreEqual(baseTestData.Name, result.Name);
+            Assert.AreEqual(baseTestData, result);
         }
 
         [TestMethod]
@@ -49,8 +48,7 @@ namespace MyHome.DataRepositories.Tests
             var result = mock.GetByName(baseTestData.Name);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(baseTestData.Id, result.Id);
-            Assert.AreEqual(baseTestData.Name, result.Name);
+            Assert.AreEqual(baseTestData, result);
         }
 
         [TestMethod]
@@ -60,8 +58,7 @@ namespace MyHome.DataRepositories.Tests
             var result = mock.GetByName(baseTestData.Name.ToUpper());
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(baseTestData.Id, result.Id);
-            Assert.AreEqual(baseTestData.Name, result.Name);
+            Assert.AreEqual(baseTestData, result);
         }
 
         [TestMethod]
@@ -107,6 +104,34 @@ namespace MyHome.DataRepositories.Tests
 
             Assert.IsNotNull(result);
             CollectionAssert.AreEqual(expected, result.ToList());
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_Create_Adds_New_Item()
+        {
+            var testObject = new ExpenseCategory(0, "test");
+
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
+            mock.Create(testObject);
+
+            var result = mock.GetAll();
+            Assert.IsTrue(result.Contains(testObject));
+
+            var singleItem = mock.GetById(testObject.Id);
+            Assert.IsNotNull(singleItem);
+            Assert.AreEqual(testObject, singleItem);
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_Create_Does_Nothing_If_Item_Is_Null()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
+            mock.Create(null);
+
+            var result = mock.GetAll();
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
         }
     }
 }
