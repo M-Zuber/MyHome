@@ -10,7 +10,7 @@ using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
 
-namespace MyHome.Spec.Mocks
+namespace MyHome.TestUtils
 {
     public static class ServiceMocks
     {
