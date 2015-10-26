@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.DataClasses.Tests", "Tests\Unit Tests\MyHome.DataClasses.Tests\MyHome.DataClasses.Tests.csproj", "{BC417E8A-F6FA-412B-9EF3-945BBE619E91}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.Infrastructure.Tests", "MyHome.Infrastructure.Tests\MyHome.Infrastructure.Tests.csproj", "{39D19E5C-2857-43E7-8A50-150C72A0EEED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.DataRepositories.Tests", "Tests\Unit Tests\MyHome.DataRepositories.Tests\MyHome.DataRepositories.Tests.csproj", "{4B44638F-2838-4526-8348-F2C1D521DBAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,18 @@ Global
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|x86.ActiveCfg = Release|Any CPU
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|x86.Build.0 = Release|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Debug|x86.Build.0 = Debug|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Release|x86.ActiveCfg = Release|Any CPU
+		{4B44638F-2838-4526-8348-F2C1D521DBAF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,6 +169,7 @@ Global
 		{DC0E6966-15A3-48B6-B152-A925FE10B4FD} = {C404D53E-C09E-43EA-B529-E2AD7688790B}
 		{BC417E8A-F6FA-412B-9EF3-945BBE619E91} = {DC0E6966-15A3-48B6-B152-A925FE10B4FD}
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED} = {C404D53E-C09E-43EA-B529-E2AD7688790B}
+		{4B44638F-2838-4526-8348-F2C1D521DBAF} = {DC0E6966-15A3-48B6-B152-A925FE10B4FD}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MyHome2013.vsmdi
