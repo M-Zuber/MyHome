@@ -178,5 +178,60 @@ namespace MyHome.DataRepositories.Tests
 
             Assert.IsNull(actual);
         }
+
+        [TestMethod]
+        public void ExpenseCategpryRepository_Save_Id_Zero_Adds_Item()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
+            var before = mock.GetAll();
+            Assert.IsTrue(before.Count() == 0);
+
+            var newItem = new ExpenseCategory(0, "test");
+            mock.Save(newItem);
+
+            var after = mock.GetAll();
+            Assert.IsTrue(after.Contains(newItem));
+        }
+
+        [TestMethod]
+        public void ExpenseCategpryRepository_Save_Id_Non_Zero_Updates_Item()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+
+            var before = mock.GetAll();
+            Assert.IsTrue(before.Contains(baseTestData));
+
+            var expected = mock.GetById(baseTestData.Id);
+            Assert.IsNotNull(expected);
+            expected.Name = "save-test";
+            mock.Save(expected);
+
+            var after = mock.GetAll();
+            Assert.IsTrue(after.Contains(expected));
+
+            var actual = mock.GetById(baseTestData.Id);
+            Assert.AreEqual(expected, actual);
+        }
+        //id != 0 : new item => not sure
+        [TestMethod]
+        public void ExpenseCategoryRepository_Save_New_Item_With_Non_Zero_Id_DOes_Nothing()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
+
+            var before = mock.GetAll();
+            Assert.IsTrue(before.Count() == 0);
+
+            var expected = mock.GetById(baseTestData.Id);
+            Assert.IsNull(expected);
+            expected = new ExpenseCategory(1, "save-test");
+            mock.Save(expected);
+
+            var after = mock.GetAll();
+            Assert.IsTrue(after.Count() == 0);
+        }
+        //RemoveByName
+
+        // name exists => removes it
+        // name does not exist => no affect on GetAll() count {any other way to check this?}
     }
 }
