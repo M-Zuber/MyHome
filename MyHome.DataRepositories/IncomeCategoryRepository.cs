@@ -60,7 +60,7 @@ namespace MyHome.DataRepository
 
         public void RemoveByName(string name)
         {
-            var existing = _context.IncomeCategories.FirstOrDefault(x => x.Name == name);
+            var existing = _context.IncomeCategories.FirstOrDefault(i => i.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
             if (existing == null) return;
             _context.IncomeCategories.Remove(existing);
         }

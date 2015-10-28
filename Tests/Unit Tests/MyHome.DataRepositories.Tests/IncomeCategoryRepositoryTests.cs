@@ -211,7 +211,7 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void IncomeCategoryRepository_Save_New_Item_With_Non_Zero_Id_DOes_Nothing()
+        public void IncomeCategoryRepository_Save_New_Item_With_Non_Zero_Id_Does_Nothing()
         {
             var mock = RepositoryMocks.GetMockIncomeCategoryRepository();
 
@@ -236,6 +236,20 @@ namespace MyHome.DataRepositories.Tests
             Assert.IsTrue(before.Contains(baseTestData));
 
             mock.RemoveByName(baseTestData.Name);
+
+            var after = mock.GetAll();
+            Assert.IsFalse(after.Contains(baseTestData));
+        }
+
+        [TestMethod]
+        public void IncomeCategoryRepository_RemoveByName_Name_Exists_Item_Is_Removed_With_Different_Casing()
+        {
+            var mock = RepositoryMocks.GetMockIncomeCategoryRepository(new List<IncomeCategory> { baseTestData });
+
+            var before = mock.GetAll();
+            Assert.IsTrue(before.Contains(baseTestData));
+
+            mock.RemoveByName(baseTestData.Name.ToUpper());
 
             var after = mock.GetAll();
             Assert.IsFalse(after.Contains(baseTestData));
