@@ -22,7 +22,7 @@ namespace MyHome.DataRepository
 
         public IncomeCategory GetByName(string name)
         {
-            return _context.IncomeCategories.AsNoTracking().FirstOrDefault(i => i.Name == name);
+            return _context.IncomeCategories.AsNoTracking().FirstOrDefault(i => i.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<IncomeCategory> GetAll()
@@ -50,6 +50,10 @@ namespace MyHome.DataRepository
 
         public void Create(IncomeCategory incomeCategory)
         {
+            if (incomeCategory == null)
+            {
+                return;
+            }
             _context.IncomeCategories.Add(incomeCategory);
             _context.SaveChanges();
         }
