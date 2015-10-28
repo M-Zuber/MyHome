@@ -212,7 +212,7 @@ namespace MyHome.DataRepositories.Tests
             var actual = mock.GetById(baseTestData.Id);
             Assert.AreEqual(expected, actual);
         }
-        //id != 0 : new item => not sure
+
         [TestMethod]
         public void ExpenseCategoryRepository_Save_New_Item_With_Non_Zero_Id_DOes_Nothing()
         {
@@ -229,9 +229,32 @@ namespace MyHome.DataRepositories.Tests
             var after = mock.GetAll();
             Assert.IsTrue(after.Count() == 0);
         }
-        //RemoveByName
 
-        // name exists => removes it
-        // name does not exist => no affect on GetAll() count {any other way to check this?}
+        [TestMethod]
+        public void ExpenseCategoryRepository_RemoveByName_Name_Exists_Item_Is_Removed()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+
+            var before = mock.GetAll();
+            Assert.IsTrue(before.Contains(baseTestData));
+
+            mock.RemoveByName(baseTestData.Name);
+
+            var after = mock.GetAll();
+            Assert.IsFalse(after.Contains(baseTestData));
+        }
+
+        [TestMethod]
+        public void ExpenseCategoryRepository_RemoveByName_Name_Does_Not_Exist_Nothing_Happens()
+        {
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+
+            var before = mock.GetAll();
+
+            mock.RemoveByName(baseTestData.Name + " not really");
+
+            var after = mock.GetAll();
+            CollectionAssert.AreEqual(before.ToList(), after.ToList());
+        }
     }
 }
