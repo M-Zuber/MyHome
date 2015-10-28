@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ExpenseCategoryRepositoryTests.cs" />
     <Compile Include="IncomeCategoryRepositoryTests.cs" />
+    <Compile Include="PaymentMethodRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

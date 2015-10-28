@@ -22,7 +22,7 @@ namespace MyHome.DataRepository
 
         public PaymentMethod GetByName(string name)
         {
-            return _context.PaymentMethods.AsNoTracking().FirstOrDefault(x => x.Name == name);
+            return _context.PaymentMethods.AsNoTracking().FirstOrDefault(p => p.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<PaymentMethod> GetAll()
@@ -50,13 +50,17 @@ namespace MyHome.DataRepository
 
         public void Create(PaymentMethod paymentMethod)
         {
+            if (paymentMethod == null)
+            {
+                return;
+            }
             _context.PaymentMethods.Add(paymentMethod);
             _context.SaveChanges();
         }
 
         public void RemoveByName(string name)
         {
-            var existing = _context.PaymentMethods.FirstOrDefault(x => x.Name == name);
+            var existing = _context.PaymentMethods.FirstOrDefault(p => p.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
             if (existing == null) return;
             _context.PaymentMethods.Remove(existing);
         }

@@ -32,10 +32,10 @@ namespace MyHome.TestUtils
             return new IncomeCategoryRepository(mockContext.Object);
         }
 
-        public static PaymentMethodRepository GetMockPaymentMethodRepository()
+        public static PaymentMethodRepository GetMockPaymentMethodRepository(List<PaymentMethod> data = null)
         {
             var mockContext = new Mock<AccountingDataContext>();
-            var mockSet = new Mock<DbSet<PaymentMethod>>().SetupData();
+            var mockSet = new Mock<DbSet<PaymentMethod>>().SetupData(data ?? new List<PaymentMethod>());
             mockSet.Setup(c => c.AsNoTracking()).Returns(mockSet.Object);
             mockContext.Setup(c => c.PaymentMethods).Returns(mockSet.Object);
             return new PaymentMethodRepository(mockContext.Object);
