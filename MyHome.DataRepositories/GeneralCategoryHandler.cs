@@ -39,7 +39,7 @@ namespace MyHome.DataRepository
             return categoryNames;
         }
 
-        public List<string> GetAllCategoryNames(string categoryType)
+        public IEnumerable<string> GetAllCategoryNames(string categoryType)
         {
             switch (categoryType.ToLower())
             {
@@ -53,7 +53,7 @@ namespace MyHome.DataRepository
                     }
                 default:
                 {
-                    return null;
+                    return new List<string>();
                 }
             }
         }

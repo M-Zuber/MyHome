@@ -58,5 +58,17 @@ namespace MyHome.TestUtils
             mockContext.Setup(c => c.Expenses).Returns(mockSet.Object);
             return new ExpenseRepository(mockContext.Object);
         }
+
+        public static GeneralCategoryHandler GetMockGeneralCategoryHandler(List<ExpenseCategory> expenseCategories = null, List<IncomeCategory> incomeCategories = null)
+        {
+            var mockContext = new Mock<AccountingDataContext>();
+            var mockIncomeCategorySet = new Mock<DbSet<IncomeCategory>>().SetupData(incomeCategories ?? new List<IncomeCategory>());
+            var mockExpenseCategorySet = new Mock<DbSet<ExpenseCategory>>().SetupData(expenseCategories ?? new List<ExpenseCategory>());
+            mockIncomeCategorySet.Setup(c => c.AsNoTracking()).Returns(mockIncomeCategorySet.Object);
+            mockExpenseCategorySet.Setup(c => c.AsNoTracking()).Returns(mockExpenseCategorySet.Object);
+            mockContext.Setup(c => c.IncomeCategories).Returns(mockIncomeCategorySet.Object);
+            mockContext.Setup(c => c.ExpenseCategories).Returns(mockExpenseCategorySet.Object);
+            return new GeneralCategoryHandler(mockContext.Object);
+        }
     }
 }
