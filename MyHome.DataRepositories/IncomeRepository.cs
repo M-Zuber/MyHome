@@ -41,7 +41,7 @@ namespace MyHome.DataRepository
 
         public void Remove(int id)
         {
-            var income = _context.Incomes.Find(id);
+            var income = _context.Incomes.FirstOrDefault(i => i.Id == id);
             _context.Incomes.Remove(income);
             _context.SaveChanges();
         }
@@ -66,6 +66,10 @@ namespace MyHome.DataRepository
 
         public void Create(Income income)
         {
+            if (income == null)
+            {
+                return;
+            }
             _context.Incomes.Add(income);
             _context.SaveChanges();
         }
