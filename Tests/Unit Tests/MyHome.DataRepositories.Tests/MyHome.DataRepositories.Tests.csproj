@@ -73,6 +73,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ExpenseCategoryRepositoryTests.cs" />
+    <Compile Include="ExpenseRepositoryTests.cs" />
     <Compile Include="GeneralCategoryHandlerTests.cs" />
     <Compile Include="IncomeCategoryRepositoryTests.cs" />
     <Compile Include="PaymentMethodRepositoryTests.cs" />
