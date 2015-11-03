@@ -9,8 +9,8 @@ using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
-using MyHome.Spec.Mocks;
 using TechTalk.SpecFlow;
+using MyHome.TestUtils;
 
 namespace MyHome.Spec
 {

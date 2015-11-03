@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyHome.DataClasses;
 using MyHome.Services;
 using MyHome.Spec.Helpers;
-using MyHome.Spec.Mocks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using MyHome.TestUtils;
 
 namespace MyHome.Spec.Transaction_Managment
 {
