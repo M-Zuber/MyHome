@@ -14,10 +14,10 @@ namespace MyHome.TestUtils
 {
     public static class ServiceMocks
     {
-        public static ExpenseCategoryService GetMockExpenseCategoryService()
+        public static ExpenseCategoryService GetMockExpenseCategoryService(List<ExpenseCategory> data = null)
         {
             var mockContext = new Mock<AccountingDataContext>();
-            var mockSet = new Mock<DbSet<ExpenseCategory>>().SetupData();
+            var mockSet = new Mock<DbSet<ExpenseCategory>>().SetupData(data ?? new List<ExpenseCategory>());
             mockSet.Setup(c => c.AsNoTracking()).Returns(mockSet.Object);
             mockContext.Setup(c => c.ExpenseCategories).Returns(mockSet.Object);
             return new ExpenseCategoryService(new ExpenseCategoryRepository(mockContext.Object));

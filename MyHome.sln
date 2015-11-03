@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.TestUtils", "Tests\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.Infrastructure.Tests", "Tests\Unit Tests\MyHome.Infrastructure.Tests\MyHome.Infrastructure.Tests.csproj", "{39D19E5C-2857-43E7-8A50-150C72A0EEED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHome.Services.Tests", "Tests\Unit Tests\MyHome.Services.Tests\MyHome.Services.Tests.csproj", "{677EBBB1-A323-4FE8-99DC-A536278F1159}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,18 @@ Global
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|x86.ActiveCfg = Release|Any CPU
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED}.Release|x86.Build.0 = Release|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Debug|x86.Build.0 = Debug|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Release|x86.ActiveCfg = Release|Any CPU
+		{677EBBB1-A323-4FE8-99DC-A536278F1159}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,6 +200,7 @@ Global
 		{4B44638F-2838-4526-8348-F2C1D521DBAF} = {DC0E6966-15A3-48B6-B152-A925FE10B4FD}
 		{F7B31188-EEFA-4008-AB75-3A2FA2B791E1} = {2B22FA29-6B0D-4293-968E-1AE340B52E3C}
 		{39D19E5C-2857-43E7-8A50-150C72A0EEED} = {DC0E6966-15A3-48B6-B152-A925FE10B4FD}
+		{677EBBB1-A323-4FE8-99DC-A536278F1159} = {DC0E6966-15A3-48B6-B152-A925FE10B4FD}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MyHome2013.vsmdi
