@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyHome.DataClasses;
 using MyHome.Services;
 using MyHome.Spec.Helpers;
-using MyHome.Spec.Mocks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using MyHome.TestUtils;
 
 namespace MyHome.Spec.Transaction_Managment
 {
@@ -71,8 +71,8 @@ namespace MyHome.Spec.Transaction_Managment
             _transaction.Category = _category;
             _transaction.Date = DateTime.Today;
 
-            _categoryService.Add(_transaction.Category.Name);
-            _paymentMethodService.Add(_transaction.Method.Name);
+            _categoryService.Create(_transaction.Category.Name);
+            _paymentMethodService.Create(_transaction.Method.Name);
 
             _transaction.Id = 1;
             _transactionService.Create(_transaction);
@@ -90,12 +90,12 @@ namespace MyHome.Spec.Transaction_Managment
                     _transaction.Amount = decimal.Parse(value);
                     break;
                 case Properties.Comment:
-                    _transaction.Comment = value;
+                    _transaction.Comments = value;
                     break;
                 case Properties.Category:
                     if (!string.IsNullOrWhiteSpace(value))
                     {
-                        _categoryService.Add(value);
+                        _categoryService.Create(value);
                         _transaction.Category = new Category { Name = value };
                     }
                     else
@@ -106,7 +106,7 @@ namespace MyHome.Spec.Transaction_Managment
                 case Properties.Method:
                     if (!string.IsNullOrWhiteSpace(value))
                     {
-                        _paymentMethodService.Add(value);
+                        _paymentMethodService.Create(value);
                         _transaction.Method = new PaymentMethod { Name = value };
                     }
                     else
@@ -138,7 +138,7 @@ namespace MyHome.Spec.Transaction_Managment
                     Assert.AreEqual(transactionFromDB.Amount.ToString(), value);
                     break;
                 case Properties.Comment:
-                    Assert.AreEqual(transactionFromDB.Comment, value);
+                    Assert.AreEqual(transactionFromDB.Comments, value);
                     break;
                 case Properties.Category:
                     Assert.AreEqual(transactionFromDB.Category.Name, value);
@@ -163,7 +163,8 @@ namespace MyHome.Spec.Transaction_Managment
             var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
             Assert.IsNotNull(e);
             Assert.IsInstanceOfType(e, typeof(ArgumentException));
-            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); //TODO check this once issue with Contract.Require is sorted out
+            //TODO check this once issue with Contract.Require is sorted out
+            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); 
         }
 
         [Then(@"the date is the current date")]

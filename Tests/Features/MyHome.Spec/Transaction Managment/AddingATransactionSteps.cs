@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyHome.DataClasses;
 using MyHome.Services;
 using MyHome.Spec.Helpers;
-using MyHome.Spec.Mocks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using MyHome.TestUtils;
 
 namespace MyHome.Spec.Transaction_Managment
 {
@@ -80,8 +80,8 @@ namespace MyHome.Spec.Transaction_Managment
         {
             try
             {
-                _categoryService.Add(_transaction.Category?.Name ?? "not this one");
-                _paymentMethodService.Add(_transaction.Method?.Name ?? "not this one");
+                _categoryService.Create(_transaction.Category?.Name ?? "not this one");
+                _paymentMethodService.Create(_transaction.Method?.Name ?? "not this one");
                 _transactionService.Create(_transaction);
             }
             catch (Exception e)
@@ -104,7 +104,8 @@ namespace MyHome.Spec.Transaction_Managment
             var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
             Assert.IsNotNull(e);
             Assert.IsInstanceOfType(e, typeof(ArgumentException));
-            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); //TODO check this once issue with Contract.Require is sorted out
+            //TODO check this once issue with Contract.Require is sorted out
+            //Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); 
         }
 
         [Then(@"the date is the current date")]

@@ -24,9 +24,9 @@ namespace MyHome.Services
             return _repository.GetById(id);
         }
 
-        public void Remove(string name)
+        public void Delete(string name)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             _repository.RemoveByName(name);
         }
 
@@ -43,42 +43,38 @@ namespace MyHome.Services
 
         public void Create(PaymentMethod paymentMethod)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(paymentMethod.Name));
-           _repository.Create(paymentMethod);
+            Contract.Requires<ArgumentException>(paymentMethod != null);
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(paymentMethod.Name));
+            Contract.Requires<ArgumentException>(!Exists(paymentMethod.Name), $"Payment method '{paymentMethod.Name}' is already defined");
+
+            _repository.Create(paymentMethod);
         }
 
         public bool Exists(string name)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             return _repository.GetByName(name) != null;
         }
 
-        public void Add(string name)
+        public void Create(string name, int id = 0)
         {
-            if (Exists(name))
-            {
-                throw new Exception(string.Format("Payment method '{0}' is already defined", name));
-            }
-            Save(new PaymentMethod(0, name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
+            Contract.Requires<ArgumentException>(!Exists(name), $"Payment method '{name}' is already defined");
+
+            _repository.Create(new PaymentMethod(id, name));
         }
 
-        public void Update(int id, string name)
+        public void Save(int id, string name)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
+            Contract.Requires<ArgumentException>(!Exists(name), $"Payment method '{name}' is already defined");
 
-            if (Exists(name))
+            var paymentMethod = _repository.GetById(id);
+            if (paymentMethod == null)
             {
-                throw new Exception(string.Format("Payment method '{0}' is already defined", name));
+                paymentMethod = new PaymentMethod();
             }
-
-            var category = _repository.GetById(id);
-            category.Name = name;
-            _repository.Save(category);
-        }
-
-        private void Save(PaymentMethod paymentMethod)
-        {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(paymentMethod.Name));
+            paymentMethod.Name = name;
             _repository.Save(paymentMethod);
         }
     }

@@ -22,7 +22,7 @@ namespace MyHome.DataRepository
 
         public ExpenseCategory GetByName(string name)
         {
-            return _context.ExpenseCategories.AsNoTracking().FirstOrDefault(x => x.Name == name);
+            return _context.ExpenseCategories.AsNoTracking().FirstOrDefault(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<ExpenseCategory> GetAll()
@@ -44,20 +44,23 @@ namespace MyHome.DataRepository
 
         public void Update(ExpenseCategory expenseCategory)
         {
-            var existing = _context.ExpenseCategories.Find(expenseCategory.Id);
-            existing.Name = expenseCategory.Name;
+            _context.ExpenseCategories.Attach(expenseCategory);
             _context.SaveChanges();
         }
 
         public void Create(ExpenseCategory expenseCategory)
         {
+            if (expenseCategory == null)
+            {
+                return;
+            }
             _context.ExpenseCategories.Add(expenseCategory);
             _context.SaveChanges();
         }
 
         public void RemoveByName(string name)
         {
-            var existing = _context.ExpenseCategories.FirstOrDefault(x => x.Name == name);
+            var existing = _context.ExpenseCategories.FirstOrDefault(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
             if (existing == null) return;
             _context.ExpenseCategories.Remove(existing);
         }

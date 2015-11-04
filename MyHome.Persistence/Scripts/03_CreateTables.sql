@@ -1,4 +1,4 @@
-USE MyHome2013;
+USE MyHome;
 GO
 
 IF OBJECT_ID('Accounting.PaymentMethod', 'U') IS NOT NULL

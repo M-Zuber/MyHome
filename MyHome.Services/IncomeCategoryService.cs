@@ -24,9 +24,9 @@ namespace MyHome.Services
             return _repository.GetById(id);
         }
 
-        public void Remove(string name)
+        public void Delete(string name)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             _repository.RemoveByName(name);
         }
 
@@ -37,37 +37,40 @@ namespace MyHome.Services
         
         public bool Exists(string name)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             return _repository.GetByName(name) != null;
         }
 
-        public void Add(string name)
+        public void Create(IncomeCategory incomeCategory)
         {
-            if (Exists(name))
-            {
-                throw new Exception(string.Format("Income category '{0}' is already defined", name));
-            }
+            Contract.Requires<ArgumentException>(incomeCategory != null);
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(incomeCategory.Name));
+            Contract.Requires<ArgumentException>(!Exists(incomeCategory.Name), $"Income category '{incomeCategory.Name}' is already defined");
 
-            Save(new IncomeCategory(0, name));
+            _repository.Create(incomeCategory);
         }
 
-        public void Update(int id, string name)
+        public void Create(string name, int id = 0)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
+            Contract.Requires<ArgumentException>(!Exists(name), $"Income category '{name}' is already defined");
 
-            if (Exists(name))
-            {
-                throw new Exception(string.Format("Expense category '{0}' is already defined", name));
-            }
+
+            _repository.Create(new IncomeCategory(id, name));
+        }
+
+        public void Save(int id, string name)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
+            Contract.Requires<ArgumentException>(!Exists(name), $"Income category '{name}' is already defined");
 
             var category = _repository.GetById(id);
-            category.Name = name;
-            _repository.Save(category);
-        }
+            if (category == null)
+            {
+                category = new IncomeCategory();
+            }
 
-        private void Save(IncomeCategory category)
-        {
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(category.Name));
+            category.Name = name;
             _repository.Save(category);
         }
     }

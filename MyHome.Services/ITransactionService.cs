@@ -25,7 +25,7 @@ namespace MyHome.Services
             e.Id = t.Id;
             e.Amount = t.Amount;
             e.Date = t.Date;
-            e.Comment = t.Comment;
+            e.Comments = t.Comments;
             e.Method = t.Method;
             if (t.Category != null)
             {
@@ -48,7 +48,7 @@ namespace MyHome.Services
             i.Id = t.Id;
             i.Amount = t.Amount;
             i.Date = t.Date;
-            i.Comment = t.Comment;
+            i.Comments = t.Comments;
             i.Method = t.Method;
             if (t.Category != null)
             {

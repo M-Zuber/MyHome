@@ -142,7 +142,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void txtDetail_TextChanged(object sender, EventArgs e)
         {
-            currentIncome.Comment = txtDetail.Text;
+            currentIncome.Comments = txtDetail.Text;
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace MyHome.UI
         {
             //Simple control bindings
             txtAmount.Text = currentIncome.Amount.ToString();
-            txtDetail.Text = currentIncome.Comment;
+            txtDetail.Text = currentIncome.Comments;
             dtPick.Value = currentIncome.Date;
 
             //Expense category bindings

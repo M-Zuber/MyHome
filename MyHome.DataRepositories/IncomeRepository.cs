@@ -32,13 +32,16 @@ namespace MyHome.DataRepository
 
         public IEnumerable<Income> GetForMonthAndYear(int month, int year)
         {
-            return _context.Incomes.Where(i => i.Date.Month == month
-                && i.Date.Year == year).ToList();
+            return _context.Incomes
+                            .Include(i => i.Category)
+                           .Include(i => i.Method)
+                           .Where(i => i.Date.Month == month && i.Date.Year == year)
+                           .ToList();
         }
 
         public void Remove(int id)
         {
-            var income = _context.Incomes.Find(id);
+            var income = _context.Incomes.FirstOrDefault(i => i.Id == id);
             _context.Incomes.Remove(income);
             _context.SaveChanges();
         }
@@ -63,6 +66,10 @@ namespace MyHome.DataRepository
 
         public void Create(Income income)
         {
+            if (income == null)
+            {
+                return;
+            }
             _context.Incomes.Add(income);
             _context.SaveChanges();
         }

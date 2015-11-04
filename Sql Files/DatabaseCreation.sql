@@ -2,16 +2,16 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-DROP SCHEMA IF EXISTS `myhome2013` ;
-CREATE SCHEMA IF NOT EXISTS `myhome2013` DEFAULT CHARACTER SET utf8 ;
-USE `myhome2013` ;
+DROP SCHEMA IF EXISTS `myhome` ;
+CREATE SCHEMA IF NOT EXISTS `myhome` DEFAULT CHARACTER SET utf8 ;
+USE `myhome` ;
 
 -- -----------------------------------------------------
--- Table `myhome2013`.`categoryview`
+-- Table `myhome`.`categoryview`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `myhome2013`.`categoryview` ;
+DROP TABLE IF EXISTS `myhome`.`categoryview` ;
 
-CREATE TABLE IF NOT EXISTS `myhome2013`.`categoryview` (
+CREATE TABLE IF NOT EXISTS `myhome`.`categoryview` (
   `KEY` VARCHAR(45) NOT NULL,
   `VALUE` VARCHAR(45) NOT NULL)
 ENGINE = InnoDB
@@ -19,11 +19,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `myhome2013`.`t_expenses_category`
+-- Table `myhome`.`t_expenses_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `myhome2013`.`t_expenses_category` ;
+DROP TABLE IF EXISTS `myhome`.`t_expenses_category` ;
 
-CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses_category` (
+CREATE TABLE IF NOT EXISTS `myhome`.`t_expenses_category` (
   `ID` INT(11) NOT NULL,
   `NAME` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ID`))
@@ -32,11 +32,11 @@ AUTO_INCREMENT = 16;
 
 
 -- -----------------------------------------------------
--- Table `myhome2013`.`t_payment_methods`
+-- Table `myhome`.`t_payment_methods`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `myhome2013`.`t_payment_methods` ;
+DROP TABLE IF EXISTS `myhome`.`t_payment_methods` ;
 
-CREATE TABLE IF NOT EXISTS `myhome2013`.`t_payment_methods` (
+CREATE TABLE IF NOT EXISTS `myhome`.`t_payment_methods` (
   `ID` INT(11) NOT NULL,
   `NAME` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ID`))
@@ -45,11 +45,11 @@ AUTO_INCREMENT = 11;
 
 
 -- -----------------------------------------------------
--- Table `myhome2013`.`t_expenses`
+-- Table `myhome`.`t_expenses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `myhome2013`.`t_expenses` ;
+DROP TABLE IF EXISTS `myhome`.`t_expenses` ;
 
-CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses` (
+CREATE TABLE IF NOT EXISTS `myhome`.`t_expenses` (
   `ID` INT(10) NOT NULL,
   `AMOUNT` DOUBLE NOT NULL,
   `EXP_DATE` DATETIME NULL DEFAULT NULL,
@@ -61,12 +61,12 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`t_expenses` (
   INDEX `CATEGORY_NAME_idx` (`CATEGORY` ASC),
   CONSTRAINT `EXP_CATEGORY_NAME`
     FOREIGN KEY (`CATEGORY`)
-    REFERENCES `myhome2013`.`t_expenses_category` (`ID`)
+    REFERENCES `myhome`.`t_expenses_category` (`ID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `EXP_PAYMENT_METHOD`
     FOREIGN KEY (`METHOD`)
-    REFERENCES `myhome2013`.`t_payment_methods` (`ID`)
+    REFERENCES `myhome`.`t_payment_methods` (`ID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -75,11 +75,11 @@ COMMENT = '	';
 
 
 -- -----------------------------------------------------
--- Table `myhome2013`.`t_incomes_category`
+-- Table `myhome`.`t_incomes_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `myhome2013`.`t_incomes_category` ;
+DROP TABLE IF EXISTS `myhome`.`t_incomes_category` ;
 
-CREATE TABLE IF NOT EXISTS `myhome2013`.`t_incomes_category` (
+CREATE TABLE IF NOT EXISTS `myhome`.`t_incomes_category` (
   `ID` INT(10) NOT NULL,
   `NAME` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ID`))
@@ -87,11 +87,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `myhome2013`.`t_incomes`
+-- Table `myhome`.`t_incomes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `myhome2013`.`t_incomes` ;
+DROP TABLE IF EXISTS `myhome`.`t_incomes` ;
 
-CREATE TABLE IF NOT EXISTS `myhome2013`.`t_incomes` (
+CREATE TABLE IF NOT EXISTS `myhome`.`t_incomes` (
   `ID` INT(10) NOT NULL,
   `AMOUNT` DOUBLE NOT NULL,
   `INC_DATE` DATETIME NULL DEFAULT NULL,
@@ -103,39 +103,39 @@ CREATE TABLE IF NOT EXISTS `myhome2013`.`t_incomes` (
   INDEX `PAYMENT_METHOD_idx` (`METHOD` ASC),
   CONSTRAINT `INC_CATEGORY_NAME`
     FOREIGN KEY (`CATEGORY`)
-    REFERENCES `myhome2013`.`t_incomes_category` (`ID`)
+    REFERENCES `myhome`.`t_incomes_category` (`ID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `INC_PAYMENT_METHOD`
     FOREIGN KEY (`METHOD`)
-    REFERENCES `myhome2013`.`t_payment_methods` (`ID`)
+    REFERENCES `myhome`.`t_payment_methods` (`ID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 15;
 
-USE `myhome2013` ;
+USE `myhome` ;
 
 -- -----------------------------------------------------
--- Placeholder table for view `myhome2013`.`viw`
+-- Placeholder table for view `myhome`.`viw`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `myhome2013`.`viw` (`Entity id` INT, `Expense date` INT, `Amount` INT, `Category` INT, `Payment Method` INT, `Comments` INT);
+CREATE TABLE IF NOT EXISTS `myhome`.`viw` (`Entity id` INT, `Expense date` INT, `Amount` INT, `Category` INT, `Payment Method` INT, `Comments` INT);
 
 -- -----------------------------------------------------
--- Placeholder table for view `myhome2013`.`viwin`
+-- Placeholder table for view `myhome`.`viwin`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `myhome2013`.`viwin` (`Income Date` INT, `Amount` INT, `Category` INT, `Payment Method` INT, `Comments` INT);
+CREATE TABLE IF NOT EXISTS `myhome`.`viwin` (`Income Date` INT, `Amount` INT, `Category` INT, `Payment Method` INT, `Comments` INT);
 
 -- -----------------------------------------------------
 -- function new_expense_id
 -- -----------------------------------------------------
 
-USE `myhome2013`;
-DROP function IF EXISTS `myhome2013`.`new_expense_id`;
+USE `myhome`;
+DROP function IF EXISTS `myhome`.`new_expense_id`;
 
 DELIMITER $$
-USE `myhome2013`$$
-CREATE DEFINER=`MyHome2013`@`%` FUNCTION `new_expense_id`() RETURNS int(11)
+USE `myhome`$$
+CREATE DEFINER=`myhome`@`%` FUNCTION `new_expense_id`() RETURNS int(11)
 BEGIN
 declare newId int;
 set newId = (select last_insert_id() from t_expenses);
@@ -154,12 +154,12 @@ DELIMITER ;
 -- function new_expenses_category_id
 -- -----------------------------------------------------
 
-USE `myhome2013`;
-DROP function IF EXISTS `myhome2013`.`new_expenses_category_id`;
+USE `myhome`;
+DROP function IF EXISTS `myhome`.`new_expenses_category_id`;
 
 DELIMITER $$
-USE `myhome2013`$$
-CREATE DEFINER=`MyHome2013`@`%` FUNCTION `new_expenses_category_id`() RETURNS int(11)
+USE `myhome`$$
+CREATE DEFINER=`myhome`@`%` FUNCTION `new_expenses_category_id`() RETURNS int(11)
 BEGIN
 declare newId int;
 set newId = (select last_insert_id() from t_expenses_category);
@@ -177,12 +177,12 @@ DELIMITER ;
 -- function new_income_category_id
 -- -----------------------------------------------------
 
-USE `myhome2013`;
-DROP function IF EXISTS `myhome2013`.`new_income_category_id`;
+USE `myhome`;
+DROP function IF EXISTS `myhome`.`new_income_category_id`;
 
 DELIMITER $$
-USE `myhome2013`$$
-CREATE DEFINER=`MyHome2013`@`%` FUNCTION `new_income_category_id`() RETURNS int(11)
+USE `myhome`$$
+CREATE DEFINER=`myhome`@`%` FUNCTION `new_income_category_id`() RETURNS int(11)
 BEGIN
 declare newId int;
 set newId = (select last_insert_id() from t_incomes_category);
@@ -200,12 +200,12 @@ DELIMITER ;
 -- function new_income_id
 -- -----------------------------------------------------
 
-USE `myhome2013`;
-DROP function IF EXISTS `myhome2013`.`new_income_id`;
+USE `myhome`;
+DROP function IF EXISTS `myhome`.`new_income_id`;
 
 DELIMITER $$
-USE `myhome2013`$$
-CREATE DEFINER=`MyHome2013`@`%` FUNCTION `new_income_id`() RETURNS int(11)
+USE `myhome`$$
+CREATE DEFINER=`myhome`@`%` FUNCTION `new_income_id`() RETURNS int(11)
 BEGIN
 declare newId int;
 set newId = (select last_insert_id() from t_incomes);
@@ -223,12 +223,12 @@ DELIMITER ;
 -- function new_payment_method_id
 -- -----------------------------------------------------
 
-USE `myhome2013`;
-DROP function IF EXISTS `myhome2013`.`new_payment_method_id`;
+USE `myhome`;
+DROP function IF EXISTS `myhome`.`new_payment_method_id`;
 
 DELIMITER $$
-USE `myhome2013`$$
-CREATE DEFINER=`MyHome2013`@`%` FUNCTION `new_payment_method_id`() RETURNS int(11)
+USE `myhome`$$
+CREATE DEFINER=`myhome`@`%` FUNCTION `new_payment_method_id`() RETURNS int(11)
 BEGIN
 declare newId int;
 set newId = (select last_insert_id() from t_payment_methods);
@@ -243,16 +243,16 @@ END$$
 DELIMITER ;
 
 -- -----------------------------------------------------
--- View `myhome2013`.`viw`
+-- View `myhome`.`viw`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `myhome2013`.`viw` ;
-DROP TABLE IF EXISTS `myhome2013`.`viw`;
-USE `myhome2013`;
+DROP VIEW IF EXISTS `myhome`.`viw` ;
+DROP TABLE IF EXISTS `myhome`.`viw`;
+USE `myhome`;
 CREATE OR REPLACE 
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
-VIEW `myhome2013`.`viw` AS
+VIEW `myhome`.`viw` AS
     select 
 		`ex`.`ID` AS `Entity id`,
         `ex`.`EXP_DATE` AS `Expense date`,
@@ -261,24 +261,24 @@ VIEW `myhome2013`.`viw` AS
         `pay`.`NAME` AS `Payment Method`,
         `ex`.`COMMENTS` AS `Comments`
     from
-        ((`myhome2013`.`t_expenses` `ex`
-        join `myhome2013`.`t_expenses_category` `excat`)
-        join `myhome2013`.`t_payment_methods` `pay`)
+        ((`myhome`.`t_expenses` `ex`
+        join `myhome`.`t_expenses_category` `excat`)
+        join `myhome`.`t_payment_methods` `pay`)
     where
         ((`excat`.`ID` = `ex`.`CATEGORY`)
             and (`pay`.`ID` = `ex`.`METHOD`));
 
 -- -----------------------------------------------------
--- View `myhome2013`.`viwin`
+-- View `myhome`.`viwin`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `myhome2013`.`viwin` ;
-DROP TABLE IF EXISTS `myhome2013`.`viwin`;
-USE `myhome2013`;
+DROP VIEW IF EXISTS `myhome`.`viwin` ;
+DROP TABLE IF EXISTS `myhome`.`viwin`;
+USE `myhome`;
 CREATE OR REPLACE 
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
-VIEW `myhome2013`.`viwin` AS
+VIEW `myhome`.`viwin` AS
     select 
         `inc`.`INC_DATE` AS `Income Date`,
         `inc`.`AMOUNT` AS `Amount`,
@@ -286,9 +286,9 @@ VIEW `myhome2013`.`viwin` AS
         `pay`.`NAME` AS `Payment Method`,
         `inc`.`COMMENTS` AS `Comments`
     from
-        ((`myhome2013`.`t_incomes` `inc`
-        join `myhome2013`.`t_incomes_category` `inccat`)
-        join `myhome2013`.`t_payment_methods` `pay`)
+        ((`myhome`.`t_incomes` `inc`
+        join `myhome`.`t_incomes_category` `inccat`)
+        join `myhome`.`t_payment_methods` `pay`)
     where
         ((`inccat`.`ID` = `inc`.`CATEGORY`)
             and (`pay`.`ID` = `inc`.`METHOD`));

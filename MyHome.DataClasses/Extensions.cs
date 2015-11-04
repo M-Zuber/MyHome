@@ -1,7 +1,7 @@
 ﻿namespace MyHome.DataClasses
 {
     /// <summary>
-    /// Conatains extension methods for the types defined in the LocalType namespace
+    /// Conatains extension methods for the types defined in the MyHome.DataClasses namespace
     /// </summary>
     public static class Extensions
     {
@@ -15,7 +15,7 @@
         public static Expense Copy(this Expense orginalExpense)
         {
             return new Expense(orginalExpense.Amount, orginalExpense.Date,
-                orginalExpense.Category, orginalExpense.Method, orginalExpense.Comment, orginalExpense.Id);
+                orginalExpense.Category, orginalExpense.Method, orginalExpense.Comments, orginalExpense.Id);
         }
 
         #endregion
@@ -30,7 +30,7 @@
         public static Income Copy(this Income orginalIncome)
         {
             return new Income(orginalIncome.Amount, orginalIncome.Date,
-                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comment, orginalIncome.Id);
+                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comments, orginalIncome.Id);
         }
 
         #endregion

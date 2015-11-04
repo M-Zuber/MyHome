@@ -9,8 +9,8 @@ using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
-using MyHome.Spec.Mocks;
 using TechTalk.SpecFlow;
+using MyHome.TestUtils;
 
 namespace MyHome.Spec
 {
@@ -63,7 +63,7 @@ namespace MyHome.Spec
         {
             if (_categoryService.Exists(_categoryName))
             {
-                _categoryService.Remove(_categoryName);
+                _categoryService.Delete(_categoryName);
             }
         }
 
@@ -72,7 +72,7 @@ namespace MyHome.Spec
         {
             try
             {
-                _categoryService.Add(_categoryName);
+                _categoryService.Create(_categoryName);
             }
             catch (Exception e)
             {
@@ -85,7 +85,7 @@ namespace MyHome.Spec
         {
             try
             {
-                _categoryService.Add(_categoryName);
+                _categoryService.Create(_categoryName);
             }
             catch (ArgumentException e)
             {
@@ -102,7 +102,7 @@ namespace MyHome.Spec
         {
             try
             {
-                _categoryService.Add(_categoryName);
+                _categoryService.Create(_categoryName);
             }
             catch (Exception e)
             {

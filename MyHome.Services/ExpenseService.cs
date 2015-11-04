@@ -34,6 +34,7 @@ namespace MyHome.Services
 
         public void Save(Expense expenseToSave)
         {
+            Contract.Requires<ArgumentNullException>(expenseToSave != null, "The expense must not be null");
             Contract.Requires<ArgumentNullException>(expenseToSave.Category != null, "There must be a category selected");
             Contract.Requires<ArgumentNullException>(expenseToSave.Method != null, "There must be a payment method selected");
             _repository.Save(expenseToSave);
@@ -41,6 +42,7 @@ namespace MyHome.Services
 
         public void Create(Expense newExpense)
         {
+            Contract.Requires<ArgumentNullException>(newExpense != null, "The expense must not be null");
             Contract.Requires<ArgumentNullException>(newExpense.Category != null, "There must be a category selected");
             Contract.Requires<ArgumentNullException>(newExpense.Method != null, "There must be a payment method selected");
 
@@ -59,8 +61,9 @@ namespace MyHome.Services
 
         public decimal GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(categoryWanted), "The category must have a value");
             return LoadOfMonth(monthWanted)
-                .Where(curExpense => curExpense.Category.Name == categoryWanted)
+                .Where(curExpense => curExpense.Category.Name.Equals(categoryWanted, StringComparison.OrdinalIgnoreCase))
                 .Sum(curExpense => curExpense.Amount);
         }
 
@@ -73,8 +76,9 @@ namespace MyHome.Services
 
         public decimal GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(methodWanted), "The method must have a value");
             return LoadOfMonth(monthWanted)
-                .Where(curExpense => curExpense.Method.Name == methodWanted)
+                .Where(curExpense => curExpense.Method.Name.Equals(methodWanted, StringComparison.OrdinalIgnoreCase))
                 .Sum(curExpense => curExpense.Amount);
         }
 

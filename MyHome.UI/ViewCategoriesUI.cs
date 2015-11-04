@@ -95,7 +95,7 @@ namespace MyHome.UI
             if (_categoryService.CategoryHandlers[this.CategoryType].GetAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
                 var editedItem = (Category) this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem;
-                _categoryService.CategoryHandlers[this.CategoryType].Add(editedItem.Name);
+                _categoryService.CategoryHandlers[this.CategoryType].Create(editedItem.Name);
             }
             else
             {

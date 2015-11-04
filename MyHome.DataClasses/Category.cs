@@ -10,7 +10,7 @@ namespace MyHome.DataClasses
 
         public Category(int id, string name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException("name");
             }
