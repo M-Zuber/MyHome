@@ -74,6 +74,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExpenseServiceTests.cs" />
     <Compile Include="IncomeCategoryServiceTests.cs" />
     <Compile Include="PaymentMethodServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
