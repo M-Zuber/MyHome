@@ -131,7 +131,7 @@ namespace MyHome.Services.Tests
                                  .ToList();
             var expected = new List<Expense>(data);
 
-            data.Concat(Enumerable.Range(1, 5)
+            data = data.Concat(Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
                                      var c = baseTestData.Copy();
@@ -139,7 +139,8 @@ namespace MyHome.Services.Tests
                                      c.Date = new DateTime(2012, 6, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
                                      return c;
-                                 }));
+                                 }))
+                                 .ToList();
 
             var mock = ServiceMocks.GetMockExpenseService(data);
 

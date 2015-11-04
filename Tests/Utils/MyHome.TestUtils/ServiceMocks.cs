@@ -58,5 +58,20 @@ namespace MyHome.TestUtils
             mockContext.Setup(c => c.Expenses).Returns(mockSet.Object);
             return new ExpenseService(new ExpenseRepository(mockContext.Object));
         }
+
+        public static MonthService GetMockMonthService(List<Expense> expenseData = null, List<Income> incomeData = null)
+        {
+            var mockContext = new Mock<AccountingDataContext>();
+
+            var mockIncomeSet = new Mock<DbSet<Income>>().SetupData(incomeData ?? new List<Income> { new Income { Category = new IncomeCategory(), Method = new PaymentMethod() } });
+            mockIncomeSet.Setup(c => c.AsNoTracking()).Returns(mockIncomeSet.Object);
+            mockContext.Setup(c => c.Incomes).Returns(mockIncomeSet.Object);
+
+            var mockExpenseSet = new Mock<DbSet<Expense>>().SetupData(expenseData ?? new List<Expense> { new Expense { Category = new ExpenseCategory(), Method = new PaymentMethod() } });
+            mockExpenseSet.Setup(c => c.AsNoTracking()).Returns(mockExpenseSet.Object);
+            mockContext.Setup(c => c.Expenses).Returns(mockExpenseSet.Object);
+
+            return new MonthService(mockContext.Object);
+        }
     }
 }

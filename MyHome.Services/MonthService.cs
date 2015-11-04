@@ -5,6 +5,7 @@ using FrameWork;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
+using MyHome.Infrastructure.Validation;
 
 namespace MyHome.Services
 {
@@ -51,6 +52,9 @@ namespace MyHome.Services
 
         public decimal GetTotalForCategoryAndMonth(string categoryType, string categoryName, DateTime month) 
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(categoryType), "The category type must be specified");
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(categoryName), "The category name must be specified");
+
             switch (categoryType.ToLower())
             {
                 case("expense"):
