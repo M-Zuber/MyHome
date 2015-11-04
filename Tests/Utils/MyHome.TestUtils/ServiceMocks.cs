@@ -23,10 +23,10 @@ namespace MyHome.TestUtils
             return new ExpenseCategoryService(new ExpenseCategoryRepository(mockContext.Object));
         }
 
-        public static IncomeCategoryService GetMockIncomeCategoryService()
+        public static IncomeCategoryService GetMockIncomeCategoryService(List<IncomeCategory> data = null)
         {
             var mockContext = new Mock<AccountingDataContext>();
-            var mockSet = new Mock<DbSet<IncomeCategory>>().SetupData();
+            var mockSet = new Mock<DbSet<IncomeCategory>>().SetupData(data ?? new List<IncomeCategory>());
             mockSet.Setup(c => c.AsNoTracking()).Returns(mockSet.Object);
             mockContext.Setup(c => c.IncomeCategories).Returns(mockSet.Object);
             return new IncomeCategoryService(new IncomeCategoryRepository(mockContext.Object));
