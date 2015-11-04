@@ -38,6 +38,7 @@ namespace MyHome.Services
 
         public void Save(Income incomeToSave)
         {
+            Contract.Requires<ArgumentNullException>(incomeToSave != null, "The income must not be null");
             Contract.Requires<ArgumentNullException>(incomeToSave.Category != null, "There must be a category selected");
             Contract.Requires<ArgumentNullException>(incomeToSave.Method != null, "There must be a payment method selected");
             _repository.Save(incomeToSave);
@@ -45,6 +46,7 @@ namespace MyHome.Services
 
         public void Create(Income newIncome)
         {
+            Contract.Requires<ArgumentNullException>(newIncome != null, "The income must not be null");
             Contract.Requires<ArgumentNullException>(newIncome.Category != null, "There must be a category selected");
             Contract.Requires<ArgumentNullException>(newIncome.Method != null, "There must be a payment method selected");
 
@@ -63,12 +65,13 @@ namespace MyHome.Services
 
         public decimal GetCategoryTotalForMonth(DateTime monthWanted, string categoryWanted)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(categoryWanted), "The category must have a value");
             return LoadOfMonth(monthWanted)
-                .Where(curIncome => curIncome.Category.Name == categoryWanted)
+                .Where(curIncome => curIncome.Category.Name.Equals(categoryWanted, StringComparison.OrdinalIgnoreCase))
                 .Sum(curIncome => curIncome.Amount);
         }
 
-        public Dictionary<string, decimal> GetTotalIncomeByCategories(DateTime monthWanted)
+        public Dictionary<string, decimal> GetAllCategoryTotals(DateTime monthWanted)
         {
             return LoadOfMonth(monthWanted)
                 .GroupBy(i => i.Category.Name)
@@ -77,8 +80,9 @@ namespace MyHome.Services
 
         public decimal GetPaymentMethodTotalForMonth(DateTime monthWanted, string methodWanted)
         {
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(methodWanted), "The method must have a value");
             return LoadOfMonth(monthWanted)
-                .Where(curIncome => curIncome.Method.Name == methodWanted)
+                .Where(curIncome => curIncome.Method.Name.Equals(methodWanted, StringComparison.OrdinalIgnoreCase))
                 .Sum(curIncome => curIncome.Amount);
         }
 

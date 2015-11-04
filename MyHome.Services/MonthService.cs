@@ -78,7 +78,7 @@ namespace MyHome.Services
             categoryTotals.AddRange(_expenseService.GetAllCategoryTotals(month));
 
             categoryTotals.Add("Total Income", GetTotalIncomeForMonth(month));
-            foreach (var totalIncomeByCategory in _incomeService.GetTotalIncomeByCategories(month))
+            foreach (var totalIncomeByCategory in _incomeService.GetAllCategoryTotals(month))
             {
                 if (categoryTotals.ContainsKey(totalIncomeByCategory.Key))
                 {

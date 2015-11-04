@@ -161,7 +161,7 @@ namespace MyHome.UI
             ExpenseCategoriesTotals.AddRange(_expenseService.GetAllCategoryTotals(dtPick.Value));
 
             IncomeCategoriesTotals.Add("Total Income", _incomeService.GetMonthTotal(dtPick.Value));
-            IncomeCategoriesTotals.AddRange(_incomeService.GetTotalIncomeByCategories(dtPick.Value));
+            IncomeCategoriesTotals.AddRange(_incomeService.GetAllCategoryTotals(dtPick.Value));
 
 
             // Sets the bindings for the controls

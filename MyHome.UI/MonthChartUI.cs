@@ -95,7 +95,7 @@ namespace MyHome.UI
             UpdatePoints(crtExpenses.Series[0].Points);
 
             // Connects the data of the income to the corrosponding chart
-            var incomeData = _incomeService.GetTotalIncomeByCategories(m_dtMonth);
+            var incomeData = _incomeService.GetAllCategoryTotals(m_dtMonth);
             crtIncome.Series[0].Points.DataBind(incomeData, "KEY", "VALUE", "");
             UpdatePoints(crtIncome.Series[0].Points);
         }
