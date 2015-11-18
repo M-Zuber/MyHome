@@ -10,6 +10,7 @@ using MyHome.Persistence;
 using MyHome.Services;
 using TechTalk.SpecFlow;
 using MyHome.TestUtils;
+using MyHome.Spec.Helpers;
 
 namespace MyHome.Spec.Category_Management
 {
@@ -17,8 +18,9 @@ namespace MyHome.Spec.Category_Management
     [Scope(Feature = "UpdatingCategory")]
     public class UpdatingCategorySteps
     {
-        const string AddCategoryResultKey = "add_category_result";
+        private const string ADD_CATEGORY_RESULT_KEY = "add_category_result";
 
+        private AccountingDataContext context;
         private string _categoryName;
         private string _newName;
         private int _categoryId;
@@ -28,6 +30,7 @@ namespace MyHome.Spec.Category_Management
         [BeforeScenario]
         public void Setup()
         {
+            context = new TestAccountingDataContext();
             _categoryName = "";
             _newName = "";
             _categoryId = -1;
@@ -36,6 +39,7 @@ namespace MyHome.Spec.Category_Management
         [AfterScenario]
         public void TearDown()
         {
+            context.Database.Delete();
         }
 
         #region Given
@@ -46,13 +50,13 @@ namespace MyHome.Spec.Category_Management
             switch (categoryType)
             {
                 case "expense":
-                    _categoryService = ServiceMocks.GetMockExpenseCategoryService();
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
                     break;
                 case "income":
-                    _categoryService = ServiceMocks.GetMockIncomeCategoryService();
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
                     break;
                 case "paymentmethod":
-                    _categoryService = ServiceMocks.GetMockPaymentMethodService();
+                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(context));
                     break;
             }
         }
@@ -116,7 +120,7 @@ namespace MyHome.Spec.Category_Management
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(AddCategoryResultKey, e);
+                ScenarioContext.Current.Add(ADD_CATEGORY_RESULT_KEY, e);
             }
         }
 
@@ -132,7 +136,7 @@ namespace MyHome.Spec.Category_Management
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(AddCategoryResultKey, e);
+                ScenarioContext.Current.Add(ADD_CATEGORY_RESULT_KEY, e);
             }
         }
 
@@ -151,7 +155,7 @@ namespace MyHome.Spec.Category_Management
         [Then(@"the handler returns an error indicator")]
         public void TheHandlerReturnsAnErrorIndicator()
         {
-            var exception = ScenarioContext.Current.Get<Exception>(AddCategoryResultKey);
+            var exception = ScenarioContext.Current.Get<Exception>(ADD_CATEGORY_RESULT_KEY);
             Assert.IsNotNull(exception);
         }
 

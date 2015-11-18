@@ -11,6 +11,7 @@ using MyHome.Persistence;
 using MyHome.Services;
 using TechTalk.SpecFlow;
 using MyHome.TestUtils;
+using MyHome.Spec.Helpers;
 
 namespace MyHome.Spec
 {
@@ -18,12 +19,14 @@ namespace MyHome.Spec
     [Scope(Feature = "AddingACategory")]
     public class AddingACategorySteps
     {
+        AccountingDataContext context;
         ICategoryService _categoryService;
         string _categoryName;
 
         [BeforeScenario]
         public void Setup()
         {
+            context = new TestAccountingDataContext();
             _categoryService = null;
             _categoryName = "";
         }
@@ -31,6 +34,7 @@ namespace MyHome.Spec
         [AfterScenario]
         public void TearDown()
         {
+            context.Database.Delete();
         }
 
         #region Given
@@ -41,13 +45,13 @@ namespace MyHome.Spec
             switch (categoryType)
             {
                 case "expense":
-                    _categoryService = ServiceMocks.GetMockExpenseCategoryService();
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
                     break;
                 case "income":
-                    _categoryService = ServiceMocks.GetMockIncomeCategoryService();
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
                     break;
                 case "paymentmethod":
-                    _categoryService = ServiceMocks.GetMockPaymentMethodService();
+                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(context));
                     break;
             }
         }

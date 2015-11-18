@@ -74,12 +74,8 @@ namespace MyHome.Services
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Expense category '{name}' is already defined");
 
-            var category = _repository.GetById(id);
-            if (category == null)
-            {
-                category = new ExpenseCategory();
-            }
-            category.Name = name;
+            var category = new ExpenseCategory() { Id = id, Name = name};
+            
             _repository.Save(category);
         }
     }

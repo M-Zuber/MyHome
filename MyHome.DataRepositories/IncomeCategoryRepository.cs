@@ -44,7 +44,11 @@ namespace MyHome.DataRepository
 
         public void Update(IncomeCategory incomeCategory)
         {
-            _context.IncomeCategories.Attach(incomeCategory);
+            var dbCat = _context.IncomeCategories.FirstOrDefault(ec => ec.Id == incomeCategory.Id);
+            if (dbCat != null)
+            {
+                dbCat.Name = incomeCategory.Name;
+            }
             _context.SaveChanges();
         }
 

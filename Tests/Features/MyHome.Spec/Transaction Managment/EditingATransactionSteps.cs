@@ -7,6 +7,8 @@ using MyHome.Spec.Helpers;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using MyHome.TestUtils;
+using MyHome.Persistence;
+using MyHome.DataRepository;
 
 namespace MyHome.Spec.Transaction_Managment
 {
@@ -27,19 +29,28 @@ namespace MyHome.Spec.Transaction_Managment
         private TransactionTypes _transactionType;
         private Transaction _transaction;
         private ITransactionService _transactionService;
-        private PaymentMethodService _paymentMethodService = ServiceMocks.GetMockPaymentMethodService();
+        private PaymentMethodService _paymentMethodService;
         private ICategoryService _categoryService;
         private Category _category;
         private PaymentMethod _paymentMethod;
+        private AccountingDataContext context;
 
         [BeforeScenario]
         public void Setup()
         {
+            context = new TestAccountingDataContext();
             _transaction = null;
             _transactionService = null;
             _categoryService = null;
+            _paymentMethodService = null;
             _category = null;
             _paymentMethod = null;
+        }
+
+        [AfterScenario]
+        public void TearDown()
+        {
+            context.Database.Delete();
         }
 
         [Given(@"The transaction type is '(.*)'")]
@@ -51,17 +62,18 @@ namespace MyHome.Spec.Transaction_Managment
         [Given(@"the following transaction data with a category '(.*)' and payment method '(.*)'")]
         public void GivenTheFollowingTransaction(string category, string paymentMethod, Table data)
         {
+            _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
             switch (_transactionType)
             {
                 case TransactionTypes.Income:
                     _transaction = data.CreateInstance<Income>();
-                    _transactionService = ServiceMocks.GetMockIncomeService();
-                    _categoryService = ServiceMocks.GetMockIncomeCategoryService();
+                    _transactionService = new IncomeService(new IncomeRepository(context));
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
                     break;
                 case TransactionTypes.Expense:
                     _transaction = data.CreateInstance<Expense>();
-                    _transactionService = ServiceMocks.GetMockExpenseService();
-                    _categoryService = ServiceMocks.GetMockExpenseCategoryService();
+                    _transactionService = new ExpenseService(new ExpenseRepository(context));
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
                     break;
             }
 

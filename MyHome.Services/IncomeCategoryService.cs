@@ -64,13 +64,7 @@ namespace MyHome.Services
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Income category '{name}' is already defined");
 
-            var category = _repository.GetById(id);
-            if (category == null)
-            {
-                category = new IncomeCategory();
-            }
-
-            category.Name = name;
+            var category = new IncomeCategory { Id = id, Name = name };
             _repository.Save(category);
         }
     }

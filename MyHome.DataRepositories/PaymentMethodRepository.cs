@@ -44,7 +44,11 @@ namespace MyHome.DataRepository
 
         public void Update(PaymentMethod paymentMethod)
         {
-            _context.PaymentMethods.Attach(paymentMethod);
+            var dbCat = _context.PaymentMethods.FirstOrDefault(ec => ec.Id == paymentMethod.Id);
+            if (dbCat != null)
+            {
+                dbCat.Name = paymentMethod.Name;
+            }
             _context.SaveChanges();
         }
 

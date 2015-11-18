@@ -29,7 +29,7 @@ namespace MyHome.DataRepository
         {
             return _context.ExpenseCategories.AsNoTracking().ToList();
         }
-        
+
         public void Save(ExpenseCategory expenseCategory)
         {
             if (expenseCategory.Id != 0)
@@ -44,7 +44,12 @@ namespace MyHome.DataRepository
 
         public void Update(ExpenseCategory expenseCategory)
         {
-            _context.ExpenseCategories.Attach(expenseCategory);
+            var dbCat = _context.ExpenseCategories.FirstOrDefault(ec => ec.Id == expenseCategory.Id);
+            if (dbCat != null)
+            {
+                dbCat.Name = expenseCategory.Name;
+            }
+
             _context.SaveChanges();
         }
 

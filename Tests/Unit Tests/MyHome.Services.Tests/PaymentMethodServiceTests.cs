@@ -289,7 +289,22 @@ namespace MyHome.Services.Tests
         }
 
         [TestMethod]
-        public void PaymentMethodService_Save_Item_Does_Not_Exist_Creates_It()
+        public void PaymentMethodService_Save_Item_Does_Not_Exist_Zero_Id_Creates_It()
+        {
+            var name = "new-test";
+            var mock = ServiceMocks.GetMockPaymentMethodService();
+
+            var before = mock.GetAll().FirstOrDefault(c => c.Name == name);
+            Assert.IsNull(before);
+
+            mock.Save(0, name);
+
+            var actual = mock.GetAll().FirstOrDefault(e => e.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            Assert.IsNotNull(actual);
+        }
+
+        [TestMethod]
+        public void PaymentMethodService_Save_Item_Does_Not_Exist_Non_Zero_Id_Does_Nothing()
         {
             var name = "new-test";
             var mock = ServiceMocks.GetMockPaymentMethodService();
@@ -300,7 +315,7 @@ namespace MyHome.Services.Tests
             mock.Save(baseTestData.Id, name);
 
             var actual = mock.GetAll().FirstOrDefault(e => e.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            Assert.IsNotNull(actual);
+            Assert.IsNull(actual);
         }
     }
 }

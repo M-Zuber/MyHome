@@ -69,12 +69,7 @@ namespace MyHome.Services
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Payment method '{name}' is already defined");
 
-            var paymentMethod = _repository.GetById(id);
-            if (paymentMethod == null)
-            {
-                paymentMethod = new PaymentMethod();
-            }
-            paymentMethod.Name = name;
+            var paymentMethod = new PaymentMethod { Id = id, Name = name };
             _repository.Save(paymentMethod);
         }
     }
