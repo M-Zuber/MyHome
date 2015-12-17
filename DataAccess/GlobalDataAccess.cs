@@ -94,8 +94,7 @@ namespace DataAccess
 
                 // Creates the data adapter and sets it with the update commands
                 MySqlDataAdapter daAdapter = GetAdapter(strTableName);
-                MySqlCommandBuilder cbBuilder = new MySqlCommandBuilder(daAdapter);
-
+                
                 // Updating table as is
                 int nRowsUpdated = daAdapter.Update(Cache.SDB.Tables[strTableName]);
 
