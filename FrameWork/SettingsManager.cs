@@ -20,11 +20,11 @@ namespace FrameWork
         /// <summary>
         /// Verifys that the folder and file exist on creation of any instance of the class
         /// </summary>
-        /// <param name="strLogFileName">The name of the settign file -including the directory</param>
-        public SettingsManager(string strLogFileName)
+        /// <param name="settingsFileName">The name of the settings file -including the directory</param>
+        public SettingsManager(string settingsFileName)
         {
             // Intializes the instance of the setting file
-            this.SettingsFile = new FileInfo(strLogFileName);
+            this.SettingsFile = new FileInfo(settingsFileName);
 
             if (!this.SettingsFile.Directory.Exists)
             {
@@ -72,12 +72,12 @@ namespace FrameWork
         }
 
         /// <summary>
-        /// Reads all the settings currently in the file into local memeory
+        /// Reads all the settings currently in the file into memory
         /// </summary>
         /// <returns>A string keyed dictionary of the settings</returns>
         public Dictionary<string, string> GetAllSettings()
         {
-            Dictionary<string, string> allSettings = new Dictionary<string, string>();
+            var allSettings = new Dictionary<string, string>();
 
             using (StreamReader settingsReader = new StreamReader(this.SettingsFile.FullName))
             {
