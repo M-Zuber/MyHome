@@ -1,5 +1,8 @@
-MyHome2013
+[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome)
+MyHome
 ==========
+
+[![Join the chat at https://gitter.im/M-Zuber/MyHome](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/M-Zuber/MyHome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Home finance management
 
@@ -8,6 +11,21 @@ Some of the options avialible to the user are: viewing a pie chart representaion
 range of dates.
 
 More ways of accessing the data are planned for future versions.
+
+## For Developers
+
+Minmum requirements:
+[Visual Studio 2015 - includes .net 4.6](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
+
+### Setup
+- Database
+  - The curent database is [`SQL Server Express`](http://www.microsoft.com/en-us/server-cloud/Products/sql-server-editions/sql-server-express.aspx)
+  - Once that is installed and set up run the program
+  - In the prompt enter the connection information used when installing the database
+  - There is a goal to move to a database system that will not involve any additional setup
+
+### Testing Frameworks
+- For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
 
 ## License
 
