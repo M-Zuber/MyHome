@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Supporting-24%20Pull%20Requests-red.svg?style=flat) [![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome) [![Trello board](https://img.shields.io/badge/Trello-Extra%20discussion-blue.svg)](https://trello.com/b/WGPDnoJX/myhome)
+![](https://img.shields.io/badge/Supporting-24%20Pull%20Requests-red.svg?style=flat) [![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome) [![Trello board](https://img.shields.io/badge/Trello-Extra%20discussion-blue.svg)](https://trello.com/b/WGPDnoJX/myhome) [![Build status](https://ci.appveyor.com/api/projects/status/fi52j31qyvnfvs08?svg=true)](https://ci.appveyor.com/project/M-Zuber/myhome)
 MyHome
 ==========
 
