@@ -1,12 +1,4 @@
-![](https://img.shields.io/badge/Supporting-24%20Pull%20Requests-red.svg?style=flat)
-
-#IMPORTANT
-All work should be done on the `Testing` branch for now as the focus is on setting up a test suite.
-Other changes may be accepted but only on there so as to make the merge back into `development` easier
-
-[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome)
-
-[![Trello board](https://img.shields.io/badge/Trello-Extra%20discussion-blue.svg)](https://trello.com/b/WGPDnoJX/myhome)
+![](https://img.shields.io/badge/Supporting-24%20Pull%20Requests-red.svg?style=flat) [![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome) [![Trello board](https://img.shields.io/badge/Trello-Extra%20discussion-blue.svg)](https://trello.com/b/WGPDnoJX/myhome)
 MyHome
 ==========
 
