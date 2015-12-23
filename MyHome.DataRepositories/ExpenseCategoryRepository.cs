@@ -68,6 +68,7 @@ namespace MyHome.DataRepository
             var existing = _context.ExpenseCategories.FirstOrDefault(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase));
             if (existing == null) return;
             _context.ExpenseCategories.Remove(existing);
+            //TODO check why there is no save changes here
         }
     }
 }
