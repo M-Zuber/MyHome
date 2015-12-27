@@ -67,10 +67,13 @@ namespace FrameWork
         /// <param name="Messages">The messages to be logged</param>
         public void AddMessages(params string[] Messages)
         {
-            foreach (string CurrMessage in Messages)
+            using (StreamWriter logWriter = this.LogFile.AppendText()) 
             {
-                // Each message in the argument list is added on a seperate line
-                this.AddMessage(CurrMessage);
+                foreach (string message in Messages)
+                {
+                    // Each message in the argument list is added on a seperate line
+                    logWriter.WriteLine(message);
+                }
             }
         }
         

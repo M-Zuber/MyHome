@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome) [![Join the chat at https://gitter.im/M-Zuber/MyHome](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/M-Zuber/MyHome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome) [![Trello board](https://img.shields.io/badge/Trello-Extra%20discussion-blue.svg)](https://trello.com/b/WGPDnoJX/myhome) [![Build status](https://ci.appveyor.com/api/projects/status/fi52j31qyvnfvs08?svg=true)](https://ci.appveyor.com/project/M-Zuber/myhome)
 
 MyHome
 ==========
@@ -20,6 +20,11 @@ Minmum requirements:
 
 ### Testing Frameworks
 - For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
+  - This requires installing the [`SpecFlow`](https://visualstudiogallery.msdn.microsoft.com/c74211e7-cb6e-4dfa-855d-df0ad4a37dd6) extension for `Visual Studio`
+
+### Setup
+- Follow the inststuctions [here](https://github.com/M-Zuber/MyHome/wiki/Getting-Started) In order to get the database set up **Again: this works only in the `Testing` branch until such time as it is merged furthur upstream**
+- Read the [Contributing guide](https://github.com/M-Zuber/MyHome/blob/master/Contributing.md)
 
 ## License
 
