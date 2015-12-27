@@ -9,7 +9,6 @@ First off: thank you for showing intrest in this project.
     - [Issues](#issues)
     - [Pull Requests](#pull-requests)
     - [Features](#features)
-    - [Refactoring](#refactoring)
 - [Areas of Focus](#areas-of-focus)
 
 ### Coding Guidelines
@@ -40,6 +39,7 @@ See the [Waffle Board](https://waffle.io/M-Zuber/MyHome2013) to get an idea of w
 #### Pull Requests
 - Each `PR` should be connected to an issue.
   - It is okay to open the `issue` and `pull request` at the same time.
+  - You are more then welcome to open a pull request before you have fully finished the work. Simply please try and remember to preface the PR title with `[WIP]`
 
 #### Features
 In order to suggest a feature follow the following procedure:
@@ -55,11 +55,4 @@ In order to suggest a feature follow the following procedure:
 - Open `Pull Request`.
 - Enjoy the new feature.
 
-#### Refactoring
-Please do not refactor until the project is better tested
-
 ### Areas of Focus
-The following are in order of importance.
-
-- Testing the project
-- Closing the currently open issues
