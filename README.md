@@ -10,11 +10,12 @@ A simple desktop program to manage finances. Currently the feauture set is spars
 
 Minmum requirements:
 [Visual Studio 2015 - includes .net 4.6](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
-[Contribution]()
+
+[Contribution](https://github.com/M-Zuber/MyHome/blob/Development/Contributing.md)
 
 ### Setup
 - Database
-  - Follow the instructions [here](../Docs/GettingStarted.md)
+  - Follow the instructions [here](https://github.com/M-Zuber/MyHome/blob/Development/Docs/GettingStarted.md)
 
 ### Testing Frameworks
 - For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
