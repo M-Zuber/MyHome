@@ -1,0 +1,1 @@
+<p>This file is a test for integrating <a href="http://classeur.io/">classeur</a> with github for writing documentation and <em>not</em> a blog</p>
