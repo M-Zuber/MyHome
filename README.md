@@ -1,8 +1,6 @@
-[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome)
+[![Stories in Ready](https://badge.waffle.io/M-Zuber/MyHome.png?label=ready&title=Ready)](https://waffle.io/M-Zuber/MyHome) [![Join the chat at https://gitter.im/M-Zuber/MyHome](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/M-Zuber/MyHome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 MyHome
 ==========
-
-[![Join the chat at https://gitter.im/M-Zuber/MyHome](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/M-Zuber/MyHome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Home finance management
 
@@ -19,10 +17,7 @@ Minmum requirements:
 
 ### Setup
 - Database
-  - The curent database is [`SQL Server Express`](http://www.microsoft.com/en-us/server-cloud/Products/sql-server-editions/sql-server-express.aspx)
-  - Once that is installed and set up run the program
-  - In the prompt enter the connection information used when installing the database
-  - There is a goal to move to a database system that will not involve any additional setup
+  - Follow the instructions [here](../Docs/GettingStarted.md)
 
 ### Testing Frameworks
 - For Feature/Integration testing [`SpecFlow`](http://www.specflow.org/) is used.
