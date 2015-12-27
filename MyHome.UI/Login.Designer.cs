@@ -111,7 +111,7 @@
             this.Controls.Add(this.txtDatabaseName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DatabaseSettings";
-            this.Text = "Connecting to MyHome2013";
+            this.Text = "Connecting to MyHome";
             this.ResumeLayout(false);
             this.PerformLayout();
 
