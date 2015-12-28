@@ -77,7 +77,7 @@ namespace MyHome.UI
 
 
                 // Informs the user of success
-                MessageBox.Show("Welcome to MyHome2013", "Connection success",
+                MessageBox.Show("Welcome to MyHome", "Connection success",
                     MessageBoxButtons.OK, MessageBoxIcon.None);
 
                 // Sets the flag property to indicate success
