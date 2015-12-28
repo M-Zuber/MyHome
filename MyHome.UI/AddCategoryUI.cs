@@ -52,13 +52,15 @@ namespace MyHome.UI
         private void btnSave_Click(object sender, EventArgs e)
         {
             // If the category name is blank shows the user an error message
-            if (txtCategoryName.Text == "")
+            if (string.IsNullOrWhiteSpace(txtCategoryName.Text))
             {
                 MessageBox.Show("Please fill in a name for the category",
                                 "Error",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1);
+                // Clear out the textbox in case it has whitespace
+                txtCategoryName.Text = "";
                 txtCategoryName.Focus();
             }
             else if (_categoryService.CategoryHandlers[CategoryType].Exists(txtCategoryName.Text))
@@ -74,7 +76,7 @@ namespace MyHome.UI
             }
             else
             {
-                _categoryService.CategoryHandlers[CategoryType].Create(txtCategoryName.Text);
+                _categoryService.CategoryHandlers[CategoryType].Create(txtCategoryName.Text.Trim());
 
                 Close();
             }
@@ -88,7 +90,7 @@ namespace MyHome.UI
         private void AddCategoryUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Checks if a category had been saved before asking if the user wants to add another one
-            if (txtCategoryName.Text != "")
+            if (!string.IsNullOrWhiteSpace(txtCategoryName.Text))
             {
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -121,6 +123,5 @@ namespace MyHome.UI
         }
 
         #endregion
-
     }
 }
