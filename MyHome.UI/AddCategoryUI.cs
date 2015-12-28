@@ -19,7 +19,7 @@ namespace MyHome.UI
         /// <summary>
         /// Indicates what category group the new category is part of
         /// </summary>
-        public int CategoryType { get; set; }
+        public CategoryType CategoryType { get; set; }
         
         #endregion
 
@@ -29,11 +29,11 @@ namespace MyHome.UI
         /// Basic ctor that recieves an indicator of which category group
         ///  the category is being added to
         /// </summary>
-        /// <param name="nCategoryType">Category group indicator</param>
-        public AddCategoryUI(int nCategoryType)
+        /// <param name="categoryType">Category group indicator</param>
+        public AddCategoryUI(CategoryType categoryType)
         {
             InitializeComponent();
-            CategoryType = nCategoryType;
+            CategoryType = categoryType;
 
             _context = new AccountingDataContext();
             _categoryService = new CategoryService(_context);
