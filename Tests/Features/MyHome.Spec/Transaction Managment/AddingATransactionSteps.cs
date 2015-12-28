@@ -6,7 +6,6 @@ using MyHome.Services;
 using MyHome.Spec.Helpers;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using MyHome.TestUtils;
 using MyHome.Persistence;
 using MyHome.DataRepository;
 
