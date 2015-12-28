@@ -65,7 +65,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutUI";
-            this.Text = "About MyHome2013";
+            this.Text = "About MyHome";
             this.ResumeLayout(false);
 
         }

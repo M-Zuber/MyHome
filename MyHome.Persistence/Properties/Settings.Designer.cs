@@ -22,16 +22,5 @@ namespace MyHome.Persistence.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=127.0.0.10;User Id=root;password=7BAC61zuber;Persist Security Info=True;da" +
-            "tabase=myhome2013")]
-        public string myhome2013ConnectionString {
-            get {
-                return ((string)(this["myhome2013ConnectionString"]));
-            }
-        }
     }
 }
