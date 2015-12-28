@@ -22,7 +22,7 @@ namespace MyHome.UI
         /// <summary>
         /// Represents which category group the form is displaying for
         /// </summary>
-        public int CategoryType { get; set; }
+        public CategoryType CategoryType { get; set; }
 
         /// <summary>
         /// A placeholder for the original value of a category the is being edited
@@ -36,11 +36,11 @@ namespace MyHome.UI
         /// <summary>
         /// C'tor that intializes the category group property
         /// </summary>
-        /// <param name="nCategoryId">The category group id</param>
-        public ViewCategoriesUI(int nCategoryId)
+        /// <param name="categoryType">The category type</param>
+        public ViewCategoriesUI(CategoryType categoryType)
         {
             // Sets the property with the id given
-            this.CategoryType = nCategoryId;
+            this.CategoryType = categoryType;
 
             // Auto generated code for the form
             InitializeComponent();

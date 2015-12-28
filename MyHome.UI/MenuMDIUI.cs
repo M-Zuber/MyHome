@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHome.Services;
+using System;
 using System.Windows.Forms;
 
 namespace MyHome.UI
@@ -283,7 +284,7 @@ namespace MyHome.UI
             if (this.ExpCatForm == null)
             {
                 this.MdiChilrenSum++;
-                this.ExpCatForm = new ViewCategoriesUI(1);
+                this.ExpCatForm = new ViewCategoriesUI(CategoryType.Expense);
                 this.ExpCatForm.MdiParent = this;
                 this.ExpCatForm.Show();
                 this.ExpCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
@@ -307,7 +308,7 @@ namespace MyHome.UI
             if (this.IncCatForm == null)
             {
                 this.MdiChilrenSum++;
-                this.IncCatForm = new ViewCategoriesUI(2);
+                this.IncCatForm = new ViewCategoriesUI(CategoryType.Income);
                 this.IncCatForm.MdiParent = this;
                 this.IncCatForm.Show();
                 this.IncCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
@@ -331,7 +332,7 @@ namespace MyHome.UI
             if (this.PaymentCatForm == null)
             {
                 this.MdiChilrenSum++;
-                this.PaymentCatForm = new ViewCategoriesUI(3);
+                this.PaymentCatForm = new ViewCategoriesUI(CategoryType.PaymentMethod);
                 this.PaymentCatForm.MdiParent = this;
                 this.PaymentCatForm.Show();
                 this.PaymentCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);

@@ -4,9 +4,16 @@ using MyHome.Persistence;
 
 namespace MyHome.Services
 {
+    public enum CategoryType
+    {
+        Expense = 1,
+        Income,
+        PaymentMethod
+    }
+
     public class CategoryService
     {
-        private readonly Dictionary<int, ICategoryService> _categoryServicesById;
+        private readonly Dictionary<CategoryType, ICategoryService> _categoryServicesById;
         
         public CategoryService(AccountingDataContext context)
         {
@@ -14,25 +21,25 @@ namespace MyHome.Services
             var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
             var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
 
-            _categoryServicesById = new Dictionary<int, ICategoryService>
+            _categoryServicesById = new Dictionary<CategoryType, ICategoryService>
             {
-                {1, expenseCategoryService},
-                {2, incomeCategoryService},
-                {3, paymentMethodService}
+                {CategoryType.Expense, expenseCategoryService},
+                {CategoryType.Income, incomeCategoryService},
+                {CategoryType.PaymentMethod, paymentMethodService}
             };
         }
     
 
-        private static readonly Dictionary<int, string> CategoryTypeNames =
-           new Dictionary<int, string>
+        private static readonly Dictionary<CategoryType, string> CategoryTypeNames =
+           new Dictionary<CategoryType, string>
            {
-                {1, "Expense Categories"},
-                {2, "Income Categories"},
-                {3, "Payment Methods"}
+                {CategoryType.Expense, "Expense Categories"},
+                {CategoryType.Income, "Income Categories"},
+                {CategoryType.PaymentMethod, "Payment Methods"}
            };
 
 
-        public Dictionary<int, ICategoryService> CategoryHandlers
+        public Dictionary<CategoryType, ICategoryService> CategoryHandlers
         {
             get
             {
@@ -41,7 +48,7 @@ namespace MyHome.Services
         }
 
 
-        public Dictionary<int, string> CategoryTypeNamesById
+        public Dictionary<CategoryType, string> CategoryTypeNamesById
         {
             get
             {
