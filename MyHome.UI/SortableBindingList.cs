@@ -50,43 +50,43 @@ namespace MyHome.UI
                     throw new ArgumentException("The property \"" + prop.Item1 + "\" was not found on " + typeof(T).FullName + ".", "prop");
 
                 isSorted = true;
-                this.propertyDescriptor = p;
-                this.listSortDirection = prop.Item2;
-                this.comparer = new CustomComparer(this.comparer, p, prop.Item2);
+                propertyDescriptor = p;
+                listSortDirection = prop.Item2;
+                comparer = new CustomComparer(comparer, p, prop.Item2);
             }
 
             // Wrap in final Comparer for user sorting
-            this.comparer = new CustomComparer(this.comparer);
+            comparer = new CustomComparer(comparer);
 
-            var items = this.Items as List<T>;
-            items.Sort(this.comparer);
+            var items = Items as List<T>;
+            items.Sort(comparer);
         }
 
         public void Load(IEnumerable<T> collection)
         {
-            var data = this.Items as List<T>;
+            var data = Items as List<T>;
             data.Clear();
             data.AddRange(collection);
-            data.Sort(this.comparer);
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            data.Sort(comparer);
+            OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
         protected override void ApplySortCore(PropertyDescriptor prop, ListSortDirection direction)
         {
-            var items = this.Items as List<T>;
+            var items = Items as List<T>;
 
-            this.comparer.SetSort(prop, direction);
-            items.Sort(this.comparer);
+            comparer.SetSort(prop, direction);
+            items.Sort(comparer);
 
-            this.propertyDescriptor = prop;
-            this.listSortDirection = direction;
-            this.isSorted = true;
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            propertyDescriptor = prop;
+            listSortDirection = direction;
+            isSorted = true;
+            OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
         protected override int FindCore(PropertyDescriptor prop, object key)
         {
-            for (int i = 0, count = this.Count; i < count; i++)
+            for (int i = 0, count = Count; i < count; i++)
             {
                 if (prop.GetValue(this[i]).Equals(key))
                 {
@@ -112,14 +112,14 @@ namespace MyHome.UI
             public CustomComparer(CustomComparer baseComparer, PropertyDescriptor prop, ListSortDirection direction)
             {
                 this.baseComparer = baseComparer;
-                this.Direction = direction;
-                this.Property = prop;
-                this.comparer = GetComparer(prop);
+                Direction = direction;
+                Property = prop;
+                comparer = GetComparer(prop);
             }
 
             public void SetSort(PropertyDescriptor prop, ListSortDirection direction)
             {
-                this.Direction = direction;
+                Direction = direction;
 
                 if (baseComparer != null && prop == baseComparer.Property)
                 {

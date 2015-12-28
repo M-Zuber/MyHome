@@ -52,16 +52,16 @@ namespace MyHome.UI
         private void btnSave_Click(object sender, EventArgs e)
         {
             // If the category name is blank shows the user an error message
-            if (this.txtCategoryName.Text == "")
+            if (txtCategoryName.Text == "")
             {
                 MessageBox.Show("Please fill in a name for the category",
                                 "Error",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1);
-                this.txtCategoryName.Focus();
+                txtCategoryName.Focus();
             }
-            else if (_categoryService.CategoryHandlers[this.CategoryType].Exists(txtCategoryName.Text))
+            else if (_categoryService.CategoryHandlers[CategoryType].Exists(txtCategoryName.Text))
             {
                 MessageBox.Show("There can not be two  categories with the same name\n" +
                                 "Please choose a new name",
@@ -69,12 +69,12 @@ namespace MyHome.UI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1);
-                this.txtCategoryName.Text = "";
-                this.txtCategoryName.Focus();
+                txtCategoryName.Text = "";
+                txtCategoryName.Focus();
             }
             else
             {
-                _categoryService.CategoryHandlers[this.CategoryType].Create(txtCategoryName.Text);
+                _categoryService.CategoryHandlers[CategoryType].Create(txtCategoryName.Text);
 
                 Close();
             }
@@ -88,7 +88,7 @@ namespace MyHome.UI
         private void AddCategoryUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Checks if a category had been saved before asking if the user wants to add another one
-            if (this.txtCategoryName.Text != "")
+            if (txtCategoryName.Text != "")
             {
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -102,10 +102,10 @@ namespace MyHome.UI
                 if (DialogResult == DialogResult.Yes)
                 {
                     e.Cancel = true;
-                    this.txtCategoryName.Text = "";
-                    
+                    txtCategoryName.Text = "";
+
                     // Refocus the form on the text box
-                    this.txtCategoryName.Focus();
+                    txtCategoryName.Focus();
                 } 
             }
         }

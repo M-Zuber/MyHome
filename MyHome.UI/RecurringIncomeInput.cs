@@ -49,21 +49,21 @@ namespace MyHome.UI
         private void RecurringIncomeInput_Load(object sender, EventArgs e)
         {
             // Sets up the combo box of the income categories
-            this.cmbCategory.DataSource =
+            cmbCategory.DataSource =
                 _incomeCategoryService.GetAll();
-            this.cmbCategory.DisplayMember = "NAME";
-            this.cmbCategory.ValueMember = "ID";
+            cmbCategory.DisplayMember = "NAME";
+            cmbCategory.ValueMember = "ID";
 
             // Sets up the combo box with the payment methods
-            this.cmbPayment.DataSource =
+            cmbPayment.DataSource =
                 _paymentMethodService.GetAll();
-            this.cmbPayment.DisplayMember = "NAME";
-            this.cmbPayment.ValueMember = "ID";
+            cmbPayment.DisplayMember = "NAME";
+            cmbPayment.ValueMember = "ID";
 
             // Sets up the date time pickers with data bindings to keep the dates from
             // crossing over in the wrong direction
-            this.dtpStartDate.DataBindings.Add("MaxDate", this.dtpEndDate, "Value");
-            this.dtpEndDate.DataBindings.Add("MinDate", this.dtpStartDate, "Value");
+            dtpStartDate.DataBindings.Add("MaxDate", dtpEndDate, "Value");
+            dtpEndDate.DataBindings.Add("MinDate", dtpStartDate, "Value");
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace MyHome.UI
         private void btnSave_Click(object sender, EventArgs e)
         {
             // If the amount is blank
-            if (this.txtAmount.Text == "")
+            if (txtAmount.Text == "")
             {
                 MessageBox.Show("The amount can not be blank",
                                 "Error",
@@ -91,10 +91,10 @@ namespace MyHome.UI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error,
                                 MessageBoxDefaultButton.Button1);
-                this.txtAmount.Text = "";
+                txtAmount.Text = "";
             }
             // Makes sure that a recurrence frequency is chosen
-            else if (this.GetRecurrenceFrequency() == "none")
+            else if (GetRecurrenceFrequency() == "none")
             {
                 MessageBox.Show("This form is for entering incomes that recurr\n" +
                                 "Please choose a recurrence frequency",
@@ -108,7 +108,7 @@ namespace MyHome.UI
             {
                 // Gets the recurrence frequency and saves the data into the cache
                 // accordingly
-                this.MultiSave();
+                MultiSave();
 
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entries where saved" +
@@ -119,16 +119,16 @@ namespace MyHome.UI
                                                MessageBoxDefaultButton.Button1);
                 if (DialogResult != DialogResult.Yes)
                 {
-                    this.Close();
+                    Close();
                 }
                 // If more data is being entered clears the user entered data for the new data
                 else
                 {
-                    this.txtAmount.Text = "";
-                    this.txtDetail.Text = "";
+                    txtAmount.Text = "";
+                    txtDetail.Text = "";
 
                     // Puts the focus back to the top of the form
-                    this.cmbCategory.Focus();
+                    cmbCategory.Focus();
                 }
             }
         }
@@ -144,21 +144,21 @@ namespace MyHome.UI
         private void MultiSave()
         {
             // Gets the recurrence frequency and calls the corresponding save function
-            switch (this.GetRecurrenceFrequency().ToLower())
+            switch (GetRecurrenceFrequency().ToLower())
             {
                 // The income recurrs every day
                 case ("day"):
                 {
-                    this.MultiDaySave();
+                        MultiDaySave();
                     break;
                 }
                 // The income recurrs every month
                 case ("month"):
                 {
                     // Checks if the day in the month is within the valid range
-                    if (this.dtpStartDate.Value.Day <= 28)
+                    if (dtpStartDate.Value.Day <= 28)
                     {
-                        this.MultiMonthSave();
+                            MultiMonthSave();
                     }
                     // If the day is not in the range, informs the user
                     else
@@ -178,7 +178,7 @@ namespace MyHome.UI
                 // The income occurs every year
                 case ("year"):
                 {
-                    this.MultiYearSave();
+                        MultiYearSave();
                     break;
                 }
                 // Default case
@@ -196,7 +196,7 @@ namespace MyHome.UI
         private string GetRecurrenceFrequency()
         {
             // Goes over the radio buttons one at a time to see which one is checked
-            foreach (RadioButton CurrButton in this.pnRecurrenceOptions.Controls)
+            foreach (RadioButton CurrButton in pnRecurrenceOptions.Controls)
             {
                 // If the current button is checked
                 if (CurrButton.Checked)
@@ -216,11 +216,11 @@ namespace MyHome.UI
         private void MultiDaySave()
         {
             // Gets the amount of days in the range of dates choosen
-            int nDaysRange = this.CalcDaysInRange();
+            int nDaysRange = CalcDaysInRange();
 
             // Sets a local variable that will hold the date of the individual income being saved
             // the initial value is the start date
-            DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
+            DateTime dtCurrentSaveDate = dtpStartDate.Value.Date;
 
             // Loops for the amount of days in the range
             for (int nDayIndex = 0; nDayIndex < nDaysRange; nDayIndex++)
@@ -235,10 +235,10 @@ namespace MyHome.UI
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
             Income newIncome =
-                    new Income(decimal.Parse(this.txtAmount.Text), dtCurrentSaveDate,
-                                _incomeCategoryService.GetById(Convert.ToInt32(this.cmbCategory.SelectedValue)),
-                                _paymentMethodService.GetById(Convert.ToInt32(this.cmbPayment.SelectedValue)),
-                                this.txtDetail.Text);
+                    new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate,
+                                _incomeCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
+                                _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
+                                txtDetail.Text);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace MyHome.UI
         private int CalcDaysInRange()
         {
             // Creates a time span object with the difference in between the end date and the start date
-            TimeSpan tsDaysInRange = this.dtpEndDate.Value.Date - this.dtpStartDate.Value.Date;
+            TimeSpan tsDaysInRange = dtpEndDate.Value.Date - dtpStartDate.Value.Date;
 
             // Returns the amount of days represented by the time span object
             // plus one so that if the dates are the same day, it will still save once
@@ -263,8 +263,8 @@ namespace MyHome.UI
         {
             // Calculates the months in the range, taking the year into account
             // plus one so that if the dates are the same day, it will still save once
-            return (((this.dtpEndDate.Value.Year - this.dtpStartDate.Value.Year) * 12) +
-                                    (this.dtpEndDate.Value.Month - this.dtpStartDate.Value.Month) + 1);
+            return (((dtpEndDate.Value.Year - dtpStartDate.Value.Year) * 12) +
+                                    (dtpEndDate.Value.Month - dtpStartDate.Value.Month) + 1);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace MyHome.UI
 
             // If the days in the start month and end month are different
             // informs the user, and gives them an option to go back and change it
-            if (this.dtpStartDate.Value.Day != this.dtpEndDate.Value.Day)
+            if (dtpStartDate.Value.Day != dtpEndDate.Value.Day)
             {
                 rsltSaveIncomes = MessageBox.Show("The day in the month for the end of the range is different" +
                                  " than the day in the start month.\n" +
@@ -292,11 +292,11 @@ namespace MyHome.UI
             if (rsltSaveIncomes == DialogResult.OK)
             {
                 // Calculates the months in the range of dates choosen
-                int nMonthsRange = this.CalcMonthsInRange();
+                int nMonthsRange = CalcMonthsInRange();
 
                 // Sets a local variable that will hold the date of the individual income being saved
                 // the initial value is the start date
-                DateTime dtCurrentSaveDate = this.dtpStartDate.Value.Date;
+                DateTime dtCurrentSaveDate = dtpStartDate.Value.Date;
 
                 // Loops for the amount of months in the range
                 for (int nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
@@ -317,11 +317,11 @@ namespace MyHome.UI
         private void MultiYearSave()
         {
             // Calculates the years in the range of dates choosen
-            int nYearsInRange = (this.dtpEndDate.Value.Year - this.dtpStartDate.Value.Year) + 1;
+            int nYearsInRange = (dtpEndDate.Value.Year - dtpStartDate.Value.Year) + 1;
 
             // Sets a local variable that will hold the date of the individual income being saved
             // the initial value is the start date
-            DateTime dtCurrentSaveDate = this.dtpStartDate.Value;
+            DateTime dtCurrentSaveDate = dtpStartDate.Value;
 
             // Loops for the amount of years in the range
             for (int nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)

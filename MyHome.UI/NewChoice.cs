@@ -50,17 +50,17 @@ namespace MyHome.UI
             }
             // Sets the local property with an indicator for expense
             // and closes the form
-            else if (this.rdbExpense.Checked)
+            else if (rdbExpense.Checked)
             {
-                this.UserChoice = 1;
-                this.Close();
+                UserChoice = 1;
+                Close();
             }
             // Sets the local property with an indicator for income
             // and closes the form
-            else if (this.rdbIncome.Checked)
+            else if (rdbIncome.Checked)
             {
-                this.UserChoice = 2;
-                this.Close();
+                UserChoice = 2;
+                Close();
             }
         }
 
@@ -72,8 +72,8 @@ namespace MyHome.UI
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.UserChoice = 0;
-            this.Close();
+            UserChoice = 0;
+            Close();
         }
 
         #endregion
