@@ -13,47 +13,27 @@ namespace MyHome.Services
 
     public class CategoryService
     {
-        private readonly Dictionary<CategoryType, ICategoryService> _categoryServicesById;
-        
-        public CategoryService(AccountingDataContext context)
-        {
-            var expenseCategoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
-            var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
-            var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
+        public Dictionary<CategoryType, ICategoryService> CategoryHandlers { get; } = new Dictionary<CategoryType, ICategoryService>();
 
-            _categoryServicesById = new Dictionary<CategoryType, ICategoryService>
-            {
-                {CategoryType.Expense, expenseCategoryService},
-                {CategoryType.Income, incomeCategoryService},
-                {CategoryType.PaymentMethod, paymentMethodService}
-            };
-        }
-    
-
-        private static readonly Dictionary<CategoryType, string> CategoryTypeNames =
-           new Dictionary<CategoryType, string>
+        public Dictionary<CategoryType, string> CategoryTypeNames => new Dictionary<CategoryType, string>
            {
                 {CategoryType.Expense, "Expense Categories"},
                 {CategoryType.Income, "Income Categories"},
                 {CategoryType.PaymentMethod, "Payment Methods"}
            };
 
-
-        public Dictionary<CategoryType, ICategoryService> CategoryHandlers
+        public CategoryService(AccountingDataContext context)
         {
-            get
-            {
-                return _categoryServicesById;
-            }
-        }
+            var expenseCategoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
+            var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
+            var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
 
-
-        public Dictionary<CategoryType, string> CategoryTypeNamesById
-        {
-            get
+            CategoryHandlers = new Dictionary<CategoryType, ICategoryService>
             {
-                return CategoryTypeNames; 
-            }
+                {CategoryType.Expense, expenseCategoryService},
+                {CategoryType.Income, incomeCategoryService},
+                {CategoryType.PaymentMethod, paymentMethodService}
+            };
         }
     }
 }

@@ -69,7 +69,7 @@ namespace MyHome.UI
             // name as the title of the form
             this.dgvCategoryNames.Columns[0].Visible = false;
 
-            this.Text = _categoryService.CategoryTypeNamesById[this.CategoryType];
+            this.Text = _categoryService.CategoryTypeNames[this.CategoryType];
         }
 
         /// <summary>
