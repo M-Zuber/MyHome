@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Data.Common;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using MyHome.DataClasses;
 using MyHome.Persistence.Configurations;
 

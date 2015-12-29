@@ -19,7 +19,7 @@ namespace MyHome.UI
         /// <summary>
         /// Indicates what category group the new category is part of
         /// </summary>
-        public int CategoryType { get; set; }
+        public CategoryType CategoryType { get; set; }
         
         #endregion
 
@@ -29,11 +29,11 @@ namespace MyHome.UI
         /// Basic ctor that recieves an indicator of which category group
         ///  the category is being added to
         /// </summary>
-        /// <param name="nCategoryType">Category group indicator</param>
-        public AddCategoryUI(int nCategoryType)
+        /// <param name="categoryType">Category group indicator</param>
+        public AddCategoryUI(CategoryType categoryType)
         {
             InitializeComponent();
-            CategoryType = nCategoryType;
+            CategoryType = categoryType;
 
             _context = new AccountingDataContext();
             _categoryService = new CategoryService(_context);
@@ -52,16 +52,18 @@ namespace MyHome.UI
         private void btnSave_Click(object sender, EventArgs e)
         {
             // If the category name is blank shows the user an error message
-            if (this.txtCategoryName.Text == "")
+            if (string.IsNullOrWhiteSpace(txtCategoryName.Text))
             {
                 MessageBox.Show("Please fill in a name for the category",
                                 "Error",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1);
-                this.txtCategoryName.Focus();
+                // Clear out the textbox in case it has whitespace
+                txtCategoryName.Text = "";
+                txtCategoryName.Focus();
             }
-            else if (_categoryService.CategoryHandlers[this.CategoryType].Exists(txtCategoryName.Text))
+            else if (_categoryService.CategoryHandlers[CategoryType].Exists(txtCategoryName.Text))
             {
                 MessageBox.Show("There can not be two  categories with the same name\n" +
                                 "Please choose a new name",
@@ -69,12 +71,12 @@ namespace MyHome.UI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1);
-                this.txtCategoryName.Text = "";
-                this.txtCategoryName.Focus();
+                txtCategoryName.Text = "";
+                txtCategoryName.Focus();
             }
             else
             {
-                _categoryService.CategoryHandlers[this.CategoryType].Create(txtCategoryName.Text);
+                _categoryService.CategoryHandlers[CategoryType].Create(txtCategoryName.Text.Trim());
 
                 Close();
             }
@@ -88,7 +90,7 @@ namespace MyHome.UI
         private void AddCategoryUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Checks if a category had been saved before asking if the user wants to add another one
-            if (this.txtCategoryName.Text != "")
+            if (!string.IsNullOrWhiteSpace(txtCategoryName.Text))
             {
                 // Asks if more data is being entered
                 DialogResult = MessageBox.Show("The entry was saved" +
@@ -102,10 +104,10 @@ namespace MyHome.UI
                 if (DialogResult == DialogResult.Yes)
                 {
                     e.Cancel = true;
-                    this.txtCategoryName.Text = "";
-                    
+                    txtCategoryName.Text = "";
+
                     // Refocus the form on the text box
-                    this.txtCategoryName.Focus();
+                    txtCategoryName.Focus();
                 } 
             }
         }
@@ -121,6 +123,5 @@ namespace MyHome.UI
         }
 
         #endregion
-
     }
 }

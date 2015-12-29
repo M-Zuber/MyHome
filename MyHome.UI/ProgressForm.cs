@@ -56,13 +56,13 @@ namespace MyHome.UI
         public void BackupAllData()
         {
             // Shows the form
-            this.Show();
+            Show();
 
             // Backups the data
             //dataBackup.BackupData();
 
             // Closes the form
-            this.Close();
+            Close();
         }
 
         #endregion

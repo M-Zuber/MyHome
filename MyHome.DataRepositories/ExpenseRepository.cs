@@ -40,7 +40,7 @@ namespace MyHome.DataRepository
 
         public void Remove(int id)
         {
-            var expense =_context.Expenses.FirstOrDefault(e => e.Id == id);
+            var expense = _context.Expenses.FirstOrDefault(e => e.Id == id);
             _context.Expenses.Remove(expense);
             _context.SaveChanges();
         }
@@ -59,6 +59,7 @@ namespace MyHome.DataRepository
 
         public void Update(Expense expense)
         {
+            CleanUpForEF(expense);
             _context.Expenses.Attach(expense);
             _context.SaveChanges();
         }
@@ -69,8 +70,21 @@ namespace MyHome.DataRepository
             {
                 return;
             }
+            CleanUpForEF(expense);
             _context.Expenses.Add(expense);
             _context.SaveChanges();
+        }
+
+        private void CleanUpForEF(Expense expense)
+        {
+            if (expense.CategoryId > 0)
+            {
+                expense.Category = null;
+            }
+            if (expense.PaymentMethodId > 0)
+            {
+                expense.Method = null;
+            }
         }
     }
 }

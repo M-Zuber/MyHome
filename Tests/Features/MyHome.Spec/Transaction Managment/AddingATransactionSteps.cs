@@ -6,7 +6,6 @@ using MyHome.Services;
 using MyHome.Spec.Helpers;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using MyHome.TestUtils;
 using MyHome.Persistence;
 using MyHome.DataRepository;
 
@@ -21,7 +20,7 @@ namespace MyHome.Spec.Transaction_Managment
         private Transaction _transaction;
         private ITransactionService _transactionService;
         private PaymentMethodService _paymentMethodService;
-        private ICategoryService _categoryService;
+        private ICategoryService<Category> _categoryService;
         private Category _category;
         private PaymentMethod _paymentMethod;
         private AccountingDataContext context;
@@ -77,7 +76,7 @@ namespace MyHome.Spec.Transaction_Managment
 
             if (!string.IsNullOrWhiteSpace(category))
             {
-                _category = new Category(0, category);
+                _category = new DataClasses.Category(0, category);
                 _transaction.Category = _category;
             }
 
@@ -93,8 +92,18 @@ namespace MyHome.Spec.Transaction_Managment
         {
             try
             {
-                _categoryService.Create(_transaction.Category?.Name ?? "not this one");
-                _paymentMethodService.Create(_transaction.Method?.Name ?? "not this one");
+                if (_category != null)
+                {
+                    _category = _categoryService.Create(_category?.Name ?? "not this one");
+                    _transaction.CategoryId = _category.Id;
+                }
+                if (_paymentMethod != null)
+                {
+                    _paymentMethod = _paymentMethodService.Create(_paymentMethod?.Name ?? "not this one");
+                    _transaction.PaymentMethodId = _paymentMethod.Id;
+                }
+
+
                 _transactionService.Create(_transaction);
             }
             catch (Exception e)

@@ -1,52 +1,40 @@
 ﻿using System.Collections.Generic;
 using MyHome.DataRepository;
 using MyHome.Persistence;
+using MyHome.DataClasses;
 
 namespace MyHome.Services
 {
+    public enum CategoryType
+    {
+        Expense = 1,
+        Income,
+        PaymentMethod
+    }
+
     public class CategoryService
     {
-        private readonly Dictionary<int, ICategoryService> _categoryServicesById;
-        
+        public Dictionary<CategoryType, ICategoryService<Category>> CategoryHandlers { get; } = new Dictionary<CategoryType, ICategoryService<Category>>();
+
+        public Dictionary<CategoryType, string> CategoryTypeNames => new Dictionary<CategoryType, string>
+           {
+                {CategoryType.Expense, "Expense Categories"},
+                {CategoryType.Income, "Income Categories"},
+                {CategoryType.PaymentMethod, "Payment Methods"}
+           };
+
         public CategoryService(AccountingDataContext context)
         {
             var expenseCategoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
             var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
             var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
 
-            _categoryServicesById = new Dictionary<int, ICategoryService>
+            CategoryHandlers = new Dictionary<CategoryType, ICategoryService<Category>>
             {
-                {1, expenseCategoryService},
-                {2, incomeCategoryService},
-                {3, paymentMethodService}
+                {CategoryType.Expense, expenseCategoryService},
+                {CategoryType.Income, incomeCategoryService},
+                {CategoryType.PaymentMethod, paymentMethodService}
             };
-        }
-    
-
-        private static readonly Dictionary<int, string> CategoryTypeNames =
-           new Dictionary<int, string>
-           {
-                {1, "Expense Categories"},
-                {2, "Income Categories"},
-                {3, "Payment Methods"}
-           };
-
-
-        public Dictionary<int, ICategoryService> CategoryHandlers
-        {
-            get
-            {
-                return _categoryServicesById;
-            }
-        }
-
-
-        public Dictionary<int, string> CategoryTypeNamesById
-        {
-            get
-            {
-                return CategoryTypeNames; 
-            }
         }
     }
 }

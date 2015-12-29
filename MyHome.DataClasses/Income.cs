@@ -36,8 +36,8 @@ namespace MyHome.DataClasses
         /// </summary>
         public new int Id { get; set; }
 
-        public int CategoryId { get; set; }
-        public int PaymentMethodId { get; set; }
+        public new int CategoryId { get; set; }
+        public new int PaymentMethodId { get; set; }
 
         #endregion
 
@@ -58,6 +58,15 @@ namespace MyHome.DataClasses
             Method = paymentMethod;
         }
 
+        public Income(decimal amount, DateTime date, int categoryID, int methodID, string comments)
+        {
+            Amount = amount;
+            CategoryId = categoryID;
+            Comments = comments;
+            Date = date;
+            PaymentMethodId = methodID;
+        }
+
         #endregion
 
         #region Override Methods
@@ -67,11 +76,11 @@ namespace MyHome.DataClasses
             Income incomeComparing = (Income)obj;
 
             return ((Amount == incomeComparing.Amount) &&
-                    (Category.Equals(incomeComparing.Category)) &&
+                    ((Category == null && incomeComparing.Category == null) || Category.Equals(incomeComparing.Category)) &&
                     (Comments == incomeComparing.Comments) &&
                     (Date == incomeComparing.Date) &&
                     (Id == incomeComparing.Id) &&
-                    (Method.Equals(incomeComparing.Method)));
+                    ((Method == null && incomeComparing.Method == null) || Method.Equals(incomeComparing.Method)));
         }
 
         public override int GetHashCode()

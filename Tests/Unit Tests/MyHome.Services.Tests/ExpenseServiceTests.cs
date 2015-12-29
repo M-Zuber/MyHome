@@ -4,15 +4,13 @@ using MyHome.TestUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHome.Services.Tests
 {
     [TestClass]
     public class ExpenseServiceTests
     {
-        private Expense baseTestData = new Expense(10, new DateTime(2015, 2, 2), new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "");
+        private Expense baseTestData = new Expense(10, new DateTime(2015, 2, 2), new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "") { PaymentMethodId = 1, CategoryId = 1};
 
         [TestMethod]
         public void ExpenseService_LoadById_Item_Exists_Returns_It()

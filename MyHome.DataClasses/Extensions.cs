@@ -15,7 +15,8 @@
         public static Expense Copy(this Expense orginalExpense)
         {
             return new Expense(orginalExpense.Amount, orginalExpense.Date,
-                orginalExpense.Category, orginalExpense.Method, orginalExpense.Comments, orginalExpense.Id);
+                orginalExpense.Category, orginalExpense.Method, orginalExpense.Comments, orginalExpense.Id)
+            { CategoryId = orginalExpense.CategoryId, PaymentMethodId = orginalExpense.PaymentMethodId};
         }
 
         #endregion
@@ -30,7 +31,8 @@
         public static Income Copy(this Income orginalIncome)
         {
             return new Income(orginalIncome.Amount, orginalIncome.Date,
-                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comments, orginalIncome.Id);
+                orginalIncome.Category, orginalIncome.Method, orginalIncome.Comments, orginalIncome.Id)
+            { CategoryId = orginalIncome.CategoryId, PaymentMethodId = orginalIncome.PaymentMethodId};
         }
 
         #endregion

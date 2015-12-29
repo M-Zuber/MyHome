@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHome.Services;
+using System;
 using System.Windows.Forms;
 
 namespace MyHome.UI
@@ -74,7 +75,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
         }
 
         /// <summary>
@@ -127,11 +128,11 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void viewDetailToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.MdiChilrenSum++;
+            MdiChilrenSum++;
             DataViewUI ChildData = new DataViewUI();
             ChildData.MdiParent = this;
             ChildData.Show();
-            ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+            ChildData.FormClosed += new FormClosedEventHandler(MdiChildClosed);
         }
 
         /// <summary>
@@ -142,19 +143,19 @@ namespace MyHome.UI
         private void newIncomeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.NewIncome == null)
+            if (NewIncome == null)
             {
-                this.MdiChilrenSum++;
-                this.NewIncome = new InputINUI();
-                this.NewIncome.MdiParent = this;
-                this.NewIncome.Show();
-                this.NewIncome.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.NewIncome.FormClosed += new FormClosedEventHandler(this.NewIncomeClose); 
+                MdiChilrenSum++;
+                NewIncome = new InputINUI();
+                NewIncome.MdiParent = this;
+                NewIncome.Show();
+                NewIncome.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                NewIncome.FormClosed += new FormClosedEventHandler(NewIncomeClose); 
             }
             // Forces the form to the front
             else
             {
-                this.NewIncome.BringToFront();
+                NewIncome.BringToFront();
             }
         }
 
@@ -166,19 +167,19 @@ namespace MyHome.UI
         private void newExcpenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.NewExpense == null)
+            if (NewExpense == null)
             {
-                this.MdiChilrenSum++;
-                this.NewExpense = new InputOutUI();
-                this.NewExpense.MdiParent = this;
-                this.NewExpense.Show();
-                this.NewExpense.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.NewExpense.FormClosed += new FormClosedEventHandler(this.NewExpenseClose);
+                MdiChilrenSum++;
+                NewExpense = new InputOutUI();
+                NewExpense.MdiParent = this;
+                NewExpense.Show();
+                NewExpense.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                NewExpense.FormClosed += new FormClosedEventHandler(NewExpenseClose);
             }
             // Forces the form to the front
             else
             {
-                this.NewExpense.BringToFront();
+                NewExpense.BringToFront();
             }
         }
 
@@ -190,19 +191,19 @@ namespace MyHome.UI
         private void recurringExpenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.NewRecurringExpense == null)
+            if (NewRecurringExpense == null)
             {
-                this.MdiChilrenSum++;
+                MdiChilrenSum++;
                 RecurringExpenseInput ChildData = new RecurringExpenseInput();
                 ChildData.MdiParent = this;
                 ChildData.Show();
-                ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                ChildData.FormClosed += new FormClosedEventHandler(this.NewRecurringExpenseClose);
+                ChildData.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                ChildData.FormClosed += new FormClosedEventHandler(NewRecurringExpenseClose);
             }
             // Forces the form to the front
             else
             {
-                this.NewRecurringExpense.BringToFront();
+                NewRecurringExpense.BringToFront();
             }
         }
 
@@ -214,19 +215,19 @@ namespace MyHome.UI
         private void recurringIncomeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.NewRecurringIncome == null)
+            if (NewRecurringIncome == null)
             {
-                this.MdiChilrenSum++;
+                MdiChilrenSum++;
                 RecurringIncomeInput ChildData = new RecurringIncomeInput();
                 ChildData.MdiParent = this;
                 ChildData.Show();
-                ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                ChildData.FormClosed += new FormClosedEventHandler(this.NewRecurringIncomeClose);
+                ChildData.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                ChildData.FormClosed += new FormClosedEventHandler(NewRecurringIncomeClose);
             }
             // Forces the form to the front
             else
             {
-                this.NewRecurringIncome.BringToFront();
+                NewRecurringIncome.BringToFront();
             }
         }
 
@@ -247,29 +248,29 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void categoryPieChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.MdiChilrenSum++;
+            MdiChilrenSum++;
             MonthChartUI mcuNew = new MonthChartUI(DateTime.Now.Date);
             mcuNew.MdiParent = this;
             mcuNew.Show();
-            mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+            mcuNew.FormClosed += new FormClosedEventHandler(MdiChildClosed);
         }
 
         private void methodPieChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.MdiChilrenSum++;
+            MdiChilrenSum++;
             DataPerPaymentMethod mcuNew = new DataPerPaymentMethod(DateTime.Now.Date);
             mcuNew.MdiParent = this;
             mcuNew.Show();
-            mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+            mcuNew.FormClosed += new FormClosedEventHandler(MdiChildClosed);
         }
 
         private void methodGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.MdiChilrenSum++;
+            MdiChilrenSum++;
             MultipleCategoriesCompare mcuNew = new MultipleCategoriesCompare();
             mcuNew.MdiParent = this;
             mcuNew.Show();
-            mcuNew.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+            mcuNew.FormClosed += new FormClosedEventHandler(MdiChildClosed);
         }
 
         /// <summary>
@@ -280,19 +281,19 @@ namespace MyHome.UI
         private void exCatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.ExpCatForm == null)
+            if (ExpCatForm == null)
             {
-                this.MdiChilrenSum++;
-                this.ExpCatForm = new ViewCategoriesUI(1);
-                this.ExpCatForm.MdiParent = this;
-                this.ExpCatForm.Show();
-                this.ExpCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.ExpCatForm.FormClosed += new FormClosedEventHandler(this.ExpCatClose);
+                MdiChilrenSum++;
+                ExpCatForm = new ViewCategoriesUI(CategoryType.Expense);
+                ExpCatForm.MdiParent = this;
+                ExpCatForm.Show();
+                ExpCatForm.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                ExpCatForm.FormClosed += new FormClosedEventHandler(ExpCatClose);
             }
             // Forces the form to the front
             else
             {
-                this.ExpCatForm.BringToFront();
+                ExpCatForm.BringToFront();
             }
         }
 
@@ -304,19 +305,19 @@ namespace MyHome.UI
         private void incomeCatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.IncCatForm == null)
+            if (IncCatForm == null)
             {
-                this.MdiChilrenSum++;
-                this.IncCatForm = new ViewCategoriesUI(2);
-                this.IncCatForm.MdiParent = this;
-                this.IncCatForm.Show();
-                this.IncCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.IncCatForm.FormClosed += new FormClosedEventHandler(this.IncCatClose);
+                MdiChilrenSum++;
+                IncCatForm = new ViewCategoriesUI(CategoryType.Income);
+                IncCatForm.MdiParent = this;
+                IncCatForm.Show();
+                IncCatForm.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                IncCatForm.FormClosed += new FormClosedEventHandler(IncCatClose);
             }
             // Forces the form to the front
             else
             {
-                this.IncCatForm.BringToFront();
+                IncCatForm.BringToFront();
             }
         }
 
@@ -328,19 +329,19 @@ namespace MyHome.UI
         private void paymentCatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // If the instance is not already open
-            if (this.PaymentCatForm == null)
+            if (PaymentCatForm == null)
             {
-                this.MdiChilrenSum++;
-                this.PaymentCatForm = new ViewCategoriesUI(3);
-                this.PaymentCatForm.MdiParent = this;
-                this.PaymentCatForm.Show();
-                this.PaymentCatForm.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
-                this.PaymentCatForm.FormClosed += new FormClosedEventHandler(this.PaymentCatClose);
+                MdiChilrenSum++;
+                PaymentCatForm = new ViewCategoriesUI(CategoryType.PaymentMethod);
+                PaymentCatForm.MdiParent = this;
+                PaymentCatForm.Show();
+                PaymentCatForm.FormClosed += new FormClosedEventHandler(MdiChildClosed);
+                PaymentCatForm.FormClosed += new FormClosedEventHandler(PaymentCatClose);
             }
             // Forces the form to the front
             else
             {
-                this.PaymentCatForm.BringToFront();
+                PaymentCatForm.BringToFront();
             }
         }
 
@@ -351,11 +352,11 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void categoryGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.MdiChilrenSum++;
+            MdiChilrenSum++;
             DataChartUI ChildData = new DataChartUI();
             ChildData.MdiParent = this;
             ChildData.Show();
-            ChildData.FormClosed += new FormClosedEventHandler(this.MdiChildClosed);
+            ChildData.FormClosed += new FormClosedEventHandler(MdiChildClosed);
         }
 
         /// <summary>
@@ -437,12 +438,12 @@ namespace MyHome.UI
             // Opening the form to add a new expense
             if (nResult == 1)
             {
-                this.newExcpenceToolStripMenuItem_Click(sender, e);
+                newExcpenceToolStripMenuItem_Click(sender, e);
             }
             // Opening the form to add a new income
             else if (nResult == 2)
             {
-                this.newIncomeToolStripMenuItem_Click(sender, e);
+                newIncomeToolStripMenuItem_Click(sender, e);
             }
         }
 
@@ -468,7 +469,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void MenuMDIUI_MdiChildActivate(object sender, EventArgs e)
         {
-            this.tslblMdiChildNumber.Text = this.MdiChilrenSum.ToString();
+            tslblMdiChildNumber.Text = MdiChilrenSum.ToString();
         }
 
         /// <summary>
@@ -478,7 +479,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void NewIncomeClose(object sender, FormClosedEventArgs e)
         {
-            this.NewIncome = null;
+            NewIncome = null;
         }
 
         /// <summary>
@@ -488,7 +489,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void NewExpenseClose(object sender, FormClosedEventArgs e)
         {
-            this.NewExpense = null;
+            NewExpense = null;
         }
 
         /// <summary>
@@ -498,7 +499,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void NewRecurringExpenseClose(object sender, FormClosedEventArgs e)
         {
-            this.NewRecurringExpense = null;
+            NewRecurringExpense = null;
         }
 
         /// <summary>
@@ -508,7 +509,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void NewRecurringIncomeClose(object sender, FormClosedEventArgs e)
         {
-            this.NewRecurringIncome = null;
+            NewRecurringIncome = null;
         }
 
         /// <summary>
@@ -518,7 +519,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void ExpCatClose(object sender, FormClosedEventArgs e)
         {
-            this.ExpCatForm = null;
+            ExpCatForm = null;
         }
 
         /// <summary>
@@ -528,7 +529,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void IncCatClose(object sender, FormClosedEventArgs e)
         {
-            this.IncCatForm = null;
+            IncCatForm = null;
         }
 
         /// <summary>
@@ -538,7 +539,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void PaymentCatClose(object sender, FormClosedEventArgs e)
         {
-            this.PaymentCatForm = null;
+            PaymentCatForm = null;
         }
 
         /// <summary>
@@ -549,8 +550,8 @@ namespace MyHome.UI
         /// <param name="e">Standard event object</param>
         private void MdiChildClosed(object sender, FormClosedEventArgs e)
         {
-            this.MdiChilrenSum--;
-            this.tslblMdiChildNumber.Text = this.MdiChilrenSum.ToString();
+            MdiChilrenSum--;
+            tslblMdiChildNumber.Text = MdiChilrenSum.ToString();
         }
 
         #endregion      

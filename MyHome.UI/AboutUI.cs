@@ -29,7 +29,7 @@ namespace MyHome.UI
         /// <param name="e">Standard event arg object</param>
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         #endregion

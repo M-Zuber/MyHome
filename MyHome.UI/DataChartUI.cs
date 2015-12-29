@@ -25,10 +25,6 @@ namespace MyHome.UI
         /// </summary>
         public DataChartUI()
         {
-            // Intializes the local properties of the form
-            CategoryNames = new List<string>();
-            MonthData = new Dictionary<string, Dictionary<DateTime, decimal>>();
-
             // Auto generated code for the form
             InitializeComponent();
 
@@ -54,12 +50,12 @@ namespace MyHome.UI
         /// <summary>
         ///     Holds a list of all the category options that be can be looked at for the range
         /// </summary>
-        private List<string> CategoryNames { get; set; }
+        private IEnumerable<string> CategoryNames { get; set; } = new List<string>();
 
         /// <summary>
         ///     Holds the data for each category by month in range being looked at
         /// </summary>
-        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; }
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; } = new Dictionary<string, Dictionary<DateTime, decimal>>();
 
         #endregion
 
@@ -84,7 +80,7 @@ namespace MyHome.UI
             dtpEndMonth.Value = EndDate;
 
             // Gets the category names
-            CategoryNames = _generalCategoryHandler.GetAllCategoryNames().ToList();
+            CategoryNames = _generalCategoryHandler.GetAllCategoryNames();
 
             // Sets the data bindings of the controls -excluding the chart
             SetupDataBindings();
@@ -194,7 +190,15 @@ namespace MyHome.UI
                 // For each month in the range gets the total of the current category
                 for (var monthIndex = 0; monthIndex < monthRange; monthIndex++)
                 {
-                    curCategoryData.Value.Add(curDate, monthData[curDate][curCategoryData.Key]);
+                    decimal value = 0;
+
+                    // If the monthData dictionary does not have the key - put in zero
+                    if (monthData[curDate].ContainsKey(curCategoryData.Key))
+                    {
+                        value = monthData[curDate][curCategoryData.Key];
+                    }
+
+                    curCategoryData.Value.Add(curDate, value);
                     curDate = curDate.AddMonths(1);
                 }
             }
@@ -245,7 +249,7 @@ namespace MyHome.UI
         {
             // Calculates the months in the range, taking the year into account
             // plus one so that if the dates are the same day, it will still return one
-            return (((EndDate.Year - StartDate.Year)*12) +
+            return (((EndDate.Year - StartDate.Year) * 12) +
                     (EndDate.Month - StartDate.Month) + 1);
         }
 
@@ -254,9 +258,8 @@ namespace MyHome.UI
             base.OnClosed(e);
             if (_dataContext != null)
             {
-                _dataContext.Dispose();    
+                _dataContext.Dispose();
             }
-            
         }
 
         #endregion

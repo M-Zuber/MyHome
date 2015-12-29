@@ -10,7 +10,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of expense categories
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class ExpenseCategoryService : ICategoryService
+    public class ExpenseCategoryService : ICategoryService<ExpenseCategory>
     {
         private readonly ExpenseCategoryRepository _repository;
 
@@ -35,18 +35,20 @@ namespace MyHome.Services
         /// <returns>All the Expense Categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<DataClasses.Category> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public void Create(ExpenseCategory expenseCategory)
+        public ExpenseCategory Create(ExpenseCategory expenseCategory)
         {
             Contract.Requires<ArgumentException>(expenseCategory != null);
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(expenseCategory.Name));
             Contract.Requires<ArgumentException>(!Exists(expenseCategory.Name), $"Expense category '{expenseCategory.Name}' is already defined");
 
             _repository.Create(expenseCategory);
+
+            return expenseCategory;
         }
         
         public bool Exists(string name)
@@ -55,12 +57,16 @@ namespace MyHome.Services
             return _repository.GetByName(name) != null;
         }
 
-        public void Create(string name, int id = 0)
+        public ExpenseCategory Create(string name, int id = 0)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Expense category '{name}' is already defined");
 
-            _repository.Create(new ExpenseCategory(id, name));
+            var expenseCategory = new ExpenseCategory(id, name);
+
+            _repository.Create(expenseCategory);
+
+            return expenseCategory;
         }
 
         public void Delete(string name)

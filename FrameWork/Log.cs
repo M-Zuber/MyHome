@@ -24,19 +24,19 @@ namespace FrameWork
         public Log(string strLogFileName)
         {
             // Intializes the instance of the log file
-            this.LogFile = new FileInfo(strLogFileName);
+            LogFile = new FileInfo(strLogFileName);
 
-            if (!this.LogFile.Directory.Exists)
+            if (!LogFile.Directory.Exists)
             {
                 // Creates the directory of the log file if does not exist
-                Directory.CreateDirectory(this.LogFile.Directory.FullName);
+                Directory.CreateDirectory(LogFile.Directory.FullName);
             }
 
 
-            if (!this.LogFile.Exists)
+            if (!LogFile.Exists)
             {
                 // If the log file does not exist, creates the file -adding a creation timestamp to the top
-                using (StreamWriter stwrAppend = this.LogFile.AppendText())
+                using (StreamWriter stwrAppend = LogFile.AppendText())
                 {
                     stwrAppend.WriteLine("The file was created on: " + DateTime.Now.ToString());
                 }
@@ -55,7 +55,7 @@ namespace FrameWork
         /// <param name="strMessage">The message to be logged</param>
         public void AddMessage(string strMessage)
         {
-            using (StreamWriter stwrAppend = this.LogFile.AppendText())
+            using (StreamWriter stwrAppend = LogFile.AppendText())
             {
                 stwrAppend.WriteLine(strMessage);
             }
@@ -67,7 +67,7 @@ namespace FrameWork
         /// <param name="Messages">The messages to be logged</param>
         public void AddMessages(params string[] Messages)
         {
-            using (StreamWriter logWriter = this.LogFile.AppendText()) 
+            using (StreamWriter logWriter = LogFile.AppendText()) 
             {
                 foreach (string message in Messages)
                 {
@@ -89,7 +89,7 @@ namespace FrameWork
         /// <param name="dtErrorTime">The time of the error</param>
         public void AddError(int nErrNo, string strMessage, DateTime dtErrorTime)
         {
-            using (StreamWriter stwrAppend = this.LogFile.AppendText())
+            using (StreamWriter stwrAppend = LogFile.AppendText())
             {
                 stwrAppend.WriteLine(nErrNo.ToString() + "\t" +
                                      strMessage + "\t" +
@@ -105,7 +105,7 @@ namespace FrameWork
         /// <param name="dtErrorTime">The time of the error</param>
         public void AddError(Globals.ErrorCodes enErrorNumber, string strMessage, DateTime dtErrorTime)
         {
-            using (StreamWriter stwrAppend = this.LogFile.AppendText())
+            using (StreamWriter stwrAppend = LogFile.AppendText())
             {
                 stwrAppend.WriteLine(((int)enErrorNumber).ToString() + "\t" +
                                      strMessage + "\t" +

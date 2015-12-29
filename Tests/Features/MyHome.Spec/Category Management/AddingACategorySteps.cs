@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
 using TechTalk.SpecFlow;
-using MyHome.TestUtils;
 using MyHome.Spec.Helpers;
 
 namespace MyHome.Spec
@@ -20,7 +14,7 @@ namespace MyHome.Spec
     public class AddingACategorySteps
     {
         AccountingDataContext context;
-        ICategoryService _categoryService;
+        ICategoryService<DataClasses.Category> _categoryService;
         string _categoryName;
 
         [BeforeScenario]

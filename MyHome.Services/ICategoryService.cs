@@ -3,11 +3,11 @@ using MyHome.DataClasses;
 
 namespace MyHome.Services
 {
-    public interface ICategoryService
+    public interface ICategoryService<out TCategoryType>
     {
-        IEnumerable<Category> GetAll();
+        IEnumerable<DataClasses.Category> GetAll();
         bool Exists(string name);
-        void Create(string name, int id = 0);
+        TCategoryType Create(string name, int id = 0);
         void Delete(string name);
         void Save(int id, string name);
     }

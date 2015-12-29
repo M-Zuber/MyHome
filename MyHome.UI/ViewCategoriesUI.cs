@@ -22,7 +22,7 @@ namespace MyHome.UI
         /// <summary>
         /// Represents which category group the form is displaying for
         /// </summary>
-        public int CategoryType { get; set; }
+        public CategoryType CategoryType { get; set; }
 
         /// <summary>
         /// A placeholder for the original value of a category the is being edited
@@ -36,11 +36,11 @@ namespace MyHome.UI
         /// <summary>
         /// C'tor that intializes the category group property
         /// </summary>
-        /// <param name="nCategoryId">The category group id</param>
-        public ViewCategoriesUI(int nCategoryId)
+        /// <param name="categoryType">The category type</param>
+        public ViewCategoriesUI(Services.CategoryType categoryType)
         {
             // Sets the property with the id given
-            this.CategoryType = nCategoryId;
+            CategoryType = categoryType;
 
             // Auto generated code for the form
             InitializeComponent();
@@ -62,14 +62,14 @@ namespace MyHome.UI
         private void ViewCategoriesUI_Load(object sender, EventArgs e)
         {
             // Loads the table that corrosponds to the wanted categry group
-            this.dgvCategoryNames.DataSource =
-                _categoryService.CategoryHandlers[this.CategoryType].GetAll();
-            
+            dgvCategoryNames.DataSource =
+                _categoryService.CategoryHandlers[CategoryType].GetAll();
+
             // Connects the data grid with the names only and displays the category group
             // name as the title of the form
-            this.dgvCategoryNames.Columns[0].Visible = false;
+            dgvCategoryNames.Columns[0].Visible = false;
 
-            this.Text = _categoryService.CategoryTypeNamesById[this.CategoryType];
+            Text = _categoryService.CategoryTypeNames[CategoryType];
         }
 
         /// <summary>
@@ -87,25 +87,25 @@ namespace MyHome.UI
             }
 
             // Refreshes the list so the new category is displayed
-            this.dgvCategoryNames.DataSource = _categoryService.CategoryHandlers[this.CategoryType].GetAll();
+            dgvCategoryNames.DataSource = _categoryService.CategoryHandlers[CategoryType].GetAll();
         } 
 
         private void dgvCategoryNames_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (_categoryService.CategoryHandlers[this.CategoryType].GetAll().FirstOrDefault(category => category.Name == this.dgvCategoryNames.CurrentCell.Value.ToString()) == null)
+            if (_categoryService.CategoryHandlers[CategoryType].GetAll().FirstOrDefault(category => category.Name == dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
-                var editedItem = (Category) this.dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem;
-                _categoryService.CategoryHandlers[this.CategoryType].Create(editedItem.Name);
+                var editedItem = (DataClasses.Category)dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem;
+                _categoryService.CategoryHandlers[(Services.CategoryType)CategoryType].Create(editedItem.Name);
             }
             else
             {
-                this.dgvCategoryNames.CurrentCell.Value = this.OriginalCategoryName;
+                dgvCategoryNames.CurrentCell.Value = OriginalCategoryName;
             }
         }
 
         private void dgvCategoryNames_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            this.OriginalCategoryName = this.dgvCategoryNames.CurrentCell.Value.ToString();
+            OriginalCategoryName = dgvCategoryNames.CurrentCell.Value.ToString();
         }
 
         protected override void OnClosed(EventArgs e)

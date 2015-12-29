@@ -2,13 +2,8 @@
 using MyHome.DataClasses;
 using MyHome.DataRepository;
 using MyHome.Persistence;
-using MyHome.Services;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHome.TestUtils
 {

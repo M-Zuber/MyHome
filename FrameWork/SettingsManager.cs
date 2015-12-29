@@ -24,20 +24,20 @@ namespace FrameWork
         public SettingsManager(string settingsFileName)
         {
             // Intializes the instance of the setting file
-            this.SettingsFile = new FileInfo(settingsFileName);
+            SettingsFile = new FileInfo(settingsFileName);
 
-            if (!this.SettingsFile.Directory.Exists)
+            if (!SettingsFile.Directory.Exists)
             {
                 // Creates the directory of the setting file if does not exist
-                Directory.CreateDirectory(this.SettingsFile.Directory.FullName);
+                Directory.CreateDirectory(SettingsFile.Directory.FullName);
             }
 
-            if (!this.SettingsFile.Exists)
+            if (!SettingsFile.Exists)
             {
                 // If the file doesnt exist, creates it.
                 // No actual value is written in, this is just the simplest way to create
                 // the file without locking up the resource
-                using (StreamWriter stwrAppend = this.SettingsFile.AppendText()){}
+                using (StreamWriter stwrAppend = SettingsFile.AppendText()){}
             }
         }
         
@@ -79,7 +79,7 @@ namespace FrameWork
         {
             var allSettings = new Dictionary<string, string>();
 
-            using (StreamReader settingsReader = new StreamReader(this.SettingsFile.FullName))
+            using (StreamReader settingsReader = new StreamReader(SettingsFile.FullName))
             {
                 while (!settingsReader.EndOfStream)
                 {
@@ -100,7 +100,7 @@ namespace FrameWork
         {
             // Opens the file and cleans it from all previous data
             using (StreamWriter settingsWriter =
-                                    new StreamWriter(this.SettingsFile.Open(FileMode.Create)))
+                                    new StreamWriter(SettingsFile.Open(FileMode.Create)))
             {
                 // Goes over each key:value in the settings dictionary
                 foreach (KeyValuePair<string, string> CurrSetting in allSettings)

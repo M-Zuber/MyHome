@@ -6,7 +6,6 @@ using MyHome.Services;
 using MyHome.Spec.Helpers;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using MyHome.TestUtils;
 using MyHome.Persistence;
 using MyHome.DataRepository;
 
@@ -30,7 +29,7 @@ namespace MyHome.Spec.Transaction_Managment
         private Transaction _transaction;
         private ITransactionService _transactionService;
         private PaymentMethodService _paymentMethodService;
-        private ICategoryService _categoryService;
+        private ICategoryService<Category> _categoryService;
         private Category _category;
         private PaymentMethod _paymentMethod;
         private AccountingDataContext context;
@@ -77,14 +76,14 @@ namespace MyHome.Spec.Transaction_Managment
                     break;
             }
 
-            _paymentMethod = new PaymentMethod(0, paymentMethod);
+            _paymentMethod = _paymentMethodService.Create(paymentMethod);
             _transaction.Method = _paymentMethod;
-            _category = new Category(0, category);
-            _transaction.Category = _category;
-            _transaction.Date = DateTime.Today;
+            _transaction.PaymentMethodId = _paymentMethod.Id;
 
-            _categoryService.Create(_transaction.Category.Name);
-            _paymentMethodService.Create(_transaction.Method.Name);
+            _category = _categoryService.Create(category);
+            _transaction.Category = _category;
+            _transaction.CategoryId = _category.Id;
+            _transaction.Date = DateTime.Today;
 
             _transaction.Id = 1;
             _transactionService.Create(_transaction);
@@ -107,23 +106,23 @@ namespace MyHome.Spec.Transaction_Managment
                 case Properties.Category:
                     if (!string.IsNullOrWhiteSpace(value))
                     {
-                        _categoryService.Create(value);
-                        _transaction.Category = new Category { Name = value };
+                        _transaction.Category = _categoryService.Create(value);
+                        _transaction.CategoryId = _transaction.Category.Id;
                     }
                     else
                     {
-                        _transaction.Category = null;
+                        _transaction.CategoryId = 0;
                     }
                     break;
                 case Properties.Method:
                     if (!string.IsNullOrWhiteSpace(value))
                     {
-                        _paymentMethodService.Create(value);
-                        _transaction.Method = new PaymentMethod { Name = value };
+                        _transaction.Method = _paymentMethodService.Create(value);
+                        _transaction.PaymentMethodId = _transaction.Method.Id;
                     }
                     else
                     {
-                        _transaction.Method = null;
+                        _transaction.PaymentMethodId = 0;
                     }
                     break;
             }

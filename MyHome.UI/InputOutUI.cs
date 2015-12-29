@@ -80,8 +80,8 @@ namespace MyHome.UI
             {
                 var newExpense =
                     new Expense(decimal.Parse(txtAmount.Text), dtPick.Value,
-                        _expenseCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
-                        _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
+                        Convert.ToInt32(cmbCategory.SelectedValue),
+                        Convert.ToInt32(cmbPayment.SelectedValue),
                         txtDetail.Text);
 
                 _expenseService.Create(newExpense);
