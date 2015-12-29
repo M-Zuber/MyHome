@@ -61,6 +61,7 @@ namespace MyHome.DataRepository
         public void Update(Income income)
         {
             //TODO -there should be tests that cover this, but what happens if the item is a new item?
+            CleanUpForEF(income);
             _context.Incomes.Attach(income);
             _context.SaveChanges();
         }
@@ -71,8 +72,21 @@ namespace MyHome.DataRepository
             {
                 return;
             }
+            CleanUpForEF(income);
             _context.Incomes.Add(income);
             _context.SaveChanges();
+        }
+
+        private void CleanUpForEF(Income income)
+        {
+            if (income.CategoryId > 0)
+            {
+                income.Category = null;
+            }
+            if (income.PaymentMethodId > 0)
+            {
+                income.Method = null;
+            }
         }
     }
 }

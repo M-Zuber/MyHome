@@ -35,16 +35,16 @@ namespace MyHome.Services
         public void Save(Expense expenseToSave)
         {
             Contract.Requires<ArgumentNullException>(expenseToSave != null, "The expense must not be null");
-            Contract.Requires<ArgumentNullException>(expenseToSave.Category != null, "There must be a category selected");
-            Contract.Requires<ArgumentNullException>(expenseToSave.Method != null, "There must be a payment method selected");
+            Contract.Requires<ArgumentNullException>(expenseToSave.CategoryId > 0, "There must be a category selected");
+            Contract.Requires<ArgumentNullException>(expenseToSave.PaymentMethodId > 0, "There must be a payment method selected");
             _repository.Save(expenseToSave);
         }
 
         public void Create(Expense newExpense)
         {
             Contract.Requires<ArgumentNullException>(newExpense != null, "The expense must not be null");
-            Contract.Requires<ArgumentNullException>(newExpense.Category != null, "There must be a category selected");
-            Contract.Requires<ArgumentNullException>(newExpense.Method != null, "There must be a payment method selected");
+            Contract.Requires<ArgumentNullException>(newExpense.CategoryId > 0, "There must be a category selected");
+            Contract.Requires<ArgumentNullException>(newExpense.PaymentMethodId > 0, "There must be a payment method selected");
 
             _repository.Create(newExpense);
         }

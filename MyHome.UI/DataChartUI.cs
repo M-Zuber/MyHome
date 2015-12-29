@@ -260,7 +260,6 @@ namespace MyHome.UI
             {
                 _dataContext.Dispose();
             }
-
         }
 
         #endregion

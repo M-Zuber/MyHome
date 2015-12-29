@@ -148,44 +148,44 @@ namespace MyHome.UI
             {
                 // The expense recurrs every day
                 case ("day"):
-                {
-                    MultiDaySave();
-                    break;
-                }
+                    {
+                        MultiDaySave();
+                        break;
+                    }
                 // The expense recurrs every month
                 case ("month"):
-                {
-                    // Checks if the day in the month is within the valid range
-                    if (dtpStartDate.Value.Day <= 28)
                     {
-                        MultiMonthSave();
-                    }
-                    // If the day is not in the range, informs the user
-                    else
-                    {
-                        MessageBox.Show("Due to the fact that not all months have this many days," +
-                                        " expenses can not be saved using this day of the month.\n" +
-                                        "Please change the day of the month" +
-                                        " and try again",
-                            "Invalid day of month",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning,
-                            MessageBoxDefaultButton.Button1);
-                    }
+                        // Checks if the day in the month is within the valid range
+                        if (dtpStartDate.Value.Day <= 28)
+                        {
+                            MultiMonthSave();
+                        }
+                        // If the day is not in the range, informs the user
+                        else
+                        {
+                            MessageBox.Show("Due to the fact that not all months have this many days," +
+                                            " expenses can not be saved using this day of the month.\n" +
+                                            "Please change the day of the month" +
+                                            " and try again",
+                                "Invalid day of month",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 // The expense occurs every year
                 case ("year"):
-                {
-                    MultiYearSave();
-                    break;
-                }
+                    {
+                        MultiYearSave();
+                        break;
+                    }
                 // Default case
                 default:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
             }
         }
 
@@ -236,8 +236,8 @@ namespace MyHome.UI
         {
             var newExpense =
                 new Expense(decimal.Parse(txtAmount.Text), dtCurrentSaveDate,
-                    _expenseCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
-                    _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
+                            Convert.ToInt32(cmbCategory.SelectedValue),
+                            Convert.ToInt32(cmbPayment.SelectedValue),
                     txtDetail.Text);
 
             _expenseService.Create(newExpense);
@@ -265,7 +265,7 @@ namespace MyHome.UI
         {
             // Calculates the months in the range, taking the year into account
             // plus one so that if the dates are the same day, it will still save once
-            return (((dtpEndDate.Value.Year - dtpStartDate.Value.Year)*12) +
+            return (((dtpEndDate.Value.Year - dtpStartDate.Value.Year) * 12) +
                     (dtpEndDate.Value.Month - dtpStartDate.Value.Month) + 1);
         }
 

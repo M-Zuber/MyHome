@@ -58,6 +58,15 @@ namespace MyHome.DataClasses
             Method = paymentMethod;
         }
 
+        public Income(decimal amount, DateTime date, int categoryID, int methodID, string comments)
+        {
+            Amount = amount;
+            CategoryId = categoryID;
+            Comments = comments;
+            Date = date;
+            PaymentMethodId = methodID;
+        }
+
         #endregion
 
         #region Override Methods

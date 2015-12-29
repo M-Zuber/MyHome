@@ -95,11 +95,7 @@ namespace MyHome.UI
             // Otherwise saves the new income
             else
             {
-                var newIncome =
-                    new Income(decimal.Parse(txtAmount.Text), dtPick.Value,
-                        _incomeCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
-                        _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
-                        txtDetail.Text);
+                var newIncome = new Income(decimal.Parse(txtAmount.Text), dtPick.Value, Convert.ToInt32(cmbCategory.SelectedValue), Convert.ToInt32(cmbPayment.SelectedValue), txtDetail.Text);
 
                 _incomeService.Create(newIncome);
 

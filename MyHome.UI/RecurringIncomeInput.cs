@@ -148,44 +148,44 @@ namespace MyHome.UI
             {
                 // The income recurrs every day
                 case ("day"):
-                {
+                    {
                         MultiDaySave();
-                    break;
-                }
+                        break;
+                    }
                 // The income recurrs every month
                 case ("month"):
-                {
-                    // Checks if the day in the month is within the valid range
-                    if (dtpStartDate.Value.Day <= 28)
                     {
+                        // Checks if the day in the month is within the valid range
+                        if (dtpStartDate.Value.Day <= 28)
+                        {
                             MultiMonthSave();
-                    }
-                    // If the day is not in the range, informs the user
-                    else
-                    {
-                        MessageBox.Show("Due to the fact that not all months have this many days," +
-                                        " incomes can not be saved using this day of the month.\n" +
-                                        "Please change the day of the month" +
-                                        " and try again",
-                                        "Invalid day of month",
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Warning,
-                                        MessageBoxDefaultButton.Button1);
-                    }
+                        }
+                        // If the day is not in the range, informs the user
+                        else
+                        {
+                            MessageBox.Show("Due to the fact that not all months have this many days," +
+                                            " incomes can not be saved using this day of the month.\n" +
+                                            "Please change the day of the month" +
+                                            " and try again",
+                                            "Invalid day of month",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning,
+                                            MessageBoxDefaultButton.Button1);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 // The income occurs every year
                 case ("year"):
-                {
+                    {
                         MultiYearSave();
-                    break;
-                }
+                        break;
+                    }
                 // Default case
                 default:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
             }
         }
 
@@ -234,11 +234,7 @@ namespace MyHome.UI
 
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
-            Income newIncome =
-                    new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate,
-                                _incomeCategoryService.GetById(Convert.ToInt32(cmbCategory.SelectedValue)),
-                                _paymentMethodService.GetById(Convert.ToInt32(cmbPayment.SelectedValue)),
-                                txtDetail.Text);
+            Income newIncome = new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate, Convert.ToInt32(cmbCategory.SelectedValue), Convert.ToInt32(cmbPayment.SelectedValue), txtDetail.Text);
         }
 
         /// <summary>
