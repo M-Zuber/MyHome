@@ -25,6 +25,8 @@ namespace MyHome.Services
             e.Date = t.Date;
             e.Comments = t.Comments;
             e.Method = t.Method;
+            e.PaymentMethodId = t.PaymentMethodId;
+            e.CategoryId = t.CategoryId;
             if (t.Category != null)
             {
                 e.Category = new ExpenseCategory(t.Category.Id, t.Category.Name);
@@ -48,6 +50,8 @@ namespace MyHome.Services
             i.Date = t.Date;
             i.Comments = t.Comments;
             i.Method = t.Method;
+            i.PaymentMethodId = t.PaymentMethodId;
+            i.CategoryId = t.CategoryId;
             if (t.Category != null)
             {
                 i.Category = new IncomeCategory(t.Category.Id, t.Category.Name);

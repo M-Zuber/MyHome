@@ -20,7 +20,7 @@ namespace MyHome.Spec.Category_Management
         private string _newName;
         private int _categoryId;
 
-        ICategoryService _categoryService;
+        ICategoryService<DataClasses.Category> _categoryService;
 
         [BeforeScenario]
         public void Setup()

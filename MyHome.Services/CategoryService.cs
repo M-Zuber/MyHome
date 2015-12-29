@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MyHome.DataRepository;
 using MyHome.Persistence;
+using MyHome.DataClasses;
 
 namespace MyHome.Services
 {
@@ -13,7 +14,7 @@ namespace MyHome.Services
 
     public class CategoryService
     {
-        public Dictionary<CategoryType, ICategoryService> CategoryHandlers { get; } = new Dictionary<CategoryType, ICategoryService>();
+        public Dictionary<CategoryType, ICategoryService<Category>> CategoryHandlers { get; } = new Dictionary<CategoryType, ICategoryService<Category>>();
 
         public Dictionary<CategoryType, string> CategoryTypeNames => new Dictionary<CategoryType, string>
            {
@@ -28,7 +29,7 @@ namespace MyHome.Services
             var incomeCategoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
             var paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
 
-            CategoryHandlers = new Dictionary<CategoryType, ICategoryService>
+            CategoryHandlers = new Dictionary<CategoryType, ICategoryService<Category>>
             {
                 {CategoryType.Expense, expenseCategoryService},
                 {CategoryType.Income, incomeCategoryService},

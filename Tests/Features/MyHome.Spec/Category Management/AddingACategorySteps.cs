@@ -14,7 +14,7 @@ namespace MyHome.Spec
     public class AddingACategorySteps
     {
         AccountingDataContext context;
-        ICategoryService _categoryService;
+        ICategoryService<DataClasses.Category> _categoryService;
         string _categoryName;
 
         [BeforeScenario]

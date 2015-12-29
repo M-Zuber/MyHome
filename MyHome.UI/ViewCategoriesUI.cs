@@ -37,7 +37,7 @@ namespace MyHome.UI
         /// C'tor that intializes the category group property
         /// </summary>
         /// <param name="categoryType">The category type</param>
-        public ViewCategoriesUI(CategoryType categoryType)
+        public ViewCategoriesUI(Services.CategoryType categoryType)
         {
             // Sets the property with the id given
             CategoryType = categoryType;
@@ -94,8 +94,8 @@ namespace MyHome.UI
         {
             if (_categoryService.CategoryHandlers[CategoryType].GetAll().FirstOrDefault(category => category.Name == dgvCategoryNames.CurrentCell.Value.ToString()) == null)
             {
-                var editedItem = (Category)dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem;
-                _categoryService.CategoryHandlers[CategoryType].Create(editedItem.Name);
+                var editedItem = (DataClasses.Category)dgvCategoryNames.CurrentCell.OwningRow.DataBoundItem;
+                _categoryService.CategoryHandlers[(Services.CategoryType)CategoryType].Create(editedItem.Name);
             }
             else
             {

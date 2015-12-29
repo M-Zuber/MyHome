@@ -10,7 +10,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of income categories
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class IncomeCategoryService : ICategoryService
+    public class IncomeCategoryService : ICategoryService<IncomeCategory>
     {
         private readonly IncomeCategoryRepository _repository;
 
@@ -30,7 +30,7 @@ namespace MyHome.Services
             _repository.RemoveByName(name);
         }
 
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<DataClasses.Category> GetAll()
         {
             return _repository.GetAll();
         }
@@ -41,22 +41,27 @@ namespace MyHome.Services
             return _repository.GetByName(name) != null;
         }
 
-        public void Create(IncomeCategory incomeCategory)
+        public IncomeCategory Create(IncomeCategory incomeCategory)
         {
             Contract.Requires<ArgumentException>(incomeCategory != null);
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(incomeCategory.Name));
             Contract.Requires<ArgumentException>(!Exists(incomeCategory.Name), $"Income category '{incomeCategory.Name}' is already defined");
 
             _repository.Create(incomeCategory);
+
+            return incomeCategory;
         }
 
-        public void Create(string name, int id = 0)
+        public IncomeCategory Create(string name, int id = 0)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Income category '{name}' is already defined");
 
+            var incomeCategory = new IncomeCategory(id, name);
 
-            _repository.Create(new IncomeCategory(id, name));
+            _repository.Create(incomeCategory);
+
+            return incomeCategory;
         }
 
         public void Save(int id, string name)

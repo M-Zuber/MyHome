@@ -38,9 +38,9 @@ namespace MyHome.DataClasses
         ///// </summary>
         public new DateTime Date { get; set; }
 
-        public int CategoryId { get; set; }
+        public new int CategoryId { get; set; }
 
-        public int PaymentMethodId { get; set; }
+        public new int PaymentMethodId { get; set; }
 
         /// <summary>
         ///     Category of the expense
@@ -67,11 +67,11 @@ namespace MyHome.DataClasses
             var expenseComparing = (Expense) obj;
 
             return ((Amount == expenseComparing.Amount) &&
-                    (Category.Equals(expenseComparing.Category)) &&
+                    ((Category == null && expenseComparing.Category == null) || Category.Equals(expenseComparing.Category)) &&
                     (Comments == expenseComparing.Comments) &&
                     (Date == expenseComparing.Date) &&
                     (Id == expenseComparing.Id) &&
-                    (Method.Equals(expenseComparing.Method)));
+                    ((Method == null && expenseComparing.Method == null) || Method.Equals(expenseComparing.Method)));
         }
 
         public override int GetHashCode()

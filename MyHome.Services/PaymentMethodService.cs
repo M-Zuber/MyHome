@@ -10,7 +10,7 @@ namespace MyHome.Services
     /// Holds methods for sorting and making calculations on the data of payment methods
     /// Is also the bridge from the UI to the Dal
     /// </summary>
-    public class PaymentMethodService : ICategoryService
+    public class PaymentMethodService : ICategoryService<PaymentMethod>
     {
         private readonly PaymentMethodRepository _repository;
 
@@ -36,18 +36,19 @@ namespace MyHome.Services
         /// <returns>All the Payment Methods as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<DataClasses.Category> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public void Create(PaymentMethod paymentMethod)
+        public PaymentMethod Create(PaymentMethod paymentMethod)
         {
             Contract.Requires<ArgumentException>(paymentMethod != null);
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(paymentMethod.Name));
             Contract.Requires<ArgumentException>(!Exists(paymentMethod.Name), $"Payment method '{paymentMethod.Name}' is already defined");
 
             _repository.Create(paymentMethod);
+            return paymentMethod;
         }
 
         public bool Exists(string name)
@@ -56,12 +57,16 @@ namespace MyHome.Services
             return _repository.GetByName(name) != null;
         }
 
-        public void Create(string name, int id = 0)
+        public PaymentMethod Create(string name, int id = 0)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Payment method '{name}' is already defined");
 
-            _repository.Create(new PaymentMethod(id, name));
+            var paymentMethod = new PaymentMethod(id, name);
+
+            _repository.Create(paymentMethod);
+
+            return paymentMethod;
         }
 
         public void Save(int id, string name)

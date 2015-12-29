@@ -10,7 +10,7 @@ namespace MyHome.Services.Tests
     [TestClass]
     public class IncomeServiceTests
     {
-        private Income baseTestData = new Income(10, new DateTime(2015, 2, 2), new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "");
+        private Income baseTestData = new Income(10, new DateTime(2015, 2, 2), new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "") { PaymentMethodId = 1, CategoryId = 1 };
 
         [TestMethod]
         public void IncomeService_LoadById_Item_Exists_Returns_It()
