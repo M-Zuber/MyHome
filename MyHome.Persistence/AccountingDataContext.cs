@@ -6,9 +6,7 @@ namespace MyHome.Persistence
 {
     public class AccountingDataContext : DbContext
     {
-        public const string ConnectionString = @"Server=.;Database=MyHome;User Id=home_user;Password=homeuser;";
-
-        public AccountingDataContext() : base(ConnectionString)
+        public AccountingDataContext() : base("name=Database")
         {
         }
 
