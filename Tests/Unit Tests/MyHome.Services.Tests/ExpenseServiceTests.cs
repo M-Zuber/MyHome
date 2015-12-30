@@ -148,19 +148,19 @@ namespace MyHome.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), "There must be a category selected")]
+        [ExpectedException(typeof(ArgumentException), "There must be a category selected")]
         public void ExpenseService_Save_Catgeory_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockExpenseService();
-            mock.Save(new Expense() { Method = new PaymentMethod() });
+            mock.Save(new Expense() { Method = new PaymentMethod(), CategoryId = 0 });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void ExpenseService_Save_PaymentMethod_Null_Throw_Exception()
         {
             var mock = ServiceMocks.GetMockExpenseService();
-            mock.Save(new Expense() { Category = new ExpenseCategory() });
+            mock.Save(new Expense() { Category = new ExpenseCategory(), PaymentMethodId = 0 });
         }
 
         [TestMethod]
@@ -221,19 +221,19 @@ namespace MyHome.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void ExpenseService_Create_Category_Is_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockExpenseService();
-            mock.Create(new Expense { Method = new PaymentMethod() });
+            mock.Create(new Expense { Method = new PaymentMethod(), CategoryId = 0 });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void ExpenseService_Create_PaymentMethod_Is_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockExpenseService();
-            mock.Create(new Expense { Category = new ExpenseCategory() });
+            mock.Create(new Expense { Category = new ExpenseCategory(), PaymentMethodId = 0 });
         }
 
         [TestMethod]

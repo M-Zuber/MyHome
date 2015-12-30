@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace MyHome.Infrastructure.Validation
 {
@@ -11,7 +12,8 @@ namespace MyHome.Infrastructure.Validation
             if (!predicate)
             {
                 Debug.WriteLine(message);
-                Exception ex = (Exception)Activator.CreateInstance(typeof(TException), message);
+                TException ex = new TException();
+                ex.GetType().GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ex, message);
                 throw ex;
             }
         }

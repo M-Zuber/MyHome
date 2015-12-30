@@ -148,19 +148,19 @@ namespace MyHome.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), "There must be a category selected")]
+        [ExpectedException(typeof(ArgumentException), "There must be a category selected")]
         public void IncomeService_Save_Catgeory_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockIncomeService();
-            mock.Save(new Income() { Method = new PaymentMethod() });
+            mock.Save(new Income() { Method = new PaymentMethod(), CategoryId = 0 });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void IncomeService_Save_PaymentMethod_Null_Throw_Exception()
         {
             var mock = ServiceMocks.GetMockIncomeService();
-            mock.Save(new Income() { Category = new IncomeCategory() });
+            mock.Save(new Income() { Category = new IncomeCategory(), PaymentMethodId = 0 });
         }
 
         [TestMethod]
@@ -221,19 +221,19 @@ namespace MyHome.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void IncomeService_Create_Category_Is_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockIncomeService();
-            mock.Create(new Income { Method = new PaymentMethod() });
+            mock.Create(new Income { Method = new PaymentMethod(), CategoryId = 0 });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void IncomeService_Create_PaymentMethod_Is_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockIncomeService();
-            mock.Create(new Income { Category = new IncomeCategory() });
+            mock.Create(new Income { Category = new IncomeCategory(), PaymentMethodId = 0 });
         }
 
         [TestMethod]
