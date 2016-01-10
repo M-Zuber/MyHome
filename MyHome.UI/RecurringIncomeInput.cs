@@ -96,7 +96,7 @@ namespace MyHome.UI
             // Makes sure that a recurrence frequency is chosen
             else if (GetRecurrenceFrequency() == "none")
             {
-                MessageBox.Show("This form is for entering incomes that recurr\n" +
+                MessageBox.Show("This form is for entering incomes that recur\n" +
                                 "Please choose a recurrence frequency",
                                 "Error",
                                 MessageBoxButtons.OK,
@@ -111,8 +111,8 @@ namespace MyHome.UI
                 MultiSave();
 
                 // Asks if more data is being entered
-                DialogResult = MessageBox.Show("The entries where saved" +
-                                               "\nDo you want to add more expenses? ",
+                DialogResult = MessageBox.Show("The entries were saved" +
+                                               "\nDo you want to add more incomes? ",
                                                "Save successful",
                                                MessageBoxButtons.YesNo,
                                                MessageBoxIcon.Question,
