@@ -61,5 +61,37 @@ namespace MyHome.DataClasses.Tests
             Assert.IsTrue(first.Equals(second));
             Assert.IsTrue(second.Equals(first));
         }
+
+        [TestMethod]
+        public void ExpenseCategory_Copy()
+        {
+            var first = new ExpenseCategory
+            {
+                Id = 1,
+                Name = "Arbitrary Expense"
+            };
+
+            var second = first.Copy();
+
+            Assert.AreNotSame(first, second);
+            Assert.IsTrue(first.Equals(second));
+            Assert.IsTrue(second.Equals(first));
+        }
+
+        [TestMethod]
+        public void IncomeCategory_Copy()
+        {
+            var first = new IncomeCategory
+            {
+                Id = 1,
+                Name = "Arbitrary Income"
+            };
+
+            var second = first.Copy();
+
+            Assert.AreNotSame(first, second);
+            Assert.IsTrue(first.Equals(second));
+            Assert.IsTrue(second.Equals(first));
+        }
     }
 }
