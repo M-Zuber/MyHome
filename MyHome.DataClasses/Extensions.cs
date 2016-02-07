@@ -64,5 +64,19 @@
         }
 
         #endregion
+
+        #region PaymentMethod Extensions
+
+        /// <summary>
+        /// Makes a shallow copy of the PaymentMethod
+        /// </summary>
+        /// <param name="orginalPaymentMethod">The PaymentMethod being copied</param>
+        /// <returns>A shallow copy of the PaymentMethod</returns>
+        public static PaymentMethod Copy(this PaymentMethod orginalPaymentMethod)
+        {
+            return new PaymentMethod(orginalPaymentMethod.Id, orginalPaymentMethod.Name);
+        }
+
+        #endregion
     }
 }
