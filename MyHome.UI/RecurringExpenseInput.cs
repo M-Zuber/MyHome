@@ -232,11 +232,6 @@ namespace MyHome.UI
             }
         }
 
-        private void CreateNewIncome(DateTime dtCurrentSaveDate)
-        {
-            Income newIncome = new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate, Convert.ToInt32(cmbCategory.SelectedValue), Convert.ToInt32(cmbPayment.SelectedValue), txtDetail.Text);
-        }
-
         private void SaveNewExpense(DateTime dtCurrentSaveDate)
         {
             var newExpense =
@@ -308,7 +303,7 @@ namespace MyHome.UI
                 //Loops for the amount of weeks in range
                 for (int nWeekIndex = 0; nWeekIndex < nWeeksInRange; nWeekIndex++)
                 {
-                    CreateNewIncome(dtCurrentSaveDate);
+                    SaveNewExpense(dtCurrentSaveDate);
 
                     //Ups the date for the next expense
                     dtCurrentSaveDate = dtCurrentSaveDate.AddDays(7);

@@ -243,6 +243,7 @@ namespace MyHome.UI
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
             Income newIncome = new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate, Convert.ToInt32(cmbCategory.SelectedValue), Convert.ToInt32(cmbPayment.SelectedValue), txtDetail.Text);
+            _incomeService.Create(newIncome);
         }
 
         /// <summary>
