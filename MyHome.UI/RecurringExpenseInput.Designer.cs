@@ -213,7 +213,7 @@
             this.pnRecurrenceOptions.Controls.Add(this.rbMonth);
             this.pnRecurrenceOptions.Location = new System.Drawing.Point(89, 179);
             this.pnRecurrenceOptions.Name = "pnRecurrenceOptions";
-            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 101);
+            this.pnRecurrenceOptions.Size = new System.Drawing.Size(65, 100);
             this.pnRecurrenceOptions.TabIndex = 6;
             // 
             // radioButton1
