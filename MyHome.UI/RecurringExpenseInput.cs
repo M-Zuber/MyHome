@@ -225,14 +225,14 @@ namespace MyHome.UI
             // Loops for the amount of days in the range
             for (var nDayIndex = 0; nDayIndex < nDaysRange; nDayIndex++)
             {
-                SaveNewExpense(dtCurrentSaveDate);
+                CreateNewExpense(dtCurrentSaveDate);
 
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddDays(1);
             }
         }
 
-        private void SaveNewExpense(DateTime dtCurrentSaveDate)
+        private void CreateNewExpense(DateTime dtCurrentSaveDate)
         {
             var newExpense =
                 new Expense(decimal.Parse(txtAmount.Text), dtCurrentSaveDate,
@@ -303,7 +303,7 @@ namespace MyHome.UI
                 //Loops for the amount of weeks in range
                 for (int nWeekIndex = 0; nWeekIndex < nWeeksInRange; nWeekIndex++)
                 {
-                    SaveNewExpense(dtCurrentSaveDate);
+                    CreateNewExpense(dtCurrentSaveDate);
 
                     //Ups the date for the next expense
                     dtCurrentSaveDate = dtCurrentSaveDate.AddDays(7);
@@ -342,7 +342,7 @@ namespace MyHome.UI
                 // Loops for the amount of months in the range
                 for (var nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
                 {
-                    SaveNewExpense(dtCurrentSaveDate);
+                    CreateNewExpense(dtCurrentSaveDate);
 
                     // Ups the date for the next expense
                     // If the new month has less days than it will automatically set the day 
@@ -367,7 +367,7 @@ namespace MyHome.UI
             // Loops for the amount of years in the range
             for (var nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)
             {
-                SaveNewExpense(dtCurrentSaveDate);
+                CreateNewExpense(dtCurrentSaveDate);
 
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddYears(1);
