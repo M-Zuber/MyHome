@@ -238,8 +238,6 @@ namespace MyHome.UI
             }
         }
 
-
-
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
             Income newIncome = new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate, Convert.ToInt32(cmbCategory.SelectedValue), Convert.ToInt32(cmbPayment.SelectedValue), txtDetail.Text);
@@ -268,8 +266,6 @@ namespace MyHome.UI
         {
             return (int)((this.dtpEndDate.Value - this.dtpStartDate.Value).TotalDays / 7);
         }
-
-
 
         /// <summary>
         /// Calculates the months in the range from the start date to the end date
