@@ -152,6 +152,12 @@ namespace MyHome.UI
                         MultiDaySave();
                         break;
                     }
+                // The income recurrs every week
+                case ("week"):
+                    {
+                        MultiWeekSave();
+                        break;
+                    }
                 // The income recurrs every month
                 case ("month"):
                     {
@@ -232,6 +238,8 @@ namespace MyHome.UI
             }
         }
 
+
+
         private void CreateNewIncome(DateTime dtCurrentSaveDate)
         {
             Income newIncome = new Income(decimal.Parse(txtAmount.Text), dtCurrentSaveDate, Convert.ToInt32(cmbCategory.SelectedValue), Convert.ToInt32(cmbPayment.SelectedValue), txtDetail.Text);
@@ -250,6 +258,17 @@ namespace MyHome.UI
             // plus one so that if the dates are the same day, it will still save once
             return (tsDaysInRange.Days + 1);
         }
+
+        /// <summary>
+        /// Calculates the months in the range from the start date to the end date
+        /// </summary>
+        /// <returns>The number of months in the range</returns>
+        private int CalcWeeksInRange()
+        {
+            return (int)((this.dtpEndDate.Value - this.dtpStartDate.Value).TotalDays / 7);
+        }
+
+
 
         /// <summary>
         /// Calculates the months in the range from the start date to the end date
@@ -306,6 +325,37 @@ namespace MyHome.UI
                 }
             }
         }
+
+        /// <summary>
+        /// Saves multiple incomes into the cache -with a frequency of every week
+        /// </summary>
+        private void MultiWeekSave()
+        {
+            // Creates a dialog result, in case further input is needed from the user
+            DialogResult resultSaveExp = DialogResult.OK;
+
+            // If the days in the start month and end month are different
+            // informs the user, and gives them an option to go back and change it
+            if (resultSaveExp == DialogResult.OK)
+            {
+                int nWeeksInRange = this.CalcWeeksInRange();
+
+                // Sets a local variable that will hold the date of the individual income being saved
+                // the initial value is the start date
+                DateTime dtCurrentSaveDate = dtpStartDate.Value.Date;
+
+                //Loops for the amount of weeks in range
+                for (int nWeekIndex = 0; nWeekIndex < nWeeksInRange; nWeekIndex++)
+                {
+                    CreateNewIncome(dtCurrentSaveDate);
+
+                    //Ups the date for the next expense
+                    dtCurrentSaveDate = dtCurrentSaveDate.AddDays(7);
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// Saves multiple incomes into the cache -with a frequency of every year
