@@ -152,6 +152,12 @@ namespace MyHome.UI
                         MultiDaySave();
                         break;
                     }
+                // The expense recurrs every week
+                case ("week"):
+                    {
+                        MultiWeekSave();
+                        break;
+                    }
                 // The expense recurrs every month
                 case ("month"):
                     {
