@@ -152,6 +152,12 @@ namespace MyHome.UI
                         MultiDaySave();
                         break;
                     }
+                // The expense recurrs every week
+                case ("week"):
+                    {
+                        MultiWeekSave();
+                        break;
+                    }
                 // The expense recurrs every month
                 case ("month"):
                     {
@@ -225,14 +231,14 @@ namespace MyHome.UI
             // Loops for the amount of days in the range
             for (var nDayIndex = 0; nDayIndex < nDaysRange; nDayIndex++)
             {
-                SaveNewExpense(dtCurrentSaveDate);
+                CreateNewExpense(dtCurrentSaveDate);
 
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddDays(1);
             }
         }
 
-        private void SaveNewExpense(DateTime dtCurrentSaveDate)
+        private void CreateNewExpense(DateTime dtCurrentSaveDate)
         {
             var newExpense =
                 new Expense(decimal.Parse(txtAmount.Text), dtCurrentSaveDate,
@@ -258,6 +264,15 @@ namespace MyHome.UI
         }
 
         /// <summary>
+        /// Calculates the months in the range from the start date to the end date
+        /// </summary>
+        /// <returns>The number of months in the range</returns>
+        private int CalcWeeksInRange()
+        {
+            return (int)((this.dtpEndDate.Value - this.dtpStartDate.Value).TotalDays / 7);
+        }
+
+        /// <summary>
         ///     Calculates the months in the range from the start date to the end date
         /// </summary>
         /// <returns>The number of months in the range</returns>
@@ -272,6 +287,36 @@ namespace MyHome.UI
         /// <summary>
         ///     Saves multiple expenses into the cache -with a frequency of every month
         /// </summary>
+
+        /// <summary>
+        /// Saves multiple incomes into the cache -with a frequency of every week
+        /// </summary>
+        private void MultiWeekSave()
+        {
+            // Creates a dialog result, in case further input is needed from the user
+            DialogResult resultSaveExp = DialogResult.OK;
+
+            // If the days in the start month and end month are different
+            // informs the user, and gives them an option to go back and change it
+            if (resultSaveExp == DialogResult.OK)
+            {
+                int nWeeksInRange = this.CalcWeeksInRange();
+
+                // Sets a local variable that will hold the date of the individual income being saved
+                // the initial value is the start date
+                DateTime dtCurrentSaveDate = dtpStartDate.Value.Date;
+
+                //Loops for the amount of weeks in range
+                for (int nWeekIndex = 0; nWeekIndex < nWeeksInRange; nWeekIndex++)
+                {
+                    CreateNewExpense(dtCurrentSaveDate);
+
+                    //Ups the date for the next expense
+                    dtCurrentSaveDate = dtCurrentSaveDate.AddDays(7);
+                }
+            }
+        }
+
         private void MultiMonthSave()
         {
             // Creates a dialog result, in case further input is needed from the user
@@ -303,7 +348,7 @@ namespace MyHome.UI
                 // Loops for the amount of months in the range
                 for (var nMonthIndex = 0; nMonthIndex < nMonthsRange; nMonthIndex++)
                 {
-                    SaveNewExpense(dtCurrentSaveDate);
+                    CreateNewExpense(dtCurrentSaveDate);
 
                     // Ups the date for the next expense
                     // If the new month has less days than it will automatically set the day 
@@ -328,7 +373,7 @@ namespace MyHome.UI
             // Loops for the amount of years in the range
             for (var nYearIndex = 0; nYearIndex < nYearsInRange; nYearIndex++)
             {
-                SaveNewExpense(dtCurrentSaveDate);
+                CreateNewExpense(dtCurrentSaveDate);
 
                 // Ups the date for the next expense
                 dtCurrentSaveDate = dtCurrentSaveDate.AddYears(1);
@@ -345,5 +390,6 @@ namespace MyHome.UI
         }
 
         #endregion
+
     }
 }
