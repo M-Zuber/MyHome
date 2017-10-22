@@ -4,23 +4,23 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyHome.DataRepository;
 using MyHome.Persistence;
 using MyHome.Services;
-using TechTalk.SpecFlow;
 using MyHome.Spec.Helpers;
+using TechTalk.SpecFlow;
 
-namespace MyHome.Spec
+namespace MyHome.Spec.CategoryManagement
 {
     [Binding]
     [Scope(Feature = "AddingACategory")]
     public class AddingACategorySteps
     {
-        AccountingDataContext context;
-        ICategoryService<DataClasses.Category> _categoryService;
-        string _categoryName;
+        private AccountingDataContext _context;
+        private ICategoryService<DataClasses.Category> _categoryService;
+        private string _categoryName;
 
         [BeforeScenario]
         public void Setup()
         {
-            context = new TestAccountingDataContext();
+            _context = new TestAccountingDataContext();
             _categoryService = null;
             _categoryName = "";
         }
@@ -28,24 +28,23 @@ namespace MyHome.Spec
         [AfterScenario]
         public void TearDown()
         {
-            context.Database.Delete();
+            _context.Database.Delete();
         }
-
-        #region Given
 
         [Given(@"The category type is '(.*)'")]
         public void GivenTheCategoryTypeIs(string categoryType)
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (categoryType)
             {
                 case "expense":
-                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(_context));
                     break;
                 case "income":
-                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(_context));
                     break;
                 case "paymentmethod":
-                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(context));
+                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(_context));
                     break;
             }
         }
@@ -91,10 +90,6 @@ namespace MyHome.Spec
             }
         }
 
-        #endregion
-
-        #region When
-
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
@@ -107,10 +102,6 @@ namespace MyHome.Spec
                 ScenarioContext.Current.Add("add_category_result", e);
             }
         }
-
-        #endregion
-
-        #region Then
 
         [Then(@"the handler returns an error indicator")]
         public void TheHandlerReturnsAnErrorIndicator()
@@ -125,7 +116,5 @@ namespace MyHome.Spec
             var result = _categoryService.GetAll().FirstOrDefault(c => string.Equals(c.Name, _categoryName));
             Assert.IsNotNull(result);
         }
-
-        #endregion
     }
 }

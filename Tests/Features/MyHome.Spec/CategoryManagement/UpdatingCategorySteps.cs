@@ -7,17 +7,18 @@ using MyHome.Services;
 using TechTalk.SpecFlow;
 using MyHome.Spec.Helpers;
 
-namespace MyHome.Spec.Category_Management
+namespace MyHome.Spec.CategoryManagement
 {
     [Binding]
     [Scope(Feature = "UpdatingCategory")]
     public class UpdatingCategorySteps
     {
-        private const string ADD_CATEGORY_RESULT_KEY = "add_category_result";
+        private const string AddCategoryResultKey = "add_category_result";
 
-        private AccountingDataContext context;
+        private AccountingDataContext _context;
         private string _categoryName;
         private string _newName;
+        // ReSharper disable once NotAccessedField.Local
         private int _categoryId;
 
         ICategoryService<DataClasses.Category> _categoryService;
@@ -25,7 +26,7 @@ namespace MyHome.Spec.Category_Management
         [BeforeScenario]
         public void Setup()
         {
-            context = new TestAccountingDataContext();
+            _context = new TestAccountingDataContext();
             _categoryName = "";
             _newName = "";
             _categoryId = -1;
@@ -34,24 +35,23 @@ namespace MyHome.Spec.Category_Management
         [AfterScenario]
         public void TearDown()
         {
-            context.Database.Delete();
+            _context.Database.Delete();
         }
-
-        #region Given
 
         [Given(@"The category type is '(.*)'")]
         public void GivenTheCategoryTypeIs(string categoryType)
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (categoryType)
             {
                 case "expense":
-                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(_context));
                     break;
                 case "income":
-                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(_context));
                     break;
                 case "paymentmethod":
-                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(context));
+                    _categoryService = new PaymentMethodService(new PaymentMethodRepository(_context));
                     break;
             }
         }
@@ -100,10 +100,6 @@ namespace MyHome.Spec.Category_Management
             _categoryService.Create(newName);
         }
 
-        #endregion
-
-        #region When
-
         [When(@"I have entered nothing for the name")]
         public void GivenIHaveEnteredNothingForTheName()
         {
@@ -115,7 +111,7 @@ namespace MyHome.Spec.Category_Management
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(ADD_CATEGORY_RESULT_KEY, e);
+                ScenarioContext.Current.Add(AddCategoryResultKey, e);
             }
         }
 
@@ -131,13 +127,9 @@ namespace MyHome.Spec.Category_Management
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(ADD_CATEGORY_RESULT_KEY, e);
+                ScenarioContext.Current.Add(AddCategoryResultKey, e);
             }
         }
-
-        #endregion
-
-        #region Then
 
         [Then(@"the category is updated")]
         public void ThenTheCategoryIsUpdated()
@@ -150,7 +142,7 @@ namespace MyHome.Spec.Category_Management
         [Then(@"the handler returns an error indicator")]
         public void TheHandlerReturnsAnErrorIndicator()
         {
-            var exception = ScenarioContext.Current.Get<Exception>(ADD_CATEGORY_RESULT_KEY);
+            var exception = ScenarioContext.Current.Get<Exception>(AddCategoryResultKey);
             Assert.IsNotNull(exception);
         }
 
@@ -161,7 +153,5 @@ namespace MyHome.Spec.Category_Management
             Assert.IsNotNull(category);
             Assert.AreEqual(oldName, category.Name, true);
         }
-
-        #endregion
     }
 }

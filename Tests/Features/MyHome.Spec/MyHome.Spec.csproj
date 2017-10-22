@@ -84,18 +84,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Category Management\AddingACategory.feature.cs">
+    <Compile Include="CategoryManagement\AddingACategory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddingACategory.feature</DependentUpon>
     </Compile>
-    <Compile Include="Category Management\AddingACategorySteps.cs" />
-    <Compile Include="Category Management\UpdatingCategory.feature.cs">
+    <Compile Include="CategoryManagement\AddingACategorySteps.cs" />
+    <Compile Include="CategoryManagement\UpdatingCategory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UpdatingCategory.feature</DependentUpon>
     </Compile>
-    <Compile Include="Category Management\UpdatingCategorySteps.cs" />
+    <Compile Include="CategoryManagement\UpdatingCategorySteps.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\TestAccountingDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,11 +114,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Category Management\AddingACategory.feature">
+    <None Include="CategoryManagement\AddingACategory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddingACategory.feature.cs</LastGenOutput>
     </None>
-    <None Include="Category Management\UpdatingCategory.feature">
+    <None Include="CategoryManagement\UpdatingCategory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UpdatingCategory.feature.cs</LastGenOutput>
     </None>
