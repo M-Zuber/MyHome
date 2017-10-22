@@ -12,7 +12,7 @@ Scenario Outline: Adding a Transaction with a date in the past
 	When I press add
 	Then the transaction should be added to the list
 
-	Examples: 
+	Examples:
 	| testName   | transactionType |
 	| addExpense | expense         |
 	| addIncome  | income          |
@@ -23,7 +23,7 @@ Scenario Outline: Adding a Transaction with a date in the future
 	| Name    | Value      |
 	| Date    | 3000-06-06 |
 	| Amount  | 20.5       |
-	| Comment | Stuff      |  
+	| Comment | Stuff      |
 	When I press add
 	Then the transaction should be added to the list
 
