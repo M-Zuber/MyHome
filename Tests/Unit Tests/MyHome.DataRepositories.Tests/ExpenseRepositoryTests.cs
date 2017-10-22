@@ -306,7 +306,7 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void ExpenseRepository_Update_Object_That_Was_Not_In_Database_Does_Nothing()
+        public void ExpenseRepository_Update_Object_That_Was_Not_In_Database_Adds_The_Item()
         {
             var mock = RepositoryMocks.GetMockExpenseRepository();
 
@@ -314,7 +314,7 @@ namespace MyHome.DataRepositories.Tests
 
             var actual = mock.GetAll();
 
-            Assert.IsFalse(actual.Contains(baseTestData));
+            Assert.IsTrue(actual.Contains(baseTestData));
         }
 
         [TestMethod]
@@ -355,7 +355,7 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void ExpenseRepository_Save_New_Item_With_Non_Zero_Id_Does_Nothing()
+        public void ExpenseRepository_Save_New_Item_With_Non_Zero_Id_Adds_The_Item()
         {
             var mock = RepositoryMocks.GetMockExpenseRepository();
 
@@ -370,7 +370,7 @@ namespace MyHome.DataRepositories.Tests
             mock.Save(expected);
 
             var after = mock.GetAll();
-            Assert.IsFalse(after.Contains(expected));
+            Assert.IsTrue(after.Contains(expected));
         }
     }
 }
