@@ -58,15 +58,17 @@
     <Reference Include="Moq, Version=4.7.142.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Moq.4.7.142\lib\net45\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.XML" />
-    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="TechTalk.SpecFlow, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\SpecFlow.2.2.1\lib\net45\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
