@@ -2,9 +2,9 @@
 
 namespace MyHome.Spec.Helpers
 {
-    public class TestAccountingDataContext: AccountingDataContext
+    public class TestAccountingDataContext : AccountingDataContext
     {
-        public TestAccountingDataContext():base("name=Database")
+        public TestAccountingDataContext() : base("name=Database")
         {
 
         }
