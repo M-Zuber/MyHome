@@ -314,7 +314,7 @@ namespace MyHome.DataRepositories.Tests
 
             var actual = mock.GetAll();
 
-            Assert.IsFalse(actual.Contains(_baseTestData));
+            Assert.IsTrue(actual.Contains(_baseTestData));
         }
 
         [TestMethod]
