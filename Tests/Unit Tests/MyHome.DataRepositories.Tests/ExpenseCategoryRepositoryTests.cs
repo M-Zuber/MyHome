@@ -9,7 +9,7 @@ namespace MyHome.DataRepositories.Tests
     [TestClass]
     public class ExpenseCategoryRepositoryTests
     {
-        private ExpenseCategory baseTestData = new ExpenseCategory(1, "test");
+        private readonly ExpenseCategory _baseTestData = new ExpenseCategory(1, "test");
         [TestMethod]
         public void ExpenseCategoryRepository_GetById_Null_If_Not_Found()
         {
@@ -22,17 +22,17 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseCategoryRepository_GetById_Returns_Object_If_Exists()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
-            var result = mock.GetById(baseTestData.Id);
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { _baseTestData });
+            var result = mock.GetById(_baseTestData.Id);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(baseTestData, result);
+            Assert.AreEqual(_baseTestData, result);
         }
 
         [TestMethod]
         public void ExpenseCategoryRepository_GetByName_Null_If_Not_found()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData});
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { _baseTestData});
             var result = mock.GetByName("not-test");
 
             Assert.IsNull(result);
@@ -41,27 +41,27 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseCategoryRepository_GetByName_Returns_Object_If_Exists()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData});
-            var result = mock.GetByName(baseTestData.Name);
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { _baseTestData});
+            var result = mock.GetByName(_baseTestData.Name);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(baseTestData, result);
+            Assert.AreEqual(_baseTestData, result);
         }
 
         [TestMethod]
         public void ExpenseCategoryRepository_GetByName_Works_With_Diff_In_Casing()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
-            var result = mock.GetByName(baseTestData.Name.ToUpper());
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { _baseTestData });
+            var result = mock.GetByName(_baseTestData.Name.ToUpper());
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(baseTestData, result);
+            Assert.AreEqual(_baseTestData, result);
         }
 
         [TestMethod]
         public void ExpenseCategoryRepository_GetByName_Returns_Null_For_Empty_String()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { _baseTestData });
             var result = mock.GetByName(string.Empty);
 
             Assert.IsNull(result);
@@ -70,7 +70,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseCategoryRepository_GetByName_Returns_Null_For_Null_String()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory>() { _baseTestData });
             var result = mock.GetByName(null);
 
             Assert.IsNull(result);
@@ -93,7 +93,7 @@ namespace MyHome.DataRepositories.Tests
             var expected = new List<ExpenseCategory>();
             for (int i = 0; i < 5; i++)
             {
-                expected.Add(new ExpenseCategory(baseTestData.Id + i, $"{baseTestData.Name}::{i}"));
+                expected.Add(new ExpenseCategory(_baseTestData.Id + i, $"{_baseTestData.Name}::{i}"));
             }
             var mock = RepositoryMocks.GetMockExpenseCategoryRepository(expected);
 
@@ -135,9 +135,9 @@ namespace MyHome.DataRepositories.Tests
         public void ExpenseCategoryRepository_Update_Changes_The_Name()
         {
             var newName = "new-test";
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Name = newName;
 
             mock.Update(expected);
@@ -151,9 +151,9 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseCategoryRepository_Update_Changes_The_Id()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Id++;
 
             mock.Update(expected);
@@ -169,9 +169,9 @@ namespace MyHome.DataRepositories.Tests
         {
             var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
 
-            mock.Update(baseTestData);
+            mock.Update(_baseTestData);
 
-            var actual = mock.GetById(baseTestData.Id);
+            var actual = mock.GetById(_baseTestData.Id);
 
             Assert.IsNull(actual);
         }
@@ -181,7 +181,7 @@ namespace MyHome.DataRepositories.Tests
         {
             var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
             var before = mock.GetAll();
-            Assert.IsTrue(before.Count() == 0);
+            Assert.IsTrue(!before.Any());
 
             var newItem = new ExpenseCategory(0, "test");
             mock.Save(newItem);
@@ -193,12 +193,12 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseCategpryRepository_Save_Id_Non_Zero_Updates_Item()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { _baseTestData });
 
             var before = mock.GetAll();
-            Assert.IsTrue(before.Contains(baseTestData));
+            Assert.IsTrue(before.Contains(_baseTestData));
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             Assert.IsNotNull(expected);
             expected.Name = "save-test";
             mock.Save(expected);
@@ -206,7 +206,7 @@ namespace MyHome.DataRepositories.Tests
             var after = mock.GetAll();
             Assert.IsTrue(after.Contains(expected));
 
-            var actual = mock.GetById(baseTestData.Id);
+            var actual = mock.GetById(_baseTestData.Id);
             Assert.AreEqual(expected, actual);
         }
 
@@ -216,53 +216,53 @@ namespace MyHome.DataRepositories.Tests
             var mock = RepositoryMocks.GetMockExpenseCategoryRepository();
 
             var before = mock.GetAll();
-            Assert.IsTrue(before.Count() == 0);
+            Assert.IsTrue(!before.Any());
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             Assert.IsNull(expected);
             expected = new ExpenseCategory(1, "save-test");
             mock.Save(expected);
 
             var after = mock.GetAll();
-            Assert.IsTrue(after.Count() == 0);
+            Assert.IsTrue(!after.Any());
         }
 
         [TestMethod]
         public void ExpenseCategoryRepository_RemoveByName_Name_Exists_Item_Is_Removed()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { _baseTestData });
 
             var before = mock.GetAll();
-            Assert.IsTrue(before.Contains(baseTestData));
+            Assert.IsTrue(before.Contains(_baseTestData));
 
-            mock.RemoveByName(baseTestData.Name);
+            mock.RemoveByName(_baseTestData.Name);
 
             var after = mock.GetAll();
-            Assert.IsFalse(after.Contains(baseTestData));
+            Assert.IsFalse(after.Contains(_baseTestData));
         }
 
         [TestMethod]
         public void ExpenseCategoryRepository_RemoveByName_Name_Exists_Item_Is_Removed_With_Different_Casing()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { _baseTestData });
 
             var before = mock.GetAll();
-            Assert.IsTrue(before.Contains(baseTestData));
+            Assert.IsTrue(before.Contains(_baseTestData));
 
-            mock.RemoveByName(baseTestData.Name.ToUpper());
+            mock.RemoveByName(_baseTestData.Name.ToUpper());
 
             var after = mock.GetAll();
-            Assert.IsFalse(after.Contains(baseTestData));
+            Assert.IsFalse(after.Contains(_baseTestData));
         }
 
         [TestMethod]
         public void ExpenseCategoryRepository_RemoveByName_Name_Does_Not_Exist_Nothing_Happens()
         {
-            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseCategoryRepository(new List<ExpenseCategory> { _baseTestData });
 
             var before = mock.GetAll();
 
-            mock.RemoveByName(baseTestData.Name + " not really");
+            mock.RemoveByName(_baseTestData.Name + " not really");
 
             var after = mock.GetAll();
             CollectionAssert.AreEqual(before.ToList(), after.ToList());
