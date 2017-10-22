@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MyHome.Spec.TransactionManagment
+namespace MyHome.Spec.TransactionManagement
 {
     using TechTalk.SpecFlow;
     
@@ -49,7 +49,7 @@ namespace MyHome.Spec.TransactionManagment
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "AddingATransaction")))
             {
-                MyHome.Spec.TransactionManagment.AddingATransactionFeature.FeatureSetup(null);
+                MyHome.Spec.TransactionManagement.AddingATransactionFeature.FeatureSetup(null);
             }
         }
         
