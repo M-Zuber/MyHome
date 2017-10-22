@@ -306,7 +306,7 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void IncomeRepository_Update_Object_That_Was_Not_In_Database_Does_Nothing()
+        public void IncomeRepository_Update_Object_That_Was_Not_In_Database_Adds_The_Item()
         {
             var mock = RepositoryMocks.GetMockIncomeRepository();
 
@@ -355,7 +355,7 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void IncomeRepository_Save_New_Item_With_Non_Zero_Id_Does_Nothing()
+        public void IncomeRepository_Save_New_Item_With_Non_Zero_Id_Adds_The_Item()
         {
             var mock = RepositoryMocks.GetMockIncomeRepository();
 
@@ -370,7 +370,7 @@ namespace MyHome.DataRepositories.Tests
             mock.Save(expected);
 
             var after = mock.GetAll();
-            Assert.IsFalse(after.Contains(expected));
+            Assert.IsTrue(after.Contains(expected));
         }
     }
 }
