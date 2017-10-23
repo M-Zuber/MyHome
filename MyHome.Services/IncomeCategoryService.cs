@@ -30,11 +30,11 @@ namespace MyHome.Services
             _repository.RemoveByName(name);
         }
 
-        public IEnumerable<DataClasses.Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
-        
+
         public bool Exists(string name)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
@@ -44,6 +44,7 @@ namespace MyHome.Services
         public IncomeCategory Create(IncomeCategory incomeCategory)
         {
             Contract.Requires<ArgumentException>(incomeCategory != null);
+            // ReSharper disable once PossibleNullReferenceException
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(incomeCategory.Name));
             Contract.Requires<ArgumentException>(!Exists(incomeCategory.Name), $"Income category '{incomeCategory.Name}' is already defined");
 

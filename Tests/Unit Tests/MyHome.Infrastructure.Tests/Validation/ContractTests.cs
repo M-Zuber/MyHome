@@ -11,10 +11,10 @@ namespace MyHome.Infrastructure.Tests.Validation
         public void Contract_Requires_WithNoMessage_ShouldLeaveNoMessage()
         {
             // Act
-            Action failingRequire = () => Contract.Requires<Exception>(false);
+            void FailingRequire() => Contract.Requires<Exception>(false);
 
             // Assert
-            var message = Assert.Throws<Exception>(() => failingRequire()).Message;
+            var message = Assert.Throws<Exception>(FailingRequire).Message;
             Assert.That(message, Is.Empty);
         }
 
@@ -25,10 +25,10 @@ namespace MyHome.Infrastructure.Tests.Validation
             const string exceptionMessage = "TheExceptionMessage";
 
             // Act
-            Action failingRequire = () => Contract.Requires<Exception>(false, exceptionMessage);
+            void FailingRequire() => Contract.Requires<Exception>(false, exceptionMessage);
 
             // Assert
-            var actualMessage = Assert.Throws<Exception>(() => failingRequire()).Message;
+            var actualMessage = Assert.Throws<Exception>(FailingRequire).Message;
             Assert.That(actualMessage, Is.EqualTo(exceptionMessage));
         }
     }

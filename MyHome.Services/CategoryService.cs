@@ -14,7 +14,7 @@ namespace MyHome.Services
 
     public class CategoryService
     {
-        public Dictionary<CategoryType, ICategoryService<Category>> CategoryHandlers { get; } = new Dictionary<CategoryType, ICategoryService<Category>>();
+        public Dictionary<CategoryType, ICategoryService<Category>> CategoryHandlers { get; }
 
         public Dictionary<CategoryType, string> CategoryTypeNames => new Dictionary<CategoryType, string>
            {

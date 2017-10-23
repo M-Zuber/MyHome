@@ -1,5 +1,4 @@
-﻿using FrameWork;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +14,11 @@ namespace MyHome.Infrastructure.Tests
             ICollection<int> target = null;
 
             // Act
-            Action addToNullCollection = () => target.AddRange(Enumerable.Range(1, 10));
+            // ReSharper disable once ExpressionIsAlwaysNull
+            void AddToNullCollection() => target.AddRange(Enumerable.Range(1, 10));
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(() => addToNullCollection()).Message;
+            var message = Assert.Throws<ArgumentNullException>(AddToNullCollection).Message;
             Assert.That(message, Is.EqualTo("Value cannot be null.\r\nParameter name: target"));
         }
 
@@ -28,21 +28,23 @@ namespace MyHome.Infrastructure.Tests
             ICollection<int> target = Enumerable.Range(1, 10).ToList();
 
             // Act
-            Action addFromNullCollection = () => target.AddRange(null);
+            void AddFromNullCollection() => target.AddRange(null);
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(() => addFromNullCollection()).Message;
+            var message = Assert.Throws<ArgumentNullException>(AddFromNullCollection).Message;
             Assert.That(message, Is.EqualTo("Value cannot be null.\r\nParameter name: source"));
         }
 
         [Test]
         public void Extensions_AddRange_Adds_Every_Item()
         {
+            // ReSharper disable PossibleMultipleEnumeration
             ICollection<int> target = Enumerable.Range(1, 10).ToList();
             var source = Enumerable.Range(11, 10);
             target.AddRange(source);
 
             CollectionAssert.IsSubsetOf(source, target);
+            // ReSharper enable PossibleMultipleEnumeration
         }
     }
 }

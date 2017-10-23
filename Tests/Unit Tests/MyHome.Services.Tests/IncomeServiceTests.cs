@@ -10,16 +10,16 @@ namespace MyHome.Services.Tests
     [TestClass]
     public class IncomeServiceTests
     {
-        private Income baseTestData = new Income(10, new DateTime(2015, 2, 2), new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "") { PaymentMethodId = 1, CategoryId = 1 };
+        private readonly Income _baseTestData = new Income(10, new DateTime(2015, 2, 2), new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "") { PaymentMethodId = 1, CategoryId = 1 };
 
         [TestMethod]
         public void IncomeService_LoadById_Item_Exists_Returns_It()
         {
-            var mock = ServiceMocks.GetMockIncomeService(new List<Income> { baseTestData });
+            var mock = ServiceMocks.GetMockIncomeService(new List<Income> { _baseTestData });
 
-            var actual = mock.LoadById(baseTestData.Id);
+            var actual = mock.LoadById(_baseTestData.Id);
             Assert.IsNotNull(actual);
-            Assert.AreEqual(baseTestData, actual);
+            Assert.AreEqual(_baseTestData, actual);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace MyHome.Services.Tests
         public void IncomeService_GetAll_Returns_Data()
         {
             var data = Enumerable.Range(1, 5)
-                                 .Select(i => { var c = baseTestData.Copy(); c.Id = i; c.Amount = (decimal)Math.Pow(i, i); return c; })
+                                 .Select(i => { var c = _baseTestData.Copy(); c.Id = i; c.Amount = (decimal)Math.Pow(i, i); return c; })
                                  .ToList();
             var mock = ServiceMocks.GetMockIncomeService(data);
 
@@ -60,7 +60,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -80,7 +80,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 1, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -100,7 +100,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2010, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -120,7 +120,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -132,7 +132,7 @@ namespace MyHome.Services.Tests
             data = data.Concat(Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2012, 6, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -152,7 +152,7 @@ namespace MyHome.Services.Tests
         public void IncomeService_Save_Catgeory_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockIncomeService();
-            mock.Save(new Income() { Method = new PaymentMethod(), CategoryId = 0 });
+            mock.Save(new Income { Method = new PaymentMethod(), CategoryId = 0 });
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace MyHome.Services.Tests
         public void IncomeService_Save_PaymentMethod_Null_Throw_Exception()
         {
             var mock = ServiceMocks.GetMockIncomeService();
-            mock.Save(new Income() { Category = new IncomeCategory(), PaymentMethodId = 0 });
+            mock.Save(new Income { Category = new IncomeCategory(), PaymentMethodId = 0 });
         }
 
         [TestMethod]
@@ -177,39 +177,39 @@ namespace MyHome.Services.Tests
             var mock = ServiceMocks.GetMockIncomeService(new List<Income>());
 
             var before = mock.LoadAll();
-            Assert.IsFalse(before.Contains(baseTestData));
+            Assert.IsFalse(before.Contains(_baseTestData));
 
-            mock.Save(baseTestData);
+            mock.Save(_baseTestData);
 
             var after = mock.LoadAll();
-            Assert.IsTrue(after.Contains(baseTestData));
+            Assert.IsTrue(after.Contains(_baseTestData));
 
-            var actual = mock.LoadById(baseTestData.Id);
+            var actual = mock.LoadById(_baseTestData.Id);
             Assert.IsNotNull(actual);
-            Assert.AreEqual(baseTestData, actual);
+            Assert.AreEqual(_baseTestData, actual);
         }
 
         [TestMethod]
         public void IncomeService_Save_Existing_Item_Is_Updated()
         {
-            var testDataWithID = baseTestData.Copy();
-            testDataWithID.Id = 1;
+            var testDataWithId = _baseTestData.Copy();
+            testDataWithId.Id = 1;
 
-            var mock = ServiceMocks.GetMockIncomeService(new List<Income> { testDataWithID });
+            var mock = ServiceMocks.GetMockIncomeService(new List<Income> { testDataWithId });
 
             var before = mock.LoadAll();
-            Assert.IsTrue(before.Contains(testDataWithID));
+            Assert.IsTrue(before.Contains(testDataWithId));
 
-            testDataWithID.Comments = "some random things";
+            testDataWithId.Comments = "some random things";
 
-            mock.Save(testDataWithID);
+            mock.Save(testDataWithId);
 
             var after = mock.LoadAll();
-            Assert.IsTrue(after.Contains(testDataWithID));
+            Assert.IsTrue(after.Contains(testDataWithId));
 
-            var actual = mock.LoadById(testDataWithID.Id);
+            var actual = mock.LoadById(testDataWithId.Id);
             Assert.IsNotNull(actual);
-            Assert.AreEqual(testDataWithID, actual);
+            Assert.AreEqual(testDataWithId, actual);
         }
 
         [TestMethod]
@@ -242,16 +242,16 @@ namespace MyHome.Services.Tests
             var mock = ServiceMocks.GetMockIncomeService(new List<Income>());
 
             var before = mock.LoadAll();
-            Assert.IsFalse(before.Contains(baseTestData));
+            Assert.IsFalse(before.Contains(_baseTestData));
 
-            mock.Create(baseTestData);
+            mock.Create(_baseTestData);
 
             var after = mock.LoadAll();
-            Assert.IsTrue(after.Contains(baseTestData));
+            Assert.IsTrue(after.Contains(_baseTestData));
 
-            var actual = mock.LoadById(baseTestData.Id);
+            var actual = mock.LoadById(_baseTestData.Id);
             Assert.IsNotNull(actual);
-            Assert.AreEqual(baseTestData, actual);
+            Assert.AreEqual(_baseTestData, actual);
         }
 
         [TestMethod]
@@ -264,23 +264,23 @@ namespace MyHome.Services.Tests
         [TestMethod]
         public void IncomeService_Delete_Item_exists_Is_Removed()
         {
-            var testDataWithID = baseTestData.Copy();
-            testDataWithID.Id = 1;
+            var testDataWithId = _baseTestData.Copy();
+            testDataWithId.Id = 1;
 
-            var mock = ServiceMocks.GetMockIncomeService(new List<Income> { testDataWithID });
+            var mock = ServiceMocks.GetMockIncomeService(new List<Income> { testDataWithId });
 
             var before = mock.LoadAll();
-            Assert.IsTrue(before.Contains(testDataWithID));
+            Assert.IsTrue(before.Contains(testDataWithId));
 
-            var actual = mock.LoadById(testDataWithID.Id);
+            var actual = mock.LoadById(testDataWithId.Id);
             Assert.IsNotNull(actual);
 
-            mock.Delete(testDataWithID.Id);
+            mock.Delete(testDataWithId.Id);
 
             var after = mock.LoadAll();
-            Assert.IsFalse(after.Contains(testDataWithID));
+            Assert.IsFalse(after.Contains(testDataWithId));
 
-            var itemAfter = mock.LoadById(testDataWithID.Id);
+            var itemAfter = mock.LoadById(testDataWithId.Id);
             Assert.IsNull(itemAfter);
         }
 
@@ -300,7 +300,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Amount = 1;
@@ -320,7 +320,7 @@ namespace MyHome.Services.Tests
         {
             var mock = ServiceMocks.GetMockIncomeService();
 
-            var total = mock.GetCategoryTotalForMonth(DateTime.Today, null);
+            var _ = mock.GetCategoryTotalForMonth(DateTime.Today, null);
         }
 
         [TestMethod]
@@ -329,7 +329,7 @@ namespace MyHome.Services.Tests
         {
             var mock = ServiceMocks.GetMockIncomeService();
 
-            var total = mock.GetCategoryTotalForMonth(DateTime.Today, "\t\t\t");
+            var _ = mock.GetCategoryTotalForMonth(DateTime.Today, "\t\t\t");
         }
 
         [TestMethod]
@@ -348,7 +348,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Category = new IncomeCategory(0, "this");
@@ -369,7 +369,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Category = new IncomeCategory(0, "this");
@@ -400,7 +400,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Category = new IncomeCategory(0, i.ToString());
@@ -423,7 +423,7 @@ namespace MyHome.Services.Tests
         {
             var mock = ServiceMocks.GetMockIncomeService();
 
-            var total = mock.GetPaymentMethodTotalForMonth(DateTime.Today, null);
+            var _ = mock.GetPaymentMethodTotalForMonth(DateTime.Today, null);
         }
 
         [TestMethod]
@@ -432,7 +432,7 @@ namespace MyHome.Services.Tests
         {
             var mock = ServiceMocks.GetMockIncomeService();
 
-            var total = mock.GetPaymentMethodTotalForMonth(DateTime.Today, "\t\t\t");
+            var _ = mock.GetPaymentMethodTotalForMonth(DateTime.Today, "\t\t\t");
         }
 
         [TestMethod]
@@ -451,7 +451,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Method = new PaymentMethod(0, "this");
@@ -472,7 +472,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Method = new PaymentMethod(0, "this");
@@ -503,7 +503,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = baseTestData.Copy();
+                                     var c = _baseTestData.Copy();
                                      c.Id = i;
                                      c.Date = DateTime.Today;
                                      c.Method = new PaymentMethod(0, i.ToString());

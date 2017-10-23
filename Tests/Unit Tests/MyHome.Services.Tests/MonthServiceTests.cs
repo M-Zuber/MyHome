@@ -10,8 +10,8 @@ namespace MyHome.Services.Tests
     [TestClass]
     public class MonthServiceTests
     {
-        private Expense expenseBaseTestData = new Expense(10, new DateTime(2015, 2, 2), new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "");
-        private Income incomeBaseTestData = new Income(10, new DateTime(2015, 2, 2), new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "");
+        private readonly Expense _expenseBaseTestData = new Expense(10, new DateTime(2015, 2, 2), new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "");
+        private readonly Income _incomeBaseTestData = new Income(10, new DateTime(2015, 2, 2), new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "");
 
         [TestMethod]
         public void MonthService_GetExpensesForMonth_No_Matching_Data_Returns_Empty_List()
@@ -19,7 +19,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = expenseBaseTestData.Copy();
+                                     var c = _expenseBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -39,7 +39,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = expenseBaseTestData.Copy();
+                                     var c = _expenseBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 1, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -59,7 +59,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = expenseBaseTestData.Copy();
+                                     var c = _expenseBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2010, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -79,7 +79,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = expenseBaseTestData.Copy();
+                                     var c = _expenseBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -91,7 +91,7 @@ namespace MyHome.Services.Tests
             data = data.Concat(Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = expenseBaseTestData.Copy();
+                                     var c = _expenseBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2012, 6, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -112,7 +112,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = incomeBaseTestData.Copy();
+                                     var c = _incomeBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -132,7 +132,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = incomeBaseTestData.Copy();
+                                     var c = _incomeBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 1, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -152,7 +152,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = incomeBaseTestData.Copy();
+                                     var c = _incomeBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2010, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -172,7 +172,7 @@ namespace MyHome.Services.Tests
             var data = Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = incomeBaseTestData.Copy();
+                                     var c = _incomeBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2015, 3, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);
@@ -184,7 +184,7 @@ namespace MyHome.Services.Tests
             data = data.Concat(Enumerable.Range(1, 5)
                                  .Select(i =>
                                  {
-                                     var c = incomeBaseTestData.Copy();
+                                     var c = _incomeBaseTestData.Copy();
                                      c.Id = i;
                                      c.Date = new DateTime(2012, 6, 3);
                                      c.Amount = (decimal)Math.Pow(i, i);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
@@ -13,18 +14,16 @@ namespace MyHome.UI
     /// </summary>
     public partial class ExpenseViewer : Form
     {
-        #region C'Tor
-
         /// <summary>
-        ///     Sets the intial state and current state expense properties of the form
+        ///     Sets the initial state and current state expense properties of the form
         /// </summary>
         /// <param name="expense">The expense the form was opened for</param>
         public ExpenseViewer(Expense expense)
         {
-            currentExpense = expense;
+            _currentExpense = expense;
 
             // Makes a shallow copy of the expense passed in
-            originalExpense = currentExpense.Copy();
+            _originalExpense = _currentExpense.Copy();
             InitializeComponent();
 
             _dataContext = new AccountingDataContext();
@@ -33,28 +32,20 @@ namespace MyHome.UI
             _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(_dataContext));
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
         ///     A copy of the expense of the form, to keep track of changes
         /// </summary>
-        private readonly Expense originalExpense;
+        private readonly Expense _originalExpense;
 
         /// <summary>
         ///     The current state the expense of the form is in
         /// </summary>
-        private Expense currentExpense;
+        private Expense _currentExpense;
 
         private readonly AccountingDataContext _dataContext;
         private readonly ExpenseCategoryService _expenseCategoryService;
         private readonly ExpenseService _expenseService;
         private readonly PaymentMethodService _paymentMethodService;
-
-        #endregion
-
-        #region Event Methods
 
         /// <summary>
         ///     Sets the data bindings of the form
@@ -72,11 +63,11 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
-            if (!currentExpense.Equals(originalExpense))
+            if (!_currentExpense.Equals(_originalExpense))
             {
-                _expenseService.Save(currentExpense);
+                _expenseService.Save(_currentExpense);
 
                 Close();
             }
@@ -87,9 +78,9 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentExpense.Category = (ExpenseCategory) cmbCategory.SelectedItem;
+            _currentExpense.Category = (ExpenseCategory) cmbCategory.SelectedItem;
         }
 
         /// <summary>
@@ -97,9 +88,9 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void cmbPayment_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbPayment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentExpense.Method = (PaymentMethod) cmbPayment.SelectedItem;
+            _currentExpense.Method = (PaymentMethod) cmbPayment.SelectedItem;
         }
 
         /// <summary>
@@ -107,7 +98,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void txtAmount_TextChanged(object sender, EventArgs e)
+        private void TxtAmount_TextChanged(object sender, EventArgs e)
         {
             if (txtAmount.Text == "")
             {
@@ -129,7 +120,7 @@ namespace MyHome.UI
             }
             else
             {
-                currentExpense.Amount = decimal.Parse(txtAmount.Text);
+                _currentExpense.Amount = decimal.Parse(txtAmount.Text);
             }
         }
 
@@ -138,9 +129,9 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void txtDetail_TextChanged(object sender, EventArgs e)
+        private void TxtDetail_TextChanged(object sender, EventArgs e)
         {
-            currentExpense.Comments = txtDetail.Text;
+            _currentExpense.Comments = txtDetail.Text;
         }
 
         /// <summary>
@@ -148,9 +139,9 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void dtPick_ValueChanged(object sender, EventArgs e)
+        private void DtPick_ValueChanged(object sender, EventArgs e)
         {
-            currentExpense.Date = dtPick.Value;
+            _currentExpense.Date = dtPick.Value;
         }
 
         /// <summary>
@@ -158,7 +149,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void BtnEdit_Click(object sender, EventArgs e)
         {
             // Enables the controls for editing and updates which buttons are visible
             ToggleEnableControls(txtAmount, txtDetail, cmbCategory,
@@ -172,21 +163,21 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             // Enables the controls for editing and updates which buttons are visible
             ToggleEnableControls(txtAmount, txtDetail, cmbCategory,
                 cmbPayment, dtPick, btnSave, btnEdit, btnCancel, btnDelete);
             ToggleVisibility(btnSave, btnCancel, btnEdit, btnDelete);
 
-            // Makes sure that the expense of the binding has the origional values
-            currentExpense = originalExpense.Copy();
+            // Makes sure that the expense of the binding has the original values
+            _currentExpense = _originalExpense.Copy();
 
             // Resets the data bindings
             SetDataBindings();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             var canDelete =
                 MessageBox.Show("Are you sure you want to delete this expense?\n" +
@@ -198,14 +189,10 @@ namespace MyHome.UI
 
             if (canDelete == DialogResult.OK)
             {
-                _expenseService.Delete(currentExpense.Id);
+                _expenseService.Delete(_currentExpense.Id);
                 Close();
             }
         }
-
-        #endregion
-
-        #region Other Methods
 
         /// <summary>
         ///     Sets the data bindings of the form,
@@ -214,40 +201,40 @@ namespace MyHome.UI
         private void SetDataBindings()
         {
             //Simple control bindings
-            txtAmount.Text = currentExpense.Amount.ToString();
-            txtDetail.Text = currentExpense.Comments;
-            dtPick.Value = currentExpense.Date;
+            txtAmount.Text = _currentExpense.Amount.ToString(CultureInfo.InvariantCulture);
+            txtDetail.Text = _currentExpense.Comments;
+            dtPick.Value = _currentExpense.Date;
 
             //Expense category bindings
             cmbCategory.DataSource = _expenseCategoryService.GetAll();
             cmbCategory.DisplayMember = "NAME";
             cmbCategory.ValueMember = "ID";
-            cmbCategory.SelectedIndex = cmbCategory.FindString(currentExpense.Category.Name);
+            cmbCategory.SelectedIndex = cmbCategory.FindString(_currentExpense.Category.Name);
 
             //Payment Method bindings
             cmbPayment.DataSource = _paymentMethodService.GetAll();
             cmbPayment.DisplayMember = "NAME";
             cmbPayment.ValueMember = "ID";
-            cmbPayment.SelectedIndex = cmbPayment.FindString(currentExpense.Method.Name);
+            cmbPayment.SelectedIndex = cmbPayment.FindString(_currentExpense.Method.Name);
 
             //Event Bindings
             // This is to keep events from firing until all the data bindings are fully set
-            cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
-            cmbPayment.SelectedIndexChanged += cmbPayment_SelectedIndexChanged;
-            txtAmount.TextChanged += txtAmount_TextChanged;
-            txtDetail.TextChanged += txtDetail_TextChanged;
-            dtPick.ValueChanged += dtPick_ValueChanged;
+            cmbCategory.SelectedIndexChanged += CmbCategory_SelectedIndexChanged;
+            cmbPayment.SelectedIndexChanged += CmbPayment_SelectedIndexChanged;
+            txtAmount.TextChanged += TxtAmount_TextChanged;
+            txtDetail.TextChanged += TxtDetail_TextChanged;
+            dtPick.ValueChanged += DtPick_ValueChanged;
         }
 
         /// <summary>
         ///     Toggles the enable property of the controls sent
         /// </summary>
         /// <param name="controls">A list of controls to enable/disable</param>
-        private void ToggleEnableControls(params Control[] controls)
+        private static void ToggleEnableControls(params Control[] controls)
         {
-            foreach (var CurrControl in controls)
+            foreach (var currControl in controls)
             {
-                CurrControl.Enabled = !CurrControl.Enabled;
+                currControl.Enabled = !currControl.Enabled;
             }
         }
 
@@ -255,23 +242,18 @@ namespace MyHome.UI
         ///     Toggles the visible property of the controls sent
         /// </summary>
         /// <param name="controls">A list of controls to show/hide</param>
-        private void ToggleVisibility(params Control[] controls)
+        private static void ToggleVisibility(params Control[] controls)
         {
-            foreach (var CurrControl in controls)
+            foreach (var currControl in controls)
             {
-                CurrControl.Visible = !CurrControl.Visible;
+                currControl.Visible = !currControl.Visible;
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            if (_dataContext != null)
-            {
-                _dataContext.Dispose();
-            }
+            _dataContext?.Dispose();
         }
-
-        #endregion
     }
 }

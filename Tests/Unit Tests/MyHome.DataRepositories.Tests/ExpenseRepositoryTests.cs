@@ -10,7 +10,7 @@ namespace MyHome.DataRepositories.Tests
     [TestClass]
     public class ExpenseRepositoryTests
     {
-        private Expense baseTestData = new Expense(10, new DateTime(2015, 2, 2), new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "");
+        private readonly Expense _baseTestData = new Expense(10, new DateTime(2015, 2, 2), new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "");
 
         [TestMethod]
         public void ExpenseRepository_GetById_Returns_Null_If_Not_found()
@@ -25,13 +25,13 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_GetById_Returns_Object_If_Found()
         {
-            var testDataWithID = baseTestData.Copy();
-            testDataWithID.Id = 1;
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { testDataWithID });
+            var testDataWithId = _baseTestData.Copy();
+            testDataWithId.Id = 1;
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { testDataWithId });
 
             var actual = mock.GetById(1);
 
-            Assert.AreEqual(testDataWithID, actual);
+            Assert.AreEqual(testDataWithId, actual);
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace MyHome.DataRepositories.Tests
             var actual = mock.GetAll().Where(e => e.Id != 0);
 
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual.Count() == 0);
+            Assert.IsTrue(!actual.Any());
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace MyHome.DataRepositories.Tests
             var actual = mock.GetForMonthAndYear(1,2010);
 
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual.Count() == 0);
+            Assert.IsTrue(!actual.Any());
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace MyHome.DataRepositories.Tests
             var actual = mock.GetForMonthAndYear(1, 2010);
 
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual.Count() == 0);
+            Assert.IsTrue(!actual.Any());
         }
 
         [TestMethod]
@@ -103,8 +103,8 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_GetForMOnthAndYear_Only_Month_Matches_Not_Returned()
         {
-            DateTime good = new DateTime(2015, 4, 10);
-            DateTime bad = new DateTime(2010, 4, 10);
+            var good = new DateTime(2015, 4, 10);
+            var bad = new DateTime(2010, 4, 10);
 
             var data = new List<Expense>();
             Enumerable.Range(1, 5).ToList().ForEach(i => data.Add(new Expense((decimal)Math.Pow(i, i), good, new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "")));
@@ -122,8 +122,8 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_GetForMOnthAndYear_Only_Year_Matches_Not_Returned()
         {
-            DateTime good = new DateTime(2015, 4, 10);
-            DateTime bad = new DateTime(2015, 6, 10);
+            var good = new DateTime(2015, 4, 10);
+            var bad = new DateTime(2015, 6, 10);
 
             var data = new List<Expense>();
             Enumerable.Range(1, 5).ToList().ForEach(i => data.Add(new Expense((decimal)Math.Pow(i, i), good, new ExpenseCategory(1, "test"), new PaymentMethod(1, "test"), "")));
@@ -154,7 +154,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Remove_Database_Has_No_Match_Nothing_Happens()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
             var before = mock.GetAll();
             mock.Remove(1);
@@ -167,23 +167,23 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Remove_Removes_Matching_Item_From_Database()
         {
-            var testDataWithID = baseTestData.Copy();
-            testDataWithID.Id = 1;
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { testDataWithID });
+            var testDataWithId = _baseTestData.Copy();
+            testDataWithId.Id = 1;
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { testDataWithId });
 
             var before = mock.GetAll();
-            Assert.IsTrue(before.Contains(testDataWithID));
+            Assert.IsTrue(before.Contains(testDataWithId));
 
             mock.Remove(1);
 
             var after = mock.GetAll();
-            Assert.IsFalse(after.Contains(testDataWithID));
+            Assert.IsFalse(after.Contains(testDataWithId));
         }
 
         [TestMethod]
         public void ExpenseRepository_Create_Adds_New_Item()
         {
-            var copyTestData = baseTestData.Copy();
+            var copyTestData = _baseTestData.Copy();
             copyTestData.Id = 1;
             var mock = RepositoryMocks.GetMockExpenseRepository();
             mock.Create(copyTestData);
@@ -212,14 +212,14 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Update_Changes_Amount()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Amount *= 3;
 
             mock.Update(expected);
 
-            var actual = mock.GetById(baseTestData.Id);
+            var actual = mock.GetById(_baseTestData.Id);
 
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected, actual);
@@ -228,9 +228,9 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Update_Changes_The_Id()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Id++;
 
             mock.Update(expected);
@@ -244,9 +244,9 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Update_Changes_The_Category()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Category = new ExpenseCategory(4, "other-cat");
 
             mock.Update(expected);
@@ -260,9 +260,9 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Update_Changes_Comments()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Comments = "moar comments";
 
             mock.Update(expected);
@@ -276,9 +276,9 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Update_Changes_Date()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Date = DateTime.MinValue;
 
             mock.Update(expected);
@@ -292,9 +292,9 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void ExpenseRepository_Update_Changes_Method()
         {
-            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { baseTestData });
+            var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { _baseTestData });
 
-            var expected = mock.GetById(baseTestData.Id);
+            var expected = mock.GetById(_baseTestData.Id);
             expected.Method = new PaymentMethod(4, "other-method");
 
             mock.Update(expected);
@@ -306,36 +306,36 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void ExpenseRepository_Update_Object_That_Was_Not_In_Database_Does_Nothing()
+        public void ExpenseRepository_Update_Object_That_Was_Not_In_Database_Adds_The_Item()
         {
             var mock = RepositoryMocks.GetMockExpenseRepository();
 
-            mock.Update(baseTestData);
+            mock.Update(_baseTestData);
 
             var actual = mock.GetAll();
 
-            Assert.IsFalse(actual.Contains(baseTestData));
+            Assert.IsTrue(actual.Contains(_baseTestData));
         }
 
         [TestMethod]
         public void ExpenseCategpryRepository_Save_Id_Zero_Adds_Item()
         {
             var mock = RepositoryMocks.GetMockExpenseRepository();
-            
+
             // filters out the object added to make the mock work
             var actual = mock.GetAll().Where(e => e.Id != 0);
-            Assert.IsTrue(actual.Count() == 0);
+            Assert.IsTrue(!actual.Any());
 
-            mock.Save(baseTestData);
+            mock.Save(_baseTestData);
 
             var after = mock.GetAll();
-            Assert.IsTrue(after.Contains(baseTestData));
+            Assert.IsTrue(after.Contains(_baseTestData));
         }
 
         [TestMethod]
         public void ExpenseCategpryRepository_Save_Id_Non_Zero_Updates_Item()
         {
-            var copyTestData = baseTestData.Copy();
+            var copyTestData = _baseTestData.Copy();
             copyTestData.Id = 1;
             var mock = RepositoryMocks.GetMockExpenseRepository(new List<Expense> { copyTestData });
 
@@ -355,22 +355,22 @@ namespace MyHome.DataRepositories.Tests
         }
 
         [TestMethod]
-        public void ExpenseRepository_Save_New_Item_With_Non_Zero_Id_Does_Nothing()
+        public void ExpenseRepository_Save_New_Item_With_Non_Zero_Id_Adds_The_Item()
         {
             var mock = RepositoryMocks.GetMockExpenseRepository();
 
             // filters out the object added to make the mock work
             var actual = mock.GetAll().Where(e => e.Id != 0);
-            Assert.IsTrue(actual.Count() == 0);
+            Assert.IsTrue(!actual.Any());
 
             var expected = mock.GetById(1);
             Assert.IsNull(expected);
-            expected = baseTestData.Copy();
+            expected = _baseTestData.Copy();
             expected.Id = 2;
             mock.Save(expected);
 
             var after = mock.GetAll();
-            Assert.IsFalse(after.Contains(expected));
+            Assert.IsTrue(after.Contains(expected));
         }
     }
 }

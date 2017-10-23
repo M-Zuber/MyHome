@@ -360,7 +360,7 @@ namespace MyHome.DataClasses.Tests
         [TestMethod]
         public void GetHashCode_One_Object()
         {
-            var Income = new Income
+            var income = new Income
             {
                 Amount = 120,
                 Category = new IncomeCategory
@@ -378,7 +378,7 @@ namespace MyHome.DataClasses.Tests
                 }
             };
 
-            Assert.AreEqual(Income.GetHashCode(), Income.GetHashCode());
+            Assert.AreEqual(income.GetHashCode(), income.GetHashCode());
         }
     }
 }

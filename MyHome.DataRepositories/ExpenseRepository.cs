@@ -75,7 +75,7 @@ namespace MyHome.DataRepository
             _context.SaveChanges();
         }
 
-        private void CleanUpForEF(Expense expense)
+        private static void CleanUpForEF(Expense expense)
         {
             if (expense.CategoryId > 0)
             {

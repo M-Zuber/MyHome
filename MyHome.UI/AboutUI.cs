@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// Gives info about the code team
     /// </summary>
     public partial class AboutUI : Form
     {
-        #region C'tor
-
+        /// <inheritdoc />
         /// <summary>
         /// Basic default ctor
         /// </summary>
@@ -17,21 +17,15 @@ namespace MyHome.UI
         {
             InitializeComponent();
         }
-        
-        #endregion
-
-        #region Control Event Methods
 
         /// <summary>
         /// Closes the form on the click of the okay button
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event arg object</param>
-        private void btnOkay_Click(object sender, EventArgs e)
+        private void BtnOkay_Click(object sender, EventArgs e)
         {
             Close();
         }
-
-        #endregion
     }
 }

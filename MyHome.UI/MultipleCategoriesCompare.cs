@@ -28,8 +28,6 @@ namespace MyHome.UI
         }
 
 
-        #region Properties
-
         /// <summary>
         ///     The start date for the range of time data is being looked at
         /// </summary>
@@ -48,19 +46,15 @@ namespace MyHome.UI
         /// <summary>
         ///     The category names that can be displayed
         /// </summary>
-        private List<string> CategoryNames { get; set; }
+        private List<string> CategoryNames { get; }
 
         /// <summary>
         ///     Holds the data for each category by month in range being looked at
         /// </summary>
-        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; }
-
-        #endregion
-
-        #region Control Event Methods
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; }
 
         /// <summary>
-        ///     Setsup the data bindings on the form
+        ///     Sets up the data bindings on the form
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
@@ -86,7 +80,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void chooseColorButton_Click(object sender, EventArgs e)
+        private void ChooseColorButton_Click(object sender, EventArgs e)
         {
             if (seriesNameValues.Items.Count > 0)
             {
@@ -105,7 +99,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void startDateValue_ValueChanged(object sender, EventArgs e)
+        private void StartDateValue_ValueChanged(object sender, EventArgs e)
         {
             // Sets the end date with the new value
             StartDate = startDateValue.Value;
@@ -116,7 +110,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void endDateValue_ValueChanged(object sender, EventArgs e)
+        private void EndDateValue_ValueChanged(object sender, EventArgs e)
         {
             // Sets the end date with the new value
             EndDate = endDateValue.Value;
@@ -127,7 +121,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void seriesNameValues_SelectedIndexChanged(object sender, EventArgs e)
+        private void SeriesNameValues_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (categoryData.Series[seriesNameValues.SelectedItem.ToString()].Color != new Color())
             {
@@ -145,7 +139,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void seriesNameValues_Click(object sender, EventArgs e)
+        private void SeriesNameValues_Click(object sender, EventArgs e)
         {
             seriesNameValues.DataSource = categoryData.Series.Select(series => series.Name).ToList();
         }
@@ -155,7 +149,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void clearButton_Click(object sender, EventArgs e)
+        private void ClearButton_Click(object sender, EventArgs e)
         {
             categoryData.Series.Clear();
         }
@@ -165,11 +159,11 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void calculateButton_Click(object sender, EventArgs e)
+        private void CalculateButton_Click(object sender, EventArgs e)
         {
             var recalculate = DialogResult.Yes;
 
-            // If there is any data it checks that the user wnats to reset the chart
+            // If there is any data it checks that the user wants to reset the chart
             if (categoryData.Series.Count > 0)
             {
                 recalculate = MessageBox.Show("If you recalculate the data, the chart will be reset\n" +
@@ -197,10 +191,6 @@ namespace MyHome.UI
             }
         }
 
-        #endregion
-
-        #region Other Methods
-
         /// <summary>
         ///     Sets up the data bindings of the DateTime pickers and the category picker
         /// </summary>
@@ -210,6 +200,7 @@ namespace MyHome.UI
             endDateValue.DataBindings.Clear();
             categoryPicker.Items.Clear();
 
+            // ReSharper disable once CoVariantArrayConversion
             categoryPicker.Items.AddRange(CategoryNames.ToArray<string>());
 
             // This prevents crossovers on the data time pickers
@@ -236,7 +227,7 @@ namespace MyHome.UI
             var monthRange = MonthsRange();
 
             // Goes over each category getting the total for each month in the range being looked at
-            foreach (KeyValuePair<string, Dictionary<DateTime, decimal>> curCategoryData in MonthData)
+            foreach (var curCategoryData in MonthData)
             {
                 var curDate = StartDate;
 
@@ -298,19 +289,14 @@ namespace MyHome.UI
         {
             // Calculates the months in the range, taking the year into account
             // plus one so that if the dates are the same day, it will still return one
-            return (((EndDate.Year - StartDate.Year)*12) +
-                    (EndDate.Month - StartDate.Month) + 1);
+            return (EndDate.Year - StartDate.Year)*12 +
+                   (EndDate.Month - StartDate.Month) + 1;
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            if (_dataContext != null)
-            {
-                _dataContext.Dispose();    
-            }
+            _dataContext?.Dispose();
         }
-
-        #endregion
     }
 }

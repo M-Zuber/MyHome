@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyHome.DataClasses;
+using MyHome.DataRepository;
+using MyHome.Persistence;
 using MyHome.Services;
 using MyHome.Spec.Helpers;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using MyHome.Persistence;
-using MyHome.DataRepository;
 
-namespace MyHome.Spec.Transaction_Managment
+namespace MyHome.Spec.TransactionManagement
 {
     public enum Properties
     {
@@ -24,7 +25,7 @@ namespace MyHome.Spec.Transaction_Managment
     [Scope(Feature = "EditingATransaction")]
     public class EditingATransactionSteps
     {
-        const string EXCEPTION_CONTEXT_KEY = "edit_transaction_result";
+        const string ExceptionContextKey = "edit_transaction_result";
         private TransactionTypes _transactionType;
         private Transaction _transaction;
         private ITransactionService _transactionService;
@@ -32,12 +33,12 @@ namespace MyHome.Spec.Transaction_Managment
         private ICategoryService<Category> _categoryService;
         private Category _category;
         private PaymentMethod _paymentMethod;
-        private AccountingDataContext context;
+        private AccountingDataContext _context;
 
         [BeforeScenario]
         public void Setup()
         {
-            context = new TestAccountingDataContext();
+            _context = new TestAccountingDataContext();
             _transaction = null;
             _transactionService = null;
             _categoryService = null;
@@ -49,7 +50,7 @@ namespace MyHome.Spec.Transaction_Managment
         [AfterScenario]
         public void TearDown()
         {
-            context.Database.Delete();
+            _context.Database.Delete();
         }
 
         [Given(@"The transaction type is '(.*)'")]
@@ -61,18 +62,19 @@ namespace MyHome.Spec.Transaction_Managment
         [Given(@"the following transaction data with a category '(.*)' and payment method '(.*)'")]
         public void GivenTheFollowingTransaction(string category, string paymentMethod, Table data)
         {
-            _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(context));
+            _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(_context));
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (_transactionType)
             {
                 case TransactionTypes.Income:
                     _transaction = data.CreateInstance<Income>();
-                    _transactionService = new IncomeService(new IncomeRepository(context));
-                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(context));
+                    _transactionService = new IncomeService(new IncomeRepository(_context));
+                    _categoryService = new IncomeCategoryService(new IncomeCategoryRepository(_context));
                     break;
                 case TransactionTypes.Expense:
                     _transaction = data.CreateInstance<Expense>();
-                    _transactionService = new ExpenseService(new ExpenseRepository(context));
-                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(context));
+                    _transactionService = new ExpenseService(new ExpenseRepository(_context));
+                    _categoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(_context));
                     break;
             }
 
@@ -92,10 +94,11 @@ namespace MyHome.Spec.Transaction_Managment
         [When(@"I change the '(.*)' to '(.*)'")]
         public void WhenIChangeTheTo(Properties propChanging, string value)
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (propChanging)
             {
                 case Properties.Date:
-                    _transaction.Date = DateTime.Parse(value != "" ? value : DateTime.Now.ToString());
+                    _transaction.Date = DateTime.Parse(value != "" ? value : DateTime.Now.ToString(CultureInfo.InvariantCulture));
                     break;
                 case Properties.Amount:
                     _transaction.Amount = decimal.Parse(value);
@@ -132,30 +135,31 @@ namespace MyHome.Spec.Transaction_Managment
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(EXCEPTION_CONTEXT_KEY, e);
+                ScenarioContext.Current.Add(ExceptionContextKey, e);
             }
         }
 
         [Then(@"the new '(.*)' equals '(.*)'")]
         public void ThenTheNewEquals(Properties propChanged, string value)
         {
-            var transactionFromDB = _transactionService.GetAll().First(t => t.Id == 1);
+            var transactionFromDb = _transactionService.GetAll().First(t => t.Id == 1);
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (propChanged)
             {
                 case Properties.Date:
-                    Assert.AreEqual(transactionFromDB.Date.ToString("yyyy-MM-dd"), value != "" ? value : DateTime.Now.ToString("yyyy-MM-dd"));
+                    Assert.AreEqual(transactionFromDb.Date.ToString("yyyy-MM-dd"), value != "" ? value : DateTime.Now.ToString("yyyy-MM-dd"));
                     break;
                 case Properties.Amount:
-                    Assert.AreEqual(transactionFromDB.Amount.ToString(), value);
+                    Assert.AreEqual(transactionFromDb.Amount.ToString(CultureInfo.InvariantCulture), value);
                     break;
                 case Properties.Comment:
-                    Assert.AreEqual(transactionFromDB.Comments, value);
+                    Assert.AreEqual(transactionFromDb.Comments, value);
                     break;
                 case Properties.Category:
-                    Assert.AreEqual(transactionFromDB.Category.Name, value);
+                    Assert.AreEqual(transactionFromDb.Category.Name, value);
                     break;
                 case Properties.Method:
-                    Assert.AreEqual(transactionFromDB.Method.Name, value);
+                    Assert.AreEqual(transactionFromDb.Method.Name, value);
                     break;
             }
         }
@@ -171,10 +175,10 @@ namespace MyHome.Spec.Transaction_Managment
         [Then(@"the handler returns an error indicator - '(.*)'")]
         public void ThenTheHandlerReturnsAnErrorIndicator(string errorMessage)
         {
-            var e = ScenarioContext.Current.Get<Exception>(EXCEPTION_CONTEXT_KEY);
+            var e = ScenarioContext.Current.Get<Exception>(ExceptionContextKey);
             Assert.IsNotNull(e);
             Assert.IsInstanceOfType(e, typeof(ArgumentException));
-            Assert.AreEqual(errorMessage, e.Message, ignoreCase: true); 
+            Assert.AreEqual(errorMessage, e.Message, true);
         }
 
         [Then(@"the date is the current date")]

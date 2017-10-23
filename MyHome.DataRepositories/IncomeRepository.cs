@@ -77,7 +77,7 @@ namespace MyHome.DataRepository
             _context.SaveChanges();
         }
 
-        private void CleanUpForEF(Income income)
+        private static void CleanUpForEF(Income income)
         {
             if (income.CategoryId > 0)
             {

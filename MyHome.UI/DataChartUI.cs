@@ -8,6 +8,7 @@ using MyHome.Services;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Provides data per category for the range of dates given
     ///     -the default is the past year
@@ -18,10 +19,9 @@ namespace MyHome.UI
         private readonly GeneralCategoryHandler _generalCategoryHandler;
         private readonly MonthService _monthService;
 
-        #region C'tor
-
+        /// <inheritdoc />
         /// <summary>
-        ///     Default Ctor - intializes the properies of the form
+        ///     Default Ctor - initializes the properties of the form
         /// </summary>
         public DataChartUI()
         {
@@ -32,10 +32,6 @@ namespace MyHome.UI
             _generalCategoryHandler = new GeneralCategoryHandler(_dataContext);
             _monthService = new MonthService(_dataContext);
         }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         ///     The start date for the range of time data is being looked at
@@ -55,11 +51,7 @@ namespace MyHome.UI
         /// <summary>
         ///     Holds the data for each category by month in range being looked at
         /// </summary>
-        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; set; } = new Dictionary<string, Dictionary<DateTime, decimal>>();
-
-        #endregion
-
-        #region Control Event Methods
+        private Dictionary<string, Dictionary<DateTime, decimal>> MonthData { get; } = new Dictionary<string, Dictionary<DateTime, decimal>>();
 
         /// <summary>
         ///     Sets up the infrastructure and connects the controls on the form
@@ -97,7 +89,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event arg object</param>
-        private void cmbCat_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Resets the data bindings to reflect the change in the selected category
             ShowDataOnChart();
@@ -109,12 +101,12 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void dtpEndMonth_ValueChanged(object sender, EventArgs e)
+        private void DtpEndMonth_ValueChanged(object sender, EventArgs e)
         {
             // Checks that either the month or the year was changed
             // if it was the day there is no reason to reload
-            if ((EndDate.Month != dtpEndMonth.Value.Month) ||
-                (EndDate.Year != dtpEndMonth.Value.Year))
+            if (EndDate.Month != dtpEndMonth.Value.Month ||
+                EndDate.Year != dtpEndMonth.Value.Year)
             {
                 // Sets the end date with the new value
                 EndDate = dtpEndMonth.Value;
@@ -131,12 +123,12 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard EventArgs object</param>
-        private void dtpStartMonth_ValueChanged(object sender, EventArgs e)
+        private void DtpStartMonth_ValueChanged(object sender, EventArgs e)
         {
             // Checks that either the month or the year was changed
             // if it was the day there is no reason to reload
-            if ((StartDate.Month != dtpStartMonth.Value.Month) ||
-                (StartDate.Year != dtpStartMonth.Value.Year))
+            if (StartDate.Month != dtpStartMonth.Value.Month ||
+                StartDate.Year != dtpStartMonth.Value.Year)
             {
                 // Sets the end date with the new value
                 StartDate = dtpStartMonth.Value;
@@ -146,10 +138,6 @@ namespace MyHome.UI
                 ShowDataOnChart();
             }
         }
-
-        #endregion
-
-        #region Other Methods
 
         /// <summary>
         ///     Sets the static data bindings for the form controls
@@ -249,19 +237,14 @@ namespace MyHome.UI
         {
             // Calculates the months in the range, taking the year into account
             // plus one so that if the dates are the same day, it will still return one
-            return (((EndDate.Year - StartDate.Year) * 12) +
-                    (EndDate.Month - StartDate.Month) + 1);
+            return (EndDate.Year - StartDate.Year) * 12 +
+                   (EndDate.Month - StartDate.Month) + 1;
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            if (_dataContext != null)
-            {
-                _dataContext.Dispose();
-            }
+            _dataContext?.Dispose();
         }
-
-        #endregion
     }
 }

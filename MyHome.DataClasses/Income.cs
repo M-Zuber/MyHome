@@ -4,8 +4,6 @@ namespace MyHome.DataClasses
 {
     public class Income : Transaction
     {
-        #region Properties
-
         ///// <summary>
         ///// The amount of the income
         ///// </summary>
@@ -39,10 +37,6 @@ namespace MyHome.DataClasses
         public new int CategoryId { get; set; }
         public new int PaymentMethodId { get; set; }
 
-        #endregion
-
-        #region C'Tor
-
         public Income()
         {
         }
@@ -58,36 +52,36 @@ namespace MyHome.DataClasses
             Method = paymentMethod;
         }
 
-        public Income(decimal amount, DateTime date, int categoryID, int methodID, string comments)
+        public Income(decimal amount, DateTime date, int categoryId, int methodId, string comments)
         {
             Amount = amount;
-            CategoryId = categoryID;
+            CategoryId = categoryId;
             Comments = comments;
             Date = date;
-            PaymentMethodId = methodID;
+            PaymentMethodId = methodId;
         }
-
-        #endregion
-
-        #region Override Methods
 
         public override bool Equals(object obj)
         {
-            Income incomeComparing = (Income)obj;
+            var incomeComparing = (Income)obj;
+            if (incomeComparing == null)
+            {
+                return false;
+            }
 
-            return ((Amount == incomeComparing.Amount) &&
-                    ((Category == null && incomeComparing.Category == null) || Category.Equals(incomeComparing.Category)) &&
-                    (Comments == incomeComparing.Comments) &&
-                    (Date == incomeComparing.Date) &&
-                    (Id == incomeComparing.Id) &&
-                    ((Method == null && incomeComparing.Method == null) || Method.Equals(incomeComparing.Method)));
+            return Amount == incomeComparing.Amount &&
+                   (Category == null && incomeComparing.Category == null || Category?.Equals(incomeComparing.Category) == true) &&
+                   Comments == incomeComparing.Comments &&
+                   Date == incomeComparing.Date &&
+                   Id == incomeComparing.Id &&
+                   (Method == null && incomeComparing.Method == null || Method?.Equals(incomeComparing.Method) == true);
         }
 
         public override int GetHashCode()
         {
+            // ReSharper disable NonReadonlyMemberInGetHashCode
             return new { Id, Amount, Category, Comments, Date, Method }.GetHashCode();
+            // ReSharper restore NonReadonlyMemberInGetHashCode
         }
-
-        #endregion
     }
 }

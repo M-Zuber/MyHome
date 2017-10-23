@@ -2,7 +2,7 @@
 
 namespace MyHome.DataClasses
 {
-    public class Expense: Transaction
+    public class Expense : Transaction
     {
         public Expense()
         {
@@ -19,13 +19,13 @@ namespace MyHome.DataClasses
             Method = paymentMethod;
         }
 
-        public Expense(decimal amount, DateTime date, int categoryID, int methodID, string comments)
+        public Expense(decimal amount, DateTime date, int categoryId, int methodId, string comments)
         {
             Amount = amount;
-            CategoryId = categoryID;
+            CategoryId = categoryId;
             Comments = comments;
             Date = date;
-            PaymentMethodId = methodID;
+            PaymentMethodId = methodId;
         }
 
         ///// <summary>
@@ -64,19 +64,25 @@ namespace MyHome.DataClasses
 
         public override bool Equals(object obj)
         {
-            var expenseComparing = (Expense) obj;
+            var expenseComparing = (Expense)obj;
+            if (expenseComparing == null)
+            {
+                return false;
+            }
 
-            return ((Amount == expenseComparing.Amount) &&
-                    ((Category == null && expenseComparing.Category == null) || Category.Equals(expenseComparing.Category)) &&
-                    (Comments == expenseComparing.Comments) &&
-                    (Date == expenseComparing.Date) &&
-                    (Id == expenseComparing.Id) &&
-                    ((Method == null && expenseComparing.Method == null) || Method.Equals(expenseComparing.Method)));
+            return Amount == expenseComparing.Amount &&
+                   (Category == null && expenseComparing.Category == null || Category?.Equals(expenseComparing.Category) == true) &&
+                   Comments == expenseComparing.Comments &&
+                   Date == expenseComparing.Date &&
+                   Id == expenseComparing.Id &&
+                   (Method == null && expenseComparing.Method == null || Method?.Equals(expenseComparing.Method) == true);
         }
 
         public override int GetHashCode()
         {
-            return new {Id, Amount, Category, Comments, Date, Method}.GetHashCode();
+            // ReSharper disable NonReadonlyMemberInGetHashCode
+            return new { Id, Amount, Category, Comments, Date, Method }.GetHashCode();
+            // ReSharper restore NonReadonlyMemberInGetHashCode
         }
     }
 }
