@@ -35,7 +35,7 @@ namespace MyHome.Services
         /// <returns>All the Expense Categories as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<DataClasses.Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
@@ -43,6 +43,7 @@ namespace MyHome.Services
         public ExpenseCategory Create(ExpenseCategory expenseCategory)
         {
             Contract.Requires<ArgumentException>(expenseCategory != null);
+            // ReSharper disable once PossibleNullReferenceException
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(expenseCategory.Name));
             Contract.Requires<ArgumentException>(!Exists(expenseCategory.Name), $"Expense category '{expenseCategory.Name}' is already defined");
 
@@ -50,7 +51,7 @@ namespace MyHome.Services
 
             return expenseCategory;
         }
-        
+
         public bool Exists(string name)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(name));
@@ -80,8 +81,8 @@ namespace MyHome.Services
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(name));
             Contract.Requires<ArgumentException>(!Exists(name), $"Expense category '{name}' is already defined");
 
-            var category = new ExpenseCategory() { Id = id, Name = name};
-            
+            var category = new ExpenseCategory { Id = id, Name = name };
+
             _repository.Save(category);
         }
     }

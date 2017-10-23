@@ -16,19 +16,16 @@ namespace MyHome.DataRepository
 
         public IEnumerable<string> GetAllCategoryNames()
         {
-            List<string> categoryNames = new List<string> {"Total Expenses"};
+            var categoryNames = new List<string> { "Total Expenses" };
             categoryNames.AddRange(_dataContext.ExpenseCategories.Select(c => c.Name));
             categoryNames.Add("Total Income");
 
-            foreach (
-                string incomeCategoryName in
-                    _dataContext.IncomeCategories.Select(c => c.Name))
+            foreach (var incomeCategoryName in _dataContext.IncomeCategories.Select(c => c.Name))
             {
                 if (categoryNames.Contains(incomeCategoryName))
                 {
-                    categoryNames[categoryNames.IndexOf(incomeCategoryName)] = string.Format("{0} - {1}",
-                        incomeCategoryName, "Expense");
-                    categoryNames.Add(string.Format("{0} - {1}", incomeCategoryName, "Income"));
+                    categoryNames[categoryNames.IndexOf(incomeCategoryName)] = $"{incomeCategoryName} - Expense";
+                    categoryNames.Add($"{incomeCategoryName} - Income");
                 }
                 else
                 {
@@ -43,18 +40,18 @@ namespace MyHome.DataRepository
         {
             switch (categoryType.ToLower())
             {
-                case ("expense"):
-                {
-                    return _dataContext.ExpenseCategories.Select(c => c.Name).ToList();
-                }
-                case ("income"):
-                {
-                    return _dataContext.IncomeCategories.Select(c => c.Name).ToList();
+                case "expense":
+                    {
+                        return _dataContext.ExpenseCategories.Select(c => c.Name).ToList();
+                    }
+                case "income":
+                    {
+                        return _dataContext.IncomeCategories.Select(c => c.Name).ToList();
                     }
                 default:
-                {
-                    return new List<string>();
-                }
+                    {
+                        return new List<string>();
+                    }
             }
         }
     }

@@ -48,8 +48,8 @@
             this.dgvCategoryNames.Name = "dgvCategoryNames";
             this.dgvCategoryNames.Size = new System.Drawing.Size(193, 257);
             this.dgvCategoryNames.TabIndex = 0;
-            this.dgvCategoryNames.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvCategoryNames_CellBeginEdit);
-            this.dgvCategoryNames.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategoryNames_CellEndEdit);
+            this.dgvCategoryNames.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DgvCategoryNames_CellBeginEdit);
+            this.dgvCategoryNames.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvCategoryNames_CellEndEdit);
             // 
             // btnAdd
             // 
@@ -60,7 +60,7 @@
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add category";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // splitContainer1
             // 

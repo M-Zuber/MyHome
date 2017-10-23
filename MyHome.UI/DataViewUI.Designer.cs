@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            var dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            var dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            var dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            var dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            var dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            var dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbIncomeCategories = new System.Windows.Forms.ComboBox();
             this.txtIncomeCategoryTotal = new System.Windows.Forms.TextBox();
             this.dtPick = new System.Windows.Forms.DateTimePicker();
@@ -84,7 +84,7 @@
             this.dtPick.ShowUpDown = true;
             this.dtPick.Size = new System.Drawing.Size(107, 20);
             this.dtPick.TabIndex = 0;
-            this.dtPick.ValueChanged += new System.EventHandler(this.dtPick_ValueChanged);
+            this.dtPick.ValueChanged += new System.EventHandler(this.DtPick_ValueChanged);
             // 
             // lblPickDate
             // 
@@ -199,7 +199,7 @@
             this.dgOut.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgOut.Size = new System.Drawing.Size(206, 325);
             this.dgOut.TabIndex = 3;
-            this.dgOut.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgOut_MouseDoubleClick);
+            this.dgOut.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DgOut_MouseDoubleClick);
             // 
             // dgIn
             // 
@@ -236,7 +236,7 @@
             this.dgIn.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgIn.Size = new System.Drawing.Size(206, 325);
             this.dgIn.TabIndex = 4;
-            this.dgIn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgIn_MouseDoubleClick);
+            this.dgIn.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DgIn_MouseDoubleClick);
             // 
             // tableLayoutPanel1
             // 

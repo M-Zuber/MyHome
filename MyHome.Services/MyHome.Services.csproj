@@ -73,13 +73,13 @@
       <Project>{306B249A-744F-4C66-9365-07CB3EC58A7A}</Project>
       <Name>MyHome.DataRepositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyHome.Infrastructure\MyHome.Infrastructure.csproj">
+      <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
+      <Name>MyHome.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyHome.Persistence\MyHome.Persistence.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>MyHome.Persistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FrameWork\MyHome.Infrastructure.csproj">
-      <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
-      <Name>MyHome.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHome.DataClasses\MyHome.DataClasses.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>

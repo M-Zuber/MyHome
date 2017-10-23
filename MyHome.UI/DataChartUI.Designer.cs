@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            var chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            var legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.cmbCat = new System.Windows.Forms.ComboBox();
             this.crtGraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblCategories = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@
             this.cmbCat.Name = "cmbCat";
             this.cmbCat.Size = new System.Drawing.Size(121, 21);
             this.cmbCat.TabIndex = 0;
-            this.cmbCat.SelectionChangeCommitted += new System.EventHandler(this.cmbCat_SelectedIndexChanged);
+            this.cmbCat.SelectionChangeCommitted += new System.EventHandler(this.CmbCat_SelectedIndexChanged);
             // 
             // crtGraph
             // 
@@ -111,7 +111,7 @@
             this.dtpStartMonth.Name = "dtpStartMonth";
             this.dtpStartMonth.Size = new System.Drawing.Size(81, 20);
             this.dtpStartMonth.TabIndex = 1;
-            this.dtpStartMonth.ValueChanged += new System.EventHandler(this.dtpStartMonth_ValueChanged);
+            this.dtpStartMonth.ValueChanged += new System.EventHandler(this.DtpStartMonth_ValueChanged);
             // 
             // lblStartDate
             // 
@@ -129,7 +129,7 @@
             this.dtpEndMonth.Name = "dtpEndMonth";
             this.dtpEndMonth.Size = new System.Drawing.Size(79, 20);
             this.dtpEndMonth.TabIndex = 2;
-            this.dtpEndMonth.ValueChanged += new System.EventHandler(this.dtpEndMonth_ValueChanged);
+            this.dtpEndMonth.ValueChanged += new System.EventHandler(this.DtpEndMonth_ValueChanged);
             // 
             // lblEndMonth
             // 

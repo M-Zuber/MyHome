@@ -2,24 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using FrameWork;
+using MyHome.Infrastructure;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
-    ///     Form for logging into the databse
+    ///     Form for logging into the database
     ///     -as a prerequisite to starting the program for the first time
     /// </summary>
     public partial class Login : Form
     {
-        #region Data Members
-
         // All the text-boxes in the form to allow for easy validation
-        private readonly List<TextBox> allTextBoxes;
-
-        #endregion
-
-        #region C'Tor
+        private readonly List<TextBox> _allTextBoxes;
 
         /// <summary>
         ///     Sets up the properties and data members of the form
@@ -28,44 +23,36 @@ namespace MyHome.UI
         {
             InitializeComponent();
             ConnectionSuccess = false;
-            allTextBoxes = new List<TextBox> {txtDatabaseName, txtUserId, txtPassword};
+            _allTextBoxes = new List<TextBox> {txtDatabaseName, txtUserId, txtPassword};
         }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         ///     Indicator if the parameters for connection are correct
         /// </summary>
         public bool ConnectionSuccess { get; set; }
 
-        #endregion
-
-        #region Control Methods
-
         /// <summary>
         ///     Validates the connection parameters
-        ///     -If they pass, saves them into the appropiate settings file
+        ///     -If they pass, saves them into the appropriate settings file
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void btnConnect_Click(object sender, EventArgs e)
+        private void BtnConnect_Click(object sender, EventArgs e)
         {
-            // Resests the local variables for the connection parameters
+            // Resets the local variables for the connection parameters
             // towards the next connection attempt
             Globals.DataBaseName = "";
             Globals.UserId = "";
             Globals.Password = "";
 
             // Checks that all the text boxes are filled in
-            if (allTextBoxes.Where(currTextbox => currTextbox.Text == "").Count() != 0)
+            if (_allTextBoxes.Count(currTextbox => currTextbox.Text == "") != 0)
             {
                 MessageBox.Show("All fields must be filled in to try and connect", "Error connecting...",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                foreach (var CurrTextbox in allTextBoxes)
+                foreach (var currTextbox in _allTextBoxes)
                 {
-                    CurrTextbox.Text = "";
+                    currTextbox.Text = "";
                 }
             }
             else
@@ -91,16 +78,10 @@ namespace MyHome.UI
                     {"Password", Globals.Password}
                 };
 
-                // Saves the connection parameters into the appropiate file
+                // Saves the connection parameters into the appropriate file
                 Globals.SettingFiles["DatabaseSettings"].SaveSettings(databaseSettings);
                 Close();
             }
         }
-
-        #endregion
-
-        #region Other Methods
-
-        #endregion
     }
 }

@@ -2,20 +2,16 @@
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
-    /// A visual representaion of the progress of a backup operation
+    /// A visual representation of the progress of a backup operation
     /// </summary>
     public partial class ProgressForm : Form
     {
-        #region Data Members
-
         // Instance of the backup class
         //Backup dataBackup = new Backup();
 
-        #endregion
-
-        #region C'Tor
-        
+        /// <inheritdoc />
         /// <summary>
         /// Sets up the event handlers
         /// </summary>
@@ -46,10 +42,6 @@ namespace MyHome.UI
             //        });
         }
 
-        #endregion
-
-        #region Other Methods
-
         /// <summary>
         /// Backups all the data in the database into the backup files
         /// </summary>
@@ -64,7 +56,5 @@ namespace MyHome.UI
             // Closes the form
             Close();
         }
-
-        #endregion
     }
 }

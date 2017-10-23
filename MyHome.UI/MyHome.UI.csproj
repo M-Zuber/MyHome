@@ -273,6 +273,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyHome.Infrastructure\MyHome.Infrastructure.csproj">
+      <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
+      <Name>MyHome.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyHome.Services\MyHome.Services.csproj">
       <Project>{4CF9D86B-3A55-44F1-9C75-189D7FB50E1D}</Project>
       <Name>MyHome.Services</Name>
@@ -284,10 +288,6 @@
     <ProjectReference Include="..\MyHome.Persistence\MyHome.Persistence.csproj">
       <Project>{5424771D-5CD2-4E89-883D-46343DC4B543}</Project>
       <Name>MyHome.Persistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FrameWork\MyHome.Infrastructure.csproj">
-      <Project>{89C7A321-B6DC-455A-B99F-594A9570FB20}</Project>
-      <Name>MyHome.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHome.DataClasses\MyHome.DataClasses.csproj">
       <Project>{977477BF-6CCA-4FFE-AA4B-B77F9B7D2C68}</Project>

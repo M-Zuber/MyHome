@@ -1,12 +1,10 @@
 ﻿namespace MyHome.DataClasses
 {
     /// <summary>
-    /// Conatains extension methods for the types defined in the MyHome.DataClasses namespace
+    /// Contains extension methods for the types defined in the MyHome.DataClasses namespace
     /// </summary>
     public static class Extensions
     {
-        #region Expense Extensions
-
         /// <summary>
         /// Makes a shallow copy of the expense
         /// </summary>
@@ -18,10 +16,6 @@
                 orginalExpense.Category, orginalExpense.Method, orginalExpense.Comments, orginalExpense.Id)
             { CategoryId = orginalExpense.CategoryId, PaymentMethodId = orginalExpense.PaymentMethodId };
         }
-
-        #endregion
-
-        #region Income Extensions
 
         /// <summary>
         /// Makes a shallow copy of the income
@@ -35,10 +29,6 @@
             { CategoryId = orginalIncome.CategoryId, PaymentMethodId = orginalIncome.PaymentMethodId };
         }
 
-        #endregion
-
-        #region ExpenseCategory Extensions
-
         /// <summary>
         /// Makes a shallow copy of the ExpenseCategory
         /// </summary>
@@ -48,10 +38,6 @@
         {
             return new ExpenseCategory(originalExpenseCategory.Id, originalExpenseCategory.Name);
         }
-
-        #endregion
-
-        #region IncomeCategory Extensions
 
         /// <summary>
         /// Makes a shallow copy of the IncomeCategory
@@ -63,10 +49,6 @@
             return new IncomeCategory(orginalIncomeCategory.Id, orginalIncomeCategory.Name);
         }
 
-        #endregion
-
-        #region PaymentMethod Extensions
-
         /// <summary>
         /// Makes a shallow copy of the PaymentMethod
         /// </summary>
@@ -76,7 +58,5 @@
         {
             return new PaymentMethod(orginalPaymentMethod.Id, orginalPaymentMethod.Name);
         }
-
-        #endregion
     }
 }

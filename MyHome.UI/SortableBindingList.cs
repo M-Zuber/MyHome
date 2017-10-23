@@ -6,38 +6,25 @@ using System.Reflection;
 
 namespace MyHome.UI
 {
-    class SortableBindingList<T> : BindingList<T>
+    internal class SortableBindingList<T> : BindingList<T>
     {
-        CustomComparer comparer;
+        readonly CustomComparer _comparer;
 
-        protected override bool SupportsSortingCore
-        {
-            get { return true; }
-        }
+        protected override bool SupportsSortingCore => true;
 
-        bool isSorted = false;
-        protected override bool IsSortedCore
-        {
-            get { return isSorted; }
-        }
+        private bool _isSorted;
+        protected override bool IsSortedCore => _isSorted;
 
-        PropertyDescriptor propertyDescriptor;
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get { return propertyDescriptor; }
-        }
+        private PropertyDescriptor _propertyDescriptor;
+        protected override PropertyDescriptor SortPropertyCore => _propertyDescriptor;
 
-        private ListSortDirection listSortDirection;
-        protected override ListSortDirection SortDirectionCore
-        {
-            get { return listSortDirection; }
-        }
+        private ListSortDirection _listSortDirection;
+        protected override ListSortDirection SortDirectionCore => _listSortDirection;
 
 
-
-        public SortableBindingList() : this(new Tuple<string, ListSortDirection>[0], new List<T>()) { }
-        public SortableBindingList(IEnumerable<Tuple<string, ListSortDirection>> props) : this(props, new List<T>()) { }
-        public SortableBindingList(IEnumerable<Tuple<string, ListSortDirection>> props, List<T> list)
+        public SortableBindingList() : this(new(string, ListSortDirection)[0], new List<T>()) { }
+        public SortableBindingList(IEnumerable<(string, ListSortDirection)> props) : this(props, new List<T>()) { }
+        public SortableBindingList(IEnumerable<(string, ListSortDirection)> props, IList<T> list)
             : base(list)
         {
             // Build Comparer chain
@@ -46,28 +33,30 @@ namespace MyHome.UI
             foreach (var prop in props)
             {
                 var p = t.Find(prop.Item1, false);
-                if (p == null)
-                    throw new ArgumentException("The property \"" + prop.Item1 + "\" was not found on " + typeof(T).FullName + ".", "prop");
 
-                isSorted = true;
-                propertyDescriptor = p;
-                listSortDirection = prop.Item2;
-                comparer = new CustomComparer(comparer, p, prop.Item2);
+                _isSorted = true;
+                _propertyDescriptor = p ?? throw new ArgumentException($"The property \"{prop.Item1}\" was not found on {typeof(T).FullName}.", nameof(prop));
+                _listSortDirection = prop.Item2;
+                _comparer = new CustomComparer(_comparer, p, prop.Item2);
             }
 
             // Wrap in final Comparer for user sorting
-            comparer = new CustomComparer(comparer);
+            _comparer = new CustomComparer(_comparer);
 
-            var items = Items as List<T>;
-            items.Sort(comparer);
+            if (Items is List<T> items)
+            {
+                items.Sort(_comparer);
+            }
         }
 
         public void Load(IEnumerable<T> collection)
         {
-            var data = Items as List<T>;
-            data.Clear();
-            data.AddRange(collection);
-            data.Sort(comparer);
+            if (Items is List<T> data)
+            {
+                data.Clear();
+                data.AddRange(collection);
+                data.Sort(_comparer);
+            }
             OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
@@ -75,12 +64,12 @@ namespace MyHome.UI
         {
             var items = Items as List<T>;
 
-            comparer.SetSort(prop, direction);
-            items.Sort(comparer);
+            _comparer.SetSort(prop, direction);
+            items?.Sort(_comparer);
 
-            propertyDescriptor = prop;
-            listSortDirection = direction;
-            isSorted = true;
+            _propertyDescriptor = prop;
+            _listSortDirection = direction;
+            _isSorted = true;
             OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
@@ -88,7 +77,7 @@ namespace MyHome.UI
         {
             for (int i = 0, count = Count; i < count; i++)
             {
-                if (prop.GetValue(this[i]).Equals(key))
+                if (prop.GetValue(this[i])?.Equals(key) == true)
                 {
                     return i;
                 }
@@ -100,42 +89,40 @@ namespace MyHome.UI
 
         private class CustomComparer : IComparer<T>
         {
-            static readonly Dictionary<PropertyDescriptor, IComparer> comparerCache = new Dictionary<PropertyDescriptor, IComparer>();
+            // ReSharper disable once StaticMemberInGenericType
+            private static readonly Dictionary<PropertyDescriptor, IComparer> ComparerCache = new Dictionary<PropertyDescriptor, IComparer>();
+            private readonly CustomComparer _baseComparer;
+            private IComparer _comparer;
+            private ListSortDirection Direction { get; set; }
+            private PropertyDescriptor Property { get; set; }
 
-            readonly CustomComparer baseComparer;
-            IComparer comparer;
-            public ListSortDirection Direction { get; set; }
-            public PropertyDescriptor Property { get; private set; }
-
-            public CustomComparer(PropertyDescriptor prop, ListSortDirection direction) : this(null, prop, direction) { }
-            public CustomComparer(CustomComparer baseComparer) : this(baseComparer, null, ListSortDirection.Ascending) { }
-            public CustomComparer(CustomComparer baseComparer, PropertyDescriptor prop, ListSortDirection direction)
+            public CustomComparer(CustomComparer baseComparer, PropertyDescriptor prop = null, ListSortDirection direction = ListSortDirection.Ascending)
             {
-                this.baseComparer = baseComparer;
+                _baseComparer = baseComparer;
                 Direction = direction;
                 Property = prop;
-                comparer = GetComparer(prop);
+                _comparer = GetComparer(prop);
             }
 
             public void SetSort(PropertyDescriptor prop, ListSortDirection direction)
             {
                 Direction = direction;
 
-                if (baseComparer != null && prop == baseComparer.Property)
+                if (_baseComparer != null && _baseComparer.Property.Equals(prop))
                 {
-                    baseComparer.Direction = direction;
+                    _baseComparer.Direction = direction;
                     prop = null;
                 }
 
                 Property = prop;
-                comparer = GetComparer(prop);
+                _comparer = GetComparer(prop);
             }
 
             public int Compare(T x, T y)
             {
-                if (comparer != null)
+                if (_comparer != null && x != null && y != null)
                 {
-                    var result = comparer.Compare(Property.GetValue(x), Property.GetValue(y));
+                    var result = _comparer.Compare(Property.GetValue(x), Property.GetValue(y));
                     if (Direction == ListSortDirection.Descending)
                         result = -result;
 
@@ -143,20 +130,17 @@ namespace MyHome.UI
                         return result;
                 }
 
-                if (baseComparer != null)
-                    return baseComparer.Compare(x, y);
-
-                return 0;
+                return _baseComparer?.Compare(x, y) ?? 0;
             }
 
-            IComparer GetComparer(PropertyDescriptor prop)
+            private static IComparer GetComparer(PropertyDescriptor prop)
             {
                 if (prop == null) return null;
-                if (comparerCache.ContainsKey(prop)) return comparerCache[prop];
+                if (ComparerCache.ContainsKey(prop)) return ComparerCache[prop];
 
                 var propComparer = typeof(Comparer<>).MakeGenericType(prop.PropertyType);
                 var result = propComparer.InvokeMember("Default", BindingFlags.Static | BindingFlags.GetProperty | BindingFlags.Public, null, null, null) as IComparer;
-                comparerCache.Add(prop, result);
+                ComparerCache.Add(prop, result);
                 return result;
             }
         }

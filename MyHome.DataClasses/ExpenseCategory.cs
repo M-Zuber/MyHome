@@ -12,25 +12,13 @@ namespace MyHome.DataClasses
         {
         }
 
-        public int CompareTo(ExpenseCategory other)
-        {
-            return Name.CompareTo(other.Name);
-        }
+        public int CompareTo(ExpenseCategory other) => string.Compare(Name, other.Name, StringComparison.Ordinal);
 
         public override string ToString()
         {
             return Name;
         }
 
-        public bool Equals(ExpenseCategory expenseCategory)
-        {
-            return ((Id == expenseCategory.Id) &&
-                    (Name == expenseCategory.Name));
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public bool Equals(ExpenseCategory expenseCategory) => Id == expenseCategory.Id && Name == expenseCategory.Name;
     }
 }

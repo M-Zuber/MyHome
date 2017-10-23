@@ -4,8 +4,7 @@
     {
         public static bool IsDecimal(this string input)
         {
-            decimal dbToParse;
-            return decimal.TryParse(input, out dbToParse);
+            return decimal.TryParse(input, out _);
         }
     }
 }

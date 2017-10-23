@@ -7,6 +7,7 @@ using MyHome.Services;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
     ///     A pie chart view of the flow for the requested month
     ///     - split by income and expense and then within each side, by category
@@ -17,15 +18,10 @@ namespace MyHome.UI
         private readonly ExpenseService _expenseService;
         private readonly IncomeService _incomeService;
 
-        #region Data Members
-
         // Data members
-        private DateTime m_dtMonth;
+        private DateTime _dtMonth;
 
-        #endregion
-
-        #region C'tor
-
+        /// <inheritdoc />
         /// <summary>
         ///     Ctor that also sets the data member of the month being viewed
         ///     with the value given
@@ -33,17 +29,13 @@ namespace MyHome.UI
         /// <param name="dtMonth">The month to view data for</param>
         public MonthChartUI(DateTime dtMonth)
         {
-            m_dtMonth = dtMonth;
+            _dtMonth = dtMonth;
             InitializeComponent();
 
             _dataContext = new AccountingDataContext();
             _expenseService = new ExpenseService(new ExpenseRepository(_dataContext));
             _incomeService = new IncomeService(new IncomeRepository(_dataContext));
         }
-
-        #endregion
-
-        #region Control Event Methods
 
         /// <summary>
         ///     Sets the value of the date selector to the month assigned in the ctor
@@ -55,7 +47,7 @@ namespace MyHome.UI
         {
             // Sets the current value of the date selector to the value previously
             // assigned to the form
-            dtPick.Value = m_dtMonth;
+            dtPick.Value = _dtMonth;
 
             // Loads the data for the requested month and displays it on the form
             LoadMe();
@@ -67,35 +59,31 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void dtPick_ValueChanged(object sender, EventArgs e)
+        private void DtPick_ValueChanged(object sender, EventArgs e)
         {
             // Sets the value of the date in the form to the value from the
             // date selector
-            m_dtMonth = dtPick.Value;
+            _dtMonth = dtPick.Value;
 
             // Loads the data for the requested month and displays it on the form
             LoadMe();
         }
-
-        #endregion
-
-        #region Other Methods
 
         /// <summary>
         ///     Loads the data for the requested month and connects it to the form
         /// </summary>
         private void LoadMe()
         {
-            // Updates the lable to display the name of the month being viewed
-            lblMonth.Text = m_dtMonth.GetDateTimeFormats('Y')[0];
+            // Updates the label to display the name of the month being viewed
+            lblMonth.Text = _dtMonth.GetDateTimeFormats('Y')[0];
 
-            // Connects the data of the expenses to the corrosponding chart
-            var expenseData = _expenseService.GetAllCategoryTotals(m_dtMonth);
+            // Connects the data of the expenses to the corresponding chart
+            var expenseData = _expenseService.GetAllCategoryTotals(_dtMonth);
             crtExpenses.Series[0].Points.DataBind(expenseData, "KEY", "VALUE", "");
             UpdatePoints(crtExpenses.Series[0].Points);
 
-            // Connects the data of the income to the corrosponding chart
-            var incomeData = _incomeService.GetAllCategoryTotals(m_dtMonth);
+            // Connects the data of the income to the corresponding chart
+            var incomeData = _incomeService.GetAllCategoryTotals(_dtMonth);
             crtIncome.Series[0].Points.DataBind(incomeData, "KEY", "VALUE", "");
             UpdatePoints(crtIncome.Series[0].Points);
         }
@@ -108,13 +96,14 @@ namespace MyHome.UI
         private void UpdatePoints(DataPointCollection dpcPointsToRefine)
         {
             // Goes over every data point in the collection given
-            foreach (var CurrPoint in dpcPointsToRefine)
+            foreach (var currPoint in dpcPointsToRefine)
             {
                 // If the value of the data point is nothing
-                if (CurrPoint.YValues[0] == 0.0)
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                if (currPoint.YValues[0] == 0.0)
                 {
                     // Turns off the label that sits on top of the chart
-                    CurrPoint.CustomProperties = "PieLabelStyle=Disabled";
+                    currPoint.CustomProperties = "PieLabelStyle=Disabled";
                 }
             }
         }
@@ -122,12 +111,7 @@ namespace MyHome.UI
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            if (_dataContext != null)
-            {
-                _dataContext.Dispose();    
-            }
+            _dataContext?.Dispose();
         }
-
-        #endregion
     }
 }

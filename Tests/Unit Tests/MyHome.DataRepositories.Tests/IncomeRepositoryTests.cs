@@ -103,8 +103,8 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void IncomeRepository_GetForMOnthAndYear_Only_Month_Matches_Not_Returned()
         {
-            DateTime good = new DateTime(2015, 4, 10);
-            DateTime bad = new DateTime(2010, 4, 10);
+            var good = new DateTime(2015, 4, 10);
+            var bad = new DateTime(2010, 4, 10);
 
             var data = new List<Income>();
             Enumerable.Range(1, 5).ToList().ForEach(i => data.Add(new Income((decimal)Math.Pow(i, i), good, new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "")));
@@ -122,8 +122,8 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void IncomeRepository_GetForMOnthAndYear_Only_Year_Matches_Not_Returned()
         {
-            DateTime good = new DateTime(2015, 4, 10);
-            DateTime bad = new DateTime(2015, 6, 10);
+            var good = new DateTime(2015, 4, 10);
+            var bad = new DateTime(2015, 6, 10);
 
             var data = new List<Income>();
             Enumerable.Range(1, 5).ToList().ForEach(i => data.Add(new Income((decimal)Math.Pow(i, i), good, new IncomeCategory(1, "test"), new PaymentMethod(1, "test"), "")));

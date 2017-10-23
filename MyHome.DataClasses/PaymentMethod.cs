@@ -12,25 +12,10 @@ namespace MyHome.DataClasses
         {
         }
 
-        public int CompareTo(PaymentMethod other)
-        {
-            return Name.CompareTo(other.Name);
-        }
+        public int CompareTo(PaymentMethod other) => string.Compare(Name, other.Name, StringComparison.Ordinal);
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() => Name;
 
-        public bool Equals(PaymentMethod paymentMethod)
-        {
-            return ((Id == paymentMethod.Id) &&
-                    (Name == paymentMethod.Name));
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public bool Equals(PaymentMethod paymentMethod) => Id == paymentMethod.Id && Name == paymentMethod.Name;
     }
 }
