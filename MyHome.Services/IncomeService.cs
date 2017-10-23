@@ -39,6 +39,7 @@ namespace MyHome.Services
         public void Save(Income incomeToSave)
         {
             Contract.Requires<ArgumentNullException>(incomeToSave != null, "The income must not be null");
+            // ReSharper disable once PossibleNullReferenceException
             Contract.Requires<ArgumentException>(incomeToSave.CategoryId > 0, "There must be a category selected");
             Contract.Requires<ArgumentException>(incomeToSave.PaymentMethodId > 0, "There must be a payment method selected");
             _repository.Save(incomeToSave);
@@ -47,6 +48,7 @@ namespace MyHome.Services
         public void Create(Income newIncome)
         {
             Contract.Requires<ArgumentNullException>(newIncome != null, "The income must not be null");
+            // ReSharper disable once PossibleNullReferenceException
             Contract.Requires<ArgumentException>(newIncome.CategoryId > 0, "There must be a category selected");
             Contract.Requires<ArgumentException>(newIncome.PaymentMethodId > 0, "There must be a payment method selected");
 
@@ -93,8 +95,6 @@ namespace MyHome.Services
                 .ToDictionary(g => g.Key, g => g.Sum(i => i.Amount));
         }
 
-        #region ITransactionService Members
-
         void ITransactionService.Create(Transaction transaction)
         {
             var income = TryParseToIncome(transaction);
@@ -111,7 +111,5 @@ namespace MyHome.Services
             var income = TryParseToIncome(transaction);
             Save(income);
         }
-
-        #endregion
     }
 }

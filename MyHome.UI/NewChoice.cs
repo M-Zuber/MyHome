@@ -3,22 +3,18 @@ using System.Windows.Forms;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
     /// A form to allow the user to choose the type of item to open an add form for
     /// </summary>
     public partial class NewChoice : Form
     {
-        #region Properties
-
         /// <summary>
         /// The result of the users choice
         /// </summary>
-        public int UserChoice { get; private set; } 
-        
-        #endregion
+        public int UserChoice { get; private set; }
 
-        #region C'Tor
-
+        /// <inheritdoc />
         /// <summary>
         /// Default Ctor
         /// </summary>
@@ -26,10 +22,6 @@ namespace MyHome.UI
         {
             InitializeComponent();
         }
- 
-        #endregion
-
-        #region Control Event Methods
 
         /// <summary>
         /// If the user press the okay button checks that a value is checked before setting
@@ -37,7 +29,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnOpen_Click(object sender, EventArgs e)
+        private void BtnOpen_Click(object sender, EventArgs e)
         {
             // If neither option is checked
             if (!rdbExpense.Checked && !rdbIncome.Checked)
@@ -65,17 +57,15 @@ namespace MyHome.UI
         }
 
         /// <summary>
-        /// If the user cancels sets the local property with the appropiate value
+        /// If the user cancels sets the local property with the appropriate value
         /// and closes the form
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             UserChoice = 0;
             Close();
         }
-
-        #endregion
     }
 }

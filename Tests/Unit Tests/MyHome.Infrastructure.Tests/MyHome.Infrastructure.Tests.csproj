@@ -50,16 +50,16 @@
     <Compile Include="Validation\ContractTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\FrameWork\MyHome.Infrastructure.csproj">
-      <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
-      <Name>MyHome.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MyHome.Infrastructure\MyHome.Infrastructure.csproj">
+      <Project>{89c7a321-b6dc-455a-b99f-594a9570fb20}</Project>
+      <Name>MyHome.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

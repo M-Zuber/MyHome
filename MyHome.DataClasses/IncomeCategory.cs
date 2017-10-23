@@ -12,25 +12,10 @@ namespace MyHome.DataClasses
         {
         }
 
-        public int CompareTo(IncomeCategory other)
-        {
-            return Name.CompareTo(other.Name);
-        }
+        public int CompareTo(IncomeCategory other) => string.Compare(Name, other.Name, StringComparison.Ordinal);
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() => Name;
 
-        public bool Equals(IncomeCategory incomeCategory)
-        {
-            return ((Id == incomeCategory.Id) &&
-                    (Name == incomeCategory.Name));
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public bool Equals(IncomeCategory incomeCategory) => Id == incomeCategory.Id && Name == incomeCategory.Name;
     }
 }

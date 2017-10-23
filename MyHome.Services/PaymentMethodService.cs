@@ -36,7 +36,7 @@ namespace MyHome.Services
         /// <returns>All the Payment Methods as they are in the cache in generic-based
         /// list
         /// </returns>
-        public IEnumerable<DataClasses.Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             return _repository.GetAll();
         }
@@ -44,6 +44,7 @@ namespace MyHome.Services
         public PaymentMethod Create(PaymentMethod paymentMethod)
         {
             Contract.Requires<ArgumentException>(paymentMethod != null);
+            // ReSharper disable once PossibleNullReferenceException
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(paymentMethod.Name));
             Contract.Requires<ArgumentException>(!Exists(paymentMethod.Name), $"Payment method '{paymentMethod.Name}' is already defined");
 

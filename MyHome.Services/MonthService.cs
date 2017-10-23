@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrameWork;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
+using MyHome.Infrastructure;
 using MyHome.Persistence;
 using MyHome.Infrastructure.Validation;
 
@@ -34,7 +34,7 @@ namespace MyHome.Services
         {
             return _expenseService.GetCategoryTotalForMonth(month, categoryName);
         }
-        
+
         public List<Income> GetIncomesForMonth(DateTime month)
         {
             return _incomeService.LoadOfMonth(month).ToList();
@@ -50,25 +50,26 @@ namespace MyHome.Services
             return _incomeService.GetCategoryTotalForMonth(month, categoryName);
         }
 
-        public decimal GetTotalForCategoryAndMonth(string categoryType, string categoryName, DateTime month) 
+        public decimal GetTotalForCategoryAndMonth(string categoryType, string categoryName, DateTime month)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(categoryType), "The category type must be specified");
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(categoryName), "The category name must be specified");
 
+            // ReSharper disable once PossibleNullReferenceException
             switch (categoryType.ToLower())
             {
-                case("expense"):
-                {
-                    return GetExpenseTotalForCategoryAndMonth(categoryName, month);
-                }
-                case ("income"):
-                {
-                    return GetTotalIncomeForCategoryAndMonth(categoryName, month);
-                }
+                case "expense":
+                    {
+                        return GetExpenseTotalForCategoryAndMonth(categoryName, month);
+                    }
+                case "income":
+                    {
+                        return GetTotalIncomeForCategoryAndMonth(categoryName, month);
+                    }
                 default:
-                {
-                    return 0;
-                }
+                    {
+                        return 0;
+                    }
             }
         }
 
@@ -88,8 +89,8 @@ namespace MyHome.Services
                 {
                     var placeholder = categoryTotals[totalIncomeByCategory.Key];
                     categoryTotals.Remove(totalIncomeByCategory.Key);
-                    categoryTotals.Add(string.Format("{0} - Expense", totalIncomeByCategory.Key), placeholder);
-                    categoryTotals.Add(string.Format("{0} - Income", totalIncomeByCategory.Key), totalIncomeByCategory.Value);
+                    categoryTotals.Add($"{totalIncomeByCategory.Key} - Expense", placeholder);
+                    categoryTotals.Add($"{totalIncomeByCategory.Key} - Income", totalIncomeByCategory.Value);
                 }
                 else
                 {

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            var chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            var legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.clearButton = new System.Windows.Forms.Button();
             this.calculateButton = new System.Windows.Forms.Button();
@@ -88,7 +88,7 @@
             this.clearButton.TabIndex = 4;
             this.clearButton.Text = "Clear Chart";
             this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            this.clearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // calculateButton
             // 
@@ -98,7 +98,7 @@
             this.calculateButton.TabIndex = 3;
             this.calculateButton.Text = "Calculate";
             this.calculateButton.UseVisualStyleBackColor = true;
-            this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
+            this.calculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
             // 
             // seriesDisplayBox
             // 
@@ -122,8 +122,8 @@
             this.seriesNameValues.Name = "seriesNameValues";
             this.seriesNameValues.Size = new System.Drawing.Size(111, 21);
             this.seriesNameValues.TabIndex = 4;
-            this.seriesNameValues.SelectedIndexChanged += new System.EventHandler(this.seriesNameValues_SelectedIndexChanged);
-            this.seriesNameValues.Click += new System.EventHandler(this.seriesNameValues_Click);
+            this.seriesNameValues.SelectedIndexChanged += new System.EventHandler(this.SeriesNameValues_SelectedIndexChanged);
+            this.seriesNameValues.Click += new System.EventHandler(this.SeriesNameValues_Click);
             // 
             // chooseColorButton
             // 
@@ -133,7 +133,7 @@
             this.chooseColorButton.TabIndex = 3;
             this.chooseColorButton.Text = "Choose a Color";
             this.chooseColorButton.UseVisualStyleBackColor = true;
-            this.chooseColorButton.Click += new System.EventHandler(this.chooseColorButton_Click);
+            this.chooseColorButton.Click += new System.EventHandler(this.ChooseColorButton_Click);
             // 
             // seriesColorIndicator
             // 
@@ -218,7 +218,7 @@
             this.endDateValue.Name = "endDateValue";
             this.endDateValue.Size = new System.Drawing.Size(188, 20);
             this.endDateValue.TabIndex = 1;
-            this.endDateValue.ValueChanged += new System.EventHandler(this.endDateValue_ValueChanged);
+            this.endDateValue.ValueChanged += new System.EventHandler(this.EndDateValue_ValueChanged);
             // 
             // startDateValue
             // 
@@ -226,7 +226,7 @@
             this.startDateValue.Name = "startDateValue";
             this.startDateValue.Size = new System.Drawing.Size(188, 20);
             this.startDateValue.TabIndex = 0;
-            this.startDateValue.ValueChanged += new System.EventHandler(this.startDateValue_ValueChanged);
+            this.startDateValue.ValueChanged += new System.EventHandler(this.StartDateValue_ValueChanged);
             // 
             // categoryData
             // 

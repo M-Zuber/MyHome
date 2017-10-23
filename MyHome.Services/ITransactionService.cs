@@ -15,8 +15,7 @@ namespace MyHome.Services
     {
         public static Expense TryParseToExpense(Transaction t)
         {
-            var e = t as Expense;
-            if (e == null)
+            if (!(t is Expense e))
             {
                 throw new ArgumentException("The transaction is the wrong type");
             }
@@ -27,21 +26,13 @@ namespace MyHome.Services
             e.Method = t.Method;
             e.PaymentMethodId = t.PaymentMethodId;
             e.CategoryId = t.CategoryId;
-            if (t.Category != null)
-            {
-                e.Category = new ExpenseCategory(t.Category.Id, t.Category.Name);
-            }
-            else
-            {
-                e.Category = null;
-            }
+            e.Category = t.Category != null ? new ExpenseCategory(t.Category.Id, t.Category.Name) : null;
             return e;
         }
 
         public static Income TryParseToIncome(Transaction t)
         {
-            var i = t as Income;
-            if (i == null)
+            if (!(t is Income i))
             {
                 throw new ArgumentException("The transaction is the wrong type");
             }
@@ -52,14 +43,7 @@ namespace MyHome.Services
             i.Method = t.Method;
             i.PaymentMethodId = t.PaymentMethodId;
             i.CategoryId = t.CategoryId;
-            if (t.Category != null)
-            {
-                i.Category = new IncomeCategory(t.Category.Id, t.Category.Name);
-            }
-            else
-            {
-                i.Category = null;
-            }
+            i.Category = t.Category != null ? new IncomeCategory(t.Category.Id, t.Category.Name) : null;
             return i;
         }
     }

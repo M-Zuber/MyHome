@@ -22,7 +22,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void PaymentMethodRepository_GetById_Returns_Object_If_Exists()
         {
-            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod>() { _baseTestData });
+            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod> { _baseTestData });
             var result = mock.GetById(_baseTestData.Id);
 
             Assert.IsNotNull(result);
@@ -32,7 +32,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void PaymentMethodRepository_GetByName_Null_If_Not_found()
         {
-            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod>() { _baseTestData });
+            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod> { _baseTestData });
             var result = mock.GetByName("not-test");
 
             Assert.IsNull(result);
@@ -41,7 +41,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void PaymentMethodRepository_GetByName_Returns_Object_If_Exists()
         {
-            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod>() { _baseTestData });
+            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod> { _baseTestData });
             var result = mock.GetByName(_baseTestData.Name);
 
             Assert.IsNotNull(result);
@@ -51,7 +51,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void PaymentMethodRepository_GetByName_Works_With_Diff_In_Casing()
         {
-            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod>() { _baseTestData });
+            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod> { _baseTestData });
             var result = mock.GetByName(_baseTestData.Name.ToUpper());
 
             Assert.IsNotNull(result);
@@ -61,7 +61,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void PaymentMethodRepository_GetByName_Returns_Null_For_Empty_String()
         {
-            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod>() { _baseTestData });
+            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod> { _baseTestData });
             var result = mock.GetByName(string.Empty);
 
             Assert.IsNull(result);
@@ -70,7 +70,7 @@ namespace MyHome.DataRepositories.Tests
         [TestMethod]
         public void PaymentMethodRepository_GetByName_Returns_Null_For_Null_String()
         {
-            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod>() { _baseTestData });
+            var mock = RepositoryMocks.GetMockPaymentMethodRepository(new List<PaymentMethod> { _baseTestData });
             var result = mock.GetByName(null);
 
             Assert.IsNull(result);
@@ -91,7 +91,7 @@ namespace MyHome.DataRepositories.Tests
         public void PaymentMethodRepository_GetAll_Returns_All_Data()
         {
             var expected = new List<PaymentMethod>();
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 expected.Add(new PaymentMethod(_baseTestData.Id + i, $"{_baseTestData.Name}::{i}"));
             }

@@ -5,7 +5,7 @@ namespace MyHome.Services
 {
     public interface ICategoryService<out TCategoryType>
     {
-        IEnumerable<DataClasses.Category> GetAll();
+        IEnumerable<Category> GetAll();
         bool Exists(string name);
         TCategoryType Create(string name, int id = 0);
         void Delete(string name);

@@ -152,7 +152,7 @@ namespace MyHome.Services.Tests
         public void ExpenseService_Save_Catgeory_Null_Throws_Exception()
         {
             var mock = ServiceMocks.GetMockExpenseService();
-            mock.Save(new Expense() { Method = new PaymentMethod(), CategoryId = 0 });
+            mock.Save(new Expense { Method = new PaymentMethod(), CategoryId = 0 });
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace MyHome.Services.Tests
         public void ExpenseService_Save_PaymentMethod_Null_Throw_Exception()
         {
             var mock = ServiceMocks.GetMockExpenseService();
-            mock.Save(new Expense() { Category = new ExpenseCategory(), PaymentMethodId = 0 });
+            mock.Save(new Expense { Category = new ExpenseCategory(), PaymentMethodId = 0 });
         }
 
         [TestMethod]

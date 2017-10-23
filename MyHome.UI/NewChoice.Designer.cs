@@ -43,7 +43,7 @@
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            this.btnOpen.Click += new System.EventHandler(this.BtnOpen_Click);
             // 
             // lblChoose
             // 
@@ -83,7 +83,7 @@
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // NewChoice
             // 

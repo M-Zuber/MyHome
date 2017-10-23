@@ -4,30 +4,31 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
-using FrameWork;
 using MyHome.DataClasses;
 using MyHome.DataRepository;
+using MyHome.Infrastructure;
 using MyHome.Persistence;
 using MyHome.Services;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Provides the data on income and expenses for the selected month
     /// </summary>
     public partial class DataViewUI : Form
     {
-        private static readonly Tuple<string, ListSortDirection>[] baseSorting =
+        private static readonly (string, ListSortDirection)[] BaseSorting =
         {
-            Tuple.Create("Id", ListSortDirection.Ascending),
-            Tuple.Create("Date", ListSortDirection.Ascending)
+            ("Id", ListSortDirection.Ascending),
+            ("Date", ListSortDirection.Ascending)
         };
 
         private readonly AccountingDataContext _dataContext;
         private readonly ExpenseService _expenseService;
         private readonly IncomeService _incomeService;
-        private readonly SortableBindingList<Expense> expenseData = new SortableBindingList<Expense>(baseSorting);
-        private readonly SortableBindingList<Income> incomeData = new SortableBindingList<Income>(baseSorting);
+        private readonly SortableBindingList<Expense> _expenseData = new SortableBindingList<Expense>(BaseSorting);
+        private readonly SortableBindingList<Income> _incomeData = new SortableBindingList<Income>(BaseSorting);
 
         public DataViewUI()
         {
@@ -48,8 +49,6 @@ namespace MyHome.UI
         /// </summary>
         public Dictionary<string, decimal> ExpenseCategoriesTotals { get; set; }
 
-        #region Control Event Methods
-
         /// <summary>
         ///     Connects the controls on the form with the data from the cache
         /// </summary>
@@ -60,13 +59,15 @@ namespace MyHome.UI
             // Automatically forces the window to be open to its max size
             WindowState = FormWindowState.Maximized;
 
-            dgOut.DataSource = expenseData;
+            dgOut.DataSource = _expenseData;
+            // ReSharper disable PossibleNullReferenceException
             dgOut.Columns["ID"].Visible = false;
             dgOut.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
 
-            dgIn.DataSource = incomeData;
+            dgIn.DataSource = _incomeData;
             dgIn.Columns["ID"].Visible = false;
             dgIn.Columns["Date"].DefaultCellStyle.Format = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
+            // ReSharper restore PossibleNullReferenceException
 
             // Due to only the month being displayed on the control, the day is set to '1',
             // so when going from a month with more days to a month with less an exception won't be thrown
@@ -82,7 +83,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void dtPick_ValueChanged(object sender, EventArgs e)
+        private void DtPick_ValueChanged(object sender, EventArgs e)
         {
             DataBinding();
         }
@@ -92,10 +93,10 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">standard MouseEvent object</param>
-        private void dgOut_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void DgOut_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var grid = sender as DataGridView;
-            if (grid.CurrentCell == null) return;
+            if (grid?.CurrentCell == null) return;
 
             using (var form = new ExpenseViewer(grid.CurrentCell.OwningRow.DataBoundItem as Expense))
             {
@@ -110,10 +111,10 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">standard MouseEvent object</param>
-        private void dgIn_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void DgIn_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var grid = sender as DataGridView;
-            if (grid.CurrentCell == null) return;
+            if (grid?.CurrentCell == null) return;
 
             using (var form = new IncomeViewer(grid.CurrentCell.OwningRow.DataBoundItem as Income))
             {
@@ -136,10 +137,6 @@ namespace MyHome.UI
             DataBinding();
         }
 
-        #endregion
-
-        #region Other Methods
-
         /// <summary>
         ///     Sets up the data bindings to the combo box and the text box
         ///     Refreshes also -by deleting and rebinding
@@ -152,15 +149,11 @@ namespace MyHome.UI
             cmbExpenseCategories.DataSource = null;
             txtExpenseCategoryTotal.DataBindings.Clear();
 
-            // Intializes the category total dictionarys
-            IncomeCategoriesTotals = new Dictionary<string, decimal>();
-            ExpenseCategoriesTotals = new Dictionary<string, decimal>();
-
-
-            ExpenseCategoriesTotals.Add("Total Expenses", _expenseService.GetMonthTotal(dtPick.Value));
+            // Initializes the category total dictionaries
+            ExpenseCategoriesTotals = new Dictionary<string, decimal> {{"Total Expenses", _expenseService.GetMonthTotal(dtPick.Value)}};
             ExpenseCategoriesTotals.AddRange(_expenseService.GetAllCategoryTotals(dtPick.Value));
 
-            IncomeCategoriesTotals.Add("Total Income", _incomeService.GetMonthTotal(dtPick.Value));
+            IncomeCategoriesTotals = new Dictionary<string, decimal> {{"Total Income", _incomeService.GetMonthTotal(dtPick.Value)}};
             IncomeCategoriesTotals.AddRange(_incomeService.GetAllCategoryTotals(dtPick.Value));
 
 
@@ -188,19 +181,14 @@ namespace MyHome.UI
         /// </summary>
         private void MonthlyDataBinding()
         {
-            expenseData.Load(_expenseService.LoadOfMonth(dtPick.Value));
-            incomeData.Load(_incomeService.LoadOfMonth(dtPick.Value));
+            _expenseData.Load(_expenseService.LoadOfMonth(dtPick.Value));
+            _incomeData.Load(_incomeService.LoadOfMonth(dtPick.Value));
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            if (_dataContext != null)
-            {
-                _dataContext.Dispose();
-            }
+            _dataContext?.Dispose();
         }
-
-        #endregion
     }
 }

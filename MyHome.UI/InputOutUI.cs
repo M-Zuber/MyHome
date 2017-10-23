@@ -8,6 +8,7 @@ using MyHome.UI.Helpers;
 
 namespace MyHome.UI
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Enables the user to add new expense data
     ///     allows for continuous data entry
@@ -19,8 +20,7 @@ namespace MyHome.UI
         private readonly ExpenseService _expenseService;
         private readonly PaymentMethodService _paymentMethodService;
 
-        #region C'tor
-
+        /// <inheritdoc />
         /// <summary>
         ///     Standard Default Ctor
         /// </summary>
@@ -33,10 +33,6 @@ namespace MyHome.UI
             _expenseCategoryService = new ExpenseCategoryService(new ExpenseCategoryRepository(_dataContext));
             _paymentMethodService = new PaymentMethodService(new PaymentMethodRepository(_dataContext));
         }
-
-        #endregion
-
-        #region Control Event Methods
 
         /// <summary>
         ///     Connects the combo boxes on the form with the data from the cache
@@ -54,7 +50,7 @@ namespace MyHome.UI
         /// </summary>
         /// <param name="sender">Standard sender object</param>
         /// <param name="e">Standard event object</param>
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             // If the amount is blank
             if (txtAmount.Text == "")
@@ -108,10 +104,6 @@ namespace MyHome.UI
             }
         }
 
-        #endregion
-
-        #region Other Methods
-
         private void SetDataBindings()
         {
             // Sets up the combo box of the income categories
@@ -130,12 +122,7 @@ namespace MyHome.UI
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            if (_dataContext != null)
-            {
-                _dataContext.Dispose();
-            }
+            _dataContext?.Dispose();
         }
-
-        #endregion
     }
 }

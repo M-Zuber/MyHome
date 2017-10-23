@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            var chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            var legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            var chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            var legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            var series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dtPick = new System.Windows.Forms.DateTimePicker();
             this.lblMonth = new System.Windows.Forms.Label();
             this.crtExpenses = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -54,7 +54,7 @@
             this.dtPick.Name = "dtPick";
             this.dtPick.Size = new System.Drawing.Size(200, 20);
             this.dtPick.TabIndex = 0;
-            this.dtPick.ValueChanged += new System.EventHandler(this.dtPick_ValueChanged);
+            this.dtPick.ValueChanged += new System.EventHandler(this.DtPick_ValueChanged);
             // 
             // lblMonth
             // 
