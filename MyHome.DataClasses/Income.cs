@@ -64,12 +64,9 @@ namespace MyHome.DataClasses
         public override bool Equals(object obj)
         {
             var incomeComparing = (Income)obj;
-            if (incomeComparing == null)
-            {
-                return false;
-            }
-
-            return Amount == incomeComparing.Amount &&
+            
+            return incomeComparing != null &&
+                   Amount == incomeComparing.Amount &&
                    (Category == null && incomeComparing.Category == null || Category?.Equals(incomeComparing.Category) == true) &&
                    Comments == incomeComparing.Comments &&
                    Date == incomeComparing.Date &&
