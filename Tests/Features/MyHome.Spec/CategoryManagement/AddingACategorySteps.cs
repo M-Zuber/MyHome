@@ -16,6 +16,12 @@ namespace MyHome.Spec.CategoryManagement
         private AccountingDataContext _context;
         private ICategoryService<DataClasses.Category> _categoryService;
         private string _categoryName;
+        private readonly ScenarioContext _scenarioContext;
+
+        public AddingACategorySteps(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         [BeforeScenario]
         public void Setup()
@@ -73,7 +79,7 @@ namespace MyHome.Spec.CategoryManagement
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add("add_category_result", e);
+                _scenarioContext.Add("add_category_result", e);
             }
         }
 
@@ -86,7 +92,7 @@ namespace MyHome.Spec.CategoryManagement
             }
             catch (ArgumentException e)
             {
-                ScenarioContext.Current.Add("add_category_result", e);
+                _scenarioContext.Add("add_category_result", e);
             }
         }
 
@@ -99,14 +105,14 @@ namespace MyHome.Spec.CategoryManagement
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add("add_category_result", e);
+                _scenarioContext.Add("add_category_result", e);
             }
         }
 
         [Then(@"the handler returns an error indicator")]
         public void TheHandlerReturnsAnErrorIndicator()
         {
-            var exception = ScenarioContext.Current.Get<Exception>("add_category_result");
+            var exception = _scenarioContext.Get<Exception>("add_category_result");
             Assert.IsNotNull(exception);
         }
 

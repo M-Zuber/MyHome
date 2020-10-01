@@ -16,6 +16,7 @@ namespace MyHome.Spec.TransactionManagement
     public class AddingATransactionSteps
     {
         const string ExceptionContextKey = "add_transaction_result";
+        private readonly ScenarioContext _scenarioContext;
         private TransactionTypes _transactionType;
         private Transaction _transaction;
         private ITransactionService _transactionService;
@@ -24,6 +25,11 @@ namespace MyHome.Spec.TransactionManagement
         private Category _category;
         private PaymentMethod _paymentMethod;
         private AccountingDataContext _context;
+
+        public AddingATransactionSteps(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         [BeforeScenario]
         public void Setup()
@@ -109,7 +115,7 @@ namespace MyHome.Spec.TransactionManagement
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(ExceptionContextKey, e);
+                _scenarioContext.Add(ExceptionContextKey, e);
             }
         }
 
@@ -124,7 +130,7 @@ namespace MyHome.Spec.TransactionManagement
         [Then(@"the handler returns an error indicator - '(.*)'")]
         public void ThenTheHandlerReturnsAnErrorIndicator(string errorMessage)
         {
-            var e = ScenarioContext.Current.Get<Exception>(ExceptionContextKey);
+            var e = _scenarioContext.Get<Exception>(ExceptionContextKey);
             Assert.IsNotNull(e);
             Assert.IsInstanceOfType(e, typeof(ArgumentException));
             Assert.AreEqual(errorMessage, e.Message, ignoreCase: true);

@@ -14,7 +14,7 @@ namespace MyHome.Spec.CategoryManagement
     public class UpdatingCategorySteps
     {
         private const string AddCategoryResultKey = "add_category_result";
-
+        private readonly ScenarioContext _scenarioContext;
         private AccountingDataContext _context;
         private string _categoryName;
         private string _newName;
@@ -23,6 +23,10 @@ namespace MyHome.Spec.CategoryManagement
 
         ICategoryService<DataClasses.Category> _categoryService;
 
+        public UpdatingCategorySteps(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
         [BeforeScenario]
         public void Setup()
         {
@@ -111,7 +115,7 @@ namespace MyHome.Spec.CategoryManagement
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(AddCategoryResultKey, e);
+                _scenarioContext.Add(AddCategoryResultKey, e);
             }
         }
 
@@ -127,7 +131,7 @@ namespace MyHome.Spec.CategoryManagement
             }
             catch (Exception e)
             {
-                ScenarioContext.Current.Add(AddCategoryResultKey, e);
+                _scenarioContext.Add(AddCategoryResultKey, e);
             }
         }
 
@@ -142,7 +146,7 @@ namespace MyHome.Spec.CategoryManagement
         [Then(@"the handler returns an error indicator")]
         public void TheHandlerReturnsAnErrorIndicator()
         {
-            var exception = ScenarioContext.Current.Get<Exception>(AddCategoryResultKey);
+            var exception = _scenarioContext.Get<Exception>(AddCategoryResultKey);
             Assert.IsNotNull(exception);
         }
 
